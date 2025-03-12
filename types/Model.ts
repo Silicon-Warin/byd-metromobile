@@ -16,33 +16,45 @@ export interface CarModel {
 export const defaultModels: CarModel[] = [
   {
     id: 1,
-    name: "BYD ATTO 3",
-    description: "รถ SUV ไฟฟ้าขนาดกะทัดรัด ที่มาพร้อมกับสมรรถนะที่โดดเด่น",
-    price: 1099900,
-    imageUrl: "/images/models/atto3.jpg",
+    name: "BYD SEALION 7",
+    description: "SUV ไฟฟ้าขนาดใหญ่ ดีไซน์ล้ำสมัย มาพร้อมสมรรถนะสูง",
+    price: 1899900,
+    imageUrl: "/images/models/sealion7.jpg",
     specifications: {
-      range: "420 กม.",
-      acceleration: "0-100 กม./ชม. 7.3 วินาที",
-      power: "204 แรงม้า",
+      range: "550 กม.",
+      acceleration: "0-100 กม./ชม. 5.5 วินาที",
+      power: "300 แรงม้า",
     }
   },
   {
     id: 2,
-    name: "BYD DOLPHIN",
-    description: "แฮทช์แบคไฟฟ้าที่ออกแบบสำหรับการใช้งานในเมือง ประหยัดและคล่องตัว",
-    price: 859900,
-    imageUrl: "/images/models/dolphin.jpg",
+    name: "BYD M6",
+    description: "MPV ไฟฟ้าสำหรับครอบครัว กว้างขวางและสะดวกสบาย",
+    price: 1299900,
+    imageUrl: "/images/models/m6.jpg",
     specifications: {
-      range: "410 กม.",
-      acceleration: "0-100 กม./ชม. 7.0 วินาที",
-      power: "177 แรงม้า",
+      range: "500 กม.",
+      acceleration: "0-100 กม./ชม. 7.5 วินาที",
+      power: "190 แรงม้า",
     }
   },
   {
     id: 3,
+    name: "BYD SEALION 6 DM-i",
+    description: "SUV Plug-in Hybrid ขับเคลื่อน 4 ล้อ พลังงานสะอาด",
+    price: 1699900,
+    imageUrl: "/images/models/sealion6dm.jpg",
+    specifications: {
+      range: "1200 กม. (รวมโหมด EV + Hybrid)",
+      acceleration: "0-100 กม./ชม. 6.5 วินาที",
+      power: "250 แรงม้า",
+    }
+  },
+  {
+    id: 4,
     name: "BYD SEAL",
     tagline: "All-Electric. All-New.",
-    description: "รถซีดานไฟฟ้าสมรรถนะสูง พร้อมระยะทางขับขี่ไกลและเทคโนโลยีล้ำสมัย",
+    description: "ซีดานไฟฟ้าสมรรถนะสูง พร้อมระยะทางขับขี่ไกลและเทคโนโลยีล้ำสมัย",
     price: 1499900,
     imageUrl: "/images/models/seal.jpg",
     badges: ["New", "Electric"],
@@ -53,5 +65,30 @@ export const defaultModels: CarModel[] = [
       acceleration: "0-100 กม./ชม. 5.9 วินาที",
       power: "230 แรงม้า",
     }
+  },
+  {
+    id: 5,
+    name: "NEW BYD ATTO 3",
+    description: "SUV ไฟฟ้ากะทัดรัด สมรรถนะโดดเด่น เหมาะกับทุกการขับขี่",
+    price: 1099900,
+    imageUrl: "/images/models/atto3.jpg",
+    specifications: {
+      range: "420 กม.",
+      acceleration: "0-100 กม./ชม. 7.3 วินาที",
+      power: "204 แรงม้า",
+    }
+  },
+  {
+    id: 6,
+    name: "NEW BYD DOLPHIN",
+    description: "แฮทช์แบคไฟฟ้า ประหยัดพลังงาน คล่องตัวสำหรับการใช้งานในเมือง",
+    price: 859900,
+    imageUrl: "/images/models/dolphin.jpg",
+    specifications: {
+      range: "410 กม.",
+      acceleration: "0-100 กม./ชม. 7.0 วินาที",
+      power: "177 แรงม้า",
+    }
   }
 ];
+

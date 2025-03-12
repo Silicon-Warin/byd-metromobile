@@ -9,6 +9,7 @@ import { defaultBanners } from "@/types/BannerData";
 import { defaultModels } from "@/types/Model";
 import { ModelCarsCarousel } from "@/components/ModelCarsCarousel";
 import { ServiceCarousel } from "../components/ServiceCarousel";
+import { BottomNav } from "../components/BottomNav";
 
 export default function Home() {
 	const [scrollY, setScrollY] = useState(0);
@@ -181,13 +182,13 @@ export default function Home() {
 										href="#"
 										className="text-gray-400 hover:text-blue-400 transition-colors"
 									>
-										<BrandFacebook size={32} />
+										<BrandFacebook size={36} />
 									</a>
 									<a
 										href="#"
 										className="text-gray-400 hover:text-pink-400 transition-colors"
 									>
-										<BrandInstagram size={32} />
+										<BrandInstagram size={36} />
 									</a>
 									<a
 										href="#"
@@ -199,7 +200,7 @@ export default function Home() {
 										href="#"
 										className="text-gray-400 hover:text-red-400 transition-colors"
 									>
-										<BrandTiktok size={32} />
+										<BrandTiktok size={36} />
 									</a>
 								</div>
 							</div>
@@ -211,6 +212,9 @@ export default function Home() {
 					</div>
 				</footer>
 			</main>
+
+			{/* Bottom Navigation that appears when scrolling to bottom */}
+			<BottomNav />
 		</>
 	);
 }
