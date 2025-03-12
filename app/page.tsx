@@ -53,14 +53,14 @@ export default function Home() {
 			</nav>
 
 			{/* Main content */}
-			<main className="flex flex-col gap-8 pb-16">
+			<main className="flex flex-col gap-8 pt-18">
 				{/* Hero Section */}
-				<section className="relative h-screen w-full ">
+				<section className="relative h-fit w-full ">
 					<HeroBannerCarousel banners={defaultBanners} />
 				</section>
 
 				{/* Car Models Section  */}
-				<section id="car-models" className="py-16 bg-background">
+				<section id="car-models" className="py-8 bg-background">
 					<div className="container mx-auto px-4">
 						<h1 className="text-3xl font-bold text-center mb-12">Model BYD</h1>
 						<ModelCarsCarousel models={defaultModels} />
