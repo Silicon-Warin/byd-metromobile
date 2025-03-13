@@ -1,6 +1,7 @@
 import {
 	Carousel,
 	CarouselContent,
+	CarouselIndicators,
 	CarouselItem,
 	CarouselNext,
 	CarouselPrevious,
@@ -24,7 +25,6 @@ interface ModelCarsCarouselProps {
 export const ModelCarsCarousel = ({ models }: ModelCarsCarouselProps) => {
 	const [selectedModel, setSelectedModel] = useState<CarModel | null>(null);
 	const [modalOpen, setModalOpen] = useState(false);
-	const [activeIndex, setActiveIndex] = useState();
 
 	const openModal = (model: CarModel) => {
 		setSelectedModel(model);
@@ -66,7 +66,7 @@ export const ModelCarsCarousel = ({ models }: ModelCarsCarouselProps) => {
 									</Link>
 									<button
 										onClick={() => openModal(model)}
-										className="flex-1 py-2 bg-red-600 text-white text-center rounded-md hover:bg-red-700 transition-colors"
+										className="flex-1 py-2 bg-blue-600 text-white text-center rounded-md hover:bg-blue-700 transition-colors"
 									>
 										โปรโมชั่น
 									</button>
@@ -76,25 +76,17 @@ export const ModelCarsCarousel = ({ models }: ModelCarsCarouselProps) => {
 					))}
 				</CarouselContent>
 
-				{/* Indicator + Navigation */}
-				<div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-4">
-					{/* ลูกศร Previous */}
-					<CarouselPrevious className="w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center hover:bg-gray-200 transition" />
+				<div className="mt-6 flex items-center justify-between px-8">
+					{/* Previous arrow */}
+					<CarouselPrevious className="flex bg-black/50 text-white p-2 rounded-full hover:bg-black" />
 
-					{/* Dots Indicator */}
-					<div className="flex gap-2">
-						{models.map((_, index) => (
-							<span
-								key={index}
-								className={`w-3 h-3 rounded-full transition-all ${
-									activeIndex === index ? "bg-black w-4" : "bg-gray-400 w-3"
-								}`}
-							></span>
-						))}
+					{/* Center container for indicators */}
+					<div className="flex-1 flex justify-center">
+						<CarouselIndicators total={models.length} />
 					</div>
 
-					{/* ลูกศร Next */}
-					<CarouselNext className="w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center hover:bg-gray-200 transition" />
+					{/* Next arrow */}
+					<CarouselNext className="flex bg-black/50 text-white p-2 rounded-full hover:bg-black" />
 				</div>
 			</Carousel>
 
@@ -115,7 +107,7 @@ export const ModelCarsCarousel = ({ models }: ModelCarsCarouselProps) => {
 											key={index}
 											className={`inline-block px-2 py-1 text-xs font-medium rounded ${
 												badge === "New"
-													? "bg-red-600 text-white"
+													? "bg-blue-600 text-white"
 													: "bg-gray-200 text-gray-800"
 											}`}
 										>

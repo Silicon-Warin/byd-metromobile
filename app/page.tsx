@@ -9,7 +9,6 @@ import { defaultBanners } from "@/types/BannerData";
 import { defaultModels } from "@/types/Model";
 import { ModelCarsCarousel } from "@/components/ModelCarsCarousel";
 import { ServiceCarousel } from "../components/ServiceCarousel";
-import { BottomNav } from "../components/BottomNav";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
@@ -38,7 +37,7 @@ export default function Home() {
 				}`}
 			>
 				<div className="container mx-auto px-4 py-4 flex items-center justify-between">
-					<div className="w-32 h-auto">
+					<div className="w-64 h-auto">
 						<Image
 							src="/images/BYD_Logo.png"
 							alt="BYD Logo"
@@ -48,7 +47,7 @@ export default function Home() {
 						/>
 					</div>
 
-					<Button className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors">
+					<Button className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors">
 						รับใบเสนอราคา
 					</Button>
 				</div>
@@ -100,7 +99,7 @@ export default function Home() {
 							ที่เหมาะกับความต้องการของคุณ
 						</p>
 						<div className="flex flex-col sm:flex-row gap-4 justify-center">
-							<Button className="px-6 md:px-8 py-3 bg-red-600 text-white text-base md:text-lg rounded-md hover:bg-red-700 transition-colors w-full sm:w-auto">
+							<Button className="px-6 md:px-8 py-3 bg-blue-600 text-white text-base md:text-lg rounded-md hover:bg-blue-700 transition-colors w-full sm:w-auto">
 								รับใบเสนอราคา
 							</Button>
 							<Button className="px-6 md:px-8 py-3 bg-transparent border-2 border-white text-white text-base md:text-lg rounded-md hover:bg-white hover:text-gray-900 transition-colors w-full sm:w-auto">
@@ -132,7 +131,7 @@ export default function Home() {
 										className="text-gray-300 hover:text-blue-400 transition-colors"
 										aria-label="Facebook"
 									>
-										<BrandFacebook size={28} />
+										<BrandFacebook size={36} />
 									</Link>
 
 									<Link
@@ -140,7 +139,7 @@ export default function Home() {
 										className="text-gray-300 hover:text-pink-400 transition-colors"
 										aria-label="Instagram"
 									>
-										<BrandInstagram size={28} />
+										<BrandInstagram size={36} />
 									</Link>
 
 									<Link
@@ -156,7 +155,7 @@ export default function Home() {
 										className="text-gray-300 hover:text-red-400 transition-colors"
 										aria-label="TikTok"
 									>
-										<BrandTiktok size={28} />
+										<BrandTiktok size={36} />
 									</Link>
 								</div>
 							</div>
@@ -271,9 +270,6 @@ export default function Home() {
 							&copy; {new Date().getFullYear()} BYD Metromobile. สงวนลิขสิทธิ์
 						</p>
 					</div>
-
-					{/* Bottom Navigation */}
-					<BottomNav />
 				</div>
 			</footer>
 		</>
