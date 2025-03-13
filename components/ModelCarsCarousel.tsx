@@ -41,8 +41,7 @@ export const ModelCarsCarousel = ({ models }: ModelCarsCarouselProps) => {
 				className="w-full max-w-7xl mx-auto px-4 relative"
 			>
 				<CarouselContent className="-ml-6 space-x-[20px]">
-					{/* ทำให้การ์ดขวาโผล่มา */}
-					{models.map((model, index) => (
+					{models.map((model) => (
 						<CarouselItem
 							key={model.id}
 							className="pl-4 md:pl-6 flex-[0_0_45%]"
