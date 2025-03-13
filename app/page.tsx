@@ -179,25 +179,25 @@ export default function Home() {
 								<h4 className="text-lg font-semibold mb-4">ติดตามเรา</h4>
 								<div className="flex flex-wrap gap-4">
 									<a
-										href="#"
+										href="https://www.facebook.com/BYDBANGKOK"
 										className="text-gray-400 hover:text-blue-400 transition-colors"
 									>
 										<BrandFacebook size={36} />
 									</a>
 									<a
-										href="#"
+										href="https://www.instagram.com/byd.metromobile?fbclid=IwZXh0bgNhZW0CMTAAAR3IWNwhXtqGZN6b_FOt2PvBOHBkaaFrBMlXNX6kReGOEqWmXvWQDM9pmrU_aem_eR8kP7vfbJgynuukHj_I2A"
 										className="text-gray-400 hover:text-pink-400 transition-colors"
 									>
 										<BrandInstagram size={36} />
 									</a>
 									<a
-										href="#"
+										href="https://line.me/R/ti/p/@429xjvpr"
 										className="text-gray-400 hover:text-green-400 transition-colors"
 									>
 										<LineIcon />
 									</a>
 									<a
-										href="#"
+										href="https://www.tiktok.com/@byd_metromobile?fbclid=PAZXh0bgNhZW0CMTEAAaYKRj0FB8zFO2weVJ0czVSPWWVnmq8eiJi6TSeydBfYv5SYYBG98LOVCi0_aem_h_ED2hfyoe4PG45pkUEh1g"
 										className="text-gray-400 hover:text-red-400 transition-colors"
 									>
 										<BrandTiktok size={36} />

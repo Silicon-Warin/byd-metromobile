@@ -57,7 +57,7 @@ export const ModelCarsCarousel = ({ models }: ModelCarsCarouselProps) => {
 								</div>
 								<div className="p-4 flex flex-col sm:flex-row gap-2">
 									<Link
-										href="https://line.me/official"
+										href="https://line.me/R/ti/p/@429xjvpr"
 										className="flex-1 py-2 bg-green-500 text-white text-center rounded-md hover:bg-green-600 transition-colors flex items-center justify-center"
 									>
 										<svg
