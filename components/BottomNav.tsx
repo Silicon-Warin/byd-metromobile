@@ -55,7 +55,7 @@ export const BottomNav = () => {
 
 					{/* Contact Sales button - Main CTA */}
 					<a
-						href="#"
+						href=""
 						className="flex flex-col items-center justify-center px-6 py-2 bg-red-600 rounded-full text-white hover:bg-red-700 transition-colors"
 					>
 						<MessageCircle size={24} />
