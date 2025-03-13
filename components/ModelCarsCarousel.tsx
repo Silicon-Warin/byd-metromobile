@@ -24,6 +24,7 @@ interface ModelCarsCarouselProps {
 export const ModelCarsCarousel = ({ models }: ModelCarsCarouselProps) => {
 	const [selectedModel, setSelectedModel] = useState<CarModel | null>(null);
 	const [modalOpen, setModalOpen] = useState(false);
+	const [activeIndex, setActiveIndex] = useState();
 
 	const openModal = (model: CarModel) => {
 		setSelectedModel(model);
@@ -37,15 +38,16 @@ export const ModelCarsCarousel = ({ models }: ModelCarsCarouselProps) => {
 					align: "start",
 					loop: true,
 				}}
-				className="w-full max-w-7xl mx-auto px-4"
+				className="w-full max-w-7xl mx-auto px-4 relative"
 			>
-				<CarouselContent className="-ml-4 md:-ml-6">
-					{models.map((model) => (
+				<CarouselContent className="-ml-6 space-x-[20px]">
+					{/* ทำให้การ์ดขวาโผล่มา */}
+					{models.map((model, index) => (
 						<CarouselItem
 							key={model.id}
-							className="pl-4 md:pl-6 md:basis-1/2 lg:basis-1/2"
+							className="pl-4 md:pl-6 flex-[0_0_45%]"
 						>
-							<div className="bg-white rounded-lg overflow-hidden shadow-xl">
+							<div className="bg-card-foreground rounded-lg overflow-hidden shadow-xl">
 								<div className="relative h-64 md:h-80 lg:h-96">
 									<Image
 										src={model.imageUrl}
@@ -60,13 +62,6 @@ export const ModelCarsCarousel = ({ models }: ModelCarsCarouselProps) => {
 										href="https://line.me/R/ti/p/@429xjvpr"
 										className="flex-1 py-2 bg-green-500 text-white text-center rounded-md hover:bg-green-600 transition-colors flex items-center justify-center"
 									>
-										<svg
-											className="w-5 h-5 mr-2"
-											fill="currentColor"
-											viewBox="0 0 24 24"
-										>
-											<path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.433.596-.065.021-.133.031-.199.031-.195 0-.382-.094-.499-.258l-2.443-3.323v2.954c0 .348-.282.63-.63.63-.345 0-.63-.282-.63-.63V8.108c0-.27.174-.51.435-.595.064-.022.13-.032.199-.032.194 0 .382.094.497.258l2.443 3.323V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.771zm-5.741-4.771c0 .346-.282.628-.631.628h-1.759v1.125h1.759c.349 0 .631.285.631.63 0 .345-.282.63-.631.63h-1.759v1.125h1.759c.349 0 .631.285.631.63 0 .345-.282.629-.631.629H5.976c-.35 0-.631-.284-.631-.629V8.108c0-.345.28-.63.631-.63h2.362c.349 0 .63.285.63.63zm-4.673.977a.636.636 0 00-.631-.634.642.642 0 00-.643.64l.003 3.78c0 .172.069.336.192.457.12.119.284.185.456.182a.636.636 0 00.624-.635V9.085zM12 2C6.478 2 2 5.977 2 10.86c0 4.342 3.721 7.985 8.755 8.653.34.068.802.211.92.484.104.254.068.649.033.905l-.146.907c-.041.254-.195 1.019.867.556.906-.368 5.073-3.249 6.844-5.443 1.355-1.649 2.005-3.354 1.994-5.063-.026-4.883-4.455-8.859-9.267-8.859" />
-										</svg>
 										จองรถ (Line Official)
 									</Link>
 									<button
@@ -80,9 +75,26 @@ export const ModelCarsCarousel = ({ models }: ModelCarsCarouselProps) => {
 						</CarouselItem>
 					))}
 				</CarouselContent>
-				<div className="flex justify-center gap-2 mt-8">
-					<CarouselPrevious className="relative inset-0 translate-x-0 translate-y-0 md:absolute md:-left-16 md:top-1/2 md:-translate-y-1/2" />
-					<CarouselNext className="relative inset-0 translate-x-0 translate-y-0 md:absolute md:-right-16 md:top-1/2 md:-translate-y-1/2" />
+
+				{/* Indicator + Navigation */}
+				<div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-4">
+					{/* ลูกศร Previous */}
+					<CarouselPrevious className="w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center hover:bg-gray-200 transition" />
+
+					{/* Dots Indicator */}
+					<div className="flex gap-2">
+						{models.map((_, index) => (
+							<span
+								key={index}
+								className={`w-3 h-3 rounded-full transition-all ${
+									activeIndex === index ? "bg-black w-4" : "bg-gray-400 w-3"
+								}`}
+							></span>
+						))}
+					</div>
+
+					{/* ลูกศร Next */}
+					<CarouselNext className="w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center hover:bg-gray-200 transition" />
 				</div>
 			</Carousel>
 

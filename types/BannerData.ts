@@ -1,11 +1,9 @@
 export interface BannerData {
-  id: number;
+  id?: number; // หรือ string ขึ้นอยู่กับประเภทของ id
   imageUrl: string;
   alt: string;
   title?: string;
   description?: string;
-  ctaText?: string;
-  ctaUrl?: string;
 }
 
 export const defaultBanners: BannerData[] = [
