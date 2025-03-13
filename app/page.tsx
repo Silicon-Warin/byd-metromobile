@@ -55,7 +55,7 @@ export default function Home() {
 			{/* Main content */}
 			<main className="flex flex-col gap-8 pt-18">
 				{/* Hero Section */}
-				<section className="relative min-h-screen w-full ">
+				<section className="relative min-h-[80vh] md:min-h-screen w-full">
 					<HeroBannerCarousel banners={defaultBanners} />
 				</section>
 
