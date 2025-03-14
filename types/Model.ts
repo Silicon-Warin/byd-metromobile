@@ -52,12 +52,10 @@ export const defaultModels: CarModel[] = [
   },
   {
     id: 4,
-    name: "BYD SEAL",
-    tagline: "All-Electric. All-New.",
+    name: "BYD SEAL",    
     description: "ซีดานไฟฟ้าสมรรถนะสูง พร้อมระยะทางขับขี่ไกลและเทคโนโลยีล้ำสมัย",
     price: 999900,
-    imageUrl: "/images/models/seal.jpg",  
-    
+    imageUrl: "/images/models/seal.jpg",      
     specifications: {
       range: "570 กม.",
       acceleration: "0-100 กม./ชม. 5.9 วินาที",
