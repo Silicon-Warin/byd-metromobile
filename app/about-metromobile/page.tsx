@@ -40,7 +40,7 @@ export default function AboutPage() {
 							/>
 						</div>
 
-						<div className="space-y-6 text-lg">
+						<div className="space-y-6 text-lg ">
 							<p>
 								<span className="font-bold">Build Your Dreams</span> หรือ{" "}
 								<span className="font-bold">BYD</span>{" "}
@@ -182,8 +182,8 @@ export default function AboutPage() {
 							"Metromobile" เป็นบริษัทที่ก่อตั้งโดยพันธมิตรทางธุรกิจ ได้แก่
 						</p>
 
-						<div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-							<div className="bg-white p-6 rounded-xl shadow-md">
+						<div className="flex flex-1/2">
+							<div className="bg-card text-card-foreground p-6 rounded-xl shadow-md">
 								<h3 className="text-xl font-bold mb-4">
 									บริษัท เอ มอเตอร์ กรุ๊ป จำกัด
 								</h3>

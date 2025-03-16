@@ -4,7 +4,8 @@ export interface CarModel {
   description: string;
   tagline?: string;
   price: number;
-  imageUrl: string;
+  imageUrlPromo: string;
+  imageUrlModel: string;
   badges?: string[];
   specifications?: {
     [key: string]: string;
@@ -19,7 +20,8 @@ export const defaultModels: CarModel[] = [
     name: "BYD SEALION 7",
     description: "SUV ไฟฟ้าขนาดใหญ่ ดีไซน์ล้ำสมัย มาพร้อมสมรรถนะสูง",
     price: 1249900,
-    imageUrl: "/images/models/sealion7.jpg",
+    imageUrlPromo: "/images/promotions/sealion7.jpg",
+    imageUrlModel:"/images/models/BYD-sealion7.webp",
     specifications: {
       range: "550 กม.",
       acceleration: "0-100 กม./ชม. 5.5 วินาที",
@@ -31,7 +33,8 @@ export const defaultModels: CarModel[] = [
     name: "BYD M6",
     description: "MPV ไฟฟ้าสำหรับครอบครัว กว้างขวางและสะดวกสบาย",
     price: 799900,
-    imageUrl: "/images/models/m6.jpg",
+    imageUrlPromo: "/images/promotions/m6.jpg",
+    imageUrlModel:"/images/models/BYD-m6.webp",
     specifications: {
       range: "500 กม.",
       acceleration: "0-100 กม./ชม. 7.5 วินาที",
@@ -43,7 +46,8 @@ export const defaultModels: CarModel[] = [
     name: "BYD SEALION 6 DM-i",
     description: "SUV Plug-in Hybrid ขับเคลื่อน 4 ล้อ พลังงานสะอาด",
     price: 939900,
-    imageUrl: "/images/models/sealion6dm.jpg",
+    imageUrlPromo: "/images/promotions/sealion6dm.jpg",
+    imageUrlModel:"/images/models/BYD-sealion6dm.webp",
     specifications: {
       range: "1200 กม. (รวมโหมด EV + Hybrid)",
       acceleration: "0-100 กม./ชม. 6.5 วินาที",
@@ -55,7 +59,8 @@ export const defaultModels: CarModel[] = [
     name: "BYD SEAL",    
     description: "ซีดานไฟฟ้าสมรรถนะสูง พร้อมระยะทางขับขี่ไกลและเทคโนโลยีล้ำสมัย",
     price: 999900,
-    imageUrl: "/images/models/seal.jpg",      
+    imageUrlPromo: "/images/promotions/seal.jpg",      
+    imageUrlModel:"/images/models/BYD-seal.webp",
     specifications: {
       range: "570 กม.",
       acceleration: "0-100 กม./ชม. 5.9 วินาที",
@@ -67,7 +72,8 @@ export const defaultModels: CarModel[] = [
     name: "NEW BYD ATTO 3",
     description: "SUV ไฟฟ้ากะทัดรัด สมรรถนะโดดเด่น เหมาะกับทุกการขับขี่",
     price: 899900,
-    imageUrl: "/images/models/atto3.jpg",
+    imageUrlPromo: "/images/promotions/atto3.jpg",
+    imageUrlModel:"/images/models/BYD-autto3.webp",
     specifications: {
       range: "420 กม.",
       acceleration: "0-100 กม./ชม. 7.3 วินาที",
@@ -79,7 +85,8 @@ export const defaultModels: CarModel[] = [
     name: "NEW BYD DOLPHIN",
     description: "แฮทช์แบคไฟฟ้า ประหยัดพลังงาน คล่องตัวสำหรับการใช้งานในเมือง",
     price: 569900,
-    imageUrl: "/images/models/dolphin.jpg",
+    imageUrlPromo: "/images/promotions/dolphin.jpg",
+    imageUrlModel:"/images/models/BYD-dolphin.webp",
     specifications: {
       range: "410 กม.",
       acceleration: "0-100 กม./ชม. 7.0 วินาที",

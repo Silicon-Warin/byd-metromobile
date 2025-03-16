@@ -1,122 +1,166 @@
-import { useEffect, useState, useRef } from "react";
-import {
-	Carousel,
-	CarouselContent,
-	CarouselItem,
-	CarouselNext,
-	CarouselPrevious,
-} from "@/components/ui/carousel";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import Image from "next/image";
-import { BannerData } from "@/types/BannerData";
-import { type CarouselApi } from "@/components/ui/carousel";
+import { motion, AnimatePresence } from "framer-motion";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
-interface HeroBannerCarouselProps {
-	banners: BannerData[];
-	autoplayInterval?: number;
-	pauseOnHover?: boolean;
-	navbarHeight?: number; // เพิ่ม prop สำหรับความสูงของ navbar
-}
+const slides = [
+	{
+		id: 1,
+		image: "/images/banners/banner-1.jpg",
 
-export const HeroBannerCarousel = ({
-	banners,
-	autoplayInterval = 5000,
-	pauseOnHover = true,
-	navbarHeight = 80, // ค่าเริ่มต้นสำหรับความสูงของ navbar
-}: HeroBannerCarouselProps) => {
-	const [api, setApi] = useState<CarouselApi>();
-	const [isPaused, setIsPaused] = useState(false);
-	const intervalRef = useRef<number | null>(null);
+		buttonLink: "/offers",
+	},
+	{
+		id: 2,
+		image: "/images/banners/banner-2.jpg",
 
-	// สร้าง default banners ถ้าไม่มีข้อมูล
-	const carouselBanners =
-		banners.length > 0
-			? banners
-			: Array.from({ length: 3 }, (_, i) => ({
-					id: i + 1,
-					imageUrl: `/images/banners/hero-${i + 1}.jpg`,
-					alt: `Hero banner ${i + 1}`,
-					title: "",
-					description: "",
-			  }));
+		buttonLink: "/order",
+	},
+	{
+		id: 3,
+		image: "/images/banners/banner-3.jpg",
 
-	// Function สำหรับการเลื่อนรูปอัตโนมัติ
-	const startAutoplay = () => {
-		if (intervalRef.current) window.clearInterval(intervalRef.current);
-		if (!api || autoplayInterval <= 0) return;
+		buttonLink: "/vehicles",
+	},
+];
 
-		intervalRef.current = window.setInterval(() => {
-			if (!isPaused) api.scrollNext();
-		}, autoplayInterval);
+const HeroBannerCarousel = () => {
+	const [currentSlide, setCurrentSlide] = useState(0);
+	const [isAutoplay, setIsAutoplay] = useState(true);
+	const [isMobile, setIsMobile] = useState(false);
+	const carouselRef = useRef(null);
+	const slideCount = slides.length;
+
+	// Check if we're on mobile
+	useEffect(() => {
+		const checkMobile = () => {
+			setIsMobile(window.innerWidth < 768);
+		};
+
+		// Initial check
+		checkMobile();
+
+		// Add resize listener
+		window.addEventListener("resize", checkMobile);
+		return () => window.removeEventListener("resize", checkMobile);
+	}, []);
+
+	const nextSlide = useCallback(() => {
+		setCurrentSlide((prev) => (prev === slideCount - 1 ? 0 : prev + 1));
+	}, [slideCount]);
+
+	const prevSlide = useCallback(() => {
+		setCurrentSlide((prev) => (prev === 0 ? slideCount - 1 : prev - 1));
+	}, [slideCount]);
+
+	useEffect(() => {
+		if (!isAutoplay) return;
+
+		const interval = setInterval(() => {
+			nextSlide();
+		}, 5000);
+
+		return () => clearInterval(interval);
+	}, [isAutoplay, nextSlide]);
+
+	// Pause autoplay when user interacts with carousel
+	const handleInteraction = () => {
+		setIsAutoplay(false);
+		const timer = setTimeout(() => setIsAutoplay(true), 10000);
+		return () => clearTimeout(timer);
 	};
 
-	// ตั้งค่า autoplay
-	useEffect(() => {
-		startAutoplay();
-
-		return () => {
-			if (intervalRef.current) window.clearInterval(intervalRef.current);
-		};
-	}, [api, isPaused, autoplayInterval]);
-
-	// จัดการ events
-	const handleMouseEnter = () => pauseOnHover && setIsPaused(true);
-	const handleMouseLeave = () => pauseOnHover && setIsPaused(false);
-
 	return (
-		<section
-			aria-label="Featured banners"
-			className="w-full"
-			style={{ paddingTop: `${navbarHeight}px` }}
+		<div
+			ref={carouselRef}
+			className="relative w-full h-[500px] md:h-[600px] lg:h-screen overflow-hidden"
 		>
-			<Carousel
-				opts={{
-					align: "start",
-					loop: true,
-				}}
-				className="w-full"
-				setApi={setApi}
-				onMouseEnter={handleMouseEnter}
-				onMouseLeave={handleMouseLeave}
-			>
-				<CarouselContent>
-					{carouselBanners.map((banner, index) => (
-						<CarouselItem
-							key={banner.id || `banner-${index}`}
-							className="w-full h-auto"
-							role=""
-							aria-roledescription="slide"
-							aria-label={`${index + 1} of ${carouselBanners.length}`}
-						>
-							<div className="relative w-full h-[50vh] sm:h-[60vh] md:h-[65vh] lg:h-[70vh] xl:h-[80vh] overflow-hidden rounded-lg">
-								<Image
-									src={banner.imageUrl}
-									alt={banner.alt || `Banner image ${index + 1}`}
-									fill
-									sizes="100vw"
-									className="object-contain"
-									priority={index === 0}
-									loading={index === 0 ? "eager" : "lazy"}
-								/>
-								{banner.title && (
-									<div
-										className="absolute bottom-0 w-full bg-black/50 p-4 text-white"
-										aria-hidden="false"
-									>
-										<h3 className="text-lg font-bold">{banner.title}</h3>
-										{banner.description && (
-											<p className="text-sm">{banner.description}</p>
-										)}
-									</div>
-								)}
+			<AnimatePresence mode="wait">
+				<motion.div
+					key={currentSlide}
+					initial={{ opacity: 0, x: 100 }}
+					animate={{ opacity: 1, x: 0 }}
+					exit={{ opacity: 0, x: -100 }}
+					transition={{ duration: 0.7, ease: "easeInOut" }}
+					className="absolute inset-0"
+				>
+					<div className="relative w-full h-full">
+						<Image
+							src={slides[currentSlide].image}
+							alt="bydmetromobile banner"
+							fill
+							priority
+							quality={90}
+							className={`${
+								isMobile ? "object-contain scale-[1.2]" : "object-cover"
+							}`}
+							sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 100vw"
+						/>
+						<div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent flex flex-col justify-center items-center text-white text-center px-4 mobile-content-fix">
+							<div className="flex flex-col sm:flex-row gap-4">
+								<Button
+									variant="outline"
+									className="border-white text-white hover:bg-white/20"
+									size="lg"
+								>
+									Learn More
+								</Button>
 							</div>
-						</CarouselItem>
-					))}
-				</CarouselContent>
-				<div className="flex justify-center gap-2 mt-4">
-					<CarouselPrevious className="absolute left-2 top-1/2 -translate-y-1/2 z-10 bg-black/50 text-white p-2 rounded-full hover:bg-black" />
-					<CarouselNext className="absolute right-2 top-1/2 -translate-y-1/2 z-10 bg-black/50 text-white p-2 rounded-full hover:bg-black" />
-				</div>
-			</Carousel>
-		</section>
+						</div>
+					</div>
+				</motion.div>
+			</AnimatePresence>
+
+			{/* Navigation arrows */}
+			<div className="absolute left-4 top-1/2 transform -translate-y-1/2 z-10">
+				<Button
+					variant="ghost"
+					size="icon"
+					className="bg-black/30 text-white rounded-full hover:bg-black/50"
+					onClick={() => {
+						prevSlide();
+						handleInteraction();
+					}}
+					aria-label="Previous slide"
+				>
+					<ChevronLeft className="h-6 w-6" />
+				</Button>
+			</div>
+
+			<div className="absolute right-4 top-1/2 transform -translate-y-1/2 z-10">
+				<Button
+					variant="ghost"
+					size="icon"
+					className="bg-black/30 text-white rounded-full hover:bg-black/50"
+					onClick={() => {
+						nextSlide();
+						handleInteraction();
+					}}
+					aria-label="Next slide"
+				>
+					<ChevronRight className="h-6 w-6" />
+				</Button>
+			</div>
+
+			{/* Slide indicators */}
+			<div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex gap-2 z-10">
+				{Array.from({ length: slideCount }).map((_, idx) => (
+					<button
+						key={idx}
+						onClick={() => {
+							setCurrentSlide(idx);
+							handleInteraction();
+						}}
+						className={`w-3 h-3 rounded-full transition-all ${
+							currentSlide === idx ? "bg-white w-8" : "bg-white/50"
+						}`}
+						aria-label={`Go to slide ${idx + 1}`}
+					/>
+				))}
+			</div>
+		</div>
 	);
 };
+
+export default HeroBannerCarousel;

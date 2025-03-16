@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
-import { Inter, Prompt } from "next/font/google";
+import { Inter, Prompt, IBM_Plex_Sans_Thai } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
+import { Header } from "@/components/Header";
+import { Footer } from "@/components/Footer";
 import "./globals.css";
 
 const inter = Inter({
@@ -8,10 +10,16 @@ const inter = Inter({
 	subsets: ["latin"],
 });
 
-const promptThai = Prompt({
+const ibmPlexThai = IBM_Plex_Sans_Thai({
+	subsets: ["thai", "latin"],
+	weight: ["300", "400", "700"],
+	variable: "--font-ibm",
+});
+
+const prompt = Prompt({
+	subsets: ["thai", "latin"],
+	weight: ["300", "400", "700"],
 	variable: "--font-prompt",
-	subsets: ["thai"],
-	weight: ["400", "700"],
 });
 
 export const metadata: Metadata = {
@@ -32,9 +40,14 @@ export default function RootLayout({
 	children: React.ReactNode;
 }>) {
 	return (
-		<html lang="en" className={`${inter.variable}  ${promptThai.variable} `}>
+		<html
+			lang="en-th"
+			className={`${inter.variable} ${prompt.variable} ${ibmPlexThai.variable}`}
+		>
 			<body>
+				<Header />
 				{children}
+				<Footer />
 				<Analytics />
 			</body>
 		</html>
