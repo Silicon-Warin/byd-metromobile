@@ -42,10 +42,7 @@ export function ModelCarSlider() {
 									whileInView={{ opacity: 1, scale: 1 }}
 									transition={{ duration: 0.5, delay: index * 0.1 }}
 								>
-									<Link
-										href={model.orderUrl || "#"}
-										className="block relative group"
-									>
+									<Link href={"#"} className="block relative group">
 										<div className="relative aspect-[16/9] overflow-hidden rounded-lg">
 											<motion.img
 												src={model.imageUrlModel}
