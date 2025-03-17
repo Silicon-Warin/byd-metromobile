@@ -23,10 +23,6 @@ export function ModelPromoCard({ model }: ModelCardProps) {
 					modelId: model.id,
 					modelName: model.name,
 					price: model.price,
-					specs: model.specifications, // เพิ่มข้อมูลสเปค
-					timestamp: new Date().toLocaleString("th-TH", {
-						timeZone: "Asia/Bangkok",
-					}),
 				}),
 			});
 

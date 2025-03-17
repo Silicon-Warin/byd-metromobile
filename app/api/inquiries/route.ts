@@ -49,9 +49,27 @@ export async function POST(req: Request) {
     // Validate environment variables
     validateEnv();
 
+    // Debug environment variables
+    console.log('Environment Check:', {
+      hasToken: !!process.env.LINE_CHANNEL_ACCESS_TOKEN?.length,
+      hasUserId: !!process.env.LINE_USER_ID?.length,
+      nodeEnv: process.env.NODE_ENV
+    });
+
     // Validate request body
     const body = await req.json();
     const validatedData = inquirySchema.parse(body);
+
+    // Verify LINE credentials
+    if (!process.env.LINE_CHANNEL_ACCESS_TOKEN || !process.env.LINE_USER_ID) {
+      console.error('Missing LINE credentials in production');
+      return NextResponse.json({
+        error: "Configuration error",
+        details: process.env.NODE_ENV === 'development' 
+          ? 'Missing LINE credentials' 
+          : undefined
+      }, { status: 503 });
+    }
 
     // Create LINE message with security measures
     const message = `
@@ -86,19 +104,30 @@ export async function POST(req: Request) {
       })
     });
 
+    const responseData = await response.text();
+    
     if (!response.ok) {
-      throw new Error("LINE API Error");
+      console.error('LINE API Response:', {
+        status: response.status,
+        data: responseData
+      });
+      throw new Error(`LINE API Error: ${responseData}`);
     }
 
     return NextResponse.json({ 
       success: true 
     });
 
-  } catch (error) {
-    console.error("API Error:", error);
+  } catch (error: any) {
+    // Log detailed error for debugging
+    console.error('API Error:', {
+      message: error.message,
+      stack: error.stack,
+      env: process.env.NODE_ENV
+    });
     
     return NextResponse.json({ 
-      error: "ไม่สามารถส่งข้อความได้ กรุณาลองใหม่อีกครั้ง" 
+      error: "Service temporarily unavailable" 
     }, { 
       status: 500 
     });

@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "vercel-build": "node scripts/verify-env.js && next build"
   },
   "dependencies": {
     "@radix-ui/react-aspect-ratio": "^1.1.2",
