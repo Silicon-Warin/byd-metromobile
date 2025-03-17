@@ -105,12 +105,20 @@ export function InquiryForm({ model }: { model: CarModel }) {
 				</label>
 				<select
 					{...register("interest.color")}
-					className="w-full p-2 border rounded"
+					className="w-full p-2 border rounded text-accent-foreground"
 				>
-					<option value="">เลือกสี</option>
-					<option value="white">ขาว</option>
-					<option value="black">ดำ</option>
-					<option value="gray">เทา</option>
+					<option value="" className="text-gray-900">
+						เลือกสี
+					</option>
+					<option value="white" className="text-gray-900">
+						ขาว
+					</option>
+					<option value="black" className="text-gray-900">
+						ดำ
+					</option>
+					<option value="gray" className="text-gray-900">
+						เทา
+					</option>
 				</select>
 				<textarea
 					{...register("interest.comments")}
