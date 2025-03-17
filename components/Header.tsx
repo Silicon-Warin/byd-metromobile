@@ -93,10 +93,10 @@ export function Header() {
 				<div className="w-32 md:w-40 h-auto relative">
 					<Link href="/">
 						<Image
-							src="/images/BYD_Logo.png"
+							src="/images/metromobile-logo.png"
 							alt="BYD Logo"
-							width={150}
-							height={32}
+							width={300}
+							height={64}
 							className="object-contain"
 							priority
 						/>
