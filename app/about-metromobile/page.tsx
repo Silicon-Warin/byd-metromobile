@@ -1,35 +1,43 @@
-import Image from "next/image";
-import { Metadata } from "next";
-import Link from "next/link";
+"use client";
 
-export const metadata: Metadata = {
-	title: "เกี่ยวกับเรา | เมโทรโมบิล ผู้นำด้านรถยนต์ไฟฟ้า BYD ในประเทศไทย",
-	description:
-		"ศูนย์รถยนต์ไฟฟ้า BYD อย่างเป็นทางการ ครอบคลุมทั้งการขาย บริการ และศูนย์บริการหลังการขาย พร้อมให้คำปรึกษาด้านรถยนต์ไฟฟ้าครบวงจร โดย เมโทรโมบิล",
-	keywords: [
-		"เมโทรโมบิล",
-		"BYD",
-		"รถยนต์ไฟฟ้า",
-		"Metromobile",
-		"ศูนย์บริการ BYD",
-	],
+import Image from "next/image";
+import Link from "next/link";
+import { motion } from "framer-motion";
+
+const fadeInUp = {
+	initial: { opacity: 0, y: 20 },
+	animate: { opacity: 1, y: 0 },
+	transition: { duration: 0.5 },
 };
 
 export default function AboutPage() {
 	return (
-		<main className="min-h-screen">
+		<main className="min-h-screen bg-background text-foreground">
 			{/* Hero Section */}
-			<section className="py-16 md:py-24 bg-background">
+			<motion.section
+				className="py-16 md:py-24"
+				initial={{ opacity: 0 }}
+				animate={{ opacity: 1 }}
+				transition={{ duration: 0.8 }}
+			>
 				<div className="container mx-auto px-4">
-					<h1 className="text-4xl md:text-5xl font-prompt font-bold text-center mb-8">
+					<motion.h1
+						className="text-4xl md:text-5xl font-prompt font-bold text-center mb-8"
+						{...fadeInUp}
+					>
 						เกี่ยวกับเรา
-					</h1>
+					</motion.h1>
 
 					{/* BYD Section */}
-					<div id="about-byd" className="max-w-4xl mx-auto mb-20 ">
+					<motion.div
+						id="about-byd"
+						className="max-w-4xl mx-auto mb-20"
+						{...fadeInUp}
+					>
 						<h2 className="text-3xl font-prompt font-bold mb-8">
 							เกี่ยวกับ BYD
 						</h2>
+
 						<div className="flex justify-center mb-8">
 							<Image
 								src="/images/BYD_Logo.png"
@@ -40,17 +48,17 @@ export default function AboutPage() {
 							/>
 						</div>
 
-						<div className="space-y-6 text-lg ">
+						<div className="space-y-6 text-lg prose prose-invert max-w-none">
 							<p>
-								<span className="font-bold">Build Your Dreams</span> หรือ{" "}
-								<span className="font-bold">BYD</span>{" "}
+								<span className="font-bold">Build Your Dreams</span> หรือ
+								<span className="font-bold">BYD</span>
 								เป็นบริษัทเทคโนโลยีชั้นนำจากประเทศจีนที่มุ่งมั่นในการพัฒนานวัตกรรมเพื่อชีวิตที่ดีกว่า
 								ด้วยความเชี่ยวชาญมากกว่า 30 ปี
 							</p>
 							<p>
 								BYD เป็นผู้นำในอุตสาหกรรมต่าง ๆ ไม่ว่าจะเป็นรถยนต์ พลังงานสะอาด
 								ชิ้นส่วนและอุปกรณ์อิเล็กทรอนิกส์ และการขนส่งทางรถไฟ
-								และมีสำนักงานทั่วโลกกว่า 70+ ประเทศ ด้วยเทคโนโลยี{" "}
+								และมีสำนักงานทั่วโลกกว่า 70+ ประเทศ ด้วยเทคโนโลยี
 								<Link
 									href="https://www.byd.com/en/blade-battery"
 									target="_blank"
@@ -58,14 +66,14 @@ export default function AboutPage() {
 									className="text-primary underline"
 								>
 									Blade Battery
-								</Link>{" "}
+								</Link>
 								ที่ปฏิวัติวงการแบตเตอรี่รถยนต์ไฟฟ้า
 							</p>
 							<p>
-								ในบริบทของประเทศไทย บริษัท{" "}
-								<span className="font-bold">RÊVER AUTOMOTIVE</span>{" "}
+								ในบริบทของประเทศไทย บริษัท
+								<span className="font-bold">RÊVER AUTOMOTIVE</span>
 								เป็นผู้นำเข้ารถยนต์ BYD อย่างเป็นทางการแต่เพียงผู้เดียว
-								สามารถศึกษาข้อมูลเพิ่มเติมได้ที่{" "}
+								สามารถศึกษาข้อมูลเพิ่มเติมได้ที่
 								<Link
 									href="https://www.byd.com/en-th"
 									target="_blank"
@@ -76,17 +84,23 @@ export default function AboutPage() {
 								</Link>
 							</p>
 						</div>
-					</div>
+					</motion.div>
 
-					{/* Brand Showcase Image */}
-					<div className="relative w-full h-[400px] md:h-[500px] mb-20 rounded-xl overflow-hidden">
+					{/* Brand Showcase */}
+					<motion.div
+						className="relative w-full h-[400px] md:h-[500px] mb-20 rounded-xl overflow-hidden"
+						whileInView={{ opacity: 1, scale: 1 }}
+						initial={{ opacity: 0, scale: 0.95 }}
+						transition={{ duration: 0.8 }}
+					>
 						<Image
 							src="/images/byd-showcase.jpg"
 							alt="รถยนต์ไฟฟ้า BYD โดย เมโทรโมบิล - ผู้จำหน่ายอย่างเป็นทางการ"
 							fill
 							className="object-cover"
+							priority
 						/>
-					</div>
+					</motion.div>
 
 					{/* Metromobile Section */}
 					<div id="about-metromobile" className="max-w-4xl mx-auto mb-20 ">
@@ -124,7 +138,7 @@ export default function AboutPage() {
 								ปลอดภัย ในทุกเส้นทาง
 							</p>
 							<p>
-								เพราะเราเชื่อว่า "รถ" ไม่ใช่เเค่ยานพาหนะเเต่ "รถ"
+								เพราะเราเชื่อว่า รถ ไม่ใช่เเค่ยานพาหนะเเต่ รถ
 								ยังเปรียบเสมือนจุดเชื่อมต่อ ประสบการณ์
 								เเละความทรงจําตลอดระยะเส้นทางการเดินทางของชีวิต
 								มาร่วมขับเคลื่อนไปสู่โลกอนาคตในฝัน อย่างมั่งคง
@@ -134,7 +148,7 @@ export default function AboutPage() {
 
 						<div className="bg-background p-8 rounded-xl mt-12">
 							<p className="text-xl font-prompt font-bold text-center mb-4">
-								"เพราะเราเชื่อว่า "รถ" ไม่ใช่เเค่ยานพาหนะ"
+								"เพราะเราเชื่อว่า รถ ไม่ใช่เเค่ยานพาหนะ"
 							</p>
 							<p className="text-lg text-center">
 								แต่มันคือจุดเชื่อมต่อของ Lifestyle ที่บ่งบอกถึงคุณค่า
@@ -159,7 +173,7 @@ export default function AboutPage() {
 								ให้แก่ลูกค้าทุกท่านตลอดไป
 							</p>
 							<p>
-								เรียนรู้เพิ่มเติมเกี่ยวกับเทคโนโลยีรถยนต์ไฟฟ้าได้ที่{" "}
+								เรียนรู้เพิ่มเติมเกี่ยวกับเทคโนโลยีรถยนต์ไฟฟ้าได้ที่
 								<Link
 									href="https://www.evat.or.th/15708383/ev-knowledge"
 									target="_blank"
@@ -235,7 +249,7 @@ export default function AboutPage() {
 
 						<div className="bg-background p-8 rounded-xl mt-12">
 							<p className="text-xl font-prompt font-bold text-center">
-								"เพราะเราเชื่อว่า "รถ" ไม่ใช่เเค่ยานพาหนะ"
+								"เพราะเราเชื่อว่า รถ ไม่ใช่เเค่ยานพาหนะ"
 							</p>
 						</div>
 					</div>
@@ -321,7 +335,7 @@ export default function AboutPage() {
 									</h4>
 									<p>
 										ปัจจุบัน เมโทรโมบิลมีสาขาให้บริการในกรุงเทพฯ และปริมณฑล
-										สามารถดูรายละเอียดสาขาทั้งหมดได้ที่หน้า{" "}
+										สามารถดูรายละเอียดสาขาทั้งหมดได้ที่หน้า
 										<Link href="/contact" className="text-primary underline">
 											ติดต่อเรา
 										</Link>
@@ -334,7 +348,7 @@ export default function AboutPage() {
 									</h4>
 									<p>
 										BYD มีรถยนต์หลากหลายรุ่นในประเทศไทย ทั้ง ATTO 3, DOLPHIN,
-										SEAL และอื่นๆ สามารถดูรายละเอียดทั้งหมดได้ที่หน้า{" "}
+										SEAL และอื่นๆ สามารถดูรายละเอียดทั้งหมดได้ที่หน้า
 										<Link href="/models" className="text-primary underline">
 											รุ่นรถยนต์
 										</Link>
@@ -348,7 +362,7 @@ export default function AboutPage() {
 									<p>
 										เมโทรโมบิลมีบริการซ่อมบำรุงรถยนต์ไฟฟ้าครบวงจร
 										โดยทีมช่างผู้เชี่ยวชาญที่ผ่านการอบรมจาก BYD โดยตรง
-										สามารถดูรายละเอียดเพิ่มเติมได้ที่หน้า{" "}
+										สามารถดูรายละเอียดเพิ่มเติมได้ที่หน้า
 										<Link
 											href="/services/after-sales"
 											className="text-primary underline"
@@ -361,7 +375,7 @@ export default function AboutPage() {
 						</div>
 					</div>
 				</div>
-			</section>
+			</motion.section>
 		</main>
 	);
 }

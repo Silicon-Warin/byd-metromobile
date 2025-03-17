@@ -8,7 +8,7 @@ import {
 	CarouselNext,
 	CarouselPrevious,
 } from "@/components/ui/carousel";
-import { defaultModels } from "@/types/Model";
+import { defaultModels } from "@/data/Model";
 
 export function ModelCarSlider() {
 	return (

@@ -2,7 +2,7 @@ import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { A11y } from "swiper/modules";
 import { ModelPromoCard } from "@/components/ui/ModelPromoCard";
-import { defaultModels } from "@/types/Model";
+import { defaultModels } from "@/data/Model";
 import "swiper/css";
 
 export function PromotionSection() {

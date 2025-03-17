@@ -12,6 +12,8 @@ export interface CarModel {
   };
   learnMoreUrl?: string;
   configuratorUrl?: string;
+  imageWidth: number;
+  imageHeight: number;
 }
 
 export const defaultModels: CarModel[] = [
@@ -22,10 +24,13 @@ export const defaultModels: CarModel[] = [
     price: 1249900,
     imageUrlPromo: "/images/promotions/sealion7.jpg",
     imageUrlModel:"/images/models/BYD-sealion7.webp",
+    imageWidth: 1200,
+    imageHeight: 800,
     specifications: {
       range: "550 กม.",
       acceleration: "0-100 กม./ชม. 5.5 วินาที",
       power: "300 แรงม้า",
+      
     }
   },
   {
@@ -35,6 +40,8 @@ export const defaultModels: CarModel[] = [
     price: 799900,
     imageUrlPromo: "/images/promotions/m6.jpg",
     imageUrlModel:"/images/models/BYD-m6.webp",
+    imageWidth: 1200,
+    imageHeight: 800,
     specifications: {
       range: "500 กม.",
       acceleration: "0-100 กม./ชม. 7.5 วินาที",
@@ -48,6 +55,8 @@ export const defaultModels: CarModel[] = [
     price: 939900,
     imageUrlPromo: "/images/promotions/sealion6dm.jpg",
     imageUrlModel:"/images/models/BYD-sealion6dm.webp",
+    imageWidth: 1200,
+    imageHeight: 800,
     specifications: {
       range: "1200 กม. (รวมโหมด EV + Hybrid)",
       acceleration: "0-100 กม./ชม. 6.5 วินาที",
@@ -61,6 +70,8 @@ export const defaultModels: CarModel[] = [
     price: 999900,
     imageUrlPromo: "/images/promotions/seal.jpg",      
     imageUrlModel:"/images/models/BYD-seal.webp",
+    imageWidth: 1200,
+    imageHeight: 800,
     specifications: {
       range: "570 กม.",
       acceleration: "0-100 กม./ชม. 5.9 วินาที",
@@ -74,6 +85,8 @@ export const defaultModels: CarModel[] = [
     price: 899900,
     imageUrlPromo: "/images/promotions/atto3.jpg",
     imageUrlModel:"/images/models/BYD-autto3.webp",
+    imageWidth: 1200,
+    imageHeight: 800,
     specifications: {
       range: "420 กม.",
       acceleration: "0-100 กม./ชม. 7.3 วินาที",
@@ -87,6 +100,8 @@ export const defaultModels: CarModel[] = [
     price: 569900,
     imageUrlPromo: "/images/promotions/dolphin.jpg",
     imageUrlModel:"/images/models/BYD-dolphin.webp",
+    imageWidth: 1200,
+    imageHeight: 800,
     specifications: {
       range: "410 กม.",
       acceleration: "0-100 กม./ชม. 7.0 วินาที",

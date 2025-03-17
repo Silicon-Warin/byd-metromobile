@@ -23,17 +23,18 @@ const prompt = Prompt({
 });
 
 export const metadata: Metadata = {
-	title: "BYD Metromobile - ตัวแทนจำหน่ายรถยนต์ไฟฟ้า BYD อย่างเป็นทางการ",
+	metadataBase: new URL("https://bydmetromobile.com"),
+	title: "BYD Mereomobile | เมโทรโมบิล ผู้นำด้านรถยนต์ไฟฟ้า BYD ในประเทศไทย",
 	description:
-		"ศูนย์รถยนต์ไฟฟ้า BYD อย่างเป็นทางการ ครอบคลุมทั้งการขาย บริการ และศูนย์บริการหลังการขาย พร้อมให้คำปรึกษาด้านรถยนต์ไฟฟ้าครบวงจร",
-	openGraph: {
-		title: "BYD Metromobile - ตัวแทนจำหน่ายรถยนต์ไฟฟ้า BYD อย่างเป็นทางการ",
-		description:
-			"ศูนย์รถยนต์ไฟฟ้า BYD อย่างเป็นทางการ ครอบคลุมทั้งการขาย บริการ และศูนย์บริการหลังการขาย",
-		images: ["/images/og-image.jpg"],
-	},
+		"ศูนย์รถยนต์ไฟฟ้า BYD อย่างเป็นทางการ ครอบคลุมทั้งการขาย บริการ และศูนย์บริการหลังการขาย พร้อมให้คำปรึกษาด้านรถยนต์ไฟฟ้าครบวงจร โดย เมโทรโมบิล",
+	keywords: [
+		"เมโทรโมบิล",
+		"BYD",
+		"รถยนต์ไฟฟ้า",
+		"Metromobile",
+		"ศูนย์บริการ BYD",
+	],
 };
-
 export default function RootLayout({
 	children,
 }: Readonly<{
