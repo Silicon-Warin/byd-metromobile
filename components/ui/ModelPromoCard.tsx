@@ -23,6 +23,7 @@ export function ModelPromoCard({ model }: ModelCardProps) {
 					modelId: model.id,
 					modelName: model.name,
 					price: model.price,
+					specs: model.specifications, // Add specifications
 				}),
 			});
 
@@ -67,9 +68,6 @@ export function ModelPromoCard({ model }: ModelCardProps) {
 					<p className="text-sm text-gray-200 mt-1">
 						ราคาเริ่มต้น {model.price.toLocaleString()} บาท
 					</p>
-					{model.tagline && (
-						<p className="text-sm text-gray-200 mt-1">{model.tagline}</p>
-					)}
 				</div>
 
 				{/* Bottom Section: Order Now Button */}

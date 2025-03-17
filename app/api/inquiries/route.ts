@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 import { headers } from 'next/headers';
 import { validateEnv } from "@/lib/env";
+import axios, { AxiosError } from 'axios';
 
 // Rate limiting map
 const requestMap = new Map<string, { count: number; timestamp: number }>();
@@ -17,7 +18,7 @@ const inquirySchema = z.object({
     range: z.string(),
     acceleration: z.string(),
     power: z.string()
-  })
+  }).optional() // Make specs optional
 });
 
 export async function POST(req: Request) {
@@ -46,8 +47,31 @@ export async function POST(req: Request) {
       requestMap.set(ip, { count: 1, timestamp: now });
     }
 
+    // Parse request body first to catch JSON parsing errors
+    let body;
+    try {
+      body = await req.json();
+      console.log('Request body:', body);
+    } catch (e: unknown) {
+      console.error('JSON parsing error:', e);
+      return NextResponse.json({ 
+        error: "Invalid JSON in request body" 
+      }, { 
+        status: 400 
+      });
+    }
+
     // Validate environment variables
-    validateEnv();
+    try {
+      validateEnv();
+    } catch (e: unknown) {
+      const errorMessage = e instanceof Error ? e.message : 'Unknown error';
+      console.error('Environment validation error:', e);
+      return NextResponse.json({
+        error: "Server configuration error",
+        details: process.env.NODE_ENV === 'development' ? errorMessage : undefined
+      }, { status: 500 });
+    }
 
     // Debug environment variables
     console.log('Environment Check:', {
@@ -56,13 +80,24 @@ export async function POST(req: Request) {
       nodeEnv: process.env.NODE_ENV
     });
 
-    // Validate request body
-    const body = await req.json();
-    const validatedData = inquirySchema.parse(body);
+    // Validate request body against schema
+    let validatedData;
+    try {
+      validatedData = inquirySchema.parse(body);
+    } catch (e: unknown) {
+      const zodError = e instanceof z.ZodError ? e.errors : 'Invalid data format';
+      console.error('Schema validation error:', e);
+      return NextResponse.json({ 
+        error: "Invalid request data",
+        details: process.env.NODE_ENV === 'development' ? zodError : undefined
+      }, { 
+        status: 400 
+      });
+    }
 
     // Verify LINE credentials
     if (!process.env.LINE_CHANNEL_ACCESS_TOKEN || !process.env.LINE_USER_ID) {
-      console.error('Missing LINE credentials in production');
+      console.error('Missing LINE credentials in environment');
       return NextResponse.json({
         error: "Configuration error",
         details: process.env.NODE_ENV === 'development' 
@@ -78,56 +113,71 @@ export async function POST(req: Request) {
 รุ่น: ${validatedData.modelName}
 ราคา: ${validatedData.price.toLocaleString()} บาท
 
-📋 ข้อมูลรถ:
+${validatedData.specs ? `📋 ข้อมูลรถ:
 ▪️ ระยะทางวิ่ง: ${validatedData.specs.range}
 ▪️ อัตราเร่ง: ${validatedData.specs.acceleration}
-▪️ กำลังสูงสุด: ${validatedData.specs.power}
+▪️ กำลังสูงสุด: ${validatedData.specs.power}` : ''}
 
 ⏰ เวลา: ${new Date().toLocaleString('th-TH', { timeZone: 'Asia/Bangkok' })}
 📱 ที่มา: เว็บไซต์ BYD Metromobile
 `.trim();
 
-    // Send to LINE with secure headers
-    const response = await fetch("https://api.line.me/v2/bot/message/push", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${process.env.LINE_CHANNEL_ACCESS_TOKEN}`,
-        "X-Line-Retry-Key": crypto.randomUUID()
-      },
-      body: JSON.stringify({
-        to: process.env.LINE_USER_ID,
-        messages: [{
-          type: "text",
-          text: message
-        }]
-      })
-    });
-
-    const responseData = await response.text();
-    
-    if (!response.ok) {
-      console.error('LINE API Response:', {
-        status: response.status,
-        data: responseData
+    // Send to LINE using axios instead of fetch
+    try {
+      const response = await axios({
+        method: 'post',
+        url: 'https://api.line.me/v2/bot/message/push',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${process.env.LINE_CHANNEL_ACCESS_TOKEN}`,
+          'X-Line-Retry-Key': crypto.randomUUID()
+        },
+        data: {
+          to: process.env.LINE_USER_ID,
+          messages: [{
+            type: 'text',
+            text: message
+          }]
+        },
+        timeout: 10000 // 10 second timeout
       });
-      throw new Error(`LINE API Error: ${responseData}`);
+      
+      console.log('LINE notification sent successfully', response.status);
+      return NextResponse.json({ 
+        success: true 
+      });
+    } catch (error: unknown) {
+      const axiosError = error as AxiosError;
+      console.error('LINE API Error:', {
+        status: axiosError.response?.status,
+        data: axiosError.response?.data,
+        message: axiosError.message
+      });
+      
+      return NextResponse.json({ 
+        error: "Failed to send notification",
+        details: process.env.NODE_ENV === 'development' 
+          ? `${axiosError.message} - ${JSON.stringify(axiosError.response?.data || {})}` 
+          : undefined
+      }, { 
+        status: 502 
+      });
     }
 
-    return NextResponse.json({ 
-      success: true 
-    });
-
-  } catch (error: any) {
+  } catch (error: unknown) {
     // Log detailed error for debugging
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+    const errorStack = error instanceof Error ? error.stack : undefined;
+    
     console.error('API Error:', {
-      message: error.message,
-      stack: error.stack,
+      message: errorMessage,
+      stack: errorStack,
       env: process.env.NODE_ENV
     });
     
     return NextResponse.json({ 
-      error: "Service temporarily unavailable" 
+      error: "Service temporarily unavailable",
+      details: process.env.NODE_ENV === 'development' ? errorMessage : undefined
     }, { 
       status: 500 
     });

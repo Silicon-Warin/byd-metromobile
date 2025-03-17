@@ -2,19 +2,16 @@ export interface CarModel {
   id: number;
   name: string;
   description: string;
-  tagline?: string;
   price: number;
   imageUrlPromo: string;
   imageUrlModel: string;
-  badges?: string[];
-  specifications?: {
-    [key: string]: string;
-  };
-  learnMoreUrl?: string;
-  configuratorUrl?: string;
   imageWidth: number;
   imageHeight: number;
-}
+  specifications: {
+    range: string;
+    acceleration: string;
+    power: string;
+}};
 
 export const defaultModels: CarModel[] = [
   {
