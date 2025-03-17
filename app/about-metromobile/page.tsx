@@ -142,7 +142,7 @@ export default function AboutPage() {
 								ยังเปรียบเสมือนจุดเชื่อมต่อ ประสบการณ์
 								เเละความทรงจําตลอดระยะเส้นทางการเดินทางของชีวิต
 								มาร่วมขับเคลื่อนไปสู่โลกอนาคตในฝัน อย่างมั่งคง
-								เเละปลอดภัยด้วยกันที่ "Metromobile"
+								เเละปลอดภัยด้วยกันที่ Metromobile
 							</p>
 						</div>
 
@@ -249,7 +249,7 @@ export default function AboutPage() {
 
 						<div className="bg-background p-8 rounded-xl mt-12">
 							<p className="text-xl font-prompt font-bold text-center">
-								"เพราะเราเชื่อว่า รถ ไม่ใช่เเค่ยานพาหนะ"
+								เพราะเราเชื่อว่า รถ ไม่ใช่เเค่ยานพาหนะ
 							</p>
 						</div>
 					</div>
