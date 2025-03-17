@@ -1,17 +1,4 @@
-export interface CarModel {
-  id: number;
-  name: string;
-  description: string;
-  price: number;
-  imageUrlPromo: string;
-  imageUrlModel: string;
-  imageWidth: number;
-  imageHeight: number;
-  specifications: {
-    range: string;
-    acceleration: string;
-    power: string;
-}};
+import { CarModel } from '@/types/models';
 
 export const defaultModels: CarModel[] = [
   {
@@ -106,4 +93,6 @@ export const defaultModels: CarModel[] = [
     }
   }
 ];
+
+export type { CarModel };
 

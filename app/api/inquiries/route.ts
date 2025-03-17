@@ -11,6 +11,7 @@ const TIME_WINDOW = 60 * 1000; // 1 minute
 
 // Schema validation
 const inquirySchema = z.object({
+  // ข้อมูลรถ
   modelId: z.number(),
   modelName: z.string(),
   price: z.number(),
@@ -18,7 +19,26 @@ const inquirySchema = z.object({
     range: z.string(),
     acceleration: z.string(),
     power: z.string()
-  }).optional() // Make specs optional
+  }).optional(),
+
+  // ข้อมูลลูกค้า
+  customer: z.object({
+    name: z.string().optional(),
+    phone: z.string().optional(),
+    email: z.string().email().optional(),
+    preferredContact: z.enum(['phone', 'email', 'line']).optional(),
+    preferredTime: z.string().optional(),
+  }).optional(),
+
+  // ข้อมูลความสนใจ
+  interest: z.object({
+    testDrive: z.boolean().optional(),
+    financing: z.boolean().optional(),
+    tradeIn: z.boolean().optional(),
+    color: z.string().optional(),
+    urgency: z.enum(['immediate', 'within_month', 'no_rush']).optional(),
+    comments: z.string().optional()
+  }).optional()
 });
 
 export async function POST(req: Request) {
@@ -110,13 +130,27 @@ export async function POST(req: Request) {
     const message = `
 🚗 แจ้งเตือน: ลูกค้าสนใจสั่งจองรถ
 
+📌 ข้อมูลรถ
 รุ่น: ${validatedData.modelName}
 ราคา: ${validatedData.price.toLocaleString()} บาท
+${validatedData.interest?.color ? `สี: ${validatedData.interest.color}` : ''}
 
-${validatedData.specs ? `📋 ข้อมูลรถ:
+${validatedData.specs ? `📋 สเปครถ
 ▪️ ระยะทางวิ่ง: ${validatedData.specs.range}
 ▪️ อัตราเร่ง: ${validatedData.specs.acceleration}
 ▪️ กำลังสูงสุด: ${validatedData.specs.power}` : ''}
+
+${validatedData.customer ? `👤 ข้อมูลลูกค้า
+${validatedData.customer.name ? `ชื่อ: ${validatedData.customer.name}` : ''}
+${validatedData.customer.phone ? `เบอร์โทร: ${validatedData.customer.phone}` : ''}
+${validatedData.customer.email ? `อีเมล: ${validatedData.customer.email}` : ''}
+${validatedData.customer.preferredTime ? `เวลาที่สะดวกติดต่อ: ${validatedData.customer.preferredTime}` : ''}` : ''}
+
+${validatedData.interest ? `📝 ความสนใจเพิ่มเติม
+${validatedData.interest.testDrive ? '✓ สนใจทดลองขับ' : ''}
+${validatedData.interest.financing ? '✓ สนใจสอบถามไฟแนนซ์' : ''}
+${validatedData.interest.tradeIn ? '✓ สนใจเทิร์นรถ' : ''}
+${validatedData.interest.comments ? `💬 หมายเหตุ: ${validatedData.interest.comments}` : ''}` : ''}
 
 ⏰ เวลา: ${new Date().toLocaleString('th-TH', { timeZone: 'Asia/Bangkok' })}
 📱 ที่มา: เว็บไซต์ BYD Metromobile

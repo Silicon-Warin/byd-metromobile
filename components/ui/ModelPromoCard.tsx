@@ -3,6 +3,13 @@ import { CarModel } from "@/data/Model";
 import { Button } from "./button";
 import Image from "next/image";
 import { toast } from "sonner";
+import { InquiryForm } from "@/components/InquiryForm";
+import {
+	Dialog,
+	DialogContent,
+	DialogHeader,
+	DialogTitle,
+} from "@/components/ui/dialog";
 
 interface ModelCardProps {
 	model: CarModel;
@@ -10,6 +17,7 @@ interface ModelCardProps {
 
 export function ModelPromoCard({ model }: ModelCardProps) {
 	const [isLoading, setIsLoading] = useState(false);
+	const [open, setOpen] = useState(false);
 
 	const handleInquiry = async () => {
 		try {
@@ -45,42 +53,53 @@ export function ModelPromoCard({ model }: ModelCardProps) {
 	};
 
 	return (
-		<div className="relative group h-full flex flex-col w-full rounded-lg overflow-hidden shadow-lg">
-			<div className="relative flex-grow w-full h-full transition duration-300 bg-gradient-to-b from-gray-800 to-gray-900">
-				<Image
-					src={model.imageUrlPromo}
-					alt={model.name}
-					width={model.imageWidth}
-					height={model.imageHeight}
-					className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-					sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-					priority
-				/>
+		<>
+			<div className="relative group h-full flex flex-col w-full rounded-lg overflow-hidden shadow-lg">
+				<div className="relative flex-grow w-full h-full transition duration-300 bg-gradient-to-b from-gray-800 to-gray-900">
+					<Image
+						src={model.imageUrlPromo}
+						alt={model.name}
+						width={model.imageWidth}
+						height={model.imageHeight}
+						className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+						sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+						priority
+					/>
 
-				{/* Gradient Overlay */}
-				<div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+					{/* Gradient Overlay */}
+					<div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
 
-				{/* Model Info Container */}
-				<div className="absolute top-0 left-0 right-0 p-4 z-10">
-					<h3 className="text-xl md:text-2xl font-bold text-white">
-						{model.name}
-					</h3>
-					<p className="text-sm text-gray-200 mt-1">
-						ราคาเริ่มต้น {model.price.toLocaleString()} บาท
-					</p>
-				</div>
+					{/* Model Info Container */}
+					<div className="absolute top-0 left-0 right-0 p-4 z-10">
+						<h3 className="text-xl md:text-2xl font-bold text-white">
+							{model.name}
+						</h3>
+						<p className="text-sm text-gray-200 mt-1">
+							ราคาเริ่มต้น {model.price.toLocaleString()} บาท
+						</p>
+					</div>
 
-				{/* Bottom Section: Order Now Button */}
-				<div className="absolute bottom-0 left-0 right-0 p-4 z-10">
-					<Button
-						className="w-full transition-all duration-300 bg-white/90 hover:bg-white text-black"
-						onClick={handleInquiry}
-						disabled={isLoading}
-					>
-						{isLoading ? "กำลังส่งข้อมูล..." : "สนใจสั่งจอง"}
-					</Button>
+					{/* Bottom Section: Order Now Button */}
+					<div className="absolute bottom-0 left-0 right-0 p-4 z-10">
+						<Button
+							className="w-full transition-all duration-300 bg-white/90 hover:bg-white text-black"
+							onClick={() => setOpen(true)}
+							disabled={isLoading}
+						>
+							{isLoading ? "กำลังส่งข้อมูล..." : "สนใจสั่งจอง"}
+						</Button>
+					</div>
 				</div>
 			</div>
-		</div>
+
+			<Dialog open={open} onOpenChange={setOpen}>
+				<DialogContent>
+					<DialogHeader>
+						<DialogTitle>สนใจสั่งจอง {model.name}</DialogTitle>
+					</DialogHeader>
+					<InquiryForm model={model} />
+				</DialogContent>
+			</Dialog>
+		</>
 	);
 }
