@@ -84,7 +84,7 @@ export const defaultModels: CarModel[] = [
     description: "SUV ไฟฟ้ากะทัดรัด สมรรถนะโดดเด่น เหมาะกับทุกการขับขี่",
     price: 899900,
     imageUrlPromo: "/images/promotions/atto3.jpg",
-    imageUrlModel:"/images/models/BYD-autto3.webp",
+    imageUrlModel:"/images/models/BYD-Atto3.webp",
     imageWidth: 1200,
     imageHeight: 800,
     specifications: {
