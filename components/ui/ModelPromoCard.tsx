@@ -43,7 +43,7 @@ export function ModelPromoCard({ model }: ModelCardProps) {
 							grant_type: "authorization_code",
 							code,
 							redirect_uri: `${process.env.NEXT_PUBLIC_API_URL}/promotions`,
-							client_id: process.env.LINE_LOGIN_CHANNEL_ID,
+							client_id: process.env.NEXT_PUBLIC_LINE_LOGIN_CHANNEL_ID,
 							client_secret: process.env.LINE_LOGIN_CHANNEL_SECRET,
 						},
 						headers: {
@@ -156,7 +156,7 @@ export function ModelPromoCard({ model }: ModelCardProps) {
 			loginUrl.searchParams.append("response_type", "code");
 			loginUrl.searchParams.append(
 				"client_id",
-				process.env.LINE_LOGIN_CHANNEL_ID || ""
+				process.env.NEXT_PUBLIC_LINE_LOGIN_CHANNEL_ID || ""
 			);
 			loginUrl.searchParams.append("redirect_uri", redirectUri);
 			loginUrl.searchParams.append("state", state);
