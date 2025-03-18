@@ -15,7 +15,7 @@ declare global {
       NEXT_PUBLIC_LINE_LIFF_ID: string;
       
       // Common
-      USER_ID: string;
+      LINE_USER_ID: string;
       NODE_ENV: 'development' | 'production' | 'test';
     }
   }
