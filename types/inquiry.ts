@@ -16,6 +16,11 @@ export interface InquiryForm {
     email: string;
     preferredContact: 'phone' | 'email' | 'line';
     preferredTime: string;
+    lineProfile?: {
+      userId: string;
+      displayName: string;
+      pictureUrl?: string;
+    };
   };
 
   // ข้อมูลความสนใจ

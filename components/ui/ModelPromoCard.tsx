@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { CarModel } from "@/data/Model";
 import { Button } from "./button";
 import Image from "next/image";
@@ -10,6 +10,8 @@ import {
 	DialogHeader,
 	DialogTitle,
 } from "@/components/ui/dialog";
+import { generateLineLoginUrl } from "@/lib/line";
+import { useRouter, useSearchParams } from "next/navigation";
 
 interface ModelCardProps {
 	model: CarModel;
@@ -18,36 +20,121 @@ interface ModelCardProps {
 export function ModelPromoCard({ model }: ModelCardProps) {
 	const [isLoading, setIsLoading] = useState(false);
 	const [open, setOpen] = useState(false);
+	const [lineProfile, setLineProfile] = useState<any>(null);
+	const router = useRouter();
+	const searchParams = useSearchParams();
 
-	const handleInquiry = async () => {
+	// Check for LINE login callback
+	useEffect(() => {
+		const code = searchParams.get("code");
+		const state = searchParams.get("state");
+
+		// Retrieve stored model ID
+		const storedModelId = localStorage.getItem("selectedModelId");
+
+		if (code && state && storedModelId) {
+			// Clear stored model ID
+			localStorage.removeItem("selectedModelId");
+
+			// Only process if this component's model matches the stored ID
+			if (storedModelId === model.id.toString()) {
+				handleLineLoginCallback(code);
+			}
+		}
+	}, [searchParams, model.id]);
+
+	// Handle LINE login callback
+	const handleLineLoginCallback = async (code: string) => {
 		try {
 			setIsLoading(true);
-			const response = await fetch("/api/inquiries", {
+
+			// Exchange code for token and get user profile
+			const response = await fetch("/api/line/callback", {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
 				},
 				body: JSON.stringify({
-					modelId: model.id,
-					modelName: model.name,
-					price: model.price,
-					specs: model.specifications, // Add specifications
+					code,
+					redirectUri: `http://localhost:3000/promotions`,
 				}),
 			});
 
-			const data = await response.json();
-
 			if (!response.ok) {
-				throw new Error(data.error || "Failed to send inquiry");
+				throw new Error("Failed to authenticate with LINE");
 			}
 
-			toast.success(
-				"ขอบคุณสำหรับความสนใจ เจ้าหน้าที่จะติดต่อกลับโดยเร็วที่สุด"
-			);
+			const data = await response.json();
+			setLineProfile(data.profile);
+
+			// Open inquiry form after successful login
+			setOpen(true);
+
+			// Send initial message to user
+			await sendLineWelcomeMessage(data.profile.userId);
 		} catch (error) {
-			console.error("Inquiry Error:", error);
-			toast.error("ไม่สามารถส่งข้อมูลได้ กรุณาลองใหม่อีกครั้ง");
+			console.error("LINE Login Error:", error);
+			toast.error("ไม่สามารถเข้าสู่ระบบด้วย LINE ได้ กรุณาลองใหม่อีกครั้ง");
 		} finally {
+			setIsLoading(false);
+
+			// Clean URL parameters
+			router.replace(window.location.pathname);
+		}
+	};
+
+	// Send welcome message to user via LINE
+	const sendLineWelcomeMessage = async (userId: string) => {
+		try {
+			const response = await fetch("/api/line/message", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({
+					userId,
+					modelName: model.name,
+					modelId: model.id,
+					price: model.price,
+				}),
+			});
+
+			if (!response.ok) {
+				throw new Error("Failed to send LINE message");
+			}
+		} catch (error) {
+			console.error("LINE Message Error:", error);
+		}
+	};
+
+	// Handle inquiry with LINE login
+	const handleInquiryWithLine = () => {
+		try {
+			setIsLoading(true);
+
+			// Generate state for security
+			const state = Math.random().toString(36).substring(2, 15);
+
+			// Generate LINE login URL - make sure this matches exactly what's registered in LINE Developer Console
+			const redirectUri = `http://localhost:3000/promotions`;
+			const loginUrl = new URL("https://access.line.me/oauth2/v2.1/authorize");
+			loginUrl.searchParams.append("response_type", "code");
+			loginUrl.searchParams.append(
+				"client_id",
+				process.env.NEXT_PUBLIC_LINE_CHANNEL_ID || "2007075802"
+			);
+			loginUrl.searchParams.append("redirect_uri", redirectUri);
+			loginUrl.searchParams.append("state", state);
+			loginUrl.searchParams.append("scope", "profile openid email");
+
+			// Store model ID in localStorage to retrieve after redirect
+			localStorage.setItem("selectedModelId", model.id.toString());
+
+			// Redirect to LINE login
+			window.location.href = loginUrl.toString();
+		} catch (error) {
+			console.error("LINE Login Error:", error);
+			toast.error("ไม่สามารถเข้าสู่ระบบด้วย LINE ได้ กรุณาลองใหม่อีกครั้ง");
 			setIsLoading(false);
 		}
 	};
@@ -83,10 +170,10 @@ export function ModelPromoCard({ model }: ModelCardProps) {
 					<div className="absolute bottom-0 left-0 right-0 p-4 z-10">
 						<Button
 							className="w-full transition-all duration-300 bg-white/90 hover:bg-white text-black"
-							onClick={() => setOpen(true)}
+							onClick={handleInquiryWithLine}
 							disabled={isLoading}
 						>
-							{isLoading ? "กำลังส่งข้อมูล..." : "สนใจสั่งจอง"}
+							{isLoading ? "กำลังดำเนินการ..." : "สนใจสั่งจอง"}
 						</Button>
 					</div>
 				</div>
@@ -97,7 +184,7 @@ export function ModelPromoCard({ model }: ModelCardProps) {
 					<DialogHeader>
 						<DialogTitle>สนใจสั่งจอง {model.name}</DialogTitle>
 					</DialogHeader>
-					<InquiryForm model={model} />
+					<InquiryForm model={model} lineProfile={lineProfile} />
 				</DialogContent>
 			</Dialog>
 		</>
