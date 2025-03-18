@@ -5,11 +5,14 @@ export function generateLineLoginUrl(redirectUri: string, state: string) {
   // ใช้ค่า hardcoded เป็น fallback
   const lineLoginChannelId = process.env.NEXT_PUBLIC_LINE_LOGIN_CHANNEL_ID || "2007079049";
   
+  // ใช้ redirect URI ที่คงที่ตรงกับที่ลงทะเบียนไว้ใน LINE Developer Console
+  const registeredRedirectUri = "https://www.bydmetromobile.com/promotions";
+  
   const scope = "profile openid email";
   const url = new URL("https://access.line.me/oauth2/v2.1/authorize");
   url.searchParams.append("response_type", "code");
   url.searchParams.append("client_id", lineLoginChannelId);
-  url.searchParams.append("redirect_uri", redirectUri);
+  url.searchParams.append("redirect_uri", registeredRedirectUri);
   url.searchParams.append("state", state);
   url.searchParams.append("scope", scope);
 

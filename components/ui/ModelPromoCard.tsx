@@ -42,7 +42,7 @@ export function ModelPromoCard({ model }: ModelCardProps) {
 					"/api/line-login",
 					{
 						code,
-						redirectUri: `${process.env.NEXT_PUBLIC_API_URL}/promotions`,
+						redirectUri: `https://www.bydmetromobile.com/promotions`,
 					},
 					{
 						headers: {
@@ -184,9 +184,7 @@ export function ModelPromoCard({ model }: ModelCardProps) {
 			const lineLoginChannelId = "2007079049"; // LINE Login Channel ID
 
 			// Generate LINE login URL
-			const redirectUri = `${
-				process.env.NEXT_PUBLIC_API_URL || "https://www.bydmetromobile.com"
-			}/promotions`;
+			const redirectUri = `https://www.bydmetromobile.com/promotions`;
 			const loginUrl = new URL("https://access.line.me/oauth2/v2.1/authorize");
 			loginUrl.searchParams.append("response_type", "code");
 			loginUrl.searchParams.append("client_id", lineLoginChannelId);

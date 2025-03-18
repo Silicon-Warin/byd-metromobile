@@ -20,11 +20,14 @@ export async function POST(req: Request) {
 
     // Parse request body
     const body = await req.json();
-    const { code, redirectUri } = body;
+    const { code } = body;
     
-    if (!code || !redirectUri) {
+    if (!code) {
       return NextResponse.json({ error: "Missing required parameters" }, { status: 400 });
     }
+
+    // ใช้ redirect URI ที่คงที่ตรงกับที่ลงทะเบียนไว้ใน LINE Developer Console
+    const redirectUri = "https://www.bydmetromobile.com/promotions";
 
     // Create Axios instance with timeout
     const axiosInstance = axios.create({
