@@ -9,7 +9,7 @@ declare global {
       LINE_MSG_CHANNEL_SECRET: string;
       
       // Line Login
-      LINE_LOGIN_CHANNEL_ID: string;
+      NEXT_PUBLIC_LINE_LOGIN_CHANNEL_ID: string;
       LINE_LOGIN_CHANNEL_SECRET: string;
       LINE_LIFF_ID: string;
       NEXT_PUBLIC_LINE_LIFF_ID: string;

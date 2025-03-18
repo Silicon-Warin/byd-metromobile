@@ -23,6 +23,7 @@ export default function LineLoginButton({
 	onLoginSuccess,
 	className = "",
 	buttonText = "เข้าสู่ระบบด้วย LINE",
+	children,
 }: LineLoginButtonProps) {
 	const [isLineSDKLoaded, setIsLineSDKLoaded] = useState(false);
 	const router = useRouter();
@@ -42,9 +43,12 @@ export default function LineLoginButton({
 
 		const initLIFF = async () => {
 			try {
-				const liffID = process.env.NEXT_PUBLIC_LINE_LIFF_ID;
+				const liffID =
+					process.env.NEXT_PUBLIC_LINE_LIFF_ID || "2007079049-ewGEo1q3";
 				if (!liffID) throw new Error("LIFF ID not found");
+
 				await window.liff.init({ liffId: liffID });
+				console.log("LIFF initialized successfully");
 				setIsLineSDKLoaded(true);
 			} catch (error) {
 				console.error("LIFF initialization failed:", error);
@@ -101,7 +105,8 @@ export default function LineLoginButton({
 						maxAge: 60 * 60 * 24 * 30,
 					});
 				}
-				router.refresh();
+				// ลบการ refresh เพื่อไม่ให้ redirect ไปหน้าแรก
+				// router.refresh();
 				return true;
 			}
 			return false;

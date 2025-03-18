@@ -81,24 +81,19 @@ export async function POST(req: Request) {
       });
     }
 
-    // Validate environment variables
+    // Validate environment variables (แต่ไม่จำเป็นต้องมี LINE credentials)
     try {
-      validateEnv();
+      // validateEnv();
+      console.log('Environment Check:', {
+        hasLineToken: !!process.env.LINE_MSG_CHANNEL_ACCESS_TOKEN?.length,
+        hasLineUserId: !!process.env.LINE_USER_ID?.length,
+        nodeEnv: process.env.NODE_ENV
+      });
     } catch (e: unknown) {
       const errorMessage = e instanceof Error ? e.message : 'Unknown error';
-      console.error('Environment validation error:', e);
-      return NextResponse.json({
-        error: "Server configuration error",
-        details: process.env.NODE_ENV === 'development' ? errorMessage : undefined
-      }, { status: 500 });
+      console.error('Environment validation warning:', e);
+      // ไม่ return error แต่เก็บ log ไว้
     }
-
-    // Debug environment variables
-    console.log('Environment Check:', {
-      hasToken: !!process.env.LINE_MSG_CHANNEL_ACCESS_TOKEN?.length,
-      hasUserId: !!process.env.LINE_USER_ID?.length,
-      nodeEnv: process.env.NODE_ENV
-    });
 
     // Validate request body against schema
     let validatedData;
@@ -115,15 +110,19 @@ export async function POST(req: Request) {
       });
     }
 
-    // Verify LINE credentials
-    if (!process.env.LINE_MSG_CHANNEL_ACCESS_TOKEN || !process.env.LINE_USER_ID) {
-      console.error('Missing LINE credentials in environment');
-      return NextResponse.json({
-        error: "Configuration error",
-        details: process.env.NODE_ENV === 'development' 
-          ? 'Missing LINE credentials' 
-          : undefined
-      }, { status: 503 });
+    // บันทึกข้อมูลการสั่งจองไว้ใน log (สามารถเพิ่มการบันทึกลงฐานข้อมูลในอนาคต)
+    console.log('New inquiry received:', JSON.stringify(validatedData, null, 2));
+
+    // ตรวจสอบว่ามี LINE credentials หรือไม่
+    const hasLineCredentials = !!process.env.LINE_MSG_CHANNEL_ACCESS_TOKEN && !!process.env.LINE_USER_ID;
+    
+    // ถ้าไม่มี LINE credentials ให้ return success เลย
+    if (!hasLineCredentials) {
+      console.log('No LINE credentials available. Skipping LINE notification.');
+      return NextResponse.json({ 
+        success: true,
+        warning: process.env.NODE_ENV === 'development' ? 'LINE notification skipped due to missing credentials' : undefined
+      });
     }
 
     // Create LINE message with security measures
@@ -188,13 +187,12 @@ ${validatedData.interest.comments ? `💬 หมายเหตุ: ${validatedD
         message: axiosError.message
       });
       
+      // LINE API error แต่ยังคง return success เพื่อให้ frontend แสดงข้อความสำเร็จ
       return NextResponse.json({ 
-        error: "Failed to send notification",
-        details: process.env.NODE_ENV === 'development' 
-          ? `${axiosError.message} - ${JSON.stringify(axiosError.response?.data || {})}` 
+        success: true,
+        warning: process.env.NODE_ENV === 'development' 
+          ? `LINE notification failed: ${axiosError.message}` 
           : undefined
-      }, { 
-        status: 502 
       });
     }
 
