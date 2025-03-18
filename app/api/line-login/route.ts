@@ -22,7 +22,7 @@ export async function POST(request: Request) {
     } 
     else if (data.code) {
       // กรณีที่ส่ง code มา (จาก LINE Login)
-      const { code, redirectUri } = data;
+      const { code } = data;
       
       // ตรวจสอบว่ามี LINE_LOGIN_CHANNEL_ID และ LINE_LOGIN_CHANNEL_SECRET
       const channelId = process.env.LINE_LOGIN_CHANNEL_ID;
@@ -35,6 +35,9 @@ export async function POST(request: Request) {
           { status: 500 }
         );
       }
+      
+      // ใช้ redirect URI ที่คงที่ตรงกับที่ลงทะเบียนไว้ใน LINE Developer Console
+      const redirectUri = "https://www.bydmetromobile.com/promotions";
       
       // แลกเปลี่ยน code เป็น access token
       const params = new URLSearchParams();
