@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ChevronRight, ExternalLink, MapPin, Phone, Mail } from "lucide-react";
+import { ChevronRight, ExternalLink, MapPin, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -13,6 +13,7 @@ import {
 	AccordionItem,
 	AccordionTrigger,
 } from "@/components/ui/accordion";
+import BYDPhoneCard from "@/components/About/BYDPhoneCard";
 
 const fadeInUp = {
 	initial: { opacity: 0, y: 30 },
@@ -515,25 +516,17 @@ export default function AboutPage() {
 							</CardContent>
 						</Card>
 
-						<Card className="bg-card/50 backdrop-blur-sm border border-border/50">
-							<CardContent className="p-6 flex flex-col items-center text-center">
-								<div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
-									<Phone className="h-6 w-6 text-primary" />
-								</div>
-								<h3 className="text-xl font-bold mb-2">โทรศัพท์</h3>
-								<p className="text-muted-foreground">
-									02-123-4567, 089-765-4321
-								</p>
-							</CardContent>
-						</Card>
+						<BYDPhoneCard />
 
 						<Card className="bg-card/50 backdrop-blur-sm border border-border/50">
 							<CardContent className="p-6 flex flex-col items-center text-center">
 								<div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
 									<Mail className="h-6 w-6 text-primary" />
 								</div>
-								<h3 className="text-xl font-bold mb-2">อีเมล</h3>
-								<p className="text-muted-foreground">info@metromobile.co.th</p>
+								<h3 className="text-xl font-bold mb-2">Email</h3>
+								<p className="text-muted-foreground">
+									bydmetromobile@gmail.com
+								</p>
 							</CardContent>
 						</Card>
 					</motion.div>
