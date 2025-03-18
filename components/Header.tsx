@@ -1,5 +1,6 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import type React from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -84,19 +85,19 @@ export function Header() {
 		<nav
 			className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
 				scrollY > 50
-					? "bg-primary/50 backdrop-blur-md shadow-md"
+					? "bg-primary/80 backdrop-blur-lg shadow-lg"
 					: "bg-transparent"
 			}`}
 		>
-			<div className="container mx-auto px-4 py-4 flex items-center justify-between">
-				{/* Logo with proper responsive sizing */}
-				<div className="w-32 md:w-40 h-auto relative">
+			<div className="container mx-auto px-6 py-5 flex items-center justify-between">
+				{/* Logo with enhanced responsive sizing */}
+				<div className="w-40 md:w-48 lg:w-56 h-auto relative">
 					<Link href="/">
 						<Image
 							src="/images/metromobile-logo.png"
 							alt="BYD Logo"
-							width={300}
-							height={64}
+							width={400}
+							height={85}
 							className="object-contain"
 							priority
 						/>
@@ -104,16 +105,19 @@ export function Header() {
 				</div>
 
 				{/* Desktop Navigation */}
-				<div className="hidden md:flex items-center space-x-6">
+				<div className="hidden md:flex items-center space-x-8">
 					{navItems.map((item, index) => (
 						<Link
 							key={index}
 							href={item.href}
-							className="text-white hover:text-blue-200 font-medium transition-colors"
+							className="text-white text-base font-medium hover:text-blue-200 relative after:absolute after:bottom-[-4px] after:left-0 after:h-[2px] after:w-0 after:bg-blue-300 after:transition-all after:duration-300 hover:after:w-full"
 						>
 							{item.label}
 						</Link>
 					))}
+					<Button className="ml-2 bg-blue-600 hover:bg-blue-700 text-white font-medium px-5 py-2 rounded-md transition-all duration-300 hover:shadow-lg">
+						รับใบเสนอราคา
+					</Button>
 				</div>
 
 				{/* Mobile menu */}
@@ -121,12 +125,12 @@ export function Header() {
 					<Sheet open={isOpen} onOpenChange={setIsOpen}>
 						<SheetTrigger
 							aria-label="Open Navigation Menu"
-							className="flex justify-center items-center touch-manipulation active:scale-95 transition-transform"
+							className="flex justify-center items-center touch-manipulation active:scale-95 transition-transform p-2 rounded-full hover:bg-primary/30"
 						>
-							<IconMenuDeep className="text-[32px] text-white" />
+							<IconMenuDeep className="text-[28px] text-white" />
 						</SheetTrigger>
 						<SheetContent
-							className="flex flex-col bg-primary backdrop-blur-sm overflow-y-auto w-[85vw] max-w-md sm:max-w-md"
+							className="flex flex-col bg-gradient-to-b from-primary to-primary/90 backdrop-blur-lg overflow-y-auto w-[85vw] max-w-md sm:max-w-md border-l border-white/10"
 							side="right"
 						>
 							<SheetTitle className="sr-only">Navigation Menu</SheetTitle>
@@ -141,7 +145,7 @@ export function Header() {
 										className="flex flex-col h-full"
 									>
 										{/* Logo */}
-										<div className="mt-12 mb-16 text-center">
+										<div className="mt-10 mb-12 text-center">
 											<SheetClose asChild>
 												<Link href="/">
 													<motion.div
@@ -156,8 +160,8 @@ export function Header() {
 														<Image
 															src="/images/BYD_Logo.png"
 															alt="BYD Metromobile"
-															width={200}
-															height={50}
+															width={240}
+															height={60}
 															className="h-auto w-auto mx-auto"
 														/>
 													</motion.div>
@@ -166,16 +170,17 @@ export function Header() {
 										</div>
 
 										{/* Nav Links */}
-										<nav className="flex flex-col justify-center items-center gap-6 mb-8 flex-grow">
+										<nav className="flex flex-col justify-center items-center gap-7 mb-8 flex-grow">
 											{navItems.map((item, index) => (
 												<motion.a
 													key={index}
 													href={item.href}
 													onClick={handleNavClick}
 													variants={navItemVariants}
-													className="text-white text-xl uppercase 
-                              touch-manipulation active:scale-95 
-                              transition-transform hover:text-blue-200"
+													className="text-white text-xl font-medium 
+        touch-manipulation active:scale-95 
+        transition-all duration-300 hover:text-blue-200 
+        relative after:absolute after:bottom-[-4px] after:left-0 after:h-[2px] after:w-0 after:bg-blue-300 after:transition-all after:duration-300 hover:after:w-full"
 												>
 													{item.label}
 												</motion.a>
@@ -183,9 +188,9 @@ export function Header() {
 
 											<motion.div
 												variants={navItemVariants}
-												className="w-full px-8 mt-4"
+												className="w-full px-8 mt-6"
 											>
-												<Button className="w-full px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors">
+												<Button className="w-full px-4 py-3 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors text-lg font-medium shadow-md hover:shadow-lg">
 													รับใบเสนอราคา
 												</Button>
 											</motion.div>
@@ -193,7 +198,7 @@ export function Header() {
 
 										{/* Social Icons */}
 										<motion.div
-											className="flex justify-center items-center gap-6 mb-8"
+											className="flex justify-center items-center gap-8 mb-10"
 											initial={{ opacity: 0, y: 20 }}
 											animate={{ opacity: 1, y: 0 }}
 											transition={{ duration: 0.3, delay: 0.4 }}
