@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { CarModel } from "@/data/Model";
 import { Button } from "./button";
 import Image from "next/image";
@@ -28,6 +28,101 @@ export function ModelPromoCard({ model }: ModelCardProps) {
 	const searchParams = useSearchParams();
 	const [isLoggedInWithLine, setIsLoggedInWithLine] = useState(false);
 
+	// Handle LINE login callback
+	const handleLineLoginCallback = useCallback(
+		async (code: string) => {
+			try {
+				setIsLoading(true);
+
+				// แลกเปลี่ยน code เป็น access token
+				const tokenResponse = await axios.post(
+					"https://api.line.me/oauth2/v2.1/token",
+					null,
+					{
+						params: {
+							grant_type: "authorization_code",
+							code,
+							redirect_uri: `http://localhost:3000/promotions`,
+							client_id: process.env.NEXT_PUBLIC_LINE_CHANNEL_ID,
+							client_secret: process.env.LINE_CHANNEL_SECRET,
+						},
+						headers: {
+							"Content-Type": "application/x-www-form-urlencoded",
+						},
+					}
+				);
+
+				const accessToken = tokenResponse.data.access_token;
+
+				// ดึงข้อมูลโปรไฟล์ผู้ใช้
+				const profileResponse = await axios.get(
+					"https://api.line.me/v2/profile",
+					{
+						headers: {
+							Authorization: `Bearer ${accessToken}`,
+						},
+					}
+				);
+
+				const lineProfile = profileResponse.data;
+
+				// ตรวจสอบ lineProfile และดำเนินการต่อ
+				if (!lineProfile || !lineProfile.userId) {
+					throw new Error("ข้อมูลโปรไฟล์ LINE ไม่ถูกต้อง");
+				}
+
+				// สร้าง response object และเก็บข้อมูลใน cookies
+				const response = NextResponse.json({ success: true });
+
+				// เก็บข้อมูลเพิ่มเติมตามต้องการ
+				if (lineProfile.displayName) {
+					response.cookies.set("line_display_name", lineProfile.displayName, {
+						maxAge: 60 * 60 * 24 * 30,
+						path: "/",
+						secure: process.env.NODE_ENV === "production",
+						sameSite: "strict",
+					});
+				}
+
+				if (lineProfile.pictureUrl) {
+					response.cookies.set("line_picture_url", lineProfile.pictureUrl, {
+						maxAge: 60 * 60 * 24 * 30,
+						path: "/",
+						secure: process.env.NODE_ENV === "production",
+						sameSite: "strict",
+					});
+				}
+
+				// ส่งข้อความต้อนรับด้วย API /api/send-line-message แทน /api/line/message
+				const messageData = {
+					modelName: model.name,
+					modelId: model.id,
+					price: model.price,
+					customer: { name: getCookie("line_display_name") },
+					interest: { comments: "สนใจรถรุ่นนี้ผ่านหน้าโปรโมชั่น" },
+				};
+
+				await fetch("/api/send-line-message", {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify(messageData),
+				});
+
+				// เปิดฟอร์มหลังจากล็อกอินสำเร็จ
+				setOpen(true);
+			} catch (error) {
+				console.error("LINE Login Error:", error);
+				toast.error("ไม่สามารถเข้าสู่ระบบด้วย LINE ได้ กรุณาลองใหม่อีกครั้ง");
+			} finally {
+				setIsLoading(false);
+				router.replace(window.location.pathname);
+			}
+		},
+		[model, router]
+	);
+
 	// Check for LINE login callback
 	useEffect(() => {
 		const code = searchParams.get("code");
@@ -45,99 +140,7 @@ export function ModelPromoCard({ model }: ModelCardProps) {
 				handleLineLoginCallback(code);
 			}
 		}
-	}, [searchParams, model.id]);
-
-	// Handle LINE login callback
-	const handleLineLoginCallback = async (code: string) => {
-		try {
-			setIsLoading(true);
-
-			// แลกเปลี่ยน code เป็น access token
-			const tokenResponse = await axios.post(
-				"https://api.line.me/oauth2/v2.1/token",
-				null,
-				{
-					params: {
-						grant_type: "authorization_code",
-						code,
-						redirect_uri: `http://localhost:3000/promotions`,
-						client_id: process.env.NEXT_PUBLIC_LINE_CHANNEL_ID,
-						client_secret: process.env.LINE_CHANNEL_SECRET,
-					},
-					headers: {
-						"Content-Type": "application/x-www-form-urlencoded",
-					},
-				}
-			);
-
-			const accessToken = tokenResponse.data.access_token;
-
-			// ดึงข้อมูลโปรไฟล์ผู้ใช้
-			const profileResponse = await axios.get(
-				"https://api.line.me/v2/profile",
-				{
-					headers: {
-						Authorization: `Bearer ${accessToken}`,
-					},
-				}
-			);
-
-			const lineProfile = profileResponse.data;
-
-			// ตรวจสอบ lineProfile และดำเนินการต่อ
-			if (!lineProfile || !lineProfile.userId) {
-				throw new Error("ข้อมูลโปรไฟล์ LINE ไม่ถูกต้อง");
-			}
-
-			// สร้าง response object และเก็บข้อมูลใน cookies
-			const response = NextResponse.json({ success: true });
-
-			// เก็บข้อมูลเพิ่มเติมตามต้องการ
-			if (lineProfile.displayName) {
-				response.cookies.set("line_display_name", lineProfile.displayName, {
-					maxAge: 60 * 60 * 24 * 30,
-					path: "/",
-					secure: process.env.NODE_ENV === "production",
-					sameSite: "strict",
-				});
-			}
-
-			if (lineProfile.pictureUrl) {
-				response.cookies.set("line_picture_url", lineProfile.pictureUrl, {
-					maxAge: 60 * 60 * 24 * 30,
-					path: "/",
-					secure: process.env.NODE_ENV === "production",
-					sameSite: "strict",
-				});
-			}
-
-			// ส่งข้อความต้อนรับด้วย API /api/send-line-message แทน /api/line/message
-			const messageData = {
-				modelName: model.name,
-				modelId: model.id,
-				price: model.price,
-				customer: { name: getCookie("line_display_name") },
-				interest: { comments: "สนใจรถรุ่นนี้ผ่านหน้าโปรโมชั่น" },
-			};
-
-			await fetch("/api/send-line-message", {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify(messageData),
-			});
-
-			// เปิดฟอร์มหลังจากล็อกอินสำเร็จ
-			setOpen(true);
-		} catch (error) {
-			console.error("LINE Login Error:", error);
-			toast.error("ไม่สามารถเข้าสู่ระบบด้วย LINE ได้ กรุณาลองใหม่อีกครั้ง");
-		} finally {
-			setIsLoading(false);
-			router.replace(window.location.pathname);
-		}
-	};
+	}, [searchParams, model.id, handleLineLoginCallback]);
 
 	// Handle inquiry with LINE login
 	const handleInquiryWithLine = () => {

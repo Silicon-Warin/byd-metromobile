@@ -3,8 +3,17 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { PromotionSection } from "@/components/PromotionSection";
+import { Suspense } from "react";
 
 export default function PromotionsPage() {
+	return (
+		<Suspense fallback={<div>Loading...</div>}>
+			<PromotionsContent />
+		</Suspense>
+	);
+}
+
+function PromotionsContent() {
 	return (
 		<section className="flex min-h-screen flex-col">
 			{/* Hero Section */}

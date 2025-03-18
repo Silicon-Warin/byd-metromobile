@@ -7,6 +7,13 @@ export async function POST(req: Request) {
     // Validate environment variables
     validateEnv();
     
+    const channelId = process.env.LINE_LOGIN_CHANNEL_ID;
+    const channelSecret = process.env.LINE_LOGIN_CHANNEL_SECRET;
+
+    if (!channelId || !channelSecret) {
+      return NextResponse.json({ error: "LINE Login credentials not configured" }, { status: 500 });
+    }
+    
     // Parse request body
     const body = await req.json();
     const { code, redirectUri } = body;
@@ -20,8 +27,8 @@ export async function POST(req: Request) {
     params.append('grant_type', 'authorization_code');
     params.append('code', code);
     params.append('redirect_uri', redirectUri);
-    params.append('client_id', process.env.NEXT_PUBLIC_LINE_CHANNEL_ID);
-    params.append('client_secret', process.env.LINE_CHANNEL_SECRET);
+    params.append('client_id', channelId);
+    params.append('client_secret', channelSecret);
     
     const tokenResponse = await axios.post('https://api.line.me/oauth2/v2.1/token', params, {
       headers: {
