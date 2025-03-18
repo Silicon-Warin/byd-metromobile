@@ -95,7 +95,7 @@ export async function POST(req: Request) {
 
     // Debug environment variables
     console.log('Environment Check:', {
-      hasToken: !!process.env.LINE_CHANNEL_ACCESS_TOKEN?.length,
+      hasToken: !!process.env.LINE_MSG_CHANNEL_ACCESS_TOKEN?.length,
       hasUserId: !!process.env.LINE_USER_ID?.length,
       nodeEnv: process.env.NODE_ENV
     });
@@ -116,7 +116,7 @@ export async function POST(req: Request) {
     }
 
     // Verify LINE credentials
-    if (!process.env.LINE_CHANNEL_ACCESS_TOKEN || !process.env.LINE_USER_ID) {
+    if (!process.env.LINE_MSG_CHANNEL_ACCESS_TOKEN || !process.env.LINE_USER_ID) {
       console.error('Missing LINE credentials in environment');
       return NextResponse.json({
         error: "Configuration error",
@@ -163,7 +163,7 @@ ${validatedData.interest.comments ? `💬 หมายเหตุ: ${validatedD
         url: 'https://api.line.me/v2/bot/message/push',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${process.env.LINE_CHANNEL_ACCESS_TOKEN}`,
+          'Authorization': `Bearer ${process.env.LINE_MSG_CHANNEL_ACCESS_TOKEN}`,
           'X-Line-Retry-Key': crypto.randomUUID()
         },
         data: {

@@ -32,7 +32,7 @@ export async function POST(request: Request) {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${process.env.LINE_CHANNEL_ACCESS_TOKEN}`
+        'Authorization': `Bearer ${process.env.LINE_MSG_CHANNEL_ACCESS_TOKEN}`
       },
       body: JSON.stringify(message)
     });

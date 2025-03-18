@@ -33,7 +33,7 @@ export async function POST(req: Request) {
       url: 'https://api.line.me/v2/bot/message/push',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${process.env.LINE_CHANNEL_ACCESS_TOKEN}`,
+        'Authorization': `Bearer ${process.env.LINE_MSG_CHANNEL_ACCESS_TOKEN}`,
       },
       data: {
         to: userId,
@@ -51,7 +51,7 @@ export async function POST(req: Request) {
       url: 'https://api.line.me/v2/bot/message/push',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${process.env.LINE_CHANNEL_ACCESS_TOKEN}`,
+        'Authorization': `Bearer ${process.env.LINE_MSG_CHANNEL_ACCESS_TOKEN}`,
       },
       data: {
         to: process.env.LINE_USER_ID,
