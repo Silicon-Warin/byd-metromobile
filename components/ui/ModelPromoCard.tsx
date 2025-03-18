@@ -42,9 +42,9 @@ export function ModelPromoCard({ model }: ModelCardProps) {
 						params: {
 							grant_type: "authorization_code",
 							code,
-							redirect_uri: `http://localhost:3000/promotions`,
-							client_id: process.env.NEXT_PUBLIC_LINE_CHANNEL_ID,
-							client_secret: process.env.LINE_CHANNEL_SECRET,
+							redirect_uri: `${process.env.NEXT_PUBLIC_API_URL}/promotions`,
+							client_id: process.env.LINE_LOGIN_CHANNEL_ID,
+							client_secret: process.env.LINE_LOGIN_CHANNEL_SECRET,
 						},
 						headers: {
 							"Content-Type": "application/x-www-form-urlencoded",
@@ -151,12 +151,12 @@ export function ModelPromoCard({ model }: ModelCardProps) {
 			const state = Math.random().toString(36).substring(2, 15);
 
 			// Generate LINE login URL - make sure this matches exactly what's registered in LINE Developer Console
-			const redirectUri = `http://localhost:3000/promotions`;
+			const redirectUri = `${process.env.NEXT_PUBLIC_API_URL}/promotions`;
 			const loginUrl = new URL("https://access.line.me/oauth2/v2.1/authorize");
 			loginUrl.searchParams.append("response_type", "code");
 			loginUrl.searchParams.append(
 				"client_id",
-				process.env.NEXT_PUBLIC_LINE_CHANNEL_ID || "2007075802"
+				process.env.LINE_LOGIN_CHANNEL_ID || ""
 			);
 			loginUrl.searchParams.append("redirect_uri", redirectUri);
 			loginUrl.searchParams.append("state", state);
