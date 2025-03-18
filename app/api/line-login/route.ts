@@ -13,9 +13,11 @@ export async function POST(request: Request) {
       );
     }
     
-    // เก็บข้อมูลที่ได้จาก Line Login ลงใน Cookie (server-side)
-    const cookieStore = cookies();
-    cookieStore.set('line_user_id', lineProfile.userId, { 
+    // สร้าง response object
+    const response = NextResponse.json({ success: true });
+    
+    // เก็บข้อมูลที่ได้จาก Line Login ลงใน Cookie (response cookies)
+    response.cookies.set('line_user_id', lineProfile.userId, { 
       maxAge: 60 * 60 * 24 * 30, // 30 วัน
       path: '/',
       secure: process.env.NODE_ENV === 'production',
@@ -24,7 +26,7 @@ export async function POST(request: Request) {
     
     // เก็บข้อมูลเพิ่มเติมตามต้องการ
     if (lineProfile.displayName) {
-      cookieStore.set('line_display_name', lineProfile.displayName, { 
+      response.cookies.set('line_display_name', lineProfile.displayName, { 
         maxAge: 60 * 60 * 24 * 30,
         path: '/',
         secure: process.env.NODE_ENV === 'production',
@@ -34,7 +36,7 @@ export async function POST(request: Request) {
     
     // เก็บ pictureUrl หากมี
     if (lineProfile.pictureUrl) {
-      cookieStore.set('line_picture_url', lineProfile.pictureUrl, { 
+      response.cookies.set('line_picture_url', lineProfile.pictureUrl, { 
         maxAge: 60 * 60 * 24 * 30,
         path: '/',
         secure: process.env.NODE_ENV === 'production',
@@ -42,7 +44,7 @@ export async function POST(request: Request) {
       });
     }
     
-    return NextResponse.json({ success: true });
+    return response;
   } catch (error) {
     console.error('Line login error:', error);
     return NextResponse.json(

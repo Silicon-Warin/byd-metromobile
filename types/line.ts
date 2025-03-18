@@ -20,4 +20,4 @@ export interface LineLoginResponse {
   success: boolean;
   /** ข้อความแสดงผลกรณีเกิดข้อผิดพลาด */
   error?: string;
-} 
+}

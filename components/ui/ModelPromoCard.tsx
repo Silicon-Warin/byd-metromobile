@@ -10,8 +10,11 @@ import {
 	DialogHeader,
 	DialogTitle,
 } from "@/components/ui/dialog";
-import { generateLineLoginUrl } from "@/lib/line";
+import LineLoginButton from "@/components/LineLoginButton";
 import { useRouter, useSearchParams } from "next/navigation";
+import { getCookie } from "cookies-next";
+import axios from "axios";
+import { NextResponse } from "next/server";
 
 interface ModelCardProps {
 	model: CarModel;
@@ -23,6 +26,7 @@ export function ModelPromoCard({ model }: ModelCardProps) {
 	const [lineProfile, setLineProfile] = useState<any>(null);
 	const router = useRouter();
 	const searchParams = useSearchParams();
+	const [isLoggedInWithLine, setIsLoggedInWithLine] = useState(false);
 
 	// Check for LINE login callback
 	useEffect(() => {
@@ -48,62 +52,90 @@ export function ModelPromoCard({ model }: ModelCardProps) {
 		try {
 			setIsLoading(true);
 
-			// Exchange code for token and get user profile
-			const response = await fetch("/api/line/callback", {
+			// แลกเปลี่ยน code เป็น access token
+			const tokenResponse = await axios.post(
+				"https://api.line.me/oauth2/v2.1/token",
+				null,
+				{
+					params: {
+						grant_type: "authorization_code",
+						code,
+						redirect_uri: `http://localhost:3000/promotions`,
+						client_id: process.env.NEXT_PUBLIC_LINE_CHANNEL_ID,
+						client_secret: process.env.LINE_CHANNEL_SECRET,
+					},
+					headers: {
+						"Content-Type": "application/x-www-form-urlencoded",
+					},
+				}
+			);
+
+			const accessToken = tokenResponse.data.access_token;
+
+			// ดึงข้อมูลโปรไฟล์ผู้ใช้
+			const profileResponse = await axios.get(
+				"https://api.line.me/v2/profile",
+				{
+					headers: {
+						Authorization: `Bearer ${accessToken}`,
+					},
+				}
+			);
+
+			const lineProfile = profileResponse.data;
+
+			// ตรวจสอบ lineProfile และดำเนินการต่อ
+			if (!lineProfile || !lineProfile.userId) {
+				throw new Error("ข้อมูลโปรไฟล์ LINE ไม่ถูกต้อง");
+			}
+
+			// สร้าง response object และเก็บข้อมูลใน cookies
+			const response = NextResponse.json({ success: true });
+
+			// เก็บข้อมูลเพิ่มเติมตามต้องการ
+			if (lineProfile.displayName) {
+				response.cookies.set("line_display_name", lineProfile.displayName, {
+					maxAge: 60 * 60 * 24 * 30,
+					path: "/",
+					secure: process.env.NODE_ENV === "production",
+					sameSite: "strict",
+				});
+			}
+
+			if (lineProfile.pictureUrl) {
+				response.cookies.set("line_picture_url", lineProfile.pictureUrl, {
+					maxAge: 60 * 60 * 24 * 30,
+					path: "/",
+					secure: process.env.NODE_ENV === "production",
+					sameSite: "strict",
+				});
+			}
+
+			// ส่งข้อความต้อนรับด้วย API /api/send-line-message แทน /api/line/message
+			const messageData = {
+				modelName: model.name,
+				modelId: model.id,
+				price: model.price,
+				customer: { name: getCookie("line_display_name") },
+				interest: { comments: "สนใจรถรุ่นนี้ผ่านหน้าโปรโมชั่น" },
+			};
+
+			await fetch("/api/send-line-message", {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
 				},
-				body: JSON.stringify({
-					code,
-					redirectUri: `http://localhost:3000/promotions`,
-				}),
+				body: JSON.stringify(messageData),
 			});
 
-			if (!response.ok) {
-				throw new Error("Failed to authenticate with LINE");
-			}
-
-			const data = await response.json();
-			setLineProfile(data.profile);
-
-			// Open inquiry form after successful login
+			// เปิดฟอร์มหลังจากล็อกอินสำเร็จ
 			setOpen(true);
-
-			// Send initial message to user
-			await sendLineWelcomeMessage(data.profile.userId);
 		} catch (error) {
 			console.error("LINE Login Error:", error);
 			toast.error("ไม่สามารถเข้าสู่ระบบด้วย LINE ได้ กรุณาลองใหม่อีกครั้ง");
 		} finally {
 			setIsLoading(false);
-
-			// Clean URL parameters
 			router.replace(window.location.pathname);
-		}
-	};
-
-	// Send welcome message to user via LINE
-	const sendLineWelcomeMessage = async (userId: string) => {
-		try {
-			const response = await fetch("/api/line/message", {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({
-					userId,
-					modelName: model.name,
-					modelId: model.id,
-					price: model.price,
-				}),
-			});
-
-			if (!response.ok) {
-				throw new Error("Failed to send LINE message");
-			}
-		} catch (error) {
-			console.error("LINE Message Error:", error);
 		}
 	};
 
@@ -139,6 +171,34 @@ export function ModelPromoCard({ model }: ModelCardProps) {
 		}
 	};
 
+	// ตรวจสอบการล็อกอินเมื่อโหลด component
+	useEffect(() => {
+		const lineUserId = getCookie("line_user_id");
+		if (lineUserId) {
+			setIsLoggedInWithLine(true);
+
+			// ถ้าหากมีการกลับมาหลังจากการล็อกอิน (มีการเก็บ modelId ไว้)
+			const storedModelId = localStorage.getItem("selectedModelId");
+			if (storedModelId === model.id.toString()) {
+				// ลบ selectedModelId จาก localStorage
+				localStorage.removeItem("selectedModelId");
+				// เปิดหน้าฟอร์มทันที
+				setOpen(true);
+			}
+		}
+	}, [model.id]);
+
+	// แก้ไขปุ่ม "สนใจสั่งจอง" ให้ตรวจสอบสถานะล็อกอินก่อน
+	const handleOrderButtonClick = () => {
+		if (isLoggedInWithLine) {
+			// ถ้าล็อกอินแล้ว เปิดฟอร์มได้เลย
+			setOpen(true);
+		} else {
+			// ถ้ายังไม่ได้ล็อกอิน ให้ไปล็อกอินก่อน
+			handleInquiryWithLine();
+		}
+	};
+
 	return (
 		<>
 			<div className="relative group h-full flex flex-col w-full rounded-lg overflow-hidden shadow-lg">
@@ -168,13 +228,7 @@ export function ModelPromoCard({ model }: ModelCardProps) {
 
 					{/* Bottom Section: Order Now Button */}
 					<div className="absolute bottom-0 left-0 right-0 p-4 z-10">
-						<Button
-							className="w-full transition-all duration-300 bg-white/90 hover:bg-white text-black"
-							onClick={handleInquiryWithLine}
-							disabled={isLoading}
-						>
-							{isLoading ? "กำลังดำเนินการ..." : "สนใจสั่งจอง"}
-						</Button>
+						<Button onClick={handleOrderButtonClick}>สนใจสั่งจอง</Button>
 					</div>
 				</div>
 			</div>

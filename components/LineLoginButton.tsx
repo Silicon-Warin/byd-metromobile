@@ -16,6 +16,7 @@ interface LineLoginButtonProps {
 	onLoginSuccess?: (profile: LineProfile) => void;
 	className?: string;
 	buttonText?: string;
+	children?: React.ReactNode;
 }
 
 export default function LineLoginButton({
@@ -43,7 +44,6 @@ export default function LineLoginButton({
 			try {
 				const liffID = process.env.NEXT_PUBLIC_LINE_LIFF_ID;
 				if (!liffID) throw new Error("LIFF ID not found");
-
 				await window.liff.init({ liffId: liffID });
 				setIsLineSDKLoaded(true);
 			} catch (error) {
@@ -68,9 +68,7 @@ export default function LineLoginButton({
 					pictureUrl: profile.pictureUrl,
 					statusMessage: profile.statusMessage,
 				};
-
 				await saveUserToCookie(lineProfile);
-
 				if (onLoginSuccess) {
 					onLoginSuccess(lineProfile);
 				}
@@ -103,7 +101,6 @@ export default function LineLoginButton({
 						maxAge: 60 * 60 * 24 * 30,
 					});
 				}
-
 				router.refresh();
 				return true;
 			}

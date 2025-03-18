@@ -4,7 +4,7 @@ import { NextResponse } from 'next/server';
 export async function POST(request: Request) {
   try {
     const data = await request.json();
-    const cookieStore = cookies();
+    const cookieStore = await cookies();
     const lineUserId = cookieStore.get('line_user_id')?.value;
     
     if (!lineUserId) {
@@ -89,4 +89,4 @@ function createMessageText(data: any): string {
   message += '\nเจ้าหน้าที่จะติดต่อกลับโดยเร็วที่สุด';
   
   return message;
-} 
+}
