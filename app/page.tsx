@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import HeroBannerCarousel from "@/components/HeroBannerCarousel";
 import { ModelCarSlider } from "@/components/ModelCarSlider";
-import { ServiceCarousel } from "@/components/ServiceCarousel";
+import { ServiceGrid } from "@/components/ServiceCarousel";
 import { ChevronRight, Shield, Zap, Clock, Phone } from "lucide-react";
 
 export default function Home() {
@@ -99,7 +99,7 @@ export default function Home() {
 							บริการครบวงจรเพื่อประสบการณ์การใช้รถยนต์ไฟฟ้าที่ไร้กังวล
 						</p>
 					</motion.div>
-					<ServiceCarousel />
+					<ServiceGrid />
 				</div>
 			</section>
 

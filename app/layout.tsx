@@ -3,6 +3,7 @@ import { Inter, Prompt, IBM_Plex_Sans_Thai } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 
 const inter = Inter({
@@ -46,6 +47,7 @@ export default function RootLayout({
 			className={`${inter.variable} ${prompt.variable} ${ibmPlexThai.variable}`}
 		>
 			<body>
+				<SpeedInsights />
 				<Header />
 				{children}
 				<Footer />

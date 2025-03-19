@@ -165,51 +165,6 @@ export default function ServicePage() {
 						</p>
 					</motion.div>
 
-					<div className="bg-gray-800/50 backdrop-blur-sm p-8 rounded-xl border border-gray-700 mb-12">
-						<div className="aspect-w-16 aspect-h-9 mb-8">
-							<div className="w-full h-64 md:h-96 bg-gray-700 rounded-lg">
-								{/* แทรกแผนที่หรือรูปภาพแสดงตำแหน่งศูนย์บริการ */}
-								<div className="w-full h-full flex items-center justify-center">
-									<p className="text-white">แผนที่ศูนย์บริการ</p>
-								</div>
-							</div>
-						</div>
-
-						<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-							<div className="bg-gray-700/50 p-6 rounded-lg">
-								<h3 className="text-lg font-bold mb-2">
-									BYD Metromobile สาขารัชดา
-								</h3>
-								<p className="text-gray-400 mb-4">
-									เลขที่ 123 ถนนรัชดาภิเษก แขวงดินแดง เขตดินแดง กรุงเทพฯ 10400
-								</p>
-								<p className="text-white mb-1">โทร: 02-123-4567</p>
-								<p className="text-white">เวลาทำการ: 8:30 - 17:30 น. ทุกวัน</p>
-							</div>
-							<div className="bg-gray-700/50 p-6 rounded-lg">
-								<h3 className="text-lg font-bold mb-2">
-									BYD Metromobile สาขาบางนา
-								</h3>
-								<p className="text-gray-400 mb-4">
-									เลขที่ 456 ถนนบางนา-ตราด แขวงบางนา เขตบางนา กรุงเทพฯ 10260
-								</p>
-								<p className="text-white mb-1">โทร: 02-234-5678</p>
-								<p className="text-white">เวลาทำการ: 8:30 - 17:30 น. ทุกวัน</p>
-							</div>
-							<div className="bg-gray-700/50 p-6 rounded-lg">
-								<h3 className="text-lg font-bold mb-2">
-									BYD Metromobile สาขาเชียงใหม่
-								</h3>
-								<p className="text-gray-400 mb-4">
-									เลขที่ 789 ถนนเชียงใหม่-ลำปาง ตำบลหนองป่าครั่ง อำเภอเมือง
-									จังหวัดเชียงใหม่ 50000
-								</p>
-								<p className="text-white mb-1">โทร: 053-123-456</p>
-								<p className="text-white">เวลาทำการ: 8:30 - 17:30 น. ทุกวัน</p>
-							</div>
-						</div>
-					</div>
-
 					<motion.div
 						initial="hidden"
 						whileInView="visible"
