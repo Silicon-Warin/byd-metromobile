@@ -1,4 +1,4 @@
-// app/promotions/layout.tsx (Server Component - ไม่มี "use client")
+// app/promotions/layout.tsx
 import { Metadata } from "next";
 import PromotionPage from "./page";
 

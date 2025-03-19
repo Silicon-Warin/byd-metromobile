@@ -23,24 +23,6 @@ export function ModelCarSlider() {
 				<h2 className="text-2xl font-bold">
 					Models. <span className="text-gray-400">Build your dreams.</span>
 				</h2>
-				<div className="flex gap-2">
-					<Button
-						variant="outline"
-						size="icon"
-						className="swiper-button-prev rounded-full border-gray-700 text-white hover:bg-gray-800"
-						onClick={() => swiper?.slidePrev()}
-					>
-						<ChevronLeft className="h-5 w-5" />
-					</Button>
-					<Button
-						variant="outline"
-						size="icon"
-						className="swiper-button-next rounded-full border-gray-700 text-white hover:bg-gray-800"
-						onClick={() => swiper?.slideNext()}
-					>
-						<ChevronRight className="h-5 w-5" />
-					</Button>
-				</div>
 			</div>
 
 			<div className="swiper-container overflow-visible">
