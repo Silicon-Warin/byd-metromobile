@@ -27,16 +27,6 @@ export function SocialIcons() {
 			</Link>
 
 			<Link
-				href="https://line.me/R/ti/p/@429xjvpr"
-				className="text-white hover:text-green-400 transition-colors"
-				aria-label="Line"
-				target="_blank"
-				rel="noopener noreferrer"
-			>
-				<LineIcon />
-			</Link>
-
-			<Link
 				href="https://www.tiktok.com/@byd_metromobile"
 				className="text-white hover:text-red-400 transition-colors"
 				aria-label="TikTok"

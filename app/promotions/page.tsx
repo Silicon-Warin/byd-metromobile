@@ -175,9 +175,6 @@ function PromotionsContent() {
 				animate={{ opacity: 1 }}
 				transition={{ duration: 0.5 }}
 			>
-				{/* Background pattern */}
-				<div className="absolute inset-0 bg-[url('/placeholder.svg?height=800&width=1600')] opacity-10 bg-cover bg-center"></div>
-
 				{/* Overlay gradient */}
 				<div className="absolute inset-0 bg-gradient-to-r from-black via-black/80 to-black"></div>
 
@@ -469,9 +466,6 @@ function PromotionsContent() {
 				transition={{ duration: 0.5 }}
 				viewport={{ once: true }}
 			>
-				{/* Background pattern */}
-				<div className="absolute inset-0 bg-[url('/placeholder.svg?height=800&width=1600')] opacity-5 bg-cover bg-center"></div>
-
 				{/* Overlay gradient */}
 				<div className="absolute inset-0 bg-gradient-to-r from-black via-black/90 to-black"></div>
 
@@ -547,10 +541,10 @@ function PromotionsContent() {
 							</Button>
 
 							<p className="text-xs text-gray-500 mt-4">
-								ข้อมูลของคุณจะถูกเก็บเป็นความลับตาม{" "}
+								ข้อมูลของคุณจะถูกเก็บเป็นความลับตาม
 								<a href="#" className="text-primary hover:underline">
 									นโยบายความเป็นส่วนตัว
-								</a>{" "}
+								</a>
 								ของเรา
 							</p>
 						</div>

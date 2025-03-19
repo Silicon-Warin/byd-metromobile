@@ -71,9 +71,6 @@ export default function ServicePage() {
 		<main className="min-h-screen bg-black text-white pt-24">
 			{/* Hero Section */}
 			<section className="relative h-[40vh] md:h-[50vh] bg-gradient-to-b from-gray-900 to-black overflow-hidden">
-				{/* Background pattern */}
-				<div className="absolute inset-0 bg-[url('/placeholder.svg?height=800&width=1600')] opacity-10 bg-cover bg-center"></div>
-
 				{/* Overlay gradient */}
 				<div className="absolute inset-0 bg-gradient-to-r from-black via-black/80 to-black"></div>
 

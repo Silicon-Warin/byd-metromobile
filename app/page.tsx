@@ -181,7 +181,6 @@ export default function Home() {
 
 			{/* Contact Section */}
 			<section className="py-16 md:py-24 bg-black relative overflow-hidden">
-				<div className="absolute inset-0 bg-[url('/placeholder.svg?height=800&width=1600')] opacity-10 bg-cover bg-center"></div>
 				<div className="absolute inset-0 bg-gradient-to-r from-black via-black/90 to-black"></div>
 
 				<div className="container mx-auto px-4 md:px-8 relative z-10">

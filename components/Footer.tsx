@@ -42,14 +42,6 @@ export function Footer() {
 								</Link>
 
 								<Link
-									href="https://line.me/R/ti/p/@429xjvpr"
-									className="text-gray-300 hover:text-green-400 transition-colors duration-300"
-									aria-label="Line"
-								>
-									<LineIcon />
-								</Link>
-
-								<Link
 									href="https://www.tiktok.com/@byd_metromobile"
 									className="text-gray-300 hover:text-red-400 transition-colors duration-300"
 									aria-label="TikTok"
