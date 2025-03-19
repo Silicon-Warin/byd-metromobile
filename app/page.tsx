@@ -59,7 +59,7 @@ export default function Home() {
 			</section>
 
 			{/* Featured Models Section */}
-			<section className="py-16 md:py-24 bg-gradient-to-b from-black to-gray-900">
+			<section className="py-16 md:py-24 overflow-hidden bg-gradient-to-b from-black to-gray-900">
 				<div className="container mx-auto px-4 md:px-8">
 					<motion.div
 						initial="hidden"
@@ -83,12 +83,12 @@ export default function Home() {
 			</section>
 
 			{/* Services Section */}
-			<section className="py-16 md:py-24 bg-gray-900">
+			<section className="py-16 md:py-24 bg-gray-900 lg:px-12">
 				<div className="container mx-auto px-4 md:px-8">
 					<motion.div
 						initial="hidden"
 						whileInView="visible"
-						viewport={{ once: true, margin: "-100px" }}
+						viewport={{ once: true, margin: "-10px" }}
 						variants={fadeIn}
 						className="mb-12"
 					>
