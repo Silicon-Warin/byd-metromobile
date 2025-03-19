@@ -20,7 +20,7 @@ export function PromotionSection() {
 					<Swiper
 						className="pb-12 w-full"
 						modules={[A11y]}
-						spaceBetween={40}
+						spaceBetween={20}
 						slidesPerView={1.2}
 						centeredSlides={false}
 						grabCursor={true}
