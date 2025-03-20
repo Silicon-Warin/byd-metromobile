@@ -5,6 +5,9 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Phone, Mail, MapPin, Clock, Send } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
+import { branches, socialMedia, contactInfo } from "@/data/ContactData";
+import LineIcon from "@/components/ui/LineIcon";
+import { BrandFacebook, BrandInstagram, BrandTiktok } from "tabler-icons-react";
 
 export default function ContactPage() {
 	// Animation variants
@@ -25,6 +28,14 @@ export default function ContactPage() {
 				staggerChildren: 0.2,
 			},
 		},
+	};
+
+	// สร้าง Map ของ Icon components
+	const iconComponents = {
+		LineIcon: <LineIcon />,
+		BrandFacebook: <BrandFacebook size={32} />,
+		BrandInstagram: <BrandInstagram size={32} />,
+		BrandTiktok: <BrandTiktok size={32} />,
 	};
 
 	return (
@@ -54,7 +65,7 @@ export default function ContactPage() {
 							animate={{ opacity: 1, y: 0 }}
 							transition={{ duration: 0.6, delay: 0.4 }}
 						>
-							เราพร้อมให้บริการและตอบคำถามทุกข้อสงสัยของคุณ
+							{contactInfo.description}
 						</motion.p>
 					</div>
 				</div>
@@ -92,7 +103,13 @@ export default function ContactPage() {
 										<Phone className="h-6 w-6 text-primary" />
 									</div>
 									<h3 className="text-xl font-bold mb-2">โทรศัพท์</h3>
-									<p className="text-gray-400">02-123-4567, 089-765-4321</p>
+									<div className="text-gray-400">
+										{branches.map((branch) => (
+											<p key={branch.phone} className="mb-1">
+												{branch.name}: {branch.phone}
+											</p>
+										))}
+									</div>
 								</CardContent>
 							</Card>
 						</motion.div>
@@ -104,9 +121,7 @@ export default function ContactPage() {
 										<Mail className="h-6 w-6 text-primary" />
 									</div>
 									<h3 className="text-xl font-bold mb-2">อีเมล</h3>
-									<p className="text-gray-400">
-										info@bydmetromobile.com, sales@bydmetromobile.com
-									</p>
+									<p className="text-gray-400">{contactInfo.email}</p>
 								</CardContent>
 							</Card>
 						</motion.div>
@@ -117,10 +132,24 @@ export default function ContactPage() {
 									<div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
 										<MapPin className="h-6 w-6 text-primary" />
 									</div>
-									<h3 className="text-xl font-bold mb-2">ที่อยู่</h3>
-									<p className="text-gray-400">
-										เลขที่ 123 ถนนรัชดาภิเษก แขวงดินแดง เขตดินแดง กรุงเทพฯ 10400
-									</p>
+									<h3 className="text-xl font-bold mb-2">โซเชียลมีเดีย</h3>
+									<div className="flex gap-4">
+										{socialMedia.map((social) => (
+											<a
+												key={social.platform}
+												href={social.url}
+												target="_blank"
+												rel="noopener noreferrer"
+												className="text-gray-400 hover:text-primary transition-colors"
+											>
+												{
+													iconComponents[
+														social.icon as keyof typeof iconComponents
+													]
+												}
+											</a>
+										))}
+									</div>
 								</CardContent>
 							</Card>
 						</motion.div>
@@ -132,11 +161,10 @@ export default function ContactPage() {
 										<Clock className="h-6 w-6 text-primary" />
 									</div>
 									<h3 className="text-xl font-bold mb-2">เวลาทำการ</h3>
-									<p className="text-gray-400">
-										วันจันทร์ - วันเสาร์: 8:30 - 17:30 น.
-										<br />
-										วันอาทิตย์: 9:00 - 16:00 น.
-									</p>
+									<div className="text-gray-400">
+										<p>{contactInfo.businessHours.weekday}</p>
+										<p>{contactInfo.businessHours.sunday}</p>
+									</div>
 								</CardContent>
 							</Card>
 						</motion.div>
@@ -144,7 +172,7 @@ export default function ContactPage() {
 				</div>
 			</section>
 
-			{/* Contact Form */}
+			{/* Contact Form and Map Section */}
 			<section className="py-16 md:py-24 bg-gray-900">
 				<div className="container mx-auto px-4">
 					<div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12">
@@ -242,10 +270,13 @@ export default function ContactPage() {
 							className="relative h-[400px] lg:h-full min-h-[400px] rounded-xl overflow-hidden"
 						>
 							<div className="absolute inset-0">
-								{/* แทรกแผนที่หรือรูปภาพสำนักงาน */}
-								<div className="w-full h-full bg-gray-700 flex items-center justify-center">
-									<p className="text-white">แผนที่สำนักงาน</p>
-								</div>
+								<iframe
+									src={branches[0].mapUrl}
+									className="w-full h-full border-0"
+									allowFullScreen
+									loading="lazy"
+									referrerPolicy="no-referrer-when-downgrade"
+								/>
 							</div>
 						</motion.div>
 					</div>

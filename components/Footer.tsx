@@ -26,6 +26,14 @@ export function Footer() {
 							</h4>
 							<div className="flex gap-5">
 								<Link
+									href="https://line.me/R/ti/p/%40bydmetromobile"
+									className="text-gray-300 hover:text-green-400 transition-colors duration-300"
+									aria-label="Line"
+								>
+									<LineIcon />
+								</Link>
+
+								<Link
 									href="https://www.facebook.com/BYDBANGKOK"
 									className="text-gray-300 hover:text-blue-400 transition-colors duration-300"
 									aria-label="Facebook"
