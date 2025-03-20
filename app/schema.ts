@@ -6,8 +6,8 @@ export const dealershipSchema = {
 		"ศูนย์รถยนต์ไฟฟ้า BYD อย่างเป็นทางการ ครอบคลุมทั้งการขาย บริการ และศูนย์บริการหลังการขาย",
 	url: "https://bydmetromobile.com",
 	sameAs: [
-		"https://facebook.com/bydmetromobile",
-		"https://instagram.com/bydmetromobile",
+		"https://facebook.com/bydbangkok",
+		"https://instagram.com/bydbangkok",
 	],
 	telephone: "+66-2-291-8889",
 	priceRange: "฿569,900 - ฿1,249,900",
@@ -16,7 +16,7 @@ export const dealershipSchema = {
 			"@type": "AutoDealer",
 			name: "BYD Metromobile สาขาพระราม 3",
 			description: "ศูนย์รถยนต์ไฟฟ้า BYD สาขาพระราม 3",
-			url: "https://bydmetromobile.com/rama3",
+			url: "https://bydmetromobile.com/",
 			address: {
 				"@type": "PostalAddress",
 				streetAddress: "พระราม 3",
@@ -51,7 +51,7 @@ export const dealershipSchema = {
 			"@type": "AutoDealer",
 			name: "BYD Metromobile สาขาตลิ่งชัน",
 			description: "ศูนย์รถยนต์ไฟฟ้า BYD สาขาตลิ่งชัน",
-			url: "https://bydmetromobile.com/talingchan",
+			url: "https://bydmetromobile.com/",
 			address: {
 				"@type": "PostalAddress",
 				streetAddress: "ตลิ่งชัน",
