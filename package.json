@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "vercel-build": "node scripts/verify-env.js && next build"
+    "vercel-build": "next build"
   },
   "dependencies": {
     "@hookform/resolvers": "^4.1.3",

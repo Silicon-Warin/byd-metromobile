@@ -158,7 +158,7 @@ export function Header() {
 														}}
 													>
 														<Image
-															src="/images/BYD_Logo.png"
+															src="/images/metromobile-logo.png"
 															alt="BYD Metromobile"
 															width={240}
 															height={60}
