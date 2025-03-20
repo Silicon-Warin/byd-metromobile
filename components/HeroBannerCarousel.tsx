@@ -90,12 +90,12 @@ const HeroBannerCarousel = () => {
 							src={slides[currentSlide].image}
 							alt="bydmetromobile banner"
 							fill
-							priority
-							quality={90}
+							priority={currentSlide === 0}
+							quality={85}
 							className={`${
 								isMobile ? "object-contain scale-[1.2]" : "object-cover"
 							}`}
-							sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 100vw"
+							sizes="100vw"
 						/>
 						<div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent flex flex-col justify-center items-center text-white text-center px-4 mobile-content-fix">
 							<div className="flex flex-col sm:flex-row gap-4">

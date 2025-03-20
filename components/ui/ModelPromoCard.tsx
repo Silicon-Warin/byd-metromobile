@@ -18,7 +18,8 @@ export function ModelPromoCard({ model }: ModelCardProps) {
 						height={model.imageHeight}
 						className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
 						sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-						priority
+						loading="lazy"
+						quality={75}
 					/>
 
 					{/* Gradient Overlay */}
