@@ -2,7 +2,10 @@
     "headers": [
       {
         "source": "/sitemap.xml",
-        "headers": [{ "key": "X-Robots-Tag", "value": "index, follow" }]
+        "headers": [
+          { "key": "X-Robots-Tag", "value": "index, follow" },
+          { "key": "Content-Type", "value": "application/xml" }
+        ]
       }
     ]
   }
