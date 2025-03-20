@@ -3,7 +3,7 @@ export const navItems = [
 	{ label: "รุ่นรถ", href: "/models" },
 	{ label: "โปรโมชั่น", href: "/promotions" },
 	{ label: "SERVICE", href: "/service" },
-	{ label: "ข่าวสารและกิจกรรม", href: "/news" },
+	{ label: "ข่าวสารและกิจกรรม", href: "/blog" },
 	{ label: "เกี่ยวกับเรา", href: "/about-metromobile" },
 	{ label: "ติดต่อเรา", href: "/contact" },
 ];

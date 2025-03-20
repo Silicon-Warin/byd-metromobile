@@ -28,7 +28,7 @@ export default function NewsPage() {
 	};
 
 	// ข้อมูลจำลองสำหรับข่าวสารและกิจกรรม
-	const newsItems = [
+	const blogItems = [
 		{
 			id: 1,
 			title: "BYD เปิดตัวรถยนต์ไฟฟ้ารุ่นใหม่ในประเทศไทย",
@@ -137,7 +137,7 @@ export default function NewsPage() {
 						whileInView="visible"
 						viewport={{ once: true }}
 					>
-						{newsItems.map((item) => (
+						{blogItems.map((item) => (
 							<motion.div
 								key={item.id}
 								variants={fadeIn}
@@ -170,7 +170,7 @@ export default function NewsPage() {
 											<User className="h-4 w-4 mr-1" />
 											{item.author}
 										</div>
-										<Link href={`/news/${item.id}`}>
+										<Link href={`/blog/${item.id}`}>
 											<Button
 												variant="outline"
 												className="w-full border-gray-600 hover:bg-primary hover:text-white hover:border-primary text-white"
