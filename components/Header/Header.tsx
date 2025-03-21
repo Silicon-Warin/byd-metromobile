@@ -16,7 +16,7 @@ import {
 } from "@/components/ui/sheet";
 import { Menu, ChevronDown } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { navItems } from "./navigation";
+import { navItems } from "@/data/navigation";
 import { navCarModels } from "@/data/navCarModels";
 // Animation variants
 const mobileNavVariants = {
