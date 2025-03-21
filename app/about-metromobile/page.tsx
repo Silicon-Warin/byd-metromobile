@@ -13,7 +13,6 @@ import {
 	AccordionItem,
 	AccordionTrigger,
 } from "@/components/ui/accordion";
-import BYDPhoneCard from "@/components/About/BYDPhoneCard";
 
 const fadeInUp = {
 	initial: { opacity: 0, y: 30 },
@@ -499,37 +498,6 @@ export default function AboutPage() {
 							</div>
 						</motion.div>
 					</div>
-					{/* Contact Cards */}
-					<motion.div
-						variants={fadeInUp}
-						className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16"
-					>
-						<Card className="bg-card/50 backdrop-blur-sm border border-border/50">
-							<CardContent className="p-6 flex flex-col items-center text-center">
-								<div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
-									<MapPin className="h-6 w-6 text-primary" />
-								</div>
-								<h3 className="text-xl font-bold mb-2">ที่อยู่</h3>
-								<p className="text-muted-foreground">
-									123 ถนนพระราม 9, เขตห้วยขวาง, กรุงเทพมหานคร 10310
-								</p>
-							</CardContent>
-						</Card>
-
-						<BYDPhoneCard />
-
-						<Card className="bg-card/50 backdrop-blur-sm border border-border/50">
-							<CardContent className="p-6 flex flex-col items-center text-center">
-								<div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
-									<Mail className="h-6 w-6 text-primary" />
-								</div>
-								<h3 className="text-xl font-bold mb-2">Email</h3>
-								<p className="text-muted-foreground">
-									bydmetromobile@gmail.com
-								</p>
-							</CardContent>
-						</Card>
-					</motion.div>
 
 					{/* FAQ Section */}
 					<motion.div variants={fadeInUp} className="max-w-3xl mx-auto">

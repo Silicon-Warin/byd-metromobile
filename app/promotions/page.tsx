@@ -182,16 +182,6 @@ function PromotionsContent() {
 				{/* Content */}
 				<div className="container mx-auto px-4 h-full flex items-center justify-center text-white relative z-10">
 					<div className="text-center max-w-4xl">
-						<motion.div
-							initial={{ opacity: 0, y: 30 }}
-							animate={{ opacity: 1, y: 0 }}
-							transition={{ duration: 0.6, delay: 0.2 }}
-						>
-							<span className="inline-block bg-primary/20 text-primary px-4 py-1 rounded-full text-sm font-medium mb-4">
-								ข้อเสนอพิเศษ - จำกัดเวลา
-							</span>
-						</motion.div>
-
 						<motion.h1
 							className="text-4xl md:text-6xl font-bold mb-6"
 							initial={{ opacity: 0, y: 30 }}
@@ -347,124 +337,6 @@ function PromotionsContent() {
 				</div>
 			</motion.section>
 
-			{/* Testimonials Section */}
-			<motion.section
-				className="py-16 md:py-24 bg-gradient-to-b from-gray-900 to-black"
-				initial={{ opacity: 0 }}
-				whileInView={{ opacity: 1 }}
-				transition={{ duration: 0.5 }}
-				viewport={{ once: true }}
-			>
-				<div className="container mx-auto px-4">
-					<motion.div
-						initial="hidden"
-						whileInView="visible"
-						viewport={{ once: true }}
-						variants={fadeIn}
-						className="text-center mb-12"
-					>
-						<h2 className="text-3xl md:text-4xl font-bold mb-4">
-							ลูกค้าของเราพูดถึงเรา
-						</h2>
-						<p className="text-gray-400 max-w-2xl mx-auto">
-							ความประทับใจจากลูกค้าที่ได้เป็นเจ้าของรถยนต์ไฟฟ้า BYD
-						</p>
-					</motion.div>
-
-					<motion.div
-						className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
-						variants={staggerContainer}
-						initial="hidden"
-						whileInView="visible"
-						viewport={{ once: true }}
-					>
-						<TestimonialCard
-							name="คุณสมชาย วงศ์สุข"
-							role="เจ้าของ BYD ATTO 3"
-							quote="ประทับใจมากกับสมรรถนะและระยะทางที่วิ่งได้ต่อการชาร์จ ระบบความปลอดภัยครบครัน คุ้มค่ากับราคาที่จ่ายไป"
-							rating={5}
-						/>
-						<TestimonialCard
-							name="คุณนภา จันทร์เพ็ญ"
-							role="เจ้าของ BYD DOLPHIN"
-							quote="ดีไซน์สวย ขับง่าย เหมาะกับการใช้งานในเมือง ประหยัดมาก ไม่ต้องกังวลเรื่องน้ำมันอีกต่อไป"
-							rating={4}
-						/>
-						<TestimonialCard
-							name="คุณวิชัย รักษ์ดี"
-							role="เจ้าของ BYD SEAL"
-							quote="สมรรถนะเทียบเท่ารถสปอร์ต แต่เป็นมิตรกับสิ่งแวดล้อม การตอบสนองดีเยี่ยม ระบบอัจฉริยะใช้งานง่าย"
-							rating={5}
-						/>
-					</motion.div>
-				</div>
-			</motion.section>
-
-			{/* FAQ Section */}
-			<motion.section
-				className="py-16 md:py-24 bg-black"
-				initial={{ opacity: 0 }}
-				whileInView={{ opacity: 1 }}
-				transition={{ duration: 0.5 }}
-				viewport={{ once: true }}
-			>
-				<div className="container mx-auto px-4">
-					<motion.div
-						initial="hidden"
-						whileInView="visible"
-						viewport={{ once: true }}
-						variants={fadeIn}
-						className="text-center mb-12"
-					>
-						<h2 className="text-3xl md:text-4xl font-bold mb-4">
-							คำถามที่พบบ่อย
-						</h2>
-						<p className="text-gray-400 max-w-2xl mx-auto">
-							ข้อสงสัยเกี่ยวกับโปรโมชั่นและรถยนต์ไฟฟ้า BYD
-						</p>
-					</motion.div>
-
-					<div className="max-w-3xl mx-auto">
-						{[
-							{
-								question: "โปรโมชั่นนี้มีระยะเวลาถึงเมื่อไหร่?",
-								answer:
-									"โปรโมชั่นนี้มีระยะเวลาถึงสิ้นเดือนนี้เท่านั้น หรือจนกว่าสินค้าจะหมด ขึ้นอยู่กับเงื่อนไขใดถึงก่อน",
-							},
-							{
-								question: "การรับประกันแบตเตอรี่ครอบคลุมอะไรบ้าง?",
-								answer:
-									"การรับประกันแบตเตอรี่ครอบคลุมความบกพร่องจากการผลิตและการเสื่อมสภาพที่เกินกว่าปกติ โดยรับประกันว่าความจุแบตเตอรี่จะไม่ต่ำกว่า 70% ภายในระยะเวลารับประกัน",
-							},
-							{
-								question: "มีบริการช่วยเหลือฉุกเฉินอะไรบ้าง?",
-								answer:
-									"บริการช่วยเหลือฉุกเฉินครอบคลุมการลากรถ การชาร์จแบตเตอรี่ฉุกเฉิน การช่วยเหลือในกรณีรถเสียกะทันหัน และบริการให้คำปรึกษาทางโทรศัพท์ตลอด 24 ชั่วโมง",
-							},
-							{
-								question: "สามารถนำรถเก่ามาแลกซื้อได้หรือไม่?",
-								answer:
-									"ได้ เรามีบริการประเมินราคารถเก่าทุกรุ่นทุกยี่ห้อ เพื่อนำมาเป็นส่วนลดในการซื้อรถยนต์ไฟฟ้า BYD รุ่นใหม่",
-							},
-						].map((faq, index) => (
-							<motion.div
-								key={index}
-								variants={fadeIn}
-								initial="hidden"
-								whileInView="visible"
-								viewport={{ once: true }}
-								className="mb-6"
-							>
-								<h3 className="text-xl font-bold mb-2 text-white">
-									{faq.question}
-								</h3>
-								<p className="text-gray-400">{faq.answer}</p>
-							</motion.div>
-						))}
-					</div>
-				</div>
-			</motion.section>
-
 			{/* Contact/CTA Section */}
 			<motion.section
 				className="py-16 md:py-24 bg-gradient-to-b from-black to-gray-900 relative overflow-hidden"
@@ -483,9 +355,6 @@ function PromotionsContent() {
 						viewport={{ once: true }}
 						variants={fadeIn}
 					>
-						<span className="inline-block bg-primary/20 text-primary px-4 py-1 rounded-full text-sm font-medium mb-4">
-							ข้อเสนอจำกัดเวลา
-						</span>
 						<h2 className="text-3xl md:text-4xl font-bold mb-4 md:mb-6">
 							อย่าพลาดโอกาสรับข้อเสนอพิเศษ
 						</h2>
@@ -560,14 +429,79 @@ function PromotionsContent() {
 							<div className="flex items-center gap-2">
 								<Clock className="h-5 w-5 text-primary" />
 								<span className="text-gray-400">
-									เปิดให้บริการทุกวัน 8:30 - 19:00 น.
+									วันจันทร์-อาทิตย์ 08.30-17.30 น.
 								</span>
 							</div>
 							<div className="flex items-center gap-2">
 								<Phone className="h-5 w-5 text-primary" />
-								<span className="text-gray-400">โทร: 02-123-4567</span>
+								<span className="text-gray-400">02-291-8889</span>
 							</div>
 						</div>
+
+						{/* FAQ Section */}
+						<motion.section
+							className="py-16 md:py-24 bg-black"
+							initial={{ opacity: 0 }}
+							whileInView={{ opacity: 1 }}
+							transition={{ duration: 0.5 }}
+							viewport={{ once: true }}
+						>
+							<div className="container mx-auto px-4">
+								<motion.div
+									initial="hidden"
+									whileInView="visible"
+									viewport={{ once: true }}
+									variants={fadeIn}
+									className="text-center mb-12"
+								>
+									<h2 className="text-3xl md:text-4xl font-bold mb-4">
+										คำถามที่พบบ่อย
+									</h2>
+									<p className="text-gray-400 max-w-2xl mx-auto">
+										ข้อสงสัยเกี่ยวกับโปรโมชั่นและรถยนต์ไฟฟ้า BYD
+									</p>
+								</motion.div>
+
+								<div className="max-w-3xl mx-auto">
+									{[
+										{
+											question: "โปรโมชั่นนี้มีระยะเวลาถึงเมื่อไหร่?",
+											answer:
+												"โปรโมชั่นนี้มีระยะเวลาถึงสิ้นเดือนนี้เท่านั้น หรือจนกว่าสินค้าจะหมด ขึ้นอยู่กับเงื่อนไขใดถึงก่อน",
+										},
+										{
+											question: "การรับประกันแบตเตอรี่ครอบคลุมอะไรบ้าง?",
+											answer:
+												"การรับประกันแบตเตอรี่ครอบคลุมความบกพร่องจากการผลิตและการเสื่อมสภาพที่เกินกว่าปกติ โดยรับประกันว่าความจุแบตเตอรี่จะไม่ต่ำกว่า 70% ภายในระยะเวลารับประกัน",
+										},
+										{
+											question: "มีบริการช่วยเหลือฉุกเฉินอะไรบ้าง?",
+											answer:
+												"บริการช่วยเหลือฉุกเฉินครอบคลุมการลากรถ การชาร์จแบตเตอรี่ฉุกเฉิน การช่วยเหลือในกรณีรถเสียกะทันหัน และบริการให้คำปรึกษาทางโทรศัพท์ตลอด 24 ชั่วโมง",
+										},
+										{
+											question: "สามารถนำรถเก่ามาแลกซื้อได้หรือไม่?",
+											answer:
+												"ได้ เรามีบริการประเมินราคารถเก่าทุกรุ่นทุกยี่ห้อ เพื่อนำมาเป็นส่วนลดในการซื้อรถยนต์ไฟฟ้า BYD รุ่นใหม่",
+										},
+									].map((faq, index) => (
+										<motion.div
+											key={index}
+											variants={fadeIn}
+											initial="hidden"
+											whileInView="visible"
+											viewport={{ once: true }}
+											className="mb-6"
+										>
+											<h3 className="text-xl font-bold mb-2 text-white">
+												{faq.question}
+											</h3>
+											<p className="text-gray-400">{faq.answer}</p>
+										</motion.div>
+									))}
+								</div>
+							</div>
+						</motion.section>
 					</motion.div>
 				</div>
 			</motion.section>
