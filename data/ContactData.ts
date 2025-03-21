@@ -33,35 +33,28 @@ export const branches: Branch[] = [
   },
 ];
 
-export const socialMedia: SocialMedia[] = [
+export const socialMedia = [
   {
-    platform: "Line",
-    url: "https://line.me/R/ti/p/%40bydmetromobile",
-    icon: "LineIcon",
+    platform: 'line' as const,
+    url: 'https://line.me/R/ti/p/%40bydmetromobile',
   },
   {
-    platform: "Facebook",
-    url: "https://www.facebook.com/BYDBANGKOK",
-    icon: "BrandFacebook",
+    platform: 'facebook' as const,
+    url: 'https://www.facebook.com/BYDBANGKOK',
   },
   {
-    platform: "Instagram",
-    url: "https://www.instagram.com/byd.metromobile",
-    icon: "BrandInstagram",
+    platform: 'instagram' as const,
+    url: 'https://www.instagram.com/byd.metromobile',
   },
   {
-    platform: "TikTok",
-    url: "https://www.tiktok.com/@byd_metromobile",
-    icon: "BrandTiktok",
+    platform: 'tiktok' as const,
+    url: 'https://www.tiktok.com/@byd_metromobile',
   },
 ];
 
 export const contactInfo = {
   email: "bydmetromobile@gmail.com",
-  businessHours: {
-    weekday: "วันจันทร์ - วันเสาร์: 8:30 - 17:30 น.",
-    sunday: "วันอาทิตย์: 9:00 - 16:00 น.",
-  },
+  businessHours: "วันจันทร์ - อาทิตย์ : 8:30 - 17:30 น.",
   companyName: "BYD Metromobile",
   description: "ตัวแทนจำหน่ายรถยนต์ไฟฟ้า BYD อย่างเป็นทางการ",
-}; 
+};

@@ -5,9 +5,8 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Phone, Mail, MapPin, Clock, Send } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
-import { branches, socialMedia, contactInfo } from "@/data/contactdata";
-import LineIcon from "@/components/ui/LineIcon";
-import { BrandFacebook, BrandInstagram, BrandTiktok } from "tabler-icons-react";
+import { branches, socialMedia, contactInfo } from "@/data/contactData";
+import { SocialIcon } from "@/components/ui/SocialIcon";
 
 export default function ContactPage() {
 	// Animation variants
@@ -28,14 +27,6 @@ export default function ContactPage() {
 				staggerChildren: 0.2,
 			},
 		},
-	};
-
-	// สร้าง Map ของ Icon components
-	const iconComponents = {
-		LineIcon: <LineIcon />,
-		BrandFacebook: <BrandFacebook size={32} />,
-		BrandInstagram: <BrandInstagram size={32} />,
-		BrandTiktok: <BrandTiktok size={32} />,
 	};
 
 	return (
@@ -135,19 +126,12 @@ export default function ContactPage() {
 									<h3 className="text-xl font-bold mb-2">โซเชียลมีเดีย</h3>
 									<div className="flex gap-4">
 										{socialMedia.map((social) => (
-											<a
+											<SocialIcon
 												key={social.platform}
+												platform={social.platform}
 												href={social.url}
-												target="_blank"
-												rel="noopener noreferrer"
-												className="text-gray-400 hover:text-primary transition-colors"
-											>
-												{
-													iconComponents[
-														social.icon as keyof typeof iconComponents
-													]
-												}
-											</a>
+												size={36}
+											/>
 										))}
 									</div>
 								</CardContent>
@@ -162,8 +146,7 @@ export default function ContactPage() {
 									</div>
 									<h3 className="text-xl font-bold mb-2">เวลาทำการ</h3>
 									<div className="text-gray-400">
-										<p>{contactInfo.businessHours.weekday}</p>
-										<p>{contactInfo.businessHours.sunday}</p>
+										<p>{contactInfo.businessHours}</p>
 									</div>
 								</CardContent>
 							</Card>
