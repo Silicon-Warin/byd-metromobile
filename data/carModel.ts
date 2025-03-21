@@ -1,4 +1,19 @@
-import { CarModel } from '@/types/models';
+// data/carModel.ts
+export interface CarModel {
+  id: number;  // ใช้ number ตามที่ใช้ใน defaultModels
+  name: string;
+  description: string;
+  price: number;
+  imageUrlPromo: string;
+  imageUrlModel: string;
+  imageWidth: number;
+  imageHeight: number;
+  specifications: {
+    range: string;
+    acceleration: string;
+    power: string;
+  };
+}
 
 export const defaultModels: CarModel[] = [
   {
@@ -94,5 +109,5 @@ export const defaultModels: CarModel[] = [
   }
 ];
 
-export type { CarModel };
+
 

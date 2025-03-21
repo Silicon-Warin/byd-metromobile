@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { defaultModels } from "@/data/Model";
+import { defaultModels } from "@/data/carModel";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";

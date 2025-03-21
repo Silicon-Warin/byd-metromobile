@@ -15,6 +15,7 @@ import {
 	Phone,
 } from "lucide-react";
 import { useState, useEffect } from "react";
+import Link from "next/link";
 
 export default function PromotionsPage() {
 	return (
@@ -227,13 +228,19 @@ function PromotionsContent() {
 							animate={{ opacity: 1, y: 0 }}
 							transition={{ duration: 0.6, delay: 0.6 }}
 						>
-							<Button
-								size="lg"
-								className="bg-primary hover:bg-primary/90 text-white group px-6 py-6 text-lg"
+							<Link
+								href="https://line.me/R/ti/p/%40bydmetromobile"
+								target="_blank"
+								rel="noopener noreferrer"
 							>
-								รับข้อเสนอพิเศษวันนี้
-								<ChevronRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
-							</Button>
+								<Button
+									size="lg"
+									className="bg-primary hover:bg-primary/90 text-white group px-6 py-6 text-lg"
+								>
+									รับข้อเสนอพิเศษวันนี้
+									<ChevronRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
+								</Button>
+							</Link>
 						</motion.div>
 					</div>
 				</div>

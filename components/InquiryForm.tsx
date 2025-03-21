@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
-import { CarModel } from "@/types/models";
+import { CarModel } from "@/data/carModel";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";

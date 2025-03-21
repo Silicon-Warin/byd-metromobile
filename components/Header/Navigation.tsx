@@ -1,9 +1,9 @@
 export const navItems = [
-	{ label: "หน้าแรก", href: "/" },
-	{ label: "รุ่นรถ", href: "/models" },
-	{ label: "โปรโมชั่น", href: "/promotions" },
-	{ label: "SERVICE", href: "/service" },
-	{ label: "ข่าวสารและกิจกรรม", href: "/blog" },
-	{ label: "เกี่ยวกับเรา", href: "/about-metromobile" },
-	{ label: "ติดต่อเรา", href: "/contact" },
+	{ id: "home", label: "หน้าแรก", href: "/" },
+	{ id: "models", label: "รุ่นรถ", href: "#", hasDropdown: true },
+	{ id: "promotions", label: "โปรโมชั่น", href: "/promotions" },
+	{ id: "service", label: "SERVICE", href: "/service" },
+	{ id: "blog", label: "ข่าวสารและกิจกรรม", href: "/blog" },
+	{ id: "about", label: "เกี่ยวกับเรา", href: "/about-metromobile" },
+	{ id: "contact", label: "ติดต่อเรา", href: "/contact" },
 ];

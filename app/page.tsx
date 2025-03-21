@@ -60,7 +60,7 @@ export default function Home() {
 
 			{/* Featured Models Section */}
 			<section className="py-16 md:py-24 overflow-hidden bg-gradient-to-b from-black to-gray-900">
-				<div className="container mx-auto px-4 md:px-8">
+				<div className="container mx-auto">
 					<motion.div
 						initial="hidden"
 						whileInView="visible"

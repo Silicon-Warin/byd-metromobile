@@ -1,5 +1,5 @@
 import React from "react";
-import { CarModel } from "@/data/Model";
+import { CarModel } from "@/data/carModel";
 import Image from "next/image";
 
 interface ModelCardProps {

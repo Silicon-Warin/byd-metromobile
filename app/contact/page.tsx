@@ -5,7 +5,7 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Phone, Mail, MapPin, Clock, Send } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
-import { branches, socialMedia, contactInfo } from "@/data/ContactData";
+import { branches, socialMedia, contactInfo } from "@/data/contactdata";
 import LineIcon from "@/components/ui/LineIcon";
 import { BrandFacebook, BrandInstagram, BrandTiktok } from "tabler-icons-react";
 
