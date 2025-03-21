@@ -1,5 +1,5 @@
 export interface SocialIconProps {
-  platform: 'line' | 'facebook' | 'instagram' | 'tiktok';
+  platform: string;
   size?: number;
   className?: string;
   href: string;
