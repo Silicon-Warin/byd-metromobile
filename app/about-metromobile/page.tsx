@@ -163,7 +163,7 @@ export default function AboutPage() {
 						>
 							<div className="relative rounded-2xl overflow-hidden shadow-2xl shadow-primary/10 w-full max-w-md aspect-[4/3]">
 								<Image
-									src="/images/BYD_Logo.png"
+									src="/images/BYD_Logo.jpg"
 									alt="BYD โลโก้ - บริษัทรถยนต์ไฟฟ้าชั้นนำ"
 									fill
 									className="object-contain p-8 bg-white"
@@ -359,7 +359,7 @@ export default function AboutPage() {
 						>
 							<div className="flex justify-center mb-6">
 								<Image
-									src="/images/AMotor_Logo.png"
+									src="/images/A-Motor-Logo.jpg"
 									alt="โลโก้ เอ มอเตอร์ กรุ๊ป - พันธมิตรของ เมโทรโมบิล"
 									width={240}
 									height={80}
@@ -376,7 +376,7 @@ export default function AboutPage() {
 							</p>
 							<div className="flex justify-center mt-6">
 								<Link
-									href="https://www.amotorgroup.com/"
+									href="https://www.facebook.com/A.MotorsGroup"
 									target="_blank"
 									rel="noopener noreferrer"
 									className="inline-flex items-center gap-2 text-primary hover:underline"

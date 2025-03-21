@@ -1,3 +1,9 @@
+# *
 User-agent: *
 Allow: /
-Sitemap: https://www.bydmetromobile.com/sitemap.xml
+
+# Host
+Host: https://bydmetromobile.com
+
+# Sitemaps
+Sitemap: https://bydmetromobile.com/sitemap.xml
