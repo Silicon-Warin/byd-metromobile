@@ -404,7 +404,9 @@ function PromotionsContent() {
 										<option value="atto3">BYD ATTO 3</option>
 										<option value="dolphin">BYD DOLPHIN</option>
 										<option value="seal">BYD SEAL</option>
-										<option value="other">รุ่นอื่นๆ</option>
+										<option value="sealion7">BYD SEALION7</option>
+										<option value="sealion6-dm-i">BYD SEALION6-DM-I</option>
+										<option value="m6">BYD M6</option>
 									</select>
 								</div>
 							</div>
@@ -415,14 +417,6 @@ function PromotionsContent() {
 							>
 								รับข้อเสนอพิเศษวันนี้
 							</Button>
-
-							<p className="text-xs text-gray-500 mt-4">
-								ข้อมูลของคุณจะถูกเก็บเป็นความลับตาม
-								<a href="#" className="text-primary hover:underline">
-									นโยบายความเป็นส่วนตัว
-								</a>
-								ของเรา
-							</p>
 						</div>
 
 						<div className="flex flex-col sm:flex-row gap-6 justify-center items-center">

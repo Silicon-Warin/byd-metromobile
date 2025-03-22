@@ -37,7 +37,7 @@ export function PromotionSection() {
 					</div>
 
 					<a
-						href="https://line.me/R/ti/p/@lineoa"
+						href="https://line.me/R/ti/p/%40bydmetromobile"
 						target="_blank"
 						rel="noopener noreferrer"
 						className="self-start md:self-auto"
