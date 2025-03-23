@@ -202,8 +202,7 @@ export default function Header() {
 					))}
 				</div>
 
-				{/* Account Button */}
-				<div className="hidden lg:block">
+				{/* <div className="hidden lg:block">
 					<Button
 						variant="outline"
 						className={`border-2 ${
@@ -214,7 +213,7 @@ export default function Header() {
 					>
 						MY ACCOUNT
 					</Button>
-				</div>
+				</div> */}
 
 				{/* Mobile menu */}
 				<div className="lg:hidden">
