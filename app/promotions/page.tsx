@@ -112,40 +112,6 @@ interface TestimonialCardProps {
 	rating: number;
 }
 
-function TestimonialCard({ name, role, quote, rating }: TestimonialCardProps) {
-	return (
-		<motion.div
-			className="bg-gray-800/50 backdrop-blur-sm p-6 rounded-xl border border-gray-700 hover:border-primary/30 transition-all duration-300"
-			whileHover={{
-				y: -5,
-				boxShadow: "0 10px 30px -15px rgba(0, 160, 233, 0.2)",
-			}}
-		>
-			<div className="flex items-center gap-1 mb-4">
-				{[...Array(5)].map((_, i) => (
-					<Star
-						key={i}
-						className={`h-4 w-4 ${
-							i < rating ? "text-yellow-400" : "text-gray-600"
-						}`}
-						fill={i < rating ? "#FACC15" : "none"}
-					/>
-				))}
-			</div>
-			<p className="text-gray-300 mb-6 italic">"{quote}"</p>
-			<div className="flex items-center gap-3">
-				<div className="bg-primary/20 h-10 w-10 rounded-full flex items-center justify-center">
-					<Users className="h-5 w-5 text-primary" />
-				</div>
-				<div>
-					<p className="font-semibold text-white">{name}</p>
-					<p className="text-sm text-gray-400">{role}</p>
-				</div>
-			</div>
-		</motion.div>
-	);
-}
-
 function PromotionsContent() {
 	// Animation variants
 	const fadeIn = {

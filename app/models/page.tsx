@@ -111,26 +111,6 @@ export default function ModelsPage() {
 										<p className="text-xl font-bold text-primary mb-4">
 											฿{model.price.toLocaleString()}
 										</p>
-										<div className="grid grid-cols-3 gap-2 mb-4">
-											<div className="bg-gray-700/50 p-3 rounded-lg">
-												<p className="text-xs text-gray-400">ระยะทางขับขี่</p>
-												<p className="text-sm font-medium">
-													{model.specifications.range}
-												</p>
-											</div>
-											<div className="bg-gray-700/50 p-3 rounded-lg">
-												<p className="text-xs text-gray-400">อัตราเร่ง</p>
-												<p className="text-sm font-medium">
-													{model.specifications.acceleration}
-												</p>
-											</div>
-											<div className="bg-gray-700/50 p-3 rounded-lg">
-												<p className="text-xs text-gray-400">กำลัง</p>
-												<p className="text-sm font-medium">
-													{model.specifications.power}
-												</p>
-											</div>
-										</div>
 										<Link href={`/models/${model.id}`}>
 											<Button
 												variant="outline"

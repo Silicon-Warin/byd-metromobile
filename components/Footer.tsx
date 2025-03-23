@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { BrandFacebook, BrandInstagram, BrandTiktok } from "tabler-icons-react";
 import LineIcon from "@/components/ui/LineIcon";
+import { navCarModels } from "@/data/navCarModels";
 
 export function Footer() {
 	return (
@@ -214,38 +215,16 @@ export function Footer() {
 					<div>
 						<h5 className="font-medium text-white mb-3">รถยนต์</h5>
 						<ul className="space-y-2">
-							<li>
-								<Link
-									href="#"
-									className="text-gray-400 hover:text-primary transition-colors duration-200"
-								>
-									BYD ATTO 3
-								</Link>
-							</li>
-							<li>
-								<Link
-									href="#"
-									className="text-gray-400 hover:text-primary transition-colors duration-200"
-								>
-									BYD DOLPHIN
-								</Link>
-							</li>
-							<li>
-								<Link
-									href="#"
-									className="text-gray-400 hover:text-primary transition-colors duration-200"
-								>
-									BYD SEAL
-								</Link>
-							</li>
-							<li>
-								<Link
-									href="#"
-									className="text-gray-400 hover:text-primary transition-colors duration-200"
-								>
-									BYD SEAL U
-								</Link>
-							</li>
+							{navCarModels.map((model) => (
+								<li key={model.name}>
+									<Link
+										href={model.href}
+										className="text-gray-400 hover:text-primary transition-colors duration-200"
+									>
+										{model.name}
+									</Link>
+								</li>
+							))}
 						</ul>
 					</div>
 					<div>
