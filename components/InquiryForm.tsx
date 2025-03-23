@@ -75,7 +75,6 @@ export function InquiryForm({ model }: InquiryFormProps) {
 					modelId: model.id,
 					modelName: model.name,
 					price: model.price,
-					specs: model.specifications,
 				}),
 			});
 

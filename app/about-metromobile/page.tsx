@@ -41,7 +41,7 @@ export default function AboutPage() {
 			<section className="relative h-[60vh] min-h-[500px] flex items-center justify-center overflow-hidden">
 				<div className="absolute inset-0 z-0">
 					<Image
-						src="/images/byd-showcase.jpg"
+						src="/images/about/byd-showcase.jpg"
 						alt="BYD Metromobile - Official Dealer"
 						fill
 						className="object-cover brightness-[0.4]"
@@ -186,7 +186,7 @@ export default function AboutPage() {
 						className="relative w-full h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] rounded-2xl overflow-hidden shadow-xl"
 					>
 						<Image
-							src="/images/byd-showcase.jpg"
+							src="/images/about/byd-showcase.jpg"
 							alt="รถยนต์ไฟฟ้า BYD โดย เมโทรโมบิล - ผู้จำหน่ายอย่างเป็นทางการ"
 							fill
 							className="object-cover"

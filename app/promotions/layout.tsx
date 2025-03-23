@@ -1,6 +1,5 @@
 // app/promotions/layout.tsx
 import type { Metadata } from "next";
-import PromotionPage from "./page";
 
 export const metadata: Metadata = {
 	title: "โปรโมชั่นรถยนต์ไฟฟ้า BYD | ข้อเสนอพิเศษ | BYD Metromobile",
@@ -13,10 +12,10 @@ export const metadata: Metadata = {
 	},
 };
 
-export default function PromotionsPage() {
-	return (
-		<main>
-			<PromotionPage />
-		</main>
-	);
+export default function PromotionsLayout({
+	children,
+}: {
+	children: React.ReactNode;
+}) {
+	return <main>{children}</main>;
 }
