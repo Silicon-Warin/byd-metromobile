@@ -12,34 +12,51 @@ import { Button } from "@/components/ui/button";
 import { findModelBySlug } from "@/data/carModel";
 import { PromotionSection } from "@/components/PromotionSection";
 import { useParams } from "next/navigation";
+import { CarModel, CarColor, CarVariant } from "./types";
 
 export default function ModelPage() {
-	// ใช้ useParams เพื่อดึง slug จาก URL
 	const { slug } = useParams();
-
-	// ย้าย hooks ทั้งหมดมาไว้ด้านบน
-	const [carModel, setCarModel] = useState<any>(null);
-	const [selectedColor, setSelectedColor] = useState<any>(null);
-	const [selectedVariant, setSelectedVariant] = useState<any>(null);
+	const [isLoading, setIsLoading] = useState(true);
+	const [carModel, setCarModel] = useState<CarModel | null>(null);
+	const [selectedColor, setSelectedColor] = useState<CarColor | null>(null);
+	const [selectedVariant, setSelectedVariant] = useState<CarVariant | null>(
+		null
+	);
+	const [error, setError] = useState<string | null>(null);
 	const heroRef = useRef<HTMLDivElement>(null);
 
-	// ใช้ useEffect ในการโหลดข้อมูลรถยนต์
 	useEffect(() => {
-		if (slug) {
-			const model = findModelBySlug(slug as string);
-			if (model) {
-				setCarModel(model);
-
-				// ตั้งค่าสีและรุ่นเริ่มต้น
-				if (model.colors && model.colors.length > 0) {
-					setSelectedColor(model.colors[0]);
-				}
-
-				if (model.variants && model.variants.length > 0) {
-					setSelectedVariant(model.variants[0]);
-				}
+		const loadModel = async () => {
+			if (!slug) {
+				setError("Invalid model identifier");
+				setIsLoading(false);
+				return;
 			}
-		}
+
+			try {
+				const model = findModelBySlug(slug as string);
+				if (!model) {
+					setError("ไม่พบข้อมูลรถยนต์ที่คุณกำลังค้นหา");
+					setCarModel(null);
+				} else {
+					setCarModel(model);
+					if (model.colors && model.colors.length > 0) {
+						setSelectedColor(model.colors[0]);
+					}
+					if (model.variants && model.variants.length > 0) {
+						setSelectedVariant(model.variants[0]);
+					}
+					setError(null);
+				}
+			} catch (err) {
+				setError("เกิดข้อผิดพลาดในการโหลดข้อมูล กรุณาลองใหม่อีกครั้ง");
+				console.error("Error loading model:", err);
+			}
+			setIsLoading(false);
+		};
+
+		setIsLoading(true);
+		loadModel();
 	}, [slug]);
 
 	// อัพเดตสีและรุ่น (ถ้าจำเป็น)
@@ -65,13 +82,40 @@ export default function ModelPage() {
 		}
 	};
 
-	// แสดงหน้าโหลดหรือข้อความไม่พบข้อมูล
-	if (!carModel) {
+	if (isLoading) {
 		return (
-			<div className="min-h-screen flex items-center justify-center">
-				<div className="text-center">
-					<h1 className="text-3xl font-bold mb-4">ไม่พบข้อมูลรถยนต์</h1>
-					<Button onClick={() => window.history.back()}>ย้อนกลับ</Button>
+			<div className="min-h-screen flex items-center justify-center bg-richblack">
+				<div className="text-center text-white">
+					<div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-bydblue mx-auto mb-4"></div>
+					<p className="text-xl">กำลังโหลดข้อมูล...</p>
+				</div>
+			</div>
+		);
+	}
+
+	if (error || !carModel) {
+		return (
+			<div className="min-h-screen flex items-center justify-center bg-richblack">
+				<div className="text-center text-white">
+					<h1 className="text-3xl font-bold mb-4">
+						{error || "ไม่พบข้อมูลรถยนต์"}
+					</h1>
+					<div className="flex gap-4 justify-center">
+						<Button
+							className="bg-bydblue hover:bg-bydblue/80"
+							onClick={() => window.history.back()}
+						>
+							ย้อนกลับ
+						</Button>
+						<Link href="/models">
+							<Button
+								variant="outline"
+								className="border-bydblue text-bydblue hover:bg-bydblue hover:text-white"
+							>
+								ดูรถยนต์ทั้งหมด
+							</Button>
+						</Link>
+					</div>
 				</div>
 			</div>
 		);

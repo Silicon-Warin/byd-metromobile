@@ -15,11 +15,12 @@ export function ModelPromoCard({ model }: ModelCardProps) {
 		// ตัด BYD ออกและหา keyword หลัก (SEAL, ATTO 3, DOLPHIN, etc.)
 		const mainName = name.replace("BYD", "").replace("NEW", "").trim();
 		// แปลงเป็น lowercase และ remove spaces
-		return mainName.toLowerCase().replace(/\s+/g, "");
+		return mainName.toLowerCase().replace(/\s+/g, "-");
 	};
 
-	const slug = getModelSlug(model.name);
-	// ใช้ static path ตรงๆ ไม่ใช้ dynamic path
+	// ใช้ slug จาก model ถ้ามี หรือสร้างจากชื่อถ้าไม่มี
+	const slug = model.slug || getModelSlug(model.name);
+
 	const detailPageUrl = `/models/${slug}/loan-calculator`;
 
 	return (

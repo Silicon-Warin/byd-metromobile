@@ -2,6 +2,7 @@
 export interface CarModel {
   id: number | string;
   name: string;
+  slug?: string; // Add this property
   tagline?: string;
   description: string;
   price: number;
@@ -60,22 +61,17 @@ export interface MonthlyPayment {
   interestRate: string;
 }
 
-// Add this function to your existing carModel.ts file
 export function findModelBySlug(slug: string): CarModel | undefined {
-  // Convert model names to slugs for comparison
-  return defaultModels.find((model) => {
-    // Create a slug from the model name
-    const modelSlug = model.name
-      .toLowerCase()
-      .replace(/\s+/g, "-") // Replace spaces with hyphens
-      .replace(/[^\w-]+/g, "") // Remove non-word chars
-      .replace(/--+/g, "-") // Replace multiple hyphens with single hyphen
-      .replace(/^-+/, "") // Trim hyphens from start
-      .replace(/-+$/, "") // Trim hyphens from end
-      .replace("byd-", "") // Remove 'byd-' prefix if present
-
-    return modelSlug === slug || model.id.toString() === slug || slug.includes(modelSlug)
-  })
+  // First try to find by explicit slug
+  let model = defaultModels.find(model => 
+    model.slug === slug || model.id.toString() === slug
+  );
+  
+  if (!model) {
+    console.log(`No model found with slug: ${slug}`);
+  }
+  
+  return model;
 }
 
 
@@ -84,6 +80,7 @@ export const defaultModels: CarModel[] = [
   {
     id: 1,
     name: "BYD SEALION 7",
+    slug: "byd-sealion7",
     description: "SUV ไฟฟ้าขนาดใหญ่ ดีไซน์ล้ำสมัย มาพร้อมสมรรถนะสูง",
     price: 1249900,
     imageUrlPromo: "/images/motor-show-promo/sealion7.jpg",
@@ -256,6 +253,7 @@ export const defaultModels: CarModel[] = [
   {
     id: 2,
     name: "BYD M6",
+    slug: "byd-m6",
     description: "MPV ไฟฟ้าสำหรับครอบครัว กว้างขวางและสะดวกสบาย",
     price: 799900,
     imageUrlPromo: "/images/motor-show-promo/m6.jpg",
@@ -502,6 +500,7 @@ export const defaultModels: CarModel[] = [
   {
     id: 3,
     name: "BYD SEALION 6 DM i",
+    slug: "byd-sealion6dmi",
     description: "SUV Plug-in Hybrid ขับเคลื่อน 4 ล้อ พลังงานสะอาด",
     price: 939900,
     imageUrlPromo: "/images/motor-show-promo/sealion6dm.jpg",
@@ -675,6 +674,7 @@ export const defaultModels: CarModel[] = [
   {
     id: 4,
     name: "BYD SEAL",    
+    slug: "byd-seal",
     description: "ซีดานไฟฟ้าสมรรถนะสูง พร้อมระยะทางขับขี่ไกลและเทคโนโลยีล้ำสมัย",
     price: 999900,
     imageUrlPromo: "/images/motor-show-promo/seal.jpg",      
@@ -976,11 +976,11 @@ export const defaultModels: CarModel[] = [
       "ค่าจดทะเบียน",
       "ฟรี ฟิล์มกรองแสง XUV-MAX-CERAMIC",
     ],
-  },
-  
+  },  
   {
     id: 5,
     name: "NEW BYD ATTO 3",
+    slug: "byd-atto-3",
     description: "SUV ไฟฟ้ากะทัดรัด สมรรถนะโดดเด่น เหมาะกับทุกการขับขี่",
     price: 899900,
     imageUrlPromo: "/images/motor-show-promo/atto3.jpg",
@@ -1079,6 +1079,7 @@ export const defaultModels: CarModel[] = [
   {
     id: 6,
     name: "NEW BYD DOLPHIN",
+    slug: "byd-dolphin",
     description: "แฮทช์แบคไฟฟ้า ประหยัดพลังงาน คล่องตัวสำหรับการใช้งานในเมือง",
     price: 569900,
     imageUrlPromo: "/images/motor-show-promo/dolphin.jpg",
@@ -1249,8 +1250,7 @@ export const defaultModels: CarModel[] = [
       "ฟรี HOME CHARGER ยี่ห้อ ZHIDA (เฉพาะรุ่น EXTENDED)",
     ],
     promotion: []
-  },
-  
+  },  
 ];
 
 
