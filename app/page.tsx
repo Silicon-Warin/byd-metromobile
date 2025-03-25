@@ -3,9 +3,11 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import HeroBannerCarousel from "@/components/HeroBannerCarousel";
-import { ModelCarSlider } from "@/components/ModelCarSlider";
+import { ReusableSlider } from "@/components/ReusableSlider";
 import { ServiceGrid } from "@/components/ServiceCarousel";
 import { ChevronRight, Shield, Zap, Clock, Phone } from "lucide-react";
+import Link from "next/link";
+import { defaultModels } from "@/data/carModel";
 
 export default function Home() {
 	// Animation variants
@@ -28,6 +30,10 @@ export default function Home() {
 		},
 	};
 
+	const handleItemClick = (item: { name: string }) => {
+		console.log("คุณคลิกที่:", item.name);
+	};
+
 	return (
 		<main className="min-h-screen bg-black text-white">
 			{/* Hero Section */}
@@ -48,11 +54,13 @@ export default function Home() {
 							ยานยนต์ไฟฟ้าแห่งอนาคต พร้อมเทคโนโลยีล้ำสมัยเพื่อโลกที่ยั่งยืน
 						</p>
 						<Button
-							size="lg"
 							className="bg-primary hover:bg-primary/90 text-white group"
+							asChild
 						>
-							ค้นพบรถยนต์ของเรา
-							<ChevronRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+							<Link href="/promotions">
+								ค้นพบรถยนต์ของเรา
+								<ChevronRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+							</Link>
 						</Button>
 					</motion.div>
 				</div>
@@ -78,7 +86,15 @@ export default function Home() {
 							ที่ผสมผสานเทคโนโลยีล้ำสมัยและการออกแบบที่โดดเด่น
 						</p>
 					</motion.div>
-					<ModelCarSlider />
+					<ReusableSlider
+						items={defaultModels.map((model) => ({
+							id: model.id.toString(),
+							name: model.name,
+							imageUrl: model.imageUrlModel,
+						}))}
+						onItemClick={handleItemClick}
+						buttonText="สั่งซื้อเลย"
+					/>
 				</div>
 			</section>
 

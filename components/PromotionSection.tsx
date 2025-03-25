@@ -5,7 +5,6 @@ import { A11y, Autoplay, Navigation } from "swiper/modules";
 import { ModelPromoCard } from "@/components/ui/ModelPromoCard";
 import { defaultModels } from "@/data/carModel";
 import { motion } from "framer-motion";
-import { ChevronLeft, ChevronRight } from "lucide-react";
 import "swiper/css";
 import "swiper/css/navigation";
 

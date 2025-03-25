@@ -141,6 +141,60 @@
   }
 }
 
+.svg-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+}
+
+path {
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Custom Swiper Styles */
+.showcase-swiper .swiper-pagination-bullet {
+  background-color: white;
+  opacity: 0.5;
+}
+
+.showcase-swiper .swiper-pagination-bullet-active {
+  background-color: #0066ff;
+  opacity: 1;
+}
+
+.showcase-swiper .swiper-button-next,
+.showcase-swiper .swiper-button-prev {
+  color: white;
+}
+
+.gallery-swiper .swiper-pagination-bullet {
+  background-color: white;
+  opacity: 0.5;
+}
+
+.gallery-swiper .swiper-pagination-bullet-active {
+  background-color: #0066ff;
+  opacity: 1;
+}
+
+/* Animation for scroll down arrow */
+@keyframes scroll-down {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(10px);
+  }
+}
+
+.animate-scroll-down {
+  animation: scroll-down 2s ease-in-out infinite;
+}
+
 
 
 

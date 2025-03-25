@@ -1,50 +1,95 @@
 // data/carModel.ts
 export interface CarModel {
-  id: number;
+  id: number | string;
   name: string;
+  tagline?: string;
   description: string;
   price: number;
   imageUrlPromo: string;
   imageUrlModel: string;
+  imageUrlHero?: string;
   imageWidth: number;
   imageHeight: number;
-  variants: CarVariant[]
-  features: string[]
-  
+  specs?: {
+    acceleration: string;
+    range: string;
+    drivetrain?: string;
+    motor: string;
+    battery?: string;
+    charging?: string;
+  };
+  colors?: CarColor[];
+  variants: CarVariant[];
+  promotion: string[];
+  features: string[] | CarFeature[];
+  gallery?: string[];
+}
+
+export interface CarColor {
+  name: string;
+  code: string;
+  image: string;
+}
+
+export interface CarFeature {
+  title: string;
+  description: string;
+  image: string;
 }
 
 export interface CarVariant {
-  id: string
-  name: string
-  price: number
-  range: string
-  downPaymentOptions: DownPaymentOption[]
+  id: string;
+  name: string;
+  price: number;
+  range: string;
+  power?: string;
+  acceleration?: string;
+  downPaymentOptions: DownPaymentOption[];
 }
 
 export interface DownPaymentOption {
-  percentage: number
-  amount: number
-  remainingBalance: number
-  monthlyPayments: MonthlyPayment[]
+  percentage: number;
+  amount: number;
+  remainingBalance: number;
+  monthlyPayments: MonthlyPayment[];
 }
 
 export interface MonthlyPayment {
-  months: number
-  amount: number
-  interestRate: string
+  months: number;
+  amount: number;
+  interestRate: string;
+}
+
+// Add this function to your existing carModel.ts file
+export function findModelBySlug(slug: string): CarModel | undefined {
+  // Convert model names to slugs for comparison
+  return defaultModels.find((model) => {
+    // Create a slug from the model name
+    const modelSlug = model.name
+      .toLowerCase()
+      .replace(/\s+/g, "-") // Replace spaces with hyphens
+      .replace(/[^\w-]+/g, "") // Remove non-word chars
+      .replace(/--+/g, "-") // Replace multiple hyphens with single hyphen
+      .replace(/^-+/, "") // Trim hyphens from start
+      .replace(/-+$/, "") // Trim hyphens from end
+      .replace("byd-", "") // Remove 'byd-' prefix if present
+
+    return modelSlug === slug || model.id.toString() === slug || slug.includes(modelSlug)
+  })
 }
 
 
+// รายการรถยนต์ที่มีอยู่เดิม (คงไว้เพื่อความเข้ากันได้กับโค้ดเดิม)
 export const defaultModels: CarModel[] = [
   {
     id: 1,
     name: "BYD SEALION 7",
     description: "SUV ไฟฟ้าขนาดใหญ่ ดีไซน์ล้ำสมัย มาพร้อมสมรรถนะสูง",
     price: 1249900,
-    imageUrlPromo: "/images/promotions/sealion7.jpg",
-    imageUrlModel:"/images/models/BYD-sealion7.webp",
+    imageUrlPromo: "/images/motor-show-promo/sealion7.jpg",
+    imageUrlModel: "/images/models/BYD-sealion7.webp",
     imageWidth: 1200,
-    imageHeight: 800,   
+    imageHeight: 800,
     variants: [
       {
         id: "sealion7-rwd",
@@ -206,16 +251,17 @@ export const defaultModels: CarModel[] = [
       "ค่าจดทะเบียน",
       "ฟรี ฟิล์มกรองแสง XUV-MAX-CERAMIC",
     ],
+    promotion: []
   },
   {
     id: 2,
     name: "BYD M6",
     description: "MPV ไฟฟ้าสำหรับครอบครัว กว้างขวางและสะดวกสบาย",
     price: 799900,
-    imageUrlPromo: "/images/promotions/m6.jpg",
-    imageUrlModel:"/images/models/BYD-m6.webp",
+    imageUrlPromo: "/images/motor-show-promo/m6.jpg",
+    imageUrlModel: "/images/models/BYD-m6.webp",
     imageWidth: 1200,
-    imageHeight: 800,   
+    imageHeight: 800,
     variants: [
       {
         id: "m6-dynamic",
@@ -451,17 +497,18 @@ export const defaultModels: CarModel[] = [
       "ค่าจดทะเบียน",
       "ฟรี ฟิล์มกรองแสง XUV-MAX-CERAMIC",
     ],
+    promotion: []
   },
   {
     id: 3,
-    name: "BYD SEALION 6 DM-i",
+    name: "BYD SEALION 6 DM i",
     description: "SUV Plug-in Hybrid ขับเคลื่อน 4 ล้อ พลังงานสะอาด",
     price: 939900,
-    imageUrlPromo: "/images/promotions/sealion6dm.jpg",
-    imageUrlModel:"/images/models/BYD-sealion6dm.webp",
+    imageUrlPromo: "/images/motor-show-promo/sealion6dm.jpg",
+    imageUrlModel: "/images/models/BYD-sealion6dm.webp",
     imageWidth: 1200,
     imageHeight: 800,
-    
+
     variants: [
       {
         id: "sealion6-dynamic",
@@ -623,21 +670,76 @@ export const defaultModels: CarModel[] = [
       "ค่าจดทะเบียน",
       "ฟรี ฟิล์มกรองแสง XUV-MAX-CERAMIC",
     ],
+    promotion: []
   },
   {
     id: 4,
     name: "BYD SEAL",    
     description: "ซีดานไฟฟ้าสมรรถนะสูง พร้อมระยะทางขับขี่ไกลและเทคโนโลยีล้ำสมัย",
     price: 999900,
-    imageUrlPromo: "/images/promotions/seal.jpg",      
+    imageUrlPromo: "/images/motor-show-promo/seal.jpg",      
     imageUrlModel:"/images/models/BYD-seal.webp",
+    imageUrlHero: "/images/models/seal/seal-hero.jpg",
     imageWidth: 1200,
-    imageHeight: 800,
-    
+    imageHeight: 800,      
+    specs: {
+      acceleration: "3.8 วินาที",
+      range: "580 กิโลเมตร",
+      drivetrain: "AWD",
+      motor: "มอเตอร์ 390 กิโลวัตต์",
+      battery: "82.56 กิโลวัตต์-ชั่วโมง",
+      charging: "AC type 2 / DC CCS 2 (150 กิโลวัตต์)"
+    },
+    colors: [
+      {
+        name: "Cosmos Black",
+        code: "#121212",
+        image: "/images/seal-black.png",
+      },
+      {
+        name: "Arctic Blue",
+        code: "#0066FF",
+        image: "/images/seal-blue.png",
+      },
+      {
+        name: "Atlantis Grey",
+        code: "#7A8391",
+        image: "/images/seal-grey.png",
+      },
+      {
+        name: "Galaxy White",
+        code: "#F5F5F5",
+        image: "/images/seal-white.png",
+      },
+    ],
+    gallery: [
+      "/images/seal-gallery-1.png",
+      "/images/seal-gallery-2.png",
+      "/images/seal-gallery-3.png",
+    ],
+    features: [
+      {
+        title: "Frequency Selective Damping",
+        description: "Comfortable ride quality, premium corner hugging.",
+        image: "/images/feature-damping.png",
+      },
+      {
+        title: "Intelligent Torque Control",
+        description: "Dynamic torque distribution to each wheel.",
+        image: "/images/feature-torque.png",
+      },
+      {
+        title: "Cell-to-body Architecture",
+        description: "Fully integrated battery, increases rigidity and safety.",
+        image: "/images/feature-battery.png",
+      },
+    ],  
     variants: [
       {
-        id: "seal-dynamic",
-        name: "DYNAMIC 510KM",
+        id: "dynamic",
+        name: "Dynamic",
+        power: "150kW",        
+        acceleration: "7.5 Sec",
         price: 999900,
         range: "510 KM",
         downPaymentOptions: [
@@ -710,8 +812,11 @@ export const defaultModels: CarModel[] = [
         ],
       },
       {
-        id: "seal-premium",
-        name: "PREMIUM 650KM",
+        id: "premium",
+        name: "Premium",        
+        power: "230kW",
+        
+        acceleration: "5.9 Sec",
         price: 1099900,
         range: "650 KM",
         downPaymentOptions: [
@@ -784,8 +889,10 @@ export const defaultModels: CarModel[] = [
         ],
       },
       {
-        id: "seal-performance",
-        name: "PERFORMANCE 580KM",
+        id: "performance",
+        name: "Performance AWD",
+        power: "390kW",        
+        acceleration: "3.8 Sec",
         price: 1199900,
         range: "580 KM",
         downPaymentOptions: [
@@ -858,9 +965,9 @@ export const defaultModels: CarModel[] = [
         ],
       },
     ],
-    features: [
+    promotion: [
       "ประกันภัยชั้น 1 พร้อม พรบ. ระยะเวลา 1 ปี",
-      "บริการช่วยเหลือฉุกเฉิน ตลอด 24 ชั่วโมง 8 ปีเต็ม",
+      "บริการช่วยเหลือฉุกเฉิน ตลอด 24 ชั่วโมง 8 ปีเต็ม", 
       "รับประกันตัวรถ (WARRANTY) 8 ปี หรือ 160,000 กม.",
       "รับประกันแบตเตอรี่ 8 ปี หรือ 160,000 กม.",
       "สายต่อพ่วงอุปกรณ์ไฟฟ้า หรือ V TO L",
@@ -876,10 +983,10 @@ export const defaultModels: CarModel[] = [
     name: "NEW BYD ATTO 3",
     description: "SUV ไฟฟ้ากะทัดรัด สมรรถนะโดดเด่น เหมาะกับทุกการขับขี่",
     price: 899900,
-    imageUrlPromo: "/images/promotions/atto3.jpg",
-    imageUrlModel:"/images/models/BYD-Atto3.webp",
+    imageUrlPromo: "/images/motor-show-promo/atto3.jpg",
+    imageUrlModel: "/images/models/BYD-Atto3.webp",
     imageWidth: 1200,
-    imageHeight: 800,    
+    imageHeight: 800,
     variants: [
       {
         id: "atto3-extended",
@@ -967,181 +1074,184 @@ export const defaultModels: CarModel[] = [
       "พรมเข้ารูป กรอบป้ายทะเบียน ฟิล์มกันรอยหน้าจอ",
       "ค่าจดทะเบียน",
     ],
+    promotion: []
   },
   {
     id: 6,
     name: "NEW BYD DOLPHIN",
     description: "แฮทช์แบคไฟฟ้า ประหยัดพลังงาน คล่องตัวสำหรับการใช้งานในเมือง",
     price: 569900,
-    imageUrlPromo: "/images/promotions/dolphin.jpg",
-    imageUrlModel:"/images/models/BYD-dolphin.webp",
+    imageUrlPromo: "/images/motor-show-promo/dolphin.jpg",
+    imageUrlModel: "/images/models/BYD-dolphin.webp",
     imageWidth: 1200,
     imageHeight: 800,
 
-      variants: [
-        {
-          id: "dolphin-standard",
-          name: "STANDARD RANGE 435KM",
-          price: 569900,
-          range: "435 KM",
-          downPaymentOptions: [
-            {
-              percentage: 30,
-              amount: 170970,
-              remainingBalance: 398930,
-              monthlyPayments: [
-                { months: 48, amount: 8969, interestRate: "1.98%" },
-                { months: 60, amount: 7463, interestRate: "2.45%" },
-                { months: 72, amount: 6501, interestRate: "2.89%" },
-                { months: 84, amount: 5943, interestRate: "3.59%" },
-              ],
-            },
-            {
-              percentage: 25,
-              amount: 142475,
-              remainingBalance: 427425,
-              monthlyPayments: [
-                { months: 48, amount: 9610, interestRate: "1.98%" },
-                { months: 60, amount: 8082, interestRate: "2.69%" },
-                { months: 72, amount: 7001, interestRate: "2.99%" },
-                { months: 84, amount: 6403, interestRate: "3.69%" },
-              ],
-            },
-            {
-              percentage: 20,
-              amount: 113980,
-              remainingBalance: 455920,
-              monthlyPayments: [
-                { months: 48, amount: 10520, interestRate: "2.69%" },
-                { months: 60, amount: 8697, interestRate: "2.89%" },
-                { months: 72, amount: 7544, interestRate: "3.19%" },
-                { months: 84, amount: 6868, interestRate: "3.79%" },
-              ],
-            },
-            {
-              percentage: 15,
-              amount: 85485,
-              remainingBalance: 484415,
-              monthlyPayments: [
-                { months: 48, amount: 11339, interestRate: "3.09%" },
-                { months: 60, amount: 9442, interestRate: "3.39%" },
-                { months: 72, amount: 8177, interestRate: "3.59%" },
-                { months: 84, amount: 7499, interestRate: "4.29%" },
-              ],
-            },
-            {
-              percentage: 10,
-              amount: 56990,
-              remainingBalance: 512910,
-              monthlyPayments: [
-                { months: 48, amount: 12263, interestRate: "3.69%" },
-                { months: 60, amount: 10254, interestRate: "3.99%" },
-                { months: 72, amount: 8957, interestRate: "4.29%" },
-                { months: 84, amount: 8068, interestRate: "4.59%" },
-              ],
-            },
-            {
-              percentage: 5,
-              amount: 28495,
-              remainingBalance: 541405,
-              monthlyPayments: [
-                { months: 48, amount: 13125, interestRate: "4.09%" },
-                { months: 60, amount: 11004, interestRate: "4.39%" },
-                { months: 72, amount: 9636, interestRate: "4.69%" },
-                { months: 84, amount: 8697, interestRate: "4.99%" },
-              ],
-            },
-          ],
-        },
-        {
-          id: "dolphin-extended",
-          name: "EXTENDED RANGE 490KM",
-          price: 709900,
-          range: "490 KM",
-          downPaymentOptions: [
-            {
-              percentage: 30,
-              amount: 212970,
-              remainingBalance: 496930,
-              monthlyPayments: [
-                { months: 48, amount: 11173, interestRate: "1.98%" },
-                { months: 60, amount: 9297, interestRate: "2.45%" },
-                { months: 72, amount: 8099, interestRate: "2.89%" },
-                { months: 84, amount: 7402, interestRate: "3.59%" },
-              ],
-            },
-            {
-              percentage: 25,
-              amount: 177475,
-              remainingBalance: 532425,
-              monthlyPayments: [
-                { months: 48, amount: 11971, interestRate: "1.98%" },
-                { months: 60, amount: 10067, interestRate: "2.69%" },
-                { months: 72, amount: 8721, interestRate: "2.99%" },
-                { months: 84, amount: 7976, interestRate: "3.69%" },
-              ],
-            },
-            {
-              percentage: 20,
-              amount: 141980,
-              remainingBalance: 567920,
-              monthlyPayments: [
-                { months: 48, amount: 13105, interestRate: "2.69%" },
-                { months: 60, amount: 10833, interestRate: "2.89%" },
-                { months: 72, amount: 9397, interestRate: "3.19%" },
-                { months: 84, amount: 8555, interestRate: "3.79%" },
-              ],
-            },
-            {
-              percentage: 15,
-              amount: 106485,
-              remainingBalance: 603415,
-              monthlyPayments: [
-                { months: 48, amount: 14125, interestRate: "3.09%" },
-                { months: 60, amount: 11762, interestRate: "3.39%" },
-                { months: 72, amount: 10186, interestRate: "3.59%" },
-                { months: 84, amount: 9341, interestRate: "4.29%" },
-              ],
-            },
-            {
-              percentage: 10,
-              amount: 70990,
-              remainingBalance: 638910,
-              monthlyPayments: [
-                { months: 48, amount: 15275, interestRate: "3.69%" },
-                { months: 60, amount: 12773, interestRate: "3.99%" },
-                { months: 72, amount: 11158, interestRate: "4.29%" },
-                { months: 84, amount: 10050, interestRate: "4.59%" },
-              ],
-            },
-            {
-              percentage: 5,
-              amount: 35495,
-              remainingBalance: 674405,
-              monthlyPayments: [
-                { months: 48, amount: 16349, interestRate: "4.09%" },
-                { months: 60, amount: 13707, interestRate: "4.39%" },
-                { months: 72, amount: 12003, interestRate: "4.69%" },
-                { months: 84, amount: 10833, interestRate: "4.99%" },
-              ],
-            },
-          ],
-        },
-      ],
-      features: [
-        "ประกันภัยชั้น 1 พร้อม พรบ. ระยะเวลา 1 ปี",
-        "บริการช่วยเหลือฉุกเฉิน ตลอด 24 ชั่วโมง 8 ปีเต็ม",
-        "รับประกันตัวรถ (WARRANTY) 8 ปี หรือ 160,000 กม.",
-        "รับประกันแบตเตอรี่ 8 ปี หรือ 160,000 กม.",
-        "ฟรี ฟิล์มกรองแสง XUV-MAX-CERAMIC",
-        "สายต่อพ่วงอุปกรณ์ไฟฟ้า หรือ V TO L",
-        "สายชาร์จเคลื่อนที่ AC PORTABLE CHARGER",
-        "พรมเข้ารูป กรอบป้ายทะเบียน ฟิล์มกันรอยหน้าจอ",
-        "ค่าจดทะเบียน",
-        "ฟรี HOME CHARGER ยี่ห้อ ZHIDA (เฉพาะรุ่น EXTENDED)",
-      ],
-    },
-  ]
+    variants: [
+      {
+        id: "dolphin-standard",
+        name: "STANDARD RANGE 435KM",
+        price: 569900,
+        range: "435 KM",
+        downPaymentOptions: [
+          {
+            percentage: 30,
+            amount: 170970,
+            remainingBalance: 398930,
+            monthlyPayments: [
+              { months: 48, amount: 8969, interestRate: "1.98%" },
+              { months: 60, amount: 7463, interestRate: "2.45%" },
+              { months: 72, amount: 6501, interestRate: "2.89%" },
+              { months: 84, amount: 5943, interestRate: "3.59%" },
+            ],
+          },
+          {
+            percentage: 25,
+            amount: 142475,
+            remainingBalance: 427425,
+            monthlyPayments: [
+              { months: 48, amount: 9610, interestRate: "1.98%" },
+              { months: 60, amount: 8082, interestRate: "2.69%" },
+              { months: 72, amount: 7001, interestRate: "2.99%" },
+              { months: 84, amount: 6403, interestRate: "3.69%" },
+            ],
+          },
+          {
+            percentage: 20,
+            amount: 113980,
+            remainingBalance: 455920,
+            monthlyPayments: [
+              { months: 48, amount: 10520, interestRate: "2.69%" },
+              { months: 60, amount: 8697, interestRate: "2.89%" },
+              { months: 72, amount: 7544, interestRate: "3.19%" },
+              { months: 84, amount: 6868, interestRate: "3.79%" },
+            ],
+          },
+          {
+            percentage: 15,
+            amount: 85485,
+            remainingBalance: 484415,
+            monthlyPayments: [
+              { months: 48, amount: 11339, interestRate: "3.09%" },
+              { months: 60, amount: 9442, interestRate: "3.39%" },
+              { months: 72, amount: 8177, interestRate: "3.59%" },
+              { months: 84, amount: 7499, interestRate: "4.29%" },
+            ],
+          },
+          {
+            percentage: 10,
+            amount: 56990,
+            remainingBalance: 512910,
+            monthlyPayments: [
+              { months: 48, amount: 12263, interestRate: "3.69%" },
+              { months: 60, amount: 10254, interestRate: "3.99%" },
+              { months: 72, amount: 8957, interestRate: "4.29%" },
+              { months: 84, amount: 8068, interestRate: "4.59%" },
+            ],
+          },
+          {
+            percentage: 5,
+            amount: 28495,
+            remainingBalance: 541405,
+            monthlyPayments: [
+              { months: 48, amount: 13125, interestRate: "4.09%" },
+              { months: 60, amount: 11004, interestRate: "4.39%" },
+              { months: 72, amount: 9636, interestRate: "4.69%" },
+              { months: 84, amount: 8697, interestRate: "4.99%" },
+            ],
+          },
+        ],
+      },
+      {
+        id: "dolphin-extended",
+        name: "EXTENDED RANGE 490KM",
+        price: 709900,
+        range: "490 KM",
+        downPaymentOptions: [
+          {
+            percentage: 30,
+            amount: 212970,
+            remainingBalance: 496930,
+            monthlyPayments: [
+              { months: 48, amount: 11173, interestRate: "1.98%" },
+              { months: 60, amount: 9297, interestRate: "2.45%" },
+              { months: 72, amount: 8099, interestRate: "2.89%" },
+              { months: 84, amount: 7402, interestRate: "3.59%" },
+            ],
+          },
+          {
+            percentage: 25,
+            amount: 177475,
+            remainingBalance: 532425,
+            monthlyPayments: [
+              { months: 48, amount: 11971, interestRate: "1.98%" },
+              { months: 60, amount: 10067, interestRate: "2.69%" },
+              { months: 72, amount: 8721, interestRate: "2.99%" },
+              { months: 84, amount: 7976, interestRate: "3.69%" },
+            ],
+          },
+          {
+            percentage: 20,
+            amount: 141980,
+            remainingBalance: 567920,
+            monthlyPayments: [
+              { months: 48, amount: 13105, interestRate: "2.69%" },
+              { months: 60, amount: 10833, interestRate: "2.89%" },
+              { months: 72, amount: 9397, interestRate: "3.19%" },
+              { months: 84, amount: 8555, interestRate: "3.79%" },
+            ],
+          },
+          {
+            percentage: 15,
+            amount: 106485,
+            remainingBalance: 603415,
+            monthlyPayments: [
+              { months: 48, amount: 14125, interestRate: "3.09%" },
+              { months: 60, amount: 11762, interestRate: "3.39%" },
+              { months: 72, amount: 10186, interestRate: "3.59%" },
+              { months: 84, amount: 9341, interestRate: "4.29%" },
+            ],
+          },
+          {
+            percentage: 10,
+            amount: 70990,
+            remainingBalance: 638910,
+            monthlyPayments: [
+              { months: 48, amount: 15275, interestRate: "3.69%" },
+              { months: 60, amount: 12773, interestRate: "3.99%" },
+              { months: 72, amount: 11158, interestRate: "4.29%" },
+              { months: 84, amount: 10050, interestRate: "4.59%" },
+            ],
+          },
+          {
+            percentage: 5,
+            amount: 35495,
+            remainingBalance: 674405,
+            monthlyPayments: [
+              { months: 48, amount: 16349, interestRate: "4.09%" },
+              { months: 60, amount: 13707, interestRate: "4.39%" },
+              { months: 72, amount: 12003, interestRate: "4.69%" },
+              { months: 84, amount: 10833, interestRate: "4.99%" },
+            ],
+          },
+        ],
+      },
+    ],
+    features: [
+      "ประกันภัยชั้น 1 พร้อม พรบ. ระยะเวลา 1 ปี",
+      "บริการช่วยเหลือฉุกเฉิน ตลอด 24 ชั่วโมง 8 ปีเต็ม",
+      "รับประกันตัวรถ (WARRANTY) 8 ปี หรือ 160,000 กม.",
+      "รับประกันแบตเตอรี่ 8 ปี หรือ 160,000 กม.",
+      "ฟรี ฟิล์มกรองแสง XUV-MAX-CERAMIC",
+      "สายต่อพ่วงอุปกรณ์ไฟฟ้า หรือ V TO L",
+      "สายชาร์จเคลื่อนที่ AC PORTABLE CHARGER",
+      "พรมเข้ารูป กรอบป้ายทะเบียน ฟิล์มกันรอยหน้าจอ",
+      "ค่าจดทะเบียน",
+      "ฟรี HOME CHARGER ยี่ห้อ ZHIDA (เฉพาะรุ่น EXTENDED)",
+    ],
+    promotion: []
+  },
+  
+];
 
 
 

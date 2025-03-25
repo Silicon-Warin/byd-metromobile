@@ -19,10 +19,8 @@ export function ModelPromoCard({ model }: ModelCardProps) {
 	};
 
 	const slug = getModelSlug(model.name);
-	const paymentPageUrl = `/models/${slug}/ตารางผ่อน-${model.name.replace(
-		/\s+/g,
-		"-"
-	)}`;
+	// ใช้ static path ตรงๆ ไม่ใช้ dynamic path
+	const detailPageUrl = `/models/${slug}/loan-calculator`;
 
 	return (
 		<div className="relative group h-full flex flex-col w-full rounded-lg overflow-hidden shadow-lg">
@@ -38,9 +36,6 @@ export function ModelPromoCard({ model }: ModelCardProps) {
 					quality={75}
 				/>
 
-				{/* Gradient Overlay */}
-				<div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
-
 				{/* Model Info Container */}
 				<div className="absolute top-0 left-0 right-0 p-4 z-10">
 					<h3 className="text-xl md:text-2xl font-bold text-white">
@@ -53,7 +48,7 @@ export function ModelPromoCard({ model }: ModelCardProps) {
 
 				{/* Bottom Section: View Details Button */}
 				<div className="absolute bottom-0 left-0 right-0 p-4 z-10">
-					<Link href={paymentPageUrl}>
+					<Link href={detailPageUrl}>
 						<Button
 							className="w-full bg-primary/80 hover:bg-primary text-white group transition-all duration-300 shadow-lg"
 							size="sm"

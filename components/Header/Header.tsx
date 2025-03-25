@@ -90,6 +90,18 @@ export default function Header() {
 	const [hoveredItem, setHoveredItem] = useState<string | null>(null);
 	const dropdownRef = useRef<HTMLDivElement>(null);
 
+	// เช็คว่าอยู่ในหน้า models/[car] หรือไม่
+	const isModelPage = pathname.startsWith("/models/");
+
+	// เพิ่ม section navigation
+	const modelSections = [
+		{ id: "overview", label: "ภาพรวม" },
+		{ id: "showcase", label: "จุดเด่น" },
+		{ id: "colors", label: "สีรถ" },
+		{ id: "variants", label: "รุ่นย่อย" },
+		{ id: "specs", label: "สเปค" },
+	];
+
 	useEffect(() => {
 		const handleScroll = () => {
 			setScrollY(window.scrollY);
@@ -126,26 +138,45 @@ export default function Header() {
 		}
 	};
 
+	const scrollToSection = (sectionId: string) => {
+		const section = document.getElementById(sectionId);
+		if (section) {
+			section.scrollIntoView({ behavior: "smooth" });
+		}
+	};
+
 	const isScrolled = scrollY > 50;
+
+	// ปรับ style ตาม condition
+	const headerBg =
+		isModelPage && isScrolled
+			? "bg-primary/80 backdrop-blur-lg shadow-lg"
+			: isScrolled
+			? "bg-primary/80 backdrop-blur-lg shadow-lg"
+			: "bg-transparent";
+
 	const textColor =
-		isScrolled || activeDropdown ? "text-primary-dark" : "text-white";
+		(isModelPage && isScrolled) || activeDropdown
+			? "text-primary-dark"
+			: isScrolled
+			? "text-primary-dark"
+			: "text-white";
+
 	const hoverTextColor =
-		isScrolled || activeDropdown
+		(isModelPage && isScrolled) || activeDropdown
+			? "hover:text-primary-dark/80"
+			: isScrolled
 			? "hover:text-primary-dark/80"
 			: "hover:text-white/80";
 
 	return (
 		<nav
 			className={`
-        fixed top-0 left-0 right-0 z-50 transition-all duration-300 
-        ${
-					isScrolled
-						? "bg-primary/80 backdrop-blur-lg shadow-lg"
-						: "bg-transparent"
-				}
-      `}
+				fixed top-0 left-0 right-0 z-50 transition-all duration-300 
+				${headerBg}
+			`}
 		>
-			<div className="container mx-auto px-4 py-3 flex items-center justify-between">
+			<div className="container mx-auto px-4 py-5 flex items-center justify-between">
 				{/* Logo */}
 				<div className="w-24 md:w-auto h-auto relative">
 					<Link href="/">
@@ -161,46 +192,121 @@ export default function Header() {
 				</div>
 
 				{/* Desktop Navigation */}
-				<div className="hidden lg:flex items-center space-x-8">
-					{navItems.map((item) => (
-						<div
-							key={item.id}
-							className="relative"
-							onMouseEnter={() => {
-								setHoveredItem(item.id);
-								if (item.hasDropdown) {
-									setActiveDropdown(item.id);
-								} else {
-									setActiveDropdown(null);
-								}
-							}}
-							onMouseLeave={() => setHoveredItem(null)}
-						>
-							<Link
-								href={item.href}
-								onClick={(e) => handleNavClick(e, item)}
-								className={`text-sm font-medium transition-colors relative 
-                  ${textColor} ${hoverTextColor}
-                  ${pathname === item.href ? "font-bold" : ""}
-                  ${activeDropdown === item.id ? "text-primary-dark" : ""}
-                `}
+				{isModelPage ? (
+					<div className="hidden lg:flex items-center space-x-8">
+						{!isScrolled ? (
+							// Global Navigation เมื่ออยู่บนสุด
+							<>
+								{navItems.map((item) => (
+									<div
+										key={item.id}
+										className="relative"
+										onMouseEnter={() => {
+											setHoveredItem(item.id);
+											if (item.hasDropdown) {
+												setActiveDropdown(item.id);
+											} else {
+												setActiveDropdown(null);
+											}
+										}}
+										onMouseLeave={() => setHoveredItem(null)}
+									>
+										<Link
+											href={item.href}
+											onClick={(e) => handleNavClick(e, item)}
+											className={`text-sm font-medium transition-colors relative 
+												${textColor} ${hoverTextColor}
+												${pathname === item.href ? "font-bold" : ""}
+												${activeDropdown === item.id ? "text-primary-dark" : ""}
+											`}
+										>
+											{item.label}
+											<span
+												className={`absolute bottom-[-4px] left-0 h-[2px] bg-accent transition-all duration-300 
+													${
+														pathname === item.href ||
+														activeDropdown === item.id ||
+														hoveredItem === item.id
+															? "w-full"
+															: "w-0"
+													}
+												`}
+											></span>
+										</Link>
+									</div>
+								))}
+							</>
+						) : (
+							// Model Navigation เมื่อ scroll
+							<>
+								{/* Model Name */}
+								<div className="font-bold text-lg mr-8">BYD SEAL</div>
+
+								{/* Section Navigation */}
+								{modelSections.map((section) => (
+									<button
+										key={section.id}
+										onClick={() => scrollToSection(section.id)}
+										className={`text-sm font-medium transition-colors relative 
+											${textColor} ${hoverTextColor}
+										`}
+									>
+										{section.label}
+									</button>
+								))}
+
+								{/* Order Button */}
+								<Button
+									variant="default"
+									className="bg-red-600 hover:bg-red-700 text-white ml-4"
+								>
+									สั่งจองรถยนต์
+								</Button>
+							</>
+						)}
+					</div>
+				) : (
+					<div className="hidden lg:flex items-center space-x-8">
+						{navItems.map((item) => (
+							<div
+								key={item.id}
+								className="relative"
+								onMouseEnter={() => {
+									setHoveredItem(item.id);
+									if (item.hasDropdown) {
+										setActiveDropdown(item.id);
+									} else {
+										setActiveDropdown(null);
+									}
+								}}
+								onMouseLeave={() => setHoveredItem(null)}
 							>
-								{item.label}
-								<span
-									className={`absolute bottom-[-4px] left-0 h-[2px] bg-accent transition-all duration-300 
-                    ${
-											pathname === item.href ||
-											activeDropdown === item.id ||
-											hoveredItem === item.id
-												? "w-full"
-												: "w-0"
-										}
-                  `}
-								></span>
-							</Link>
-						</div>
-					))}
-				</div>
+								<Link
+									href={item.href}
+									onClick={(e) => handleNavClick(e, item)}
+									className={`text-sm font-medium transition-colors relative 
+										${textColor} ${hoverTextColor}
+										${pathname === item.href ? "font-bold" : ""}
+										${activeDropdown === item.id ? "text-primary-dark" : ""}
+									`}
+								>
+									{item.label}
+									<span
+										className={`absolute bottom-[-4px] left-0 h-[2px] bg-accent transition-all duration-300 
+											${
+												pathname === item.href ||
+												activeDropdown === item.id ||
+												hoveredItem === item.id
+													? "w-full"
+													: "w-0"
+											}
+										`}
+									></span>
+								</Link>
+							</div>
+						))}
+					</div>
+				)}
 
 				{/* <div className="hidden lg:block">
 					<Button

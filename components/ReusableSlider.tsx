@@ -6,27 +6,35 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, A11y } from "swiper/modules";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { defaultModels } from "@/data/carModel";
 import type { Swiper as SwiperType } from "swiper";
-
-// Import Swiper styles
 import "swiper/css";
 import "swiper/css/navigation";
-import type { NavigationOptions } from "swiper/types";
 
-export function ModelCarSlider() {
+// กำหนด Type สำหรับข้อมูลของแต่ละสไลด์
+interface SliderItem {
+	id: string;
+	name: string;
+	imageUrl: string;
+}
+
+// กำหนด Props ของคอมโพเนนต์
+interface ReusableSliderProps {
+	items: SliderItem[];
+	onItemClick: (item: SliderItem) => void;
+	buttonText?: string;
+}
+
+export function ReusableSlider({
+	items,
+	onItemClick,
+	buttonText = "Order Now",
+}: ReusableSliderProps) {
 	const [swiper, setSwiper] = useState<SwiperType | null>(null);
 	const prevRef = useRef<HTMLButtonElement>(null);
 	const nextRef = useRef<HTMLButtonElement>(null);
 
 	return (
-		<div className="relative w-4/5 mx-auto">
-			<div className="mb-8">
-				<h2 className="text-2xl font-bold">
-					Models. <span className="text-gray-400">Build your dreams.</span>
-				</h2>
-			</div>
-
+		<div className="relative w-3/5 mx-auto">
 			<div className="swiper-container overflow-visible">
 				<Swiper
 					modules={[Navigation, A11y]}
@@ -38,33 +46,30 @@ export function ModelCarSlider() {
 					loop={false}
 					onSwiper={(swiper) => {
 						setSwiper(swiper);
-						// Update swiper instance when navigation buttons are rendered
 						if (prevRef.current && nextRef.current) {
 							if (swiper.params.navigation) {
-								(swiper.params.navigation as NavigationOptions).prevEl =
-									prevRef.current;
-								(swiper.params.navigation as NavigationOptions).nextEl =
-									nextRef.current;
+								(swiper.params.navigation as any).prevEl = prevRef.current;
+								(swiper.params.navigation as any).nextEl = nextRef.current;
 							}
 							swiper.navigation.init();
 							swiper.navigation.update();
 						}
 					}}
 				>
-					{defaultModels.map((car) => (
-						<SwiperSlide className="!w-[350px] !h-auto" key={car.id}>
+					{items.map((item) => (
+						<SwiperSlide className="!w-[350px] !h-auto" key={item.id}>
 							<div className="bg-gradient-to-b from-blue-950/80 to-blue-950/40 rounded-lg overflow-hidden border border-blue-900/50 h-full flex flex-col">
 								<div className="p-6">
-									<h3 className="text-lg font-bold mb-1">{car.name}</h3>
+									<h3 className="text-lg font-bold mb-1">{item.name}</h3>
 								</div>
 
 								<div className="flex-1 relative p-4">
 									<Image
-										src={car.imageUrlModel || "/placeholder.svg"}
-										alt={car.name}
+										src={item.imageUrl || "/placeholder.svg"}
+										alt={item.name}
 										width={300}
 										height={200}
-										className="w-full h-auto object-contain"
+										className="w-full h-full object-contain"
 									/>
 								</div>
 
@@ -72,8 +77,9 @@ export function ModelCarSlider() {
 									<Button
 										variant="outline"
 										className="w-full bg-white text-black hover:bg-gray-100 border-0 rounded-full"
+										onClick={() => onItemClick(item)}
 									>
-										Order Now
+										{buttonText}
 									</Button>
 								</div>
 							</div>
@@ -82,7 +88,7 @@ export function ModelCarSlider() {
 				</Swiper>
 			</div>
 
-			{/* Navigation arrows at the bottom right */}
+			{/* ปุ่มนำทาง */}
 			<div className="flex justify-end gap-2 mt-4">
 				<Button
 					ref={prevRef}
