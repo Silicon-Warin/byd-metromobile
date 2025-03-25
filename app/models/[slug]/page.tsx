@@ -17,9 +17,55 @@ export default function ModelPage() {
 	// ใช้ useParams เพื่อดึง slug จาก URL
 	const { slug } = useParams();
 
-	// ค้นหาข้อมูลรถยนต์ตาม slug
-	const carModel = findModelBySlug(slug as string);
+	// ย้าย hooks ทั้งหมดมาไว้ด้านบน
+	const [carModel, setCarModel] = useState<any>(null);
+	const [selectedColor, setSelectedColor] = useState<any>(null);
+	const [selectedVariant, setSelectedVariant] = useState<any>(null);
+	const heroRef = useRef<HTMLDivElement>(null);
 
+	// ใช้ useEffect ในการโหลดข้อมูลรถยนต์
+	useEffect(() => {
+		if (slug) {
+			const model = findModelBySlug(slug as string);
+			if (model) {
+				setCarModel(model);
+
+				// ตั้งค่าสีและรุ่นเริ่มต้น
+				if (model.colors && model.colors.length > 0) {
+					setSelectedColor(model.colors[0]);
+				}
+
+				if (model.variants && model.variants.length > 0) {
+					setSelectedVariant(model.variants[0]);
+				}
+			}
+		}
+	}, [slug]);
+
+	// อัพเดตสีและรุ่น (ถ้าจำเป็น)
+	useEffect(() => {
+		if (carModel) {
+			if (carModel.colors && carModel.colors.length > 0 && !selectedColor) {
+				setSelectedColor(carModel.colors[0]);
+			}
+			if (
+				carModel.variants &&
+				carModel.variants.length > 0 &&
+				!selectedVariant
+			) {
+				setSelectedVariant(carModel.variants[0]);
+			}
+		}
+	}, [carModel, selectedColor, selectedVariant]);
+
+	const scrollToShowcase = () => {
+		const showcase = document.getElementById("showcase");
+		if (showcase) {
+			showcase.scrollIntoView({ behavior: "smooth" });
+		}
+	};
+
+	// แสดงหน้าโหลดหรือข้อความไม่พบข้อมูล
 	if (!carModel) {
 		return (
 			<div className="min-h-screen flex items-center justify-center">
@@ -30,32 +76,6 @@ export default function ModelPage() {
 			</div>
 		);
 	}
-
-	const [selectedColor, setSelectedColor] = useState(
-		carModel.colors && carModel.colors.length > 0 ? carModel.colors[0] : null
-	);
-	const [selectedVariant, setSelectedVariant] = useState(
-		carModel.variants && carModel.variants.length > 0
-			? carModel.variants[0]
-			: null
-	);
-	const heroRef = useRef<HTMLDivElement>(null);
-
-	useEffect(() => {
-		if (carModel.colors && carModel.colors.length > 0 && !selectedColor) {
-			setSelectedColor(carModel.colors[0]);
-		}
-		if (carModel.variants && carModel.variants.length > 0 && !selectedVariant) {
-			setSelectedVariant(carModel.variants[0]);
-		}
-	}, [carModel, selectedColor, selectedVariant]);
-
-	const scrollToShowcase = () => {
-		const showcase = document.getElementById("showcase");
-		if (showcase) {
-			showcase.scrollIntoView({ behavior: "smooth" });
-		}
-	};
 
 	return (
 		<div className="bg-richblack text-white">
@@ -151,10 +171,7 @@ export default function ModelPage() {
 						>
 							Configure Your BYD
 						</Button>
-						<Link
-							href={`/models/${slug}/loan-calculator
-						`}
-						>
+						<Link href={`/models/${slug}/loan-calculator`}>
 							<Button
 								variant="outline"
 								className="border-bydblue text-bydblue hover:bg-bydblue hover:text-white min-w-[150px]"
