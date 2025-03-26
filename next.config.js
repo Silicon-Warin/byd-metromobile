@@ -28,6 +28,15 @@ const nextConfig = {
 			},
 		];
 	},
+	async redirects() {
+		return [
+			{
+				source: "/model/byd-sealion-6-dm-i",
+				destination: "/models/byd-sealion6dmi",
+				permanent: true,
+			},
+		];
+	},
 };
 
 module.exports = nextConfig;
