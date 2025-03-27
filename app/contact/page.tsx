@@ -111,7 +111,7 @@ export default function ContactPage() {
 		},
 		{
 			platform: "line",
-			url: "https://line.me/ti/p/%40bydbangkok",
+			url: "https://line.me/R/ti/p/%40bydmetromobile",
 			icon: "line",
 		},
 		{

@@ -240,7 +240,9 @@ export default function Header() {
 							// Model Navigation เมื่อ scroll
 							<>
 								{/* Model Name */}
-								<div className="font-bold text-lg mr-8">BYD SEAL</div>
+								<div className="font-bold text-lg mr-8">
+									{pathname.split("/").pop()?.toUpperCase() || ""}
+								</div>
 
 								{/* Section Navigation */}
 								{modelSections.map((section) => (
@@ -452,16 +454,6 @@ export default function Header() {
 												</motion.div>
 											))}
 										</nav>
-
-										{/* Mobile Account Button */}
-										<motion.div
-											variants={navItemVariants}
-											className="mt-auto px-6 pb-8 pt-6"
-										>
-											<Button className="w-full bg-blue-600 hover:bg-blue-700 text-white">
-												MY ACCOUNT
-											</Button>
-										</motion.div>
 									</motion.div>
 								)}
 							</AnimatePresence>

@@ -206,6 +206,12 @@ export default function LoanCalculatorPage() {
 								<Button
 									className="w-full bg-white text-primary hover:bg-gray-100"
 									size="lg"
+									onClick={() =>
+										window.open(
+											"https://line.me/R/ti/p/%40bydmetromobile",
+											"_blank"
+										)
+									}
 								>
 									จองรถยนต์
 								</Button>
