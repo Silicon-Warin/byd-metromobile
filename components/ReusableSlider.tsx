@@ -38,11 +38,12 @@ export function ReusableSlider({
 			<div className="swiper-container overflow-visible">
 				<Swiper
 					modules={[Navigation, A11y]}
+					freeMode={true}
 					spaceBetween={20}
 					slidesPerView="auto"
 					className="!overflow-visible"
 					initialSlide={0}
-					centeredSlides={false}
+					centeredSlides={true}
 					loop={false}
 					onSwiper={(swiper) => {
 						setSwiper(swiper);
@@ -57,7 +58,10 @@ export function ReusableSlider({
 					}}
 				>
 					{items.map((item) => (
-						<SwiperSlide className="!w-[350px] !h-auto" key={item.id}>
+						<SwiperSlide
+							className="!w-[350px] sm:!w-[280px] !h-auto"
+							key={item.id}
+						>
 							<div className="bg-gradient-to-b from-blue-950/80 to-blue-950/40 rounded-lg overflow-hidden border border-blue-900/50 h-full flex flex-col">
 								<div className="p-6">
 									<h3 className="text-lg font-bold mb-1">{item.name}</h3>
