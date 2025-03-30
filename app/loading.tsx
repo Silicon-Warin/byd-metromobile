@@ -88,7 +88,7 @@ export default function BydNeonLoader() {
 	}, [animate]);
 
 	return (
-		<div className="flex items-center justify-center w-full h-screen bg-gray-900">
+		<div className="flex items-center justify-center w-full h-screen bg-background">
 			<svg
 				ref={scope}
 				width="300"
@@ -102,10 +102,10 @@ export default function BydNeonLoader() {
 					initial={{ pathLength: 0.5, pathOffset: 0.5 }}
 					d="M 25,20 H 65 C 75,20 80,25 80,35 V 40 C 80,45 75,50 65,50 H 25 M 25,50 H 65 C 75,50 80,55 80,65 V 70 C 80,75 75,80 65,80 H 25"
 					style={{
-						stroke: "#ff3333",
+						stroke: "#ffffff",
 						strokeWidth: 2,
 						fill: "none",
-						filter: "drop-shadow(0 0 5px #ff0000)",
+						filter: "drop-shadow(0 0 5px #ffffff)",
 					}}
 				/>
 				<motion.path
@@ -113,10 +113,10 @@ export default function BydNeonLoader() {
 					initial={{ pathLength: 0, pathOffset: 1 }}
 					d="M 25,20 H 65 C 75,20 80,25 80,35 V 40 C 80,45 75,50 65,50 H 25 M 25,50 H 65 C 75,50 80,55 80,65 V 70 C 80,75 75,80 65,80 H 25"
 					style={{
-						stroke: "#ff3333",
+						stroke: "#ffffff",
 						strokeWidth: 2,
 						fill: "none",
-						filter: "drop-shadow(0 0 5px #ff0000)",
+						filter: "drop-shadow(0 0 5px #ffffff)",
 					}}
 				/>
 				<motion.path
@@ -124,11 +124,11 @@ export default function BydNeonLoader() {
 					initial={{ pathLength: 1.1, pathOffset: 1 }}
 					d="M 25,20 H 65 C 75,20 80,25 80,35 V 40 C 80,45 75,50 65,50 H 25 M 25,50 H 65 C 75,50 80,55 80,65 V 70 C 80,75 75,80 65,80 H 25"
 					style={{
-						stroke: "#ff6666",
+						stroke: "#ffffff",
 						strokeWidth: 4,
 						fill: "none",
 						opacity: 0.5,
-						filter: "drop-shadow(0 0 8px #ff0000)",
+						filter: "drop-shadow(0 0 8px #ffffff)",
 					}}
 				/>
 
@@ -138,10 +138,10 @@ export default function BydNeonLoader() {
 					initial={{ pathLength: 0.5, pathOffset: 0.5 }}
 					d="M 110,20 V 40 H 135 V 80 M 160,20 V 40 H 135"
 					style={{
-						stroke: "#ff3333",
+						stroke: "#ffffff",
 						strokeWidth: 2,
 						fill: "none",
-						filter: "drop-shadow(0 0 5px #ff0000)",
+						filter: "drop-shadow(0 0 5px #ffffff)",
 					}}
 				/>
 				<motion.path
@@ -149,10 +149,10 @@ export default function BydNeonLoader() {
 					initial={{ pathLength: 0, pathOffset: 1 }}
 					d="M 110,20 V 40 H 135 V 80 M 160,20 V 40 H 135"
 					style={{
-						stroke: "#ff3333",
+						stroke: "#ffffff",
 						strokeWidth: 2,
 						fill: "none",
-						filter: "drop-shadow(0 0 5px #ff0000)",
+						filter: "drop-shadow(0 0 5px #ffffff)",
 					}}
 				/>
 				<motion.path
@@ -160,11 +160,11 @@ export default function BydNeonLoader() {
 					initial={{ pathLength: 1.1, pathOffset: 1 }}
 					d="M 110,20 V 40 H 135 V 80 M 160,20 V 40 H 135"
 					style={{
-						stroke: "#ff6666",
+						stroke: "#ffffff",
 						strokeWidth: 4,
 						fill: "none",
 						opacity: 0.5,
-						filter: "drop-shadow(0 0 8px #ff0000)",
+						filter: "drop-shadow(0 0 8px #ffffff)",
 					}}
 				/>
 
@@ -174,10 +174,10 @@ export default function BydNeonLoader() {
 					initial={{ pathLength: 0.5, pathOffset: 0.5 }}
 					d="M 190,20 H 220 C 245,20 260,30 260,50 C 260,70 245,80 220,80 H 190"
 					style={{
-						stroke: "#ff3333",
+						stroke: "#ffffff",
 						strokeWidth: 2,
 						fill: "none",
-						filter: "drop-shadow(0 0 5px #ff0000)",
+						filter: "drop-shadow(0 0 5px #ffffff)",
 					}}
 				/>
 				<motion.path
@@ -185,10 +185,10 @@ export default function BydNeonLoader() {
 					initial={{ pathLength: 0, pathOffset: 1 }}
 					d="M 190,20 H 220 C 245,20 260,30 260,50 C 260,70 245,80 220,80 H 190"
 					style={{
-						stroke: "#ff3333",
+						stroke: "#ffffff",
 						strokeWidth: 2,
 						fill: "none",
-						filter: "drop-shadow(0 0 5px #ff0000)",
+						filter: "drop-shadow(0 0 5px #ffffff)",
 					}}
 				/>
 				<motion.path
@@ -196,11 +196,11 @@ export default function BydNeonLoader() {
 					initial={{ pathLength: 1.1, pathOffset: 1 }}
 					d="M 190,20 H 220 C 245,20 260,30 260,50 C 260,70 245,80 220,80 H 190"
 					style={{
-						stroke: "#ff6666",
+						stroke: "#ffffff",
 						strokeWidth: 4,
 						fill: "none",
 						opacity: 0.5,
-						filter: "drop-shadow(0 0 8px #ff0000)",
+						filter: "drop-shadow(0 0 8px #ffffff)",
 					}}
 				/>
 			</svg>

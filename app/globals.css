@@ -80,35 +80,34 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+  --bydblue: oklch(0.55 0.18 245);
+  --bydblue-foreground: oklch(0.985 0 0);
 }
 
 @layer base {
   * {
-    @apply border-border outline-ring/50;
+    @apply border-border;
   }
   body {
     @apply bg-background text-foreground;
-    font-family: var(--font-sans), sans-serif; /* Inter สำหรับเนื้อหา */
+    font-feature-settings: "rlig" 1, "calt" 1;
   }
 
-  h1, h2, h3 {
-    font-family: var(--font-thai), sans-serif; /* IBM Plex Sans Thai สำหรับหัวข้อ */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-prompt), sans-serif;
   }
 
-  p {
-    font-family: var(--font-mono), sans-serif; /* Prompt สำหรับเนื้อหา */
-    letter-spacing: 0.01em; /* Add spacing for better Thai text readability */
-    line-height: 1.8; /* Increase line height for Thai text */
-  }
-
-  .mobile-content-fix {
-    @media (max-width: 768px) {
-      bottom: 0;
-      top: auto;
-      height: 70%;
-      justify-content: flex-end;
-      padding-bottom: 2rem;
-    }
+  p,
+  span,
+  div,
+  a,
+  button {
+    font-family: var(--font-ibm), sans-serif;
   }
 }
 
@@ -118,66 +117,10 @@
   height: 100%;
 }
 
-/* Modern UI Enhancements */
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
-}
-
-/* Responsive Design Enhancements */
-@layer components {
-  .container {
-    @apply mx-auto px-4 sm:px-6 lg:px-8;
-  }
-  .section {
-    @apply py-12 md:py-16 lg:py-20;
-  }
-  .grid-responsive {
-    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6;
-  }
-  .flex-responsive {
-    @apply flex flex-col md:flex-row items-center justify-between;
-  }
-}
-
-.svg-container {
+.swiper-slide {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  width: 100vw;
-}
-
-path {
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-
-/* Custom Swiper Styles */
-.showcase-swiper .swiper-pagination-bullet {
-  background-color: white;
-  opacity: 0.5;
-}
-
-.showcase-swiper .swiper-pagination-bullet-active {
-  background-color: #0066ff;
-  opacity: 1;
-}
-
-.showcase-swiper .swiper-button-next,
-.showcase-swiper .swiper-button-prev {
-  color: white;
-}
-
-.gallery-swiper .swiper-pagination-bullet {
-  background-color: white;
-  opacity: 0.5;
-}
-
-.gallery-swiper .swiper-pagination-bullet-active {
-  background-color: #0066ff;
-  opacity: 1;
 }
 
 /* Animation for scroll down arrow */
@@ -195,6 +138,50 @@ path {
   animation: scroll-down 2s ease-in-out infinite;
 }
 
+/* Glass effect */
+.glass-effect {
+  background: rgba(18, 18, 18, 0.7);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Custom gradient backgrounds */
+.bg-rich-black-gradient {
+  background: linear-gradient(to bottom, #0a0a0a, #121212);
+}
+
+.bg-rich-black-gradient-subtle {
+  background: linear-gradient(to bottom, #121212, #181818);
+}
+
+
+
+/* Responsive utilities */
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+/* Tailwind custom components */
+@layer components {
+  .container-custom {
+    @apply container mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  .section-spacing {
+    @apply py-12 md:py-20 lg:py-24;
+  }
+
+  .card-hover {
+    @apply transition-all duration-300 hover:bg-secondary/80 hover:shadow-lg hover:shadow-black/20;
+  }
+
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400;
+  }
+}
 
 
 

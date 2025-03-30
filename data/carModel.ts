@@ -24,6 +24,7 @@ export interface CarModel {
   promotion: string[];
   features: string[] | CarFeature[];
   gallery?: string[];
+  techSpec?: TechSpec; // เพิ่มข้อมูล tech spec
 }
 
 export interface CarColor {
@@ -46,6 +47,7 @@ export interface CarVariant {
   power?: string;
   acceleration?: string;
   downPaymentOptions: DownPaymentOption[];
+  techSpec?: TechSpec; // เพิ่มข้อมูล tech spec สำหรับแต่ละรุ่นย่อย
 }
 
 export interface DownPaymentOption {
@@ -74,7 +76,6 @@ export function findModelBySlug(slug: string): CarModel | undefined {
   return model;
 }
 
-
 // รายการรถยนต์ที่มีอยู่เดิม (คงไว้เพื่อความเข้ากันได้กับโค้ดเดิม)
 export const defaultModels: CarModel[] = [
   {
@@ -85,6 +86,7 @@ export const defaultModels: CarModel[] = [
     price: 1249900,
     imageUrlPromo: "/images/motor-show-promo/sealion7.jpg",
     imageUrlModel: "/images/models/BYD-sealion7.webp",
+    
     imageWidth: 1200,
     imageHeight: 800,
     variants: [
@@ -895,6 +897,36 @@ export const defaultModels: CarModel[] = [
         acceleration: "3.8 Sec",
         price: 1199900,
         range: "580 KM",
+        techSpec: {
+          dimensions: {
+            length: "4,800 มม.",
+            width: "1,875 มม.",
+            height: "1,460 มม.",
+            wheelbase: "2,920 มม.",
+          },
+          weights: {
+            curb: "2,185 กก.",
+            gross: "2,631 กก.",
+          },
+          clearance: "120 มม.",
+          tiresAndWheels: "245/45 R19",
+          batteryCapacity: "82.56 กิโลวัตต์-ชั่วโมง",
+          chargingTime: {
+            acCharging: "10 ชั่วโมง (11kW)",
+            dcCharging: "30 นาที (150kW, 30-80%)",
+          },
+          performance: {
+            topSpeed: "200 กม./ชม.",
+            acceleration: "3.8 วินาที",
+            range: "580 กม.",
+          },
+          misc: {
+            "ประเภทแบตเตอรี่": "BYD Blade Battery (LFP)",
+            "มอเตอร์ไฟฟ้า": "Dual Motor (Front + Rear)",
+            "กำลังรวมสูงสุด": "390 กิโลวัตต์",
+            "แรงบิดสูงสุด": "670 นิวตันเมตร",
+          }
+        },
         downPaymentOptions: [
           {
             percentage: 30,
@@ -1252,6 +1284,33 @@ export const defaultModels: CarModel[] = [
     promotion: []
   },  
 ];
+
+// เพิ่ม interface สำหรับข้อมูล tech spec
+export interface TechSpec {
+  dimensions?: {
+    length: string; // ความยาว (มิลลิเมตร)
+    width: string;  // ความกว้าง (มิลลิเมตร)
+    height: string; // ความสูง (มิลลิเมตร)
+    wheelbase: string; // ระยะห่างล้อ (มิลลิเมตร)
+  };
+  weights?: {
+    curb: string;    // น้ำหนักรถเปล่า (กิโลกรัม)
+    gross: string;   // น้ำหนักรถรวมภาระ (กิโลกรัม)
+  };
+  clearance?: string; // ระยะห่างจากพื้น (มิลลิเมตร)
+  tiresAndWheels?: string; // ขนาดล้อและยาง
+  batteryCapacity?: string; // ความจุแบตเตอรี่ (กิโลวัตต์-ชั่วโมง)
+  chargingTime?: {
+    acCharging?: string; // เวลาชาร์จด้วย AC
+    dcCharging?: string; // เวลาชาร์จด้วย DC
+  };
+  performance?: {
+    topSpeed?: string; // ความเร็วสูงสุด (กม./ชม.)
+    acceleration?: string; // อัตราเร่ง 0-100 กม./ชม. (วินาที)
+    range?: string; // ระยะทางขับขี่ (กม.)
+  };
+  misc?: Record<string, string>; // ข้อมูลอื่นๆ
+}
 
 
 

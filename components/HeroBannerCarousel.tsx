@@ -1,4 +1,6 @@
-import React, { useState, useEffect, useCallback, useRef } from "react";
+"use client";
+
+import { useState, useEffect, useCallback, useRef } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
@@ -8,19 +10,16 @@ const slides = [
 	{
 		id: 1,
 		image: "/images/banners/banner-1.jpg",
-
 		buttonLink: "/offers",
 	},
 	{
 		id: 2,
 		image: "/images/banners/banner-2.jpg",
-
 		buttonLink: "/order",
 	},
 	{
 		id: 3,
 		image: "/images/banners/banner-3.jpg",
-
 		buttonLink: "/vehicles",
 	},
 ];
@@ -29,7 +28,7 @@ const HeroBannerCarousel = () => {
 	const [currentSlide, setCurrentSlide] = useState(0);
 	const [isAutoplay, setIsAutoplay] = useState(true);
 	const [isMobile, setIsMobile] = useState(false);
-	const carouselRef = useRef(null);
+	const carouselRef = useRef<HTMLDivElement>(null);
 	const slideCount = slides.length;
 
 	// Check if we're on mobile
@@ -87,27 +86,16 @@ const HeroBannerCarousel = () => {
 				>
 					<div className="relative w-full h-full">
 						<Image
-							src={slides[currentSlide].image}
+							src={slides[currentSlide].image || "/placeholder.svg"}
 							alt="bydmetromobile banner"
 							fill
 							priority={currentSlide === 0}
 							quality={85}
 							className={`${
-								isMobile ? "object-contain scale-[1.2]" : "object-cover"
+								isMobile ? "object-cover object-center" : "object-cover"
 							}`}
 							sizes="100vw"
 						/>
-						<div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent flex flex-col justify-center items-center text-white text-center px-4 mobile-content-fix">
-							<div className="flex flex-col sm:flex-row gap-4">
-								<Button
-									variant="outline"
-									className="border-white text-white hover:bg-white/20"
-									size="lg"
-								>
-									Learn More
-								</Button>
-							</div>
-						</div>
 					</div>
 				</motion.div>
 			</AnimatePresence>
@@ -115,9 +103,9 @@ const HeroBannerCarousel = () => {
 			{/* Navigation arrows */}
 			<div className="absolute left-4 top-1/2 transform -translate-y-1/2 z-10">
 				<Button
-					variant="ghost"
+					variant="outline"
 					size="icon"
-					className="bg-black/30 text-white rounded-full hover:bg-black/50"
+					className="bg-black/30 text-white rounded-full hover:bg-black/50 border-0"
 					onClick={() => {
 						prevSlide();
 						handleInteraction();
@@ -130,9 +118,9 @@ const HeroBannerCarousel = () => {
 
 			<div className="absolute right-4 top-1/2 transform -translate-y-1/2 z-10">
 				<Button
-					variant="ghost"
+					variant="outline"
 					size="icon"
-					className="bg-black/30 text-white rounded-full hover:bg-black/50"
+					className="bg-black/30 text-white rounded-full hover:bg-black/50 border-0"
 					onClick={() => {
 						nextSlide();
 						handleInteraction();
@@ -141,23 +129,6 @@ const HeroBannerCarousel = () => {
 				>
 					<ChevronRight className="h-6 w-6" />
 				</Button>
-			</div>
-
-			{/* Slide indicators */}
-			<div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex gap-2 z-10">
-				{Array.from({ length: slideCount }).map((_, idx) => (
-					<button
-						key={idx}
-						onClick={() => {
-							setCurrentSlide(idx);
-							handleInteraction();
-						}}
-						className={`w-3 h-3 rounded-full transition-all ${
-							currentSlide === idx ? "bg-white w-8" : "bg-white/50"
-						}`}
-						aria-label={`Go to slide ${idx + 1}`}
-					/>
-				))}
 			</div>
 		</div>
 	);

@@ -14,6 +14,7 @@ import {
 import { findModelBySlug } from "@/data/carModel";
 import { useLoanCalculator } from "@/hooks/useLoanCalculator";
 import { useParams } from "next/navigation";
+import TechSpecTable from "@/components/ui/TechSpecTable";
 
 export default function LoanCalculatorPage() {
 	// ใช้ useParams เพื่อดึง slug จาก URL
@@ -51,18 +52,18 @@ export default function LoanCalculatorPage() {
 	const monthlyPayment = getMonthlyPayment();
 
 	return (
-		<div className="min-h-screen bg-primary pt-24">
+		<div className="min-h-screen bg-background pt-24">
 			{/* Hero Section */}
 			<div className="container mx-auto px-4">
 				<div className="text-center mb-12">
 					<motion.h1
-						className="text-4xl md:text-5xl font-bold mb-4"
+						className="text-4xl md:text-5xl font-bold mb-4 text-foreground"
 						initial={{ opacity: 0, y: 20 }}
 						animate={{ opacity: 1, y: 0 }}
 					>
 						ตารางผ่อน {carModel.name}
 					</motion.h1>
-					<p className="text-gray-600">{carModel.description}</p>
+					<p className="text-muted-foreground">{carModel.description}</p>
 				</div>
 
 				{/* Main Calculator Section */}
@@ -172,7 +173,7 @@ export default function LoanCalculatorPage() {
 						</Card>
 
 						{/* Summary */}
-						<Card className="bg-primary text-white">
+						<Card className="bg-card text-card-foreground">
 							<CardHeader>
 								<CardTitle>สรุปการคำนวณ</CardTitle>
 							</CardHeader>
@@ -204,7 +205,7 @@ export default function LoanCalculatorPage() {
 									</div>
 								</div>
 								<Button
-									className="w-full bg-white text-primary hover:bg-gray-100"
+									className="w-full bg-accent text-accent-foreground hover:bg-accent/90"
 									size="lg"
 									onClick={() =>
 										window.open(
@@ -230,7 +231,7 @@ export default function LoanCalculatorPage() {
 							<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
 								{carModel.promotion.map((feature: string, index: number) => (
 									<div key={index} className="flex items-start space-x-2">
-										<div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+										<div className="w-6 h-6 rounded-full bg-accent/10 flex items-center justify-center text-accent">
 											✓
 										</div>
 										<span>{feature}</span>
@@ -239,6 +240,42 @@ export default function LoanCalculatorPage() {
 							</div>
 						</CardContent>
 					</Card>
+				</div>
+
+				{/* Technical Specification Section */}
+				{selectedVariant && selectedVariant.techSpec && (
+					<div className="mt-16">
+						<h2 className="text-2xl font-bold mb-6 text-foreground">
+							ข้อมูลทางเทคนิค
+						</h2>
+						<TechSpecTable
+							techSpec={selectedVariant.techSpec}
+							variantName={`${carModel.name} ${selectedVariant.name}`}
+						/>
+					</div>
+				)}
+
+				{/* All Variants Specification Table */}
+				<div className="mt-16">
+					<h2 className="text-2xl font-bold mb-6 text-foreground">
+						เปรียบเทียบสเปคทุกรุ่น
+					</h2>
+					<TechSpecTable
+						variantsList={carModel.variants.map((variant: any) => ({
+							id: variant.id,
+							name: variant.name,
+							techSpec: variant.techSpec,
+						}))}
+						selectedVariantId={selectedVariant?.id}
+						onVariantChange={(variantId) => {
+							const newVariant = carModel.variants.find(
+								(v: any) => v.id === variantId
+							);
+							if (newVariant) {
+								setSelectedVariant(newVariant);
+							}
+						}}
+					/>
 				</div>
 			</div>
 		</div>

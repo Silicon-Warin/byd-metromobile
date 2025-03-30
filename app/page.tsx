@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import HeroBannerCarousel from "@/components/HeroBannerCarousel";
 import { ReusableSlider } from "@/components/ReusableSlider";
-import { ServiceGrid } from "@/components/ServiceCarousel";
+import { ServiceGrid } from "@/components/ServiceGrid";
 import { ChevronRight, Shield, Zap, Clock, Phone } from "lucide-react";
 import Link from "next/link";
 import { defaultModels } from "@/data/carModel";
@@ -35,26 +35,26 @@ export default function Home() {
 	};
 
 	return (
-		<main className="min-h-screen bg-black text-white">
+		<main className="min-h-screen bg-background text-foreground">
 			{/* Hero Section */}
 			<section className="relative">
-				<div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/80 z-10 pointer-events-none" />
+				<div className="absolute inset-0 bg-gradient-to-b from-transparent to-background/90 z-10 pointer-events-none" />
 				<HeroBannerCarousel />
 				<div className="absolute bottom-0 left-0 right-0 z-20 p-4 md:p-8 lg:p-12">
 					<motion.div
-						className="container mx-auto"
+						className="container-custom"
 						initial="hidden"
 						animate="visible"
 						variants={fadeIn}
 					>
-						<h1 className="text-3xl md:text-4xl lg:text-5xl font-prompt font-bold text-white mb-4 drop-shadow-lg">
+						<h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-2 sm:mb-4 drop-shadow-lg">
 							BYD Metromobile
 						</h1>
-						<p className="text-lg md:text-xl text-gray-200 max-w-xl mb-6 drop-shadow-lg">
+						<p className="text-sm sm:text-lg md:text-xl text-gray-200 max-w-xl mb-4 sm:mb-6 drop-shadow-lg">
 							ยานยนต์ไฟฟ้าแห่งอนาคต พร้อมเทคโนโลยีล้ำสมัยเพื่อโลกที่ยั่งยืน
 						</p>
 						<Button
-							className="bg-primary hover:bg-primary/90 text-white group"
+							className="bg-white hover:bg-white/90 text-black group text-sm sm:text-base"
 							asChild
 						>
 							<Link href="/promotions">
@@ -67,8 +67,8 @@ export default function Home() {
 			</section>
 
 			{/* Featured Models Section */}
-			<section className="py-16 md:py-24 overflow-hidden bg-gradient-to-b from-black to-gray-900">
-				<div className="container mx-auto">
+			<section className="section-spacing bg-rich-black-gradient">
+				<div className="container-custom">
 					<motion.div
 						initial="hidden"
 						whileInView="visible"
@@ -76,10 +76,8 @@ export default function Home() {
 						variants={fadeIn}
 						className="mb-12"
 					>
-						<h2 className="text-3xl md:text-4xl font-prompt font-bold text-center mb-4">
-							<span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-blue-400">
-								รถยนต์ไฟฟ้ารุ่นยอดนิยม
-							</span>
+						<h2 className="text-3xl md:text-4xl font-bold text-center mb-4">
+							<span className="text-gradient">รถยนต์ไฟฟ้ารุ่นยอดนิยม</span>
 						</h2>
 						<p className="text-gray-400 text-center max-w-2xl mx-auto">
 							ค้นพบรถยนต์ไฟฟ้า BYD รุ่นต่างๆ
@@ -99,8 +97,8 @@ export default function Home() {
 			</section>
 
 			{/* Services Section */}
-			<section className="py-16 md:py-24 bg-gray-900 lg:px-12">
-				<div className="container mx-auto px-4 md:px-8">
+			<section className="section-spacing bg-rich-black-gradient-subtle">
+				<div className="container-custom">
 					<motion.div
 						initial="hidden"
 						whileInView="visible"
@@ -108,7 +106,7 @@ export default function Home() {
 						variants={fadeIn}
 						className="mb-12"
 					>
-						<h2 className="text-3xl md:text-4xl font-prompt font-bold text-center mb-4">
+						<h2 className="text-3xl md:text-4xl font-bold text-center mb-4">
 							บริการของเรา
 						</h2>
 						<p className="text-gray-400 text-center max-w-2xl mx-auto">
@@ -120,8 +118,8 @@ export default function Home() {
 			</section>
 
 			{/* Why Choose Us Section */}
-			<section className="py-16 md:py-24 bg-gradient-to-b from-gray-900 to-black">
-				<div className="container mx-auto px-4 md:px-8">
+			<section className="section-spacing bg-rich-black-gradient">
+				<div className="container-custom">
 					<motion.div
 						initial="hidden"
 						whileInView="visible"
@@ -129,7 +127,7 @@ export default function Home() {
 						variants={fadeIn}
 						className="mb-12"
 					>
-						<h2 className="text-3xl md:text-4xl font-prompt font-bold text-center mb-4">
+						<h2 className="text-3xl md:text-4xl font-bold text-center mb-4">
 							ทำไมต้องเลือก BYD Metromobile
 						</h2>
 						<p className="text-gray-400 text-center max-w-2xl mx-auto">
@@ -146,14 +144,12 @@ export default function Home() {
 					>
 						<motion.div
 							variants={fadeIn}
-							className="bg-gray-800/50 backdrop-blur-sm p-8 rounded-xl border border-gray-700 hover:border-primary/50 transition-all duration-300 hover:shadow-lg hover:shadow-primary/10"
+							className="glass-effect p-8 rounded-xl card-hover"
 						>
-							<div className="bg-primary/10 p-3 rounded-lg w-fit mb-6">
-								<Zap className="h-8 w-8 text-primary" />
+							<div className="bg-white/5 p-3 rounded-lg w-fit mb-6">
+								<Zap className="h-8 w-8 text-white" />
 							</div>
-							<h3 className="text-xl font-prompt font-bold mb-4">
-								เทคโนโลยีล้ำสมัย
-							</h3>
+							<h3 className="text-xl font-bold mb-4">เทคโนโลยีล้ำสมัย</h3>
 							<p className="text-gray-400">
 								นวัตกรรมแบตเตอรี่และระบบขับเคลื่อนที่ทันสมัย
 								ให้ประสิทธิภาพสูงสุดและเป็นมิตรกับสิ่งแวดล้อม
@@ -162,14 +158,12 @@ export default function Home() {
 
 						<motion.div
 							variants={fadeIn}
-							className="bg-gray-800/50 backdrop-blur-sm p-8 rounded-xl border border-gray-700 hover:border-primary/50 transition-all duration-300 hover:shadow-lg hover:shadow-primary/10"
+							className="glass-effect p-8 rounded-xl card-hover"
 						>
-							<div className="bg-primary/10 p-3 rounded-lg w-fit mb-6">
-								<Shield className="h-8 w-8 text-primary" />
+							<div className="bg-white/5 p-3 rounded-lg w-fit mb-6">
+								<Shield className="h-8 w-8 text-white" />
 							</div>
-							<h3 className="text-xl font-prompt font-bold mb-4">
-								การรับประกันคุณภาพ
-							</h3>
+							<h3 className="text-xl font-bold mb-4">การรับประกันคุณภาพ</h3>
 							<p className="text-gray-400">
 								รับประกันคุณภาพสูงสุดพร้อมบริการฉุกเฉิน 24 ชั่วโมง
 								เพื่อความมั่นใจในทุกการเดินทาง
@@ -178,14 +172,12 @@ export default function Home() {
 
 						<motion.div
 							variants={fadeIn}
-							className="bg-gray-800/50 backdrop-blur-sm p-8 rounded-xl border border-gray-700 hover:border-primary/50 transition-all duration-300 hover:shadow-lg hover:shadow-primary/10"
+							className="glass-effect p-8 rounded-xl card-hover"
 						>
-							<div className="bg-primary/10 p-3 rounded-lg w-fit mb-6">
-								<Clock className="h-8 w-8 text-primary" />
+							<div className="bg-white/5 p-3 rounded-lg w-fit mb-6">
+								<Clock className="h-8 w-8 text-white" />
 							</div>
-							<h3 className="text-xl font-prompt font-bold mb-4">
-								บริการหลังการขาย
-							</h3>
+							<h3 className="text-xl font-bold mb-4">บริการหลังการขาย</h3>
 							<p className="text-gray-400">
 								ทีมงานมืออาชีพพร้อมให้บริการหลังการขายที่รวดเร็วและมีประสิทธิภาพ
 								ตลอดอายุการใช้งานรถยนต์
@@ -196,10 +188,10 @@ export default function Home() {
 			</section>
 
 			{/* Contact Section */}
-			<section className="py-16 md:py-24 bg-black relative overflow-hidden">
+			<section className="section-spacing bg-background relative overflow-hidden">
 				<div className="absolute inset-0 bg-gradient-to-r from-black via-black/90 to-black"></div>
 
-				<div className="container mx-auto px-4 md:px-8 relative z-10">
+				<div className="container-custom relative z-10">
 					<motion.div
 						initial="hidden"
 						whileInView="visible"
@@ -207,7 +199,7 @@ export default function Home() {
 						variants={fadeIn}
 						className="max-w-3xl mx-auto text-center"
 					>
-						<h2 className="text-3xl md:text-4xl font-prompt font-bold mb-6">
+						<h2 className="text-3xl md:text-4xl font-bold mb-6">
 							ติดต่อ BYD Metromobile
 						</h2>
 						<p className="text-xl text-gray-300 mb-8">
@@ -218,7 +210,7 @@ export default function Home() {
 						<div className="flex flex-col sm:flex-row gap-4 justify-center">
 							<Button
 								size="lg"
-								className="bg-primary hover:bg-primary/90 text-white group"
+								className="bg-white hover:bg-white/90 text-black group"
 							>
 								<Phone className="mr-2 h-5 w-5" />
 								ติดต่อเรา
