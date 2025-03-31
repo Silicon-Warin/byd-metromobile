@@ -1,5 +1,5 @@
 // data/carModel.ts
-export interface CarModel {
+export interface CarModel {  
   id: number | string;
   name: string;
   slug?: string; // Add this property
@@ -11,6 +11,7 @@ export interface CarModel {
   imageUrlHero?: string;
   imageWidth: number;
   imageHeight: number;
+  featuresTitle: string;
   specs?: {
     acceleration: string;
     range: string;
@@ -21,7 +22,7 @@ export interface CarModel {
   };
   colors?: CarColor[];
   variants: CarVariant[];
-  promotion: string[];
+  promotion: string[];  
   features: string[] | CarFeature[];
   gallery?: string[];
   techSpec?: TechSpec; // เพิ่มข้อมูล tech spec
@@ -86,9 +87,9 @@ export const defaultModels: CarModel[] = [
     price: 1249900,
     imageUrlPromo: "/images/motor-show-promo/sealion7.jpg",
     imageUrlModel: "/images/models/BYD-sealion7.webp",
-    
     imageWidth: 1200,
     imageHeight: 800,
+    featuresTitle: "",
     variants: [
       {
         id: "sealion7-rwd",
@@ -239,8 +240,9 @@ export const defaultModels: CarModel[] = [
         ],
       },
     ],
-    features: [
-      "ประกันภัยชั้น 1 พร้อม พรบ. ระยะเวลา 1 ปี",
+    features: [      
+    ],
+    promotion: ["ประกันภัยชั้น 1 พร้อม พรบ. ระยะเวลา 1 ปี",
       "บริการช่วยเหลือฉุกเฉิน ตลอด 24 ชั่วโมง 8 ปีเต็ม",
       "รับประกันตัวรถ (WARRANTY) 8 ปี หรือ 160,000 กม.",
       "รับประกันแบตเตอรี่ 8 ปี หรือ 160,000 กม.",
@@ -248,9 +250,7 @@ export const defaultModels: CarModel[] = [
       "สายชาร์จเคลื่อนที่ AC PORTABLE CHARGER",
       "พรมเข้ารูป กรอบป้ายทะเบียน ฟิล์มกันรอยหน้าจอ",
       "ค่าจดทะเบียน",
-      "ฟรี ฟิล์มกรองแสง XUV-MAX-CERAMIC",
-    ],
-    promotion: []
+      "ฟรี ฟิล์มกรองแสง XUV-MAX-CERAMIC"]    
   },
   {
     id: 2,
@@ -497,7 +497,8 @@ export const defaultModels: CarModel[] = [
       "ค่าจดทะเบียน",
       "ฟรี ฟิล์มกรองแสง XUV-MAX-CERAMIC",
     ],
-    promotion: []
+    promotion: [],
+    featuresTitle: ""
   },
   {
     id: 3,
@@ -671,7 +672,8 @@ export const defaultModels: CarModel[] = [
       "ค่าจดทะเบียน",
       "ฟรี ฟิล์มกรองแสง XUV-MAX-CERAMIC",
     ],
-    promotion: []
+    promotion: [],
+    featuresTitle: ""
   },
   {
     id: 4,
@@ -683,7 +685,8 @@ export const defaultModels: CarModel[] = [
     imageUrlModel:"/images/models/BYD-seal.webp",
     imageUrlHero: "/images/models/seal/seal-hero.jpg",
     imageWidth: 1200,
-    imageHeight: 800,      
+    imageHeight: 800,
+    featuresTitle: "สุดขีดแห่งสมรรถนะ",    
     specs: {
       acceleration: "3.8 วินาที",
       range: "580 กิโลเมตร",
@@ -720,20 +723,22 @@ export const defaultModels: CarModel[] = [
       "/images/seal-gallery-3.png",
     ],
     features: [
-      {
-        title: "Frequency Selective Damping",
-        description: "Comfortable ride quality, premium corner hugging.",
-        image: "/images/feature-damping.png",
+      {        
+        title: "ระบบกันสะเทือนอัจฉริยะ",
+        description: "นุ่มนวลเหนือระดับ มั่นใจทุกโค้ง",
+        image: "/images/models/seal/seal-design-card1.jpg",
       },
       {
-        title: "Intelligent Torque Control",
-        description: "Dynamic torque distribution to each wheel.",
-        image: "/images/feature-torque.png",
+        
+        title: "ระบบกระจายแรงบิดอัจฉริยะ",
+        description: "ควบคุมแม่นยำ ตอบสนองฉับไว",
+        image: "/images/models/seal/seal-design-card2.jpg",
       },
       {
-        title: "Cell-to-body Architecture",
-        description: "Fully integrated battery, increases rigidity and safety.",
-        image: "/images/feature-battery.png",
+        
+        title: "โครงสร้างแบตเตอรี่แนบสนิท",
+        description: "แข็งแกร่ง ปลอดภัย มั่นใจทุกเส้นทาง",
+        image: "/images/models/seal/seal-design-card3.jpg",
       },
     ],  
     variants: [
@@ -816,8 +821,7 @@ export const defaultModels: CarModel[] = [
       {
         id: "premium",
         name: "Premium",        
-        power: "230kW",
-        
+        power: "230kW",        
         acceleration: "5.9 Sec",
         price: 1099900,
         range: "650 KM",
@@ -1106,7 +1110,8 @@ export const defaultModels: CarModel[] = [
       "พรมเข้ารูป กรอบป้ายทะเบียน ฟิล์มกันรอยหน้าจอ",
       "ค่าจดทะเบียน",
     ],
-    promotion: []
+    promotion: [],
+    featuresTitle: ""
   },
   {
     id: 6,
@@ -1281,7 +1286,8 @@ export const defaultModels: CarModel[] = [
       "ค่าจดทะเบียน",
       "ฟรี HOME CHARGER ยี่ห้อ ZHIDA (เฉพาะรุ่น EXTENDED)",
     ],
-    promotion: []
+    promotion: [],
+    featuresTitle: ""
   },  
 ];
 

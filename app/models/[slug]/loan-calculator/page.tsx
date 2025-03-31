@@ -241,42 +241,6 @@ export default function LoanCalculatorPage() {
 						</CardContent>
 					</Card>
 				</div>
-
-				{/* Technical Specification Section */}
-				{selectedVariant && selectedVariant.techSpec && (
-					<div className="mt-16">
-						<h2 className="text-2xl font-bold mb-6 text-foreground">
-							ข้อมูลทางเทคนิค
-						</h2>
-						<TechSpecTable
-							techSpec={selectedVariant.techSpec}
-							variantName={`${carModel.name} ${selectedVariant.name}`}
-						/>
-					</div>
-				)}
-
-				{/* All Variants Specification Table */}
-				<div className="mt-16">
-					<h2 className="text-2xl font-bold mb-6 text-foreground">
-						เปรียบเทียบสเปคทุกรุ่น
-					</h2>
-					<TechSpecTable
-						variantsList={carModel.variants.map((variant: any) => ({
-							id: variant.id,
-							name: variant.name,
-							techSpec: variant.techSpec,
-						}))}
-						selectedVariantId={selectedVariant?.id}
-						onVariantChange={(variantId) => {
-							const newVariant = carModel.variants.find(
-								(v: any) => v.id === variantId
-							);
-							if (newVariant) {
-								setSelectedVariant(newVariant);
-							}
-						}}
-					/>
-				</div>
 			</div>
 		</div>
 	);

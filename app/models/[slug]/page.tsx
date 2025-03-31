@@ -140,7 +140,7 @@ export default function ModelPage() {
 	return (
 		<div className="bg-background text-foreground">
 			{/* Hero Section with Full Screen Car Image */}
-			<div className="relative h-screen w-full" ref={heroRef}>
+			<div className="relative h-screen w-full" ref={heroRef} id="overview">
 				<Image
 					src={carModel.imageUrlHero || "/placeholder.svg"}
 					alt={carModel.name}
@@ -214,8 +214,8 @@ export default function ModelPage() {
 				className="py-20 bg-gradient-to-b from-background to-card"
 			>
 				<div className="container mx-auto px-4">
-					<h2 className="text-4xl font-bold mb-12 text-center">
-						Cutting edge performance.
+					<h2 className="text-4xl font-bold mb-12 text-start">
+						{carModel?.featuresTitle || "คุณสมบัติเด่น"}
 					</h2>
 
 					<Swiper
@@ -270,7 +270,10 @@ export default function ModelPage() {
 			</section>
 
 			{/* Choose Color and Model Section */}
-			<section className="py-20 bg-gradient-to-b from-card to-background">
+			<section
+				id="colors"
+				className="py-20 bg-gradient-to-b from-card to-background"
+			>
 				<div className="container mx-auto px-4">
 					<h2 className="text-4xl font-bold mb-12 text-center">
 						Choose your colour.
@@ -544,30 +547,35 @@ export default function ModelPage() {
 							</CardDescription>
 						</CardHeader>
 						<CardFooter className="mt-auto">
-							<Button className="text-white font-medium px-6 py-3 rounded-lg shadow-lg flex items-center gap-2 transition-all">
-								<span>ดูตารางผ่อน</span>
-								<svg
-									className="w-4 h-4"
-									fill="none"
-									stroke="currentColor"
-									viewBox="0 0 24 24"
-									xmlns="http://www.w3.org/2000/svg"
-								>
-									<path
-										strokeLinecap="round"
-										strokeLinejoin="round"
-										strokeWidth="2"
-										d="M9 5l7 7-7 7"
-									></path>
-								</svg>
-							</Button>
+							<Link href={`/models/${slug}/loan-calculator`}>
+								<Button className="text-white font-medium px-6 py-3 rounded-lg shadow-lg flex items-center gap-2 transition-all">
+									<span>ดูตารางผ่อน</span>
+									<svg
+										className="w-4 h-4"
+										fill="none"
+										stroke="currentColor"
+										viewBox="0 0 24 24"
+										xmlns="http://www.w3.org/2000/svg"
+									>
+										<path
+											strokeLinecap="round"
+											strokeLinejoin="round"
+											strokeWidth="2"
+											d="M9 5l7 7-7 7"
+										></path>
+									</svg>
+								</Button>
+							</Link>
 						</CardFooter>
 					</Card>
 				</div>
 			</section>
 
 			{/* Order and Detail Section */}
-			<section className="py-20 bg-gradient-to-b from-richblack to-black">
+			<section
+				id="variants"
+				className="py-20 bg-gradient-to-b from-richblack to-black"
+			>
 				<div className="container mx-auto px-4">
 					<div className="text-center mb-12">
 						<h2 className="text-4xl font-bold mb-4">
@@ -717,7 +725,7 @@ export default function ModelPage() {
 			{/* เพิ่ม section สำหรับแสดงข้อมูล Tech Spec */}
 			<section
 				className="py-20 bg-gradient-to-b from-card to-background"
-				id="tech-specs"
+				id="specs"
 			>
 				<div className="container mx-auto px-4">
 					<h2 className="text-4xl font-bold mb-12 text-center">
