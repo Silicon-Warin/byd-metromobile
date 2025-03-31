@@ -32,6 +32,9 @@ export interface CarColor {
   name: string;
   code: string;
   image: string;
+  gradient?: string;
+  shadow?: string;
+  border?: string;
 }
 
 export interface CarFeature {
@@ -47,8 +50,13 @@ export interface CarVariant {
   range: string;
   power?: string;
   acceleration?: string;
+  accelerationData?: {
+    value: string;
+    unit: string;
+    description: string;
+  };
   downPaymentOptions: DownPaymentOption[];
-  techSpec?: TechSpec; // เพิ่มข้อมูล tech spec สำหรับแต่ละรุ่นย่อย
+  techSpec?: TechSpec;
 }
 
 export interface DownPaymentOption {
@@ -690,31 +698,39 @@ export const defaultModels: CarModel[] = [
     specs: {
       acceleration: "3.8 วินาที",
       range: "580 กิโลเมตร",
-      drivetrain: "AWD",
+      drivetrain: "AWD Performance",
       motor: "มอเตอร์ 390 กิโลวัตต์",
       battery: "82.56 กิโลวัตต์-ชั่วโมง",
       charging: "AC type 2 / DC CCS 2 (150 กิโลวัตต์)"
     },
     colors: [
       {
-        name: "Cosmos Black",
-        code: "#121212",
-        image: "/images/seal-black.png",
-      },
-      {
-        name: "Arctic Blue",
-        code: "#0066FF",
-        image: "/images/seal-blue.png",
-      },
-      {
-        name: "Atlantis Grey",
-        code: "#7A8391",
-        image: "/images/seal-grey.png",
-      },
-      {
-        name: "Galaxy White",
+        name: "Horizon white",
         code: "#F5F5F5",
-        image: "/images/seal-white.png",
+        gradient: "linear-gradient(145deg, #FFFFFF, #E6E6E6)",
+        shadow: "inset 2px 2px 5px rgba(255, 255, 255, 0.5), inset -2px -2px 5px rgba(0, 0, 0, 0.1)",
+        image: "/images/models/seal/seal-horizon-white.png",
+      },
+      {
+        name: "Quantum Black",
+        code: "#121212",
+        gradient: "linear-gradient(145deg, #222222, #000000)",
+        border: "1px solid rgba(255, 255, 255, 0.7)",
+        image: "/images/models/seal/seal-quantum-black.png",
+      },
+      {
+        name: "Space Grey",
+        code: "#2C5C8F",
+        gradient: "linear-gradient(145deg, #2C5C8F, #1D3D5F)",
+        shadow: "inset 2px 2px 5px rgba(255, 255, 255, 0.2), inset -2px -2px 5px rgba(0, 0, 0, 0.3)",
+        image: "/images/models/seal/seal-space-grey.png",
+      },
+      {
+        name: "Velocity blue",
+        code: "#7AA5CD",
+        gradient: "linear-gradient(145deg, #7AA5CD, #5585B5)",
+        shadow: "inset 2px 2px 5px rgba(255, 255, 255, 0.3), inset -2px -2px 5px rgba(0, 0, 0, 0.2)",
+        image: "/images/models/seal/seal-velocity-blue.png",
       },
     ],
     gallery: [
@@ -748,7 +764,12 @@ export const defaultModels: CarModel[] = [
         power: "150kW",        
         acceleration: "7.5 Sec",
         price: 999900,
-        range: "510 KM",
+        range: "510 km",
+        accelerationData: {
+          value: "7.5",
+          unit: "Sec",
+          description: "0-100 km/h",
+        },
         downPaymentOptions: [
           {
             percentage: 30,
@@ -824,7 +845,12 @@ export const defaultModels: CarModel[] = [
         power: "230kW",        
         acceleration: "5.9 Sec",
         price: 1099900,
-        range: "650 KM",
+        range: "650 km",
+        accelerationData: {
+          value: "5.9",
+          unit: "Sec",
+          description: "0-100 km/h",
+        },
         downPaymentOptions: [
           {
             percentage: 30,
@@ -896,11 +922,16 @@ export const defaultModels: CarModel[] = [
       },
       {
         id: "performance",
-        name: "Performance AWD",
+        name: "AWD Performance",
         power: "390kW",        
         acceleration: "3.8 Sec",
         price: 1199900,
-        range: "580 KM",
+        range: "580 km",
+        accelerationData: {
+          value: "3.8",
+          unit: "Sec",
+          description: "0-100 km/h",
+        },
         techSpec: {
           dimensions: {
             length: "4,800 มม.",

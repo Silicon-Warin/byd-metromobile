@@ -17,16 +17,24 @@ import { useParams } from "next/navigation";
 import TechSpecTable from "@/components/ui/TechSpecTable";
 
 export default function LoanCalculatorPage() {
-	// ใช้ useParams เพื่อดึง slug จาก URL
-	const { slug } = useParams();
-	const carModel = findModelBySlug(slug as string);
+	// ใช้ useParams เพื่อดึง slug จาก URL และจัดการกับข้อผิดพลาด
+	const params = useParams();
+	const slug = params?.slug as string; // ใช้ optional chaining และ type assertion
+	const [carModel, setCarModel] = React.useState<any>(null);
+	const [loading, setLoading] = React.useState(true);
 	const [selectedVariant, setSelectedVariant] = React.useState<any>(null);
 
+	// โหลดข้อมูลรถยนต์เมื่อ component mount
 	React.useEffect(() => {
-		if (carModel && carModel.variants.length > 0) {
-			setSelectedVariant(carModel.variants[0]);
+		if (slug) {
+			const model = findModelBySlug(slug);
+			setCarModel(model);
+			if (model && model.variants && model.variants.length > 0) {
+				setSelectedVariant(model.variants[0]);
+			}
+			setLoading(false);
 		}
-	}, [carModel]);
+	}, [slug]);
 
 	const {
 		selectedDownPayment,
@@ -37,9 +45,22 @@ export default function LoanCalculatorPage() {
 		getMonthlyPayment,
 	} = useLoanCalculator(selectedVariant);
 
+	// แสดงกรณีกำลังโหลด
+	if (loading) {
+		return (
+			<div className="min-h-screen flex items-center justify-center pt-24">
+				<div className="text-center">
+					<div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-accent mx-auto mb-4"></div>
+					<p className="text-xl">กำลังโหลดข้อมูล...</p>
+				</div>
+			</div>
+		);
+	}
+
+	// แสดงกรณีไม่พบข้อมูลรถยนต์
 	if (!carModel) {
 		return (
-			<div className="min-h-screen flex items-center justify-center">
+			<div className="min-h-screen flex items-center justify-center pt-24">
 				<div className="text-center">
 					<h1 className="text-3xl font-bold mb-4">ไม่พบข้อมูลรถยนต์</h1>
 					<Button onClick={() => window.history.back()}>ย้อนกลับ</Button>
