@@ -8,6 +8,7 @@ import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { CheckIcon, XIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
+import Image from "next/image";
 
 export default function CompareModels() {
 	// จำนวนรุ่นที่สามารถเลือกได้สูงสุด
@@ -149,9 +150,10 @@ export default function CompareModels() {
 									)}
 									<div className="flex items-center justify-center mb-3">
 										<div className="w-16 h-16 relative">
-											<img
+											<Image
 												src={model.imageUrlModel}
 												alt={model.name}
+												fill
 												className="object-contain"
 											/>
 										</div>

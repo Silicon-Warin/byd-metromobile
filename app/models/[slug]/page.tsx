@@ -5,15 +5,12 @@ import ModelPageContent from "./model-page-content";
 import ModelPageLoading from "./loading";
 import type { CarModel } from "./types";
 
-interface ModelPageProps {
-	params: {
-		slug: string;
-	};
-}
+type ParamsType = Promise<{ slug: string }>;
 
-export default async function ModelPage({ params }: ModelPageProps) {
-	const { slug } = await Promise.resolve(params);
+export default async function ModelPage({ params }: { params: ParamsType }) {
+	const { slug } = await params;
 	const carModel = findModelBySlug(slug);
+
 	if (!carModel) {
 		notFound();
 	}

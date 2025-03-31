@@ -2,6 +2,7 @@
 
 import React from "react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import type { CarModel, CarVariant } from "./types";
 import { MapPin, Gauge, Car, Battery, BatteryChargingIcon } from "lucide-react";
 
@@ -160,6 +161,13 @@ export default function ModelOverview({
 										animate={{ opacity: 1, y: 0 }}
 										transition={{ duration: 0.5, delay: 0.2 + i * 0.1 }}
 									>
+										<Image
+											src="/images/BYD-logo.png"
+											alt="BYD Logo"
+											width={24}
+											height={24}
+											className="h-6 w-auto mb-1 mx-auto"
+										/>
 										<h3 className="text-2xl font-bold text-white mb-1">
 											{carModel.name}
 										</h3>

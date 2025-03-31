@@ -447,7 +447,7 @@ export default function ModelPageContent({
 			</section>
 
 			{/* Variants Comparison Section */}
-			<section
+			{/* <section
 				id="variants"
 				className="py-20 bg-gradient-to-b from-richblack to-black"
 			>
@@ -530,7 +530,7 @@ export default function ModelPageContent({
 						</div>
 					)}
 				</div>
-			</section>
+			</section> */}
 
 			{/* Footer Image Area */}
 			<section className="relative h-[400px]">

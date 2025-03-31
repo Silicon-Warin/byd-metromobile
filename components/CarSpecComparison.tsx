@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { SpecTable, SpecItem, SpecDivider } from "@/components/ui/table";
+import Image from "next/image";
 
 interface CarSpecComparisonProps {
 	cars: {
@@ -83,11 +84,14 @@ export default function CarSpecComparison({
 						<div key={car.id} className="flex flex-col">
 							{/* รูปรถยนต์ */}
 							<div className="mb-6 flex justify-center">
-								<img
-									src={car.image}
-									alt={`${car.brand} ${car.model} ${car.name}`}
-									className="w-full max-w-[300px]"
-								/>
+								<div className="relative w-full max-w-[300px] h-[200px]">
+									<Image
+										src={car.image}
+										alt={`${car.brand} ${car.model} ${car.name}`}
+										fill
+										className="object-contain"
+									/>
+								</div>
 							</div>
 
 							{/* เลือกสี */}
