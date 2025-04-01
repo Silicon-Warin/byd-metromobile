@@ -23,10 +23,8 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { Button } from "@/components/ui/button";
-
 import type { CarModel, CarColor, CarVariant } from "./types";
 import TechSpecTable from "@/components/ui/TechSpecTable";
-import CarSpecComparison from "@/components/CarSpecComparison";
 import ModelOverview from "./model-overview";
 import ColorSelector from "./color-selector";
 
@@ -193,11 +191,11 @@ export default function ModelPageContent({
 			{/* Choose Color and Model Section */}
 			<section
 				id="colors"
-				className="py-20 bg-gradient-to-b from-card to-background"
+				className="py-10 sm:py-16 md:py-20 bg-gradient-to-b from-card to-background"
 			>
-				<div className="container mx-auto px-4">
+				<div className="container mx-auto px-4 sm:px-6">
 					<motion.h2
-						className="text-4xl font-bold mb-12 text-center"
+						className="text-3xl sm:text-4xl font-bold mb-8 sm:mb-12 text-center"
 						initial={{ opacity: 0, y: 20 }}
 						animate={{ opacity: 1, y: 0 }}
 						transition={{ duration: 0.5 }}
@@ -214,16 +212,16 @@ export default function ModelPageContent({
 						/>
 					)}
 
-					<div className="mt-16">
-						<h3 className="text-2xl font-bold mb-6 text-center">
+					<div className="mt-10 sm:mt-16">
+						<h3 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-center">
 							เลือกรุ่นที่เหมาะกับคุณ
 						</h3>
-						<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+						<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
 							{carModel?.variants &&
 								carModel.variants.map((variant: CarVariant) => (
 									<motion.div
 										key={variant.id}
-										className={`border rounded-lg p-6 cursor-pointer transition-all ${
+										className={`border rounded-lg p-4 sm:p-6 cursor-pointer transition-all ${
 											selectedVariant?.id === variant.id
 												? "border-bydblue bg-card/40"
 												: "border-border hover:border-border/60"
@@ -232,13 +230,13 @@ export default function ModelPageContent({
 										whileHover={{ scale: 1.02 }}
 										whileTap={{ scale: 0.98 }}
 									>
-										<h4 className="text-xl font-bold mb-2">
+										<h4 className="text-lg sm:text-xl font-bold mb-1 sm:mb-2">
 											{carModel?.name || ""} {variant.name}
 										</h4>
-										<p className="text-3xl font-bold mb-4">
+										<p className="text-2xl sm:text-3xl font-bold mb-3 sm:mb-4">
 											฿{variant.price.toLocaleString()}
 										</p>
-										<div className="grid grid-cols-2 gap-4 text-sm">
+										<div className="grid grid-cols-2 gap-3 sm:gap-4 text-xs sm:text-sm">
 											<div>
 												<p className="text-gray-400">กำลัง</p>
 												<p>{variant.power}</p>
@@ -411,8 +409,7 @@ export default function ModelPageContent({
 								ทดลองขับ
 							</CardTitle>
 							<CardDescription className="text-gray-300 text-lg">
-								สัมผัสประสบการณ์การขับขี่แห่งอนาคตกับ BYD SEAL
-								จองการทดลองขับของคุณวันนี้
+								สัมผัสประสบการณ์การขับขี่แห่งอนาคต จองการทดลองขับของคุณวันนี้
 							</CardDescription>
 						</CardHeader>
 						<CardFooter className="mt-auto">

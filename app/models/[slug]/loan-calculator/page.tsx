@@ -14,7 +14,6 @@ import {
 import { findModelBySlug } from "@/data/carModel";
 import { useLoanCalculator } from "@/hooks/useLoanCalculator";
 import { useParams } from "next/navigation";
-import TechSpecTable from "@/components/ui/TechSpecTable";
 
 export default function LoanCalculatorPage() {
 	// ใช้ useParams เพื่อดึง slug จาก URL และจัดการกับข้อผิดพลาด
