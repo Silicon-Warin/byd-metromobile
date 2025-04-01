@@ -1,8 +1,10 @@
+// ServiceGrid.js
 "use client";
 
 import Image from "next/image";
 import { motion } from "framer-motion";
 
+// รายการบริการที่เราจะแสดงผล
 const services = [
 	{
 		title: "บริการหลังการขาย",
@@ -26,6 +28,7 @@ const services = [
 	},
 ];
 
+// Animation variants สำหรับแต่ละบริการ
 const fadeIn = {
 	hidden: { opacity: 0, y: 20 },
 	visible: {
@@ -35,10 +38,10 @@ const fadeIn = {
 	},
 };
 
-export const ServiceGrid = () => {
+export default function ServiceGrid() {
 	return (
 		<div className="relative py-8 px-4 md:px-8">
-			{/* Modern grid layout */}
+			{/* Grid layout แสดงบริการ */}
 			<div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-7xl mx-auto">
 				{services.map((service, index) => (
 					<motion.div
@@ -55,14 +58,16 @@ export const ServiceGrid = () => {
 								src={service.icon || "/placeholder.svg"}
 								alt={service.title}
 								fill
+								// เพิ่ม priority ให้กับภาพแรกที่คาดว่าจะเป็น LCP
+								priority={index === 0}
 								className="object-cover transition-transform duration-500 hover:scale-105"
 							/>
+							{/* Overlay gradient เพื่อเพิ่มความน่าสนใจ */}
 							<div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
 							<div className="absolute bottom-0 left-0 p-6 text-white">
 								<h3 className="text-2xl font-bold mb-1">{service.title}</h3>
 							</div>
 						</div>
-
 						<div className="p-6">
 							<p className="text-gray-300 mb-4">{service.description}</p>
 							<div className="flex justify-end">
@@ -91,4 +96,4 @@ export const ServiceGrid = () => {
 			</div>
 		</div>
 	);
-};
+}
