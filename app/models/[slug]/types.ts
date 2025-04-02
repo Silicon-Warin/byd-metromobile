@@ -1,4 +1,4 @@
-import type { CarModel as BaseCarModel, CarColor as BaseCarColor, CarVariant as BaseCarVariant } from "@/data/carModel"
+import type { CarModel as BaseCarModel, CarColor as BaseCarColor, CarVariant as BaseCarVariant  } from "@/data/carModel"
 
 export interface CarColor extends BaseCarColor {
   gradient?: string
@@ -16,6 +16,7 @@ export interface CarVariant extends BaseCarVariant {
 
 export interface CarModel extends BaseCarModel {
   colors?: CarColor[]
-  variants: CarVariant[]
+  variants: CarVariant[]  
 }
+
 

@@ -9,6 +9,9 @@ export interface CarModel {
   imageUrlPromo: string;
   imageUrlModel: string;
   imageUrlHero?: string;
+  imageUrlReal?: string;
+  imageUrlDataLeft?: string;
+  imageUrlDataRight?: string;
   imageWidth: number;
   imageHeight: number;
   featuresTitle: string;
@@ -25,6 +28,7 @@ export interface CarModel {
   promotion: string[];  
   features: string[] | CarFeature[];
   gallery?: string[];
+  techHighlight?: hightlightSpec[];
   techSpec?: TechSpec; // เพิ่มข้อมูล tech spec
 }
 
@@ -57,6 +61,12 @@ export interface CarVariant {
   };
   downPaymentOptions: DownPaymentOption[];
   techSpec?: TechSpec;
+}
+
+export interface hightlightSpec {
+  title: string;
+  description: string;
+  image: string;
 }
 
 export interface DownPaymentOption {
@@ -692,6 +702,8 @@ export const defaultModels: CarModel[] = [
     imageUrlPromo: "/images/motor-show-promo/seal.jpg",      
     imageUrlModel:"/images/models/BYD-seal.webp",
     imageUrlHero: "/images/models/seal/seal-hero.jpg",
+    imageUrlReal: "/images/models/seal/seal-real.jpg",
+
     imageWidth: 1200,
     imageHeight: 800,
     featuresTitle: "สุดขีดแห่งสมรรถนะ",    
@@ -1043,6 +1055,18 @@ export const defaultModels: CarModel[] = [
       "ค่าจดทะเบียน",
       "ฟรี ฟิล์มกรองแสง XUV-MAX-CERAMIC",
     ],
+    techHighlight:[
+      {
+        title: "Advanced Cell-to-Body Technology",
+        description: "BYD SEAL เป็นยานพาหนะแรกที่นำเทคโนโลยี Cell-to-Body (CTB) มาใช้ โดยการบูรณาการแบตเตอรี่ BYD Blade เข้ากับโครงสร้างของรถอย่างเต็มรูปแบบ ช่วยเพิ่มความแข็งแรงและความปลอดภัยของโครงสร้างรถ พร้อมทั้งเพิ่มพื้นที่ภายในและปรับสมดุลการกระจายน้ำหนักให้การควบคุมรถมีประสิทธิภาพยิ่งขึ้น",
+        image: "/images/models/seal/seal-tech1.jpg",
+      },
+      {
+        title: "BYD SEAL",
+        description: "ซีดานไฟฟ้าสมรรถนะสูง พร้อมระยะทางขับขี่ไกลและเทคโนโลยีล้ำสมัย",
+        image: "/images/models/seal/seal-tech2.jpg",
+      }
+    ]
   },  
   {
     id: 5,

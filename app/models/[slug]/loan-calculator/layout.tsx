@@ -1,7 +1,8 @@
+import type React from "react";
 import { Suspense } from "react";
 import { notFound } from "next/navigation";
 import { findModelBySlug } from "@/data/carModel";
-import ModelPageLoading from "./loading";
+import LoanCalculatorLoading from "./loading";
 
 export default async function LoanCalculatorLayout({
 	children,
@@ -19,5 +20,5 @@ export default async function LoanCalculatorLayout({
 		notFound();
 	}
 
-	return <Suspense fallback={<ModelPageLoading />}>{children}</Suspense>;
+	return <Suspense fallback={<LoanCalculatorLoading />}>{children}</Suspense>;
 }
