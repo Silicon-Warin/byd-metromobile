@@ -1,23 +1,27 @@
 import { Suspense } from "react";
 import { notFound } from "next/navigation";
 import { findModelBySlug } from "@/data/carModel";
-import ModelPageContent from "./page";
 import ModelPageLoading from "./loading";
-import type { CarModel } from "./types";
 
-type ParamsType = Promise<{ slug: string }>;
+export default function ModelLayout({ 
+  children,
+  params 
+}: { 
+  children: React.ReactNode;
+  params: { slug: string } 
+}) {
+  // ตรวจสอบว่ามีรถยนต์ที่ตรงกับ slug หรือไม่
+  const { slug } = params;
+  const carModel = findModelBySlug(slug);
 
-export default async function ModelPage({ params }: { params: ParamsType }) {
-	const { slug } = await params;
-	const carModel = findModelBySlug(slug);
+  // ถ้าไม่พบรถยนต์ที่ตรงกับ slug ให้แสดงหน้า not found
+  if (!carModel) {
+    notFound();
+  }
 
-	if (!carModel) {
-		notFound();
-	}
-
-	return (
-		<Suspense fallback={<ModelPageLoading />}>
-			<ModelPageContent initialCarModel={carModel as CarModel} slug={slug} />
-		</Suspense>
-	);
+  return (
+    <Suspense fallback={<ModelPageLoading />}>
+      {children}
+    </Suspense>
+  );
 }

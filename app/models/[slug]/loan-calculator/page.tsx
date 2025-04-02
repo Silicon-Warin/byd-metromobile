@@ -26,7 +26,10 @@ export default function LoanCalculatorPage() {
 	// โหลดข้อมูลรถยนต์เมื่อ component mount
 	React.useEffect(() => {
 		if (slug) {
+			console.log("Looking for model with slug:", slug); // เพิ่ม log เพื่อดีบัก
 			const model = findModelBySlug(slug);
+			console.log("Found model:", model?.name); // เพิ่ม log เพื่อดีบัก
+
 			setCarModel(model);
 			if (model && model.variants && model.variants.length > 0) {
 				setSelectedVariant(model.variants[0]);
