@@ -4,6 +4,7 @@ import { Analytics } from "@vercel/analytics/react";
 import Header from "@/components/Header/Header";
 import { Footer } from "@/components/Footer";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { LiffProvider } from "@/context/liffProvider";
 
 import "./globals.css";
 
@@ -48,11 +49,13 @@ export default function RootLayout({
 			className={`${inter.variable} ${prompt.variable} ${ibmPlexThai.variable}`}
 		>
 			<body>
-				<SpeedInsights />
-				<Header />
-				{children}
-				<Footer />
-				<Analytics />
+				<LiffProvider liffId={process.env.NEXT_PUBLIC_LIFF_ID || ""}>
+					<SpeedInsights />
+					<Header />
+					{children}
+					<Footer />
+					<Analytics />
+				</LiffProvider>
 			</body>
 		</html>
 	);
