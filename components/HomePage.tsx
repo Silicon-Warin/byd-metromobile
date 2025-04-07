@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import HeroBannerCarousel from "@/components/HeroBannerCarousel";
-import { ReusableSlider } from "@/components/ReusableSlider";
+import { ProductSlider } from "@/components/ProductSlider";
 import ServiceGrid from "@/components/ServiceGrid";
 import { ChevronRight, Shield, Zap, Clock, Phone } from "lucide-react";
 import Link from "next/link";
@@ -75,8 +75,10 @@ export default function HomePage({ models }: HomePageProps) {
 			</section>
 
 			{/* Featured Models Section */}
-			<section className="section-spacing bg-rich-black-gradient">
-				<div className="container-custom">
+			<section className="py-12 bg-primary min-h-screen relative">
+				<div className="absolute top-1/4 left-1/4 w-full h-1/2 bg-[#afb5ff] opacity-10 blur-[100px] rounded-full"></div>
+				<div className="absolute bottom-1/4 right-1/4 w-screen h-1/2 bg-[#3765ff] opacity-10 blur-[100px] rounded-full"></div>
+				<div className="container-custom z-10 pt-12">
 					<motion.div
 						initial="hidden"
 						whileInView="visible"
@@ -92,7 +94,7 @@ export default function HomePage({ models }: HomePageProps) {
 							ที่ผสมผสานเทคโนโลยีล้ำสมัยและการออกแบบที่โดดเด่น
 						</p>
 					</motion.div>
-					<ReusableSlider
+					<ProductSlider
 						items={models}
 						onItemClick={handleItemClick}
 						buttonText="สั่งซื้อเลย"

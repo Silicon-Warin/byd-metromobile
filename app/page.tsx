@@ -26,6 +26,7 @@ export default function Home() {
 		id: model.id.toString(),
 		name: model.name,
 		imageUrl: model.imageUrlModel,
+		description: model.description,
 	}));
 
 	return <HomePage models={models} />;

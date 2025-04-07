@@ -1,10 +1,9 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
-
+import { ModernPromo } from "@/components/ui/modernpromo";
 export default function HeroContent() {
 	return (
 		<div className="text-center max-w-4xl">
@@ -57,19 +56,14 @@ export default function HeroContent() {
 				<p className="text-xl font-semibold text-secondary">
 					🛍️ สนใจรุ่นไหน... จองเลย! ✅
 				</p>
-				<Link
+
+				<ModernPromo
 					href="https://line.me/R/ti/p/%40bydmetromobile"
-					target="_blank"
-					rel="noopener noreferrer"
-				>
-					<Button
-						size="lg"
-						className="bg-primary hover:bg-primary/90 text-white group px-6 py-6 text-lg"
-					>
-						รับข้อเสนอพิเศษวันนี้
-						<ChevronRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
-					</Button>
-				</Link>
+					text="รับข้อเสนอพิเศษวันนี้"
+					icon="lightning"
+					external={true}
+				/>
+
 				<p className="text-xs text-gray-400 mt-4">
 					**เงื่อนไขเป็นไปตามที่บริษัทฯ กำหนด
 				</p>
