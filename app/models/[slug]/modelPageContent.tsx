@@ -20,13 +20,14 @@ import "swiper/css/pagination";
 import { Button } from "@/components/ui/button";
 import type { CarModel, CarColor } from "./types";
 import ModelOverview from "./modelOverview";
-import ColorSelector from "./color-selector";
 import {
 	ParallaxSection,
 	RevealText,
 	FadeInView,
 	CarRevealImage,
 } from "@/components/Models/motion-components";
+import ColorSelectorSection from "./color-selector-section";
+import BYDSection from "./byd-section";
 
 // First, update the component props interface
 interface ModelPageContentProps {
@@ -132,6 +133,7 @@ export default function ModelPageContent({
 
 			{/* Overview Section */}
 			<ModelOverview carModel={carModel} selectedVariant={selectedVariant} />
+			<BYDSection />
 
 			{/* Showcase Swiper Section */}
 			<section
@@ -199,25 +201,17 @@ export default function ModelPageContent({
 				id="colors"
 				className="py-10 sm:py-16 md:py-20 bg-gradient-to-b from-card to-background"
 			>
-				<div className="container mx-auto px-4 sm:px-6">
-					<motion.h2
-						className="text-3xl sm:text-4xl font-bold mb-8 sm:mb-12 text-center"
-						initial={{ opacity: 0, y: 20 }}
-						animate={{ opacity: 1, y: 0 }}
-						transition={{ duration: 0.5 }}
-					>
-						การออกแบบ
-					</motion.h2>
-
-					{carModel?.colors && carModel.colors.length > 0 && selectedColor && (
-						<ColorSelector
+				{carModel?.colors &&
+					carModel.colors.length > 0 &&
+					selectedColor &&
+					setSelectedColor && (
+						<ColorSelectorSection
 							colors={carModel.colors}
 							initialColor={selectedColor}
 							onColorChange={setSelectedColor}
 							modelName={carModel.name}
 						/>
 					)}
-				</div>
 			</section>
 
 			{/* Two Side Pic and Paragraph Section */}

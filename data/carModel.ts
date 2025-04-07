@@ -22,6 +22,7 @@ export interface CarModel {
     motor: string;
     battery?: string;
     charging?: string;
+    annotate?: string;
   };
   colors?: CarColor[];
   variants: CarVariant[];
@@ -105,9 +106,20 @@ export const defaultModels: CarModel[] = [
     price: 1249900,
     imageUrlPromo: "/images/motor-show-promo/sealion7.jpg",
     imageUrlModel: "/images/models/BYD-sealion7.webp",
+    imageUrlHero: "/images/models/sealion7/sealion7-hero.jpg",
+    imageUrlReal: "/images/models/sealion7/sealion7-real.jpg",
     imageWidth: 1200,
     imageHeight: 800,
     featuresTitle: "",
+    specs: {
+      acceleration: "5.4 วินาที",
+      range: "542 กิโลเมตร",
+      drivetrain: "AWD Performance",
+      motor: "มอเตอร์ 380 กิโลวัตต์", 
+      battery: "87 กิโลวัตต์-ชั่วโมง",
+      charging: "AC type 2 / DC CCS 2 (150 กิโลวัตต์)",
+      annotate: "*AWD Performance performance and specifications"
+    },
     variants: [
       {
         id: "sealion7-rwd",
@@ -278,8 +290,19 @@ export const defaultModels: CarModel[] = [
     price: 799900,
     imageUrlPromo: "/images/motor-show-promo/m6.jpg",
     imageUrlModel: "/images/models/BYD-m6.webp",
+    imageUrlHero: "/images/models/m6/m6-hero.jpg",
+    imageUrlReal: "/images/models/m6/m6-real.jpg",
     imageWidth: 1200,
     imageHeight: 800,
+    specs: {
+      acceleration: "8.5 วินาที",
+      range: "530 กิโลเมตร", 
+      drivetrain: "FWD",
+      motor: "มอเตอร์ 150 กิโลวัตต์",
+      battery: "71.7 กิโลวัตต์-ชั่วโมง",
+      charging: "AC type 2 / DC CCS 2 (100 กิโลวัตต์)",
+      annotate: "*Extended range performance and specifications"
+    },
     variants: [
       {
         id: "m6-dynamic",
@@ -526,9 +549,19 @@ export const defaultModels: CarModel[] = [
     price: 939900,
     imageUrlPromo: "/images/motor-show-promo/sealion6dm.jpg",
     imageUrlModel: "/images/models/BYD-sealion6dm.webp",
+    imageUrlHero: "/images/models/sealion6dmi/sealion6dmi-hero.jpg", 
+    imageUrlReal: "/images/models/sealion6dmi/sealion6dmi-real.jpg",
     imageWidth: 1200,
     imageHeight: 800,
-
+    specs: {
+      acceleration: "6.9 วินาที",
+      range: "200 กิโลเมตร",
+      drivetrain: "AWD Premium",
+      motor: "มอเตอร์ 320 กิโลวัตต์",
+      battery: "18.3 กิโลวัตต์-ชั่วโมง",
+      charging: "AC type 2 / DC CCS 2 (80 กิโลวัตต์)",
+      annotate: "*Premium performance and specifications"
+    },
     variants: [
       {
         id: "sealion6-dynamic",
@@ -703,17 +736,17 @@ export const defaultModels: CarModel[] = [
     imageUrlModel:"/images/models/BYD-seal.webp",
     imageUrlHero: "/images/models/seal/seal-hero.jpg",
     imageUrlReal: "/images/models/seal/seal-real.jpg",
-
     imageWidth: 1200,
     imageHeight: 800,
-    featuresTitle: "สุดขีดแห่งสมรรถนะ",    
+    featuresTitle: "ที่สุดแห่งสมรรถนะ",    
     specs: {
       acceleration: "3.8 วินาที",
       range: "580 กิโลเมตร",
       drivetrain: "AWD Performance",
       motor: "มอเตอร์ 390 กิโลวัตต์",
       battery: "82.56 กิโลวัตต์-ชั่วโมง",
-      charging: "AC type 2 / DC CCS 2 (150 กิโลวัตต์)"
+      charging: "AC type 2 / DC CCS 2 (150 กิโลวัตต์)",
+      annotate: "*AWD Performance performance and specifications",
     },
     colors: [
       {
@@ -1076,8 +1109,19 @@ export const defaultModels: CarModel[] = [
     price: 899900,
     imageUrlPromo: "/images/motor-show-promo/atto3.jpg",
     imageUrlModel: "/images/models/BYD-Atto3.webp",
+    imageUrlHero: "/images/models/atto3/atto3-hero.jpg",
+    imageUrlReal: "/images/models/atto3/atto3-real.jpg",
     imageWidth: 1200,
     imageHeight: 800,
+    specs: {
+      acceleration: "7.3 วินาที",
+      range: "480 กิโลเมตร",
+      drivetrain: "FWD",
+      motor: "มอเตอร์ 150 กิโลวัตต์",
+      battery: "60.48 กิโลวัตต์-ชั่วโมง", 
+      charging: "AC type 2 / DC CCS 2 (80 กิโลวัตต์)",
+      annotate: "*Extended range performance and specifications"
+    },
     variants: [
       {
         id: "atto3-extended",
@@ -1176,9 +1220,21 @@ export const defaultModels: CarModel[] = [
     price: 569900,
     imageUrlPromo: "/images/motor-show-promo/dolphin.jpg",
     imageUrlModel: "/images/models/BYD-dolphin.webp",
+    imageUrlHero: "/images/models/dolphin/dolphin-hero.jpg",
+    imageUrlReal: "/images/models/dolphin/dolphin-real.jpg",
+    imageUrlDataLeft:" /images/models/dolphin/dolphin-data-left.jpg",
+    imageUrlDataRight: "/images/models/dolphin/dolphin-data-right.jpg",
     imageWidth: 1200,
     imageHeight: 800,
-
+    specs: {
+      acceleration: "7 วินาที",
+      range: "490 กิโลเมตร",
+      drivetrain: "FWD",
+      motor: "มอเตอร์ 150 กิโลวัตต์",
+      battery: "60.48 กิโลวัตต์-ชั่วโมง",
+      charging: "AC type 2 / DC CCS 2 (80 กิโลวัตต์)",
+      annotate: "*Extended range performance and battery specifications",
+    },    
     variants: [
       {
         id: "dolphin-standard",

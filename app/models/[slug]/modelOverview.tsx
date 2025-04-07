@@ -30,11 +30,13 @@ export default function ModelOverview({
 		power: selectedVariant?.power || carModel.specs?.motor || "",
 		battery: carModel.specs?.battery || "",
 		charging: carModel.specs?.charging || "",
+		annotate: carModel.specs?.annotate || "",
 	};
 
 	return (
 		<section className="py-16 bg-black">
-			<div className="container mx-auto px-4">
+			<div className="container mx-auto px-4 sm:px-6 lg:px-8">
+				{/* Top section with car model name and specs */}
 				{/* Desktop version with vertical dividers (md and up) */}
 				<div className="hidden md:block">
 					{/* Top specs section */}
@@ -111,7 +113,7 @@ export default function ModelOverview({
 
 						{/* AWD Performance range */}
 						<div className="mt-8 border-t border-blue-900 pt-4 text-center text-sm text-gray-400">
-							AWD Performance range
+							{carModel.specs?.annotate}
 						</div>
 
 						{/* Technical information button */}
@@ -138,7 +140,7 @@ export default function ModelOverview({
 										}`}
 									>
 										<div className="text-xl font-bold text-white mb-1">
-											BYD SEAL
+											{carModel.name}
 										</div>
 										<div className="text-gray-400 mb-6">{variant.name}</div>
 
