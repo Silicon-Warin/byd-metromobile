@@ -4,24 +4,26 @@ import { Analytics } from "@vercel/analytics/react";
 import Header from "@/components/Header/Header";
 import { Footer } from "@/components/Footer";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-
 import "./globals.css";
 
 const inter = Inter({
 	variable: "--font-inter",
 	subsets: ["latin"],
+	display: "swap",
 });
 
 const ibmPlexThai = IBM_Plex_Sans_Thai({
 	subsets: ["thai", "latin"],
 	weight: ["300", "400", "700"],
 	variable: "--font-ibm",
+	display: "swap",
 });
 
 const prompt = Prompt({
 	subsets: ["thai", "latin"],
 	weight: ["300", "400", "700"],
 	variable: "--font-prompt",
+	display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -37,6 +39,7 @@ export const metadata: Metadata = {
 		"ศูนย์บริการ BYD",
 	],
 };
+
 export default function RootLayout({
 	children,
 }: Readonly<{
@@ -44,13 +47,13 @@ export default function RootLayout({
 }>) {
 	return (
 		<html
-			lang="en-th"
+			lang="th"
 			className={`${inter.variable} ${prompt.variable} ${ibmPlexThai.variable}`}
 		>
-			<body>
+			<body className="min-h-screen flex flex-col overflow-x-hidden">
 				<SpeedInsights />
 				<Header />
-				<main>{children}</main>
+				<div className="flex-grow overflow-x-hidden">{children}</div>
 				<Footer />
 				<Analytics />
 			</body>

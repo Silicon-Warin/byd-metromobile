@@ -1,3 +1,4 @@
+// app/page.tsx
 import { Metadata } from "next";
 import HomePage from "@/components/HomePage";
 import { defaultModels } from "@/data/carModel";

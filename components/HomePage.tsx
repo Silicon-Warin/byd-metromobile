@@ -14,6 +14,7 @@ type HomePageProps = {
 		id: string;
 		name: string;
 		imageUrl: string;
+		description?: string;
 	}[];
 };
 
@@ -43,14 +44,14 @@ export default function HomePage({ models }: HomePageProps) {
 	};
 
 	return (
-		<main className="min-h-screen bg-background text-foreground">
+		<div className="min-h-screen bg-background text-foreground overflow-x-hidden">
 			{/* Hero Section */}
-			<section className="relative">
+			<section className="relative w-full">
 				<div className="absolute inset-0 bg-gradient-to-b from-transparent to-background/90 z-10 pointer-events-none" />
 				<HeroBannerCarousel />
 				<div className="absolute bottom-0 left-0 right-0 z-20 p-4 md:p-8 lg:p-12">
 					<motion.div
-						className="container-custom"
+						className="container mx-auto px-4 sm:px-6 lg:px-8"
 						initial="hidden"
 						animate="visible"
 						variants={fadeIn}
@@ -75,10 +76,12 @@ export default function HomePage({ models }: HomePageProps) {
 			</section>
 
 			{/* Featured Models Section */}
-			<section className="py-12 bg-primary min-h-screen relative">
-				<div className="absolute top-1/4 left-1/4 w-full h-1/2 bg-[#afb5ff] opacity-10 blur-[100px] rounded-full"></div>
-				<div className="absolute bottom-1/4 right-1/4 w-screen h-1/2 bg-[#3765ff] opacity-10 blur-[100px] rounded-full"></div>
-				<div className="container-custom z-10 pt-12">
+			<section className="py-12 md:py-16 lg:py-24 bg-primary min-h-screen relative overflow-hidden">
+				{/* ปรับปรุง effects พื้นหลังให้ไม่ทำให้เกิด overflow */}
+				<div className="absolute top-1/4 left-0 w-full h-1/2 bg-[#afb5ff] opacity-10 blur-[100px] rounded-full"></div>
+				<div className="absolute bottom-1/4 right-0 w-full h-1/2 bg-[#3765ff] opacity-10 blur-[100px] rounded-full"></div>
+
+				<div className="container mx-auto px-4 sm:px-6 lg:px-8 z-10 pt-12">
 					<motion.div
 						initial="hidden"
 						whileInView="visible"
@@ -103,8 +106,8 @@ export default function HomePage({ models }: HomePageProps) {
 			</section>
 
 			{/* Services Section */}
-			<section className="section-spacing bg-rich-black-gradient-subtle">
-				<div className="container-custom">
+			<section className="py-12 md:py-16 lg:py-24 bg-rich-black-gradient-subtle overflow-hidden">
+				<div className="container mx-auto px-4 sm:px-6 lg:px-8">
 					<motion.div
 						initial="hidden"
 						whileInView="visible"
@@ -119,14 +122,13 @@ export default function HomePage({ models }: HomePageProps) {
 							บริการครบวงจรเพื่อประสบการณ์การใช้รถยนต์ไฟฟ้าที่ไร้กังวล
 						</p>
 					</motion.div>
-					{/* Component แสดงรายการบริการ */}
 					<ServiceGrid />
 				</div>
 			</section>
 
 			{/* Why Choose Us Section */}
-			<section className="section-spacing bg-rich-black-gradient">
-				<div className="container-custom">
+			<section className="py-12 md:py-16 lg:py-24 bg-rich-black-gradient overflow-hidden">
+				<div className="container mx-auto px-4 sm:px-6 lg:px-8">
 					<motion.div
 						initial="hidden"
 						whileInView="visible"
@@ -151,13 +153,15 @@ export default function HomePage({ models }: HomePageProps) {
 					>
 						<motion.div
 							variants={fadeIn}
-							className="glass-effect p-8 rounded-xl card-hover"
+							className="glass-effect p-6 md:p-8 rounded-xl card-hover"
 						>
 							<div className="bg-white/5 p-3 rounded-lg w-fit mb-6">
-								<Zap className="h-8 w-8 text-white" />
+								<Zap className="h-6 w-6 md:h-8 md:w-8 text-white" />
 							</div>
-							<h3 className="text-xl font-bold mb-4">เทคโนโลยีล้ำสมัย</h3>
-							<p className="text-gray-400">
+							<h3 className="text-lg md:text-xl font-bold mb-4">
+								เทคโนโลยีล้ำสมัย
+							</h3>
+							<p className="text-gray-400 text-sm md:text-base">
 								นวัตกรรมแบตเตอรี่และระบบขับเคลื่อนที่ทันสมัย
 								ให้ประสิทธิภาพสูงสุดและเป็นมิตรกับสิ่งแวดล้อม
 							</p>
@@ -165,13 +169,15 @@ export default function HomePage({ models }: HomePageProps) {
 
 						<motion.div
 							variants={fadeIn}
-							className="glass-effect p-8 rounded-xl card-hover"
+							className="glass-effect p-6 md:p-8 rounded-xl card-hover"
 						>
 							<div className="bg-white/5 p-3 rounded-lg w-fit mb-6">
-								<Shield className="h-8 w-8 text-white" />
+								<Shield className="h-6 w-6 md:h-8 md:w-8 text-white" />
 							</div>
-							<h3 className="text-xl font-bold mb-4">การรับประกันคุณภาพ</h3>
-							<p className="text-gray-400">
+							<h3 className="text-lg md:text-xl font-bold mb-4">
+								การรับประกันคุณภาพ
+							</h3>
+							<p className="text-gray-400 text-sm md:text-base">
 								รับประกันคุณภาพสูงสุดพร้อมบริการฉุกเฉิน 24 ชั่วโมง
 								เพื่อความมั่นใจในทุกการเดินทาง
 							</p>
@@ -179,13 +185,15 @@ export default function HomePage({ models }: HomePageProps) {
 
 						<motion.div
 							variants={fadeIn}
-							className="glass-effect p-8 rounded-xl card-hover"
+							className="glass-effect p-6 md:p-8 rounded-xl card-hover"
 						>
 							<div className="bg-white/5 p-3 rounded-lg w-fit mb-6">
-								<Clock className="h-8 w-8 text-white" />
+								<Clock className="h-6 w-6 md:h-8 md:w-8 text-white" />
 							</div>
-							<h3 className="text-xl font-bold mb-4">บริการหลังการขาย</h3>
-							<p className="text-gray-400">
+							<h3 className="text-lg md:text-xl font-bold mb-4">
+								บริการหลังการขาย
+							</h3>
+							<p className="text-gray-400 text-sm md:text-base">
 								ทีมงานมืออาชีพพร้อมให้บริการหลังการขายที่รวดเร็วและมีประสิทธิภาพ
 								ตลอดอายุการใช้งานรถยนต์
 							</p>
@@ -195,10 +203,10 @@ export default function HomePage({ models }: HomePageProps) {
 			</section>
 
 			{/* Contact Section */}
-			<section className="section-spacing bg-background relative overflow-hidden">
+			<section className="py-12 md:py-16 lg:py-24 bg-background relative overflow-hidden">
 				<div className="absolute inset-0 bg-gradient-to-r from-black via-black/90 to-black"></div>
 
-				<div className="container-custom relative z-10">
+				<div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
 					<motion.div
 						initial="hidden"
 						whileInView="visible"
@@ -206,10 +214,10 @@ export default function HomePage({ models }: HomePageProps) {
 						variants={fadeIn}
 						className="max-w-3xl mx-auto text-center"
 					>
-						<h2 className="text-3xl md:text-4xl font-bold mb-6">
+						<h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 md:mb-6">
 							ติดต่อ BYD Metromobile
 						</h2>
-						<p className="text-xl text-gray-300 mb-8">
+						<p className="text-base sm:text-lg md:text-xl text-gray-300 mb-6 md:mb-8">
 							พร้อมให้คำปรึกษาและบริการที่ดีที่สุดสำหรับคุณ
 							ไม่ว่าจะเป็นการทดลองขับ หรือข้อมูลเพิ่มเติมเกี่ยวกับรถยนต์ของเรา
 						</p>
@@ -217,16 +225,16 @@ export default function HomePage({ models }: HomePageProps) {
 						<div className="flex flex-col sm:flex-row gap-4 justify-center">
 							<Button
 								size="lg"
-								className="bg-white hover:bg-white/90 text-black group"
+								className="bg-white hover:bg-white/90 text-black group text-sm md:text-base"
 							>
-								<Phone className="mr-2 h-5 w-5" />
+								<Phone className="mr-2 h-4 w-4 md:h-5 md:w-5" />
 								ติดต่อเรา
 							</Button>
 
 							<Button
 								size="lg"
 								variant="outline"
-								className="border-gray-700 text-white hover:bg-gray-800"
+								className="border-gray-700 text-white hover:bg-gray-800 text-sm md:text-base"
 							>
 								นัดหมายทดลองขับ
 							</Button>
@@ -234,6 +242,6 @@ export default function HomePage({ models }: HomePageProps) {
 					</motion.div>
 				</div>
 			</section>
-		</main>
+		</div>
 	);
 }
