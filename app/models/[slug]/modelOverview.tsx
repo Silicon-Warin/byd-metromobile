@@ -22,12 +22,10 @@ export default function ModelOverview({
 	carModel,
 	selectedVariant,
 }: ModelOverviewProps) {
-	// ใช้ข้อมูลจาก selectedVariant ถ้ามี หรือไม่ก็ใช้จาก carModel
 	const specs = {
-		range: selectedVariant?.range || carModel.specs?.range || "",
-		acceleration:
-			selectedVariant?.acceleration || carModel.specs?.acceleration || "",
-		power: selectedVariant?.power || carModel.specs?.motor || "",
+		range: carModel.specs?.range || "",
+		acceleration: carModel.specs?.acceleration || "",
+		motor: carModel.specs?.motor || "",
 		battery: carModel.specs?.battery || "",
 		charging: carModel.specs?.charging || "",
 		annotate: carModel.specs?.annotate || "",
@@ -84,7 +82,7 @@ export default function ModelOverview({
 									<span className="text-sm text-gray-400">Motor</span>
 								</div>
 								<div className="text-3xl font-bold text-white">
-									{specs.power.split(" ")[0]} kW
+									{specs.motor.split(" ")[0]} kW
 								</div>
 							</div>
 
@@ -173,7 +171,7 @@ export default function ModelOverview({
 					{/* ส่วนบนแสดงข้อมูลหลัก */}
 					<div className="grid grid-cols-1 gap-y-8 mb-16">
 						{/* คอลัมน์ซ้าย */}
-						<div className="space-y-12">
+						<div className="flex flex-col gap-8 p-8">
 							<div>
 								<motion.div
 									className="flex items-start gap-4"
@@ -231,7 +229,7 @@ export default function ModelOverview({
 											มอเตอร์
 										</p>
 										<h3 className="text-4xl font-bold text-white">
-											{specs.power}
+											{specs.motor}
 										</h3>
 									</div>
 								</motion.div>

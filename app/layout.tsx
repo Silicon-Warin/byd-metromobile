@@ -4,6 +4,8 @@ import { Analytics } from "@vercel/analytics/react";
 import Header from "@/components/Header/Header";
 import { Footer } from "@/components/Footer";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import type { Viewport } from "next";
+
 import "./globals.css";
 
 const inter = Inter({
@@ -38,6 +40,18 @@ export const metadata: Metadata = {
 		"Metromobile",
 		"ศูนย์บริการ BYD",
 	],
+	openGraph: {
+		title: "BYD Metromobile | เมโทรโมบิล ผู้นำด้านรถยนต์ไฟฟ้า BYD ในประเทศไทย",
+		description:
+			"ศูนย์รถยนต์ไฟฟ้า BYD อย่างเป็นทางการ ครอบคลุมทั้งการขาย บริการ และศูนย์บริการหลังการขาย",
+		images: ["/images/og-image.jpg"],
+	},
+};
+
+export const viewport: Viewport = {
+	width: "device-width",
+	initialScale: 1,
+	themeColor: "#000000",
 };
 
 export default function RootLayout({
@@ -50,10 +64,20 @@ export default function RootLayout({
 			lang="th"
 			className={`${inter.variable} ${prompt.variable} ${ibmPlexThai.variable}`}
 		>
-			<body className="min-h-screen flex flex-col overflow-x-hidden">
+			<head>
+				<link
+					rel="preload"
+					href="/images/metromobile-logo.png"
+					as="image"
+					type="image/png"
+				/>
+			</head>
+			<body className="max-w-[100vw] overflow-x-hidden">
 				<SpeedInsights />
 				<Header />
-				<div className="flex-grow overflow-x-hidden">{children}</div>
+				<main className="min-h-screen overflow-x-hidden flex flex-col">
+					{children}
+				</main>
 				<Footer />
 				<Analytics />
 			</body>

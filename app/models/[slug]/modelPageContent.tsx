@@ -133,7 +133,8 @@ export default function ModelPageContent({
 
 			{/* Overview Section */}
 			<ModelOverview carModel={carModel} selectedVariant={selectedVariant} />
-			<BYDSection />
+			{/* BYD Section */}
+			<BYDSection carModel={carModel} />
 
 			{/* Showcase Swiper Section */}
 			<section

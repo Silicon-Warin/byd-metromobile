@@ -86,15 +86,27 @@
 
 @layer base {
   * {
-    @apply border-border;
+    @apply border-border;    
   }
+    
   body {
     @apply bg-background text-foreground;
     font-feature-settings: "rlig" 1, "calt" 1;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    overflow-x: hidden;
   }
+
+  h1 {
+    font-size: var(--text-2xl);
+  }
+  h2 {
+      font-size: var(--text-xl);
+   }
+  h3 {
+      font-size: var(--text-lg);
+   }
 
   h1,
   h2,

@@ -15,7 +15,7 @@ export default function BydNeonLoader() {
 					[".b1", { pathLength: 0.005, pathOffset: 0 }],
 					[".b2", { pathLength: 0.5, pathOffset: 0.5 }, { at: "<" }],
 				],
-				{ duration: 2, ease: "linear", repeat: Number.POSITIVE_INFINITY }
+				{ duration: 1, ease: "linear", repeat: Number.POSITIVE_INFINITY }
 			);
 
 			// Animate Y letter
@@ -54,7 +54,7 @@ export default function BydNeonLoader() {
 					[".b-glow", { pathLength: 1.1, pathOffset: 0 }],
 					[".b-glow", { pathLength: 0, pathOffset: 0 }],
 				],
-				{ duration: 2, repeat: Number.POSITIVE_INFINITY, repeatDelay: 0.6 }
+				{ duration: 1, repeat: Number.POSITIVE_INFINITY, repeatDelay: 0.6 }
 			);
 
 			animate(
@@ -76,7 +76,7 @@ export default function BydNeonLoader() {
 					[".d-glow", { pathLength: 0, pathOffset: 0 }],
 				],
 				{
-					duration: 2,
+					duration: 1,
 					repeat: Number.POSITIVE_INFINITY,
 					repeatDelay: 0.6,
 					delay: 0.6,
