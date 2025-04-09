@@ -1,12 +1,41 @@
 "use client";
 
-import { motion } from "framer-motion";
+import dynamic from "next/dynamic";
 import { Button } from "@/components/ui/button";
-import HeroBannerCarousel from "@/components/HeroBannerCarousel";
-import { ProductSlider } from "@/components/ProductSlider";
-import ServiceGrid from "@/components/ServiceGrid";
 import { ChevronRight, Shield, Zap, Clock, Phone } from "lucide-react";
 import Link from "next/link";
+import { Suspense } from "react";
+import { type MotionProps } from "framer-motion";
+
+// Dynamic imports for heavy components
+const MotionDiv = dynamic(
+	() => import("framer-motion").then((mod) => mod.motion.div),
+	{ ssr: false }
+);
+
+const HeroBannerCarousel = dynamic(
+	() => import("@/components/HeroBannerCarousel"),
+	{
+		loading: () => (
+			<div className="w-full h-[500px] md:h-[600px] lg:h-screen bg-gray-900 animate-pulse" />
+		),
+	}
+);
+
+const ProductSlider = dynamic(
+	() => import("@/components/ProductSlider").then((mod) => mod.ProductSlider),
+	{
+		loading: () => (
+			<div className="w-full h-[400px] bg-gray-800/30 rounded-xl animate-pulse" />
+		),
+	}
+);
+
+const ServiceGrid = dynamic(() => import("@/components/ServiceGrid"), {
+	loading: () => (
+		<div className="w-full h-[300px] bg-gray-800/30 rounded-xl animate-pulse" />
+	),
+});
 
 // Type definition for the props
 type HomePageProps = {
@@ -47,9 +76,15 @@ export default function HomePage({ models }: HomePageProps) {
 			{/* Hero Section */}
 			<section className="relative">
 				<div className="absolute inset-0 bg-gradient-to-b from-transparent to-background/90 z-10 pointer-events-none" />
-				<HeroBannerCarousel />
+				<Suspense
+					fallback={
+						<div className="w-full h-[500px] md:h-[600px] lg:h-screen bg-gray-900 animate-pulse" />
+					}
+				>
+					<HeroBannerCarousel />
+				</Suspense>
 				<div className="absolute bottom-0 left-0 right-0 z-20 p-4 md:p-8 lg:p-12">
-					<motion.div
+					<MotionDiv
 						className="container-custom"
 						initial="hidden"
 						animate="visible"
@@ -70,7 +105,7 @@ export default function HomePage({ models }: HomePageProps) {
 								<ChevronRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
 							</Link>
 						</Button>
-					</motion.div>
+					</MotionDiv>
 				</div>
 			</section>
 
@@ -79,7 +114,7 @@ export default function HomePage({ models }: HomePageProps) {
 				<div className="absolute top-1/4 left-1/4 w-full h-1/2 bg-[#afb5ff] opacity-10 blur-[100px] rounded-full"></div>
 				<div className="absolute bottom-1/4 right-1/4 w-screen h-1/2 bg-[#3765ff] opacity-10 blur-[100px] rounded-full"></div>
 				<div className="container-custom z-10 pt-12">
-					<motion.div
+					<MotionDiv
 						initial="hidden"
 						whileInView="visible"
 						viewport={{ once: true, margin: "-100px" }}
@@ -93,19 +128,25 @@ export default function HomePage({ models }: HomePageProps) {
 							ค้นพบรถยนต์ไฟฟ้า BYD รุ่นต่างๆ
 							ที่ผสมผสานเทคโนโลยีล้ำสมัยและการออกแบบที่โดดเด่น
 						</p>
-					</motion.div>
-					<ProductSlider
-						items={models}
-						onItemClick={handleItemClick}
-						buttonText="สั่งซื้อเลย"
-					/>
+					</MotionDiv>
+					<Suspense
+						fallback={
+							<div className="w-full h-[400px] bg-gray-800/30 rounded-xl animate-pulse" />
+						}
+					>
+						<ProductSlider
+							items={models}
+							onItemClick={handleItemClick}
+							buttonText="สั่งซื้อเลย"
+						/>
+					</Suspense>
 				</div>
 			</section>
 
 			{/* Services Section */}
 			<section className="section-spacing bg-rich-black-gradient-subtle">
 				<div className="container-custom">
-					<motion.div
+					<MotionDiv
 						initial="hidden"
 						whileInView="visible"
 						viewport={{ once: true, margin: "-10px" }}
@@ -118,16 +159,22 @@ export default function HomePage({ models }: HomePageProps) {
 						<p className="text-gray-400 text-center max-w-2xl mx-auto">
 							บริการครบวงจรเพื่อประสบการณ์การใช้รถยนต์ไฟฟ้าที่ไร้กังวล
 						</p>
-					</motion.div>
+					</MotionDiv>
 					{/* Component แสดงรายการบริการ */}
-					<ServiceGrid />
+					<Suspense
+						fallback={
+							<div className="w-full h-[300px] bg-gray-800/30 rounded-xl animate-pulse" />
+						}
+					>
+						<ServiceGrid />
+					</Suspense>
 				</div>
 			</section>
 
 			{/* Why Choose Us Section */}
 			<section className="section-spacing bg-rich-black-gradient">
 				<div className="container-custom">
-					<motion.div
+					<MotionDiv
 						initial="hidden"
 						whileInView="visible"
 						viewport={{ once: true, margin: "-100px" }}
@@ -140,16 +187,16 @@ export default function HomePage({ models }: HomePageProps) {
 						<p className="text-gray-400 text-center max-w-2xl mx-auto">
 							เราให้ความสำคัญกับคุณภาพและความพึงพอใจของลูกค้าเป็นอันดับหนึ่ง
 						</p>
-					</motion.div>
+					</MotionDiv>
 
-					<motion.div
+					<MotionDiv
 						className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10"
 						variants={staggerContainer}
 						initial="hidden"
 						whileInView="visible"
 						viewport={{ once: true, margin: "-100px" }}
 					>
-						<motion.div
+						<MotionDiv
 							variants={fadeIn}
 							className="glass-effect p-8 rounded-xl card-hover"
 						>
@@ -161,9 +208,9 @@ export default function HomePage({ models }: HomePageProps) {
 								นวัตกรรมแบตเตอรี่และระบบขับเคลื่อนที่ทันสมัย
 								ให้ประสิทธิภาพสูงสุดและเป็นมิตรกับสิ่งแวดล้อม
 							</p>
-						</motion.div>
+						</MotionDiv>
 
-						<motion.div
+						<MotionDiv
 							variants={fadeIn}
 							className="glass-effect p-8 rounded-xl card-hover"
 						>
@@ -175,9 +222,9 @@ export default function HomePage({ models }: HomePageProps) {
 								รับประกันคุณภาพสูงสุดพร้อมบริการฉุกเฉิน 24 ชั่วโมง
 								เพื่อความมั่นใจในทุกการเดินทาง
 							</p>
-						</motion.div>
+						</MotionDiv>
 
-						<motion.div
+						<MotionDiv
 							variants={fadeIn}
 							className="glass-effect p-8 rounded-xl card-hover"
 						>
@@ -189,8 +236,8 @@ export default function HomePage({ models }: HomePageProps) {
 								ทีมงานมืออาชีพพร้อมให้บริการหลังการขายที่รวดเร็วและมีประสิทธิภาพ
 								ตลอดอายุการใช้งานรถยนต์
 							</p>
-						</motion.div>
-					</motion.div>
+						</MotionDiv>
+					</MotionDiv>
 				</div>
 			</section>
 
@@ -199,7 +246,7 @@ export default function HomePage({ models }: HomePageProps) {
 				<div className="absolute inset-0 bg-gradient-to-r from-black via-black/90 to-black"></div>
 
 				<div className="container-custom relative z-10">
-					<motion.div
+					<MotionDiv
 						initial="hidden"
 						whileInView="visible"
 						viewport={{ once: true }}
@@ -231,7 +278,7 @@ export default function HomePage({ models }: HomePageProps) {
 								นัดหมายทดลองขับ
 							</Button>
 						</div>
-					</motion.div>
+					</MotionDiv>
 				</div>
 			</section>
 		</main>

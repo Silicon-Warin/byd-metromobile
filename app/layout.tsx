@@ -4,24 +4,28 @@ import { Analytics } from "@vercel/analytics/react";
 import Header from "@/components/Header/Header";
 import { Footer } from "@/components/Footer";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import type { Viewport } from "next";
 
 import "./globals.css";
 
 const inter = Inter({
 	variable: "--font-inter",
 	subsets: ["latin"],
+	display: "swap",
 });
 
 const ibmPlexThai = IBM_Plex_Sans_Thai({
 	subsets: ["thai", "latin"],
 	weight: ["300", "400", "700"],
 	variable: "--font-ibm",
+	display: "swap",
 });
 
 const prompt = Prompt({
 	subsets: ["thai", "latin"],
 	weight: ["300", "400", "700"],
 	variable: "--font-prompt",
+	display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -36,7 +40,20 @@ export const metadata: Metadata = {
 		"Metromobile",
 		"ศูนย์บริการ BYD",
 	],
+	openGraph: {
+		title: "BYD Metromobile | เมโทรโมบิล ผู้นำด้านรถยนต์ไฟฟ้า BYD ในประเทศไทย",
+		description:
+			"ศูนย์รถยนต์ไฟฟ้า BYD อย่างเป็นทางการ ครอบคลุมทั้งการขาย บริการ และศูนย์บริการหลังการขาย",
+		images: ["/images/og-image.jpg"],
+	},
 };
+
+export const viewport: Viewport = {
+	width: "device-width",
+	initialScale: 1,
+	themeColor: "#000000",
+};
+
 export default function RootLayout({
 	children,
 }: Readonly<{
@@ -44,13 +61,23 @@ export default function RootLayout({
 }>) {
 	return (
 		<html
-			lang="en-th"
+			lang="th"
 			className={`${inter.variable} ${prompt.variable} ${ibmPlexThai.variable}`}
 		>
-			<body>
+			<head>
+				<link
+					rel="preload"
+					href="/images/metromobile-logo.png"
+					as="image"
+					type="image/png"
+				/>
+			</head>
+			<body className="max-w-[100vw] overflow-x-hidden">
 				<SpeedInsights />
 				<Header />
-				<main>{children}</main>
+				<main className="min-h-screen overflow-x-hidden flex flex-col">
+					{children}
+				</main>
 				<Footer />
 				<Analytics />
 			</body>
