@@ -6,7 +6,7 @@ import { ModernPromo } from "@/components/ui/modernpromo";
 
 export default function HeroContent() {
 	return (
-		<div className="relative z-10 bg-gradient-to-r from-blue-900/80 to-purple-900/80 p-6 rounded-2xl backdrop-blur-sm border border-blue-500/20 shadow-xl max-w-3xl mx-auto">
+		<div className="relative z-10 bg-gradient-to-r from-blue-900/80 to-purple-900/80 p-6 rounded-2xl backdrop-blur-sm border border-blue-500/20 shadow-xl max-w-7xl mx-auto">
 			<motion.div
 				className="flex flex-col md:flex-row items-center gap-6"
 				initial={{ opacity: 0, y: 20 }}
@@ -82,20 +82,18 @@ export default function HeroContent() {
 
 				{/* Right content - Image */}
 				<motion.div
-					className="hidden md:block md:w-2/5 relative h-48 md:h-64"
+					className="hidden md:block md:w-2/5 relative h-[400px]"
 					initial={{ opacity: 0, scale: 0.9 }}
 					animate={{ opacity: 1, scale: 1 }}
 					transition={{ duration: 0.7, delay: 0.3 }}
 				>
-					<div className="absolute inset-0 bg-blue-500 rounded-xl overflow-hidden">
-						<Image
-							src="/images/promotions/sealion6dmi-force-edge.webp"
-							alt="BYD Songkran Special"
-							fill
-							className="object-contain p-2"
-							priority
-						/>
-					</div>
+					<Image
+						src="/images/promotions/sealion6dmi-force-edge.webp"
+						alt="BYD Songkran Special"
+						fill
+						className="object-cover rounded-xl"
+						priority
+					/>
 				</motion.div>
 			</motion.div>
 		</div>

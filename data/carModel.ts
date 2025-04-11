@@ -96,7 +96,6 @@ export function findModelBySlug(slug: string): CarModel | undefined {
   return model;
 }
 
-// รายการรถยนต์ที่มีอยู่เดิม (คงไว้เพื่อความเข้ากันได้กับโค้ดเดิม)
 export const defaultModels: CarModel[] = [
   {
     id: 1,
@@ -104,7 +103,7 @@ export const defaultModels: CarModel[] = [
     slug: "byd-sealion7",
     description: "SUV ไฟฟ้าขนาดใหญ่ ดีไซน์ล้ำสมัย มาพร้อมสมรรถนะสูง",
     price: 1249900,
-    imageUrlPromo: "/images/motor-show-promo/sealion7.jpg",
+    imageUrlPromo: "/images/promotions/sealion7.webp",
     imageUrlModel: "/images/models/BYD-sealion7.webp",
     imageUrlHero: "/images/models/sealion7/sealion7-hero.jpg",
     imageUrlReal: "/images/models/sealion7/sealion7-real.jpg",
@@ -288,7 +287,7 @@ export const defaultModels: CarModel[] = [
     slug: "byd-m6",
     description: "MPV ไฟฟ้าสำหรับครอบครัว กว้างขวางและสะดวกสบาย",
     price: 799900,
-    imageUrlPromo: "/images/motor-show-promo/m6.jpg",
+    imageUrlPromo: "/images/promotions/m6.webp",
     imageUrlModel: "/images/models/BYD-m6.webp",
     imageUrlHero: "/images/models/m6/m6-hero.jpg",
     imageUrlReal: "/images/models/m6/m6-real.jpg",
@@ -547,7 +546,7 @@ export const defaultModels: CarModel[] = [
     slug: "byd-sealion6dmi",
     description: "SUV Plug-in Hybrid ขับเคลื่อน 4 ล้อ พลังงานสะอาด",
     price: 939900,
-    imageUrlPromo: "/images/motor-show-promo/sealion6dm.jpg",
+    imageUrlPromo: "/images/promotions/sealion6dm.webp",
     imageUrlModel: "/images/models/BYD-sealion6dm.webp",
     imageUrlHero: "/images/models/sealion6dmi/sealion6dmi-hero.jpg", 
     imageUrlReal: "/images/models/sealion6dmi/sealion6dmi-real.jpg",
@@ -732,7 +731,7 @@ export const defaultModels: CarModel[] = [
     slug: "byd-seal",
     description: "ซีดานไฟฟ้าสมรรถนะสูง พร้อมระยะทางขับขี่ไกลและเทคโนโลยีล้ำสมัย",
     price: 999900,
-    imageUrlPromo: "/images/motor-show-promo/seal.jpg",      
+    imageUrlPromo: "/images/promotions/seal.webp",      
     imageUrlModel:"/images/models/BYD-seal.webp",
     imageUrlHero: "/images/models/seal/seal-hero.jpg",
     imageUrlReal: "/images/models/seal/seal-real.jpg",
@@ -1107,7 +1106,7 @@ export const defaultModels: CarModel[] = [
     slug: "byd-atto-3",
     description: "SUV ไฟฟ้ากะทัดรัด สมรรถนะโดดเด่น เหมาะกับทุกการขับขี่",
     price: 899900,
-    imageUrlPromo: "/images/motor-show-promo/atto3.jpg",
+    imageUrlPromo: "/images/promotions/atto3.webp",
     imageUrlModel: "/images/models/BYD-Atto3.webp",
     imageUrlHero: "/images/models/atto3/atto3-hero.jpg",
     imageUrlReal: "/images/models/atto3/atto3-real.jpg",
@@ -1218,7 +1217,7 @@ export const defaultModels: CarModel[] = [
     slug: "byd-dolphin",
     description: "แฮทช์แบคไฟฟ้า ประหยัดพลังงาน คล่องตัวสำหรับการใช้งานในเมือง",
     price: 569900,
-    imageUrlPromo: "/images/motor-show-promo/dolphin.jpg",
+    imageUrlPromo: "/images/promotions/dolphin.webp",
     imageUrlModel: "/images/models/BYD-dolphin.webp",
     imageUrlHero: "/images/models/dolphin/dolphin-hero.jpg",
     imageUrlReal: "/images/models/dolphin/dolphin-real.jpg",

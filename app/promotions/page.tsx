@@ -24,9 +24,6 @@ export default function PromotionsPage() {
 
 				<div className="mt-16 relative">
 					<div className="absolute -top-10 left-0 right-0 h-10 bg-gradient-to-b from-transparent to-blue-900/50"></div>
-					<h2 className="text-2xl md:text-3xl font-bold mb-8 text-center text-blue-100">
-						รุ่นรถที่ร่วมรายการ
-					</h2>
 					<PromotionSection />
 				</div>
 			</div>
