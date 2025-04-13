@@ -261,9 +261,9 @@ export const defaultModels: CarModel[] = [
       acceleration: "3.8 วินาที",
       range: "580 กิโลเมตร",
       drivetrain: "AWD Performance",
-      motor: "มอเตอร์ 390 กิโลวัตต์",
-      battery: "82.56 กิโลวัตต์-ชั่วโมง",
-      charging: "AC type 2 / DC CCS 2 (150 กิโลวัตต์)",
+      motor: "390 kW",
+      battery: "82.56 kWh",
+      charging: "AC type 2 / DC CCS 2 (150 kW)",
       annotate: "*AWD Performance performance and specifications",
     },
     colors: [
