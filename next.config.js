@@ -32,7 +32,7 @@ const nextConfig = {
 					{
 						key: "Content-Security-Policy",
 						value:
-							"default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://apis.google.com https://va.vercel-scripts.com https://static.line-scdn.net; style-src 'self' 'unsafe-inline'; font-src 'self' data: https://fonts.gstatic.com; frame-src 'self' https://www.google.com; connect-src 'self' https://api.line.me https://liffsdk.line-scdn.net;",
+							"default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://apis.google.com https://va.vercel-scripts.com https://static.line-scdn.net; style-src 'self' 'unsafe-inline'; font-src 'self' data: https://fonts.gstatic.com; frame-src 'self' https://www.google.com; img-src 'self' data: blob: https://*; connect-src 'self' https://api.line.me https://liffsdk.line-scdn.net;",
 					},
 					{
 						key: "X-Frame-Options",

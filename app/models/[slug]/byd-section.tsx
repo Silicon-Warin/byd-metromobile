@@ -1,10 +1,10 @@
 "use client";
 
-import React from "react";
+import { useRef } from "react";
 import Image from "next/image";
-import { motion } from "framer-motion";
-import { Card, CardContent } from "@/components/ui/card";
-import BatteryChargingAnimation from "@/components/Models/BatteryChargingAnimation";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { Button } from "@/components/ui/button";
+import type { CarModel } from "./types";
 
 const fadeIn = {
 	hidden: { opacity: 0, y: 20 },
@@ -15,37 +15,34 @@ const fadeIn = {
 	},
 };
 
-const staggerChildren = {
-	hidden: { opacity: 0 },
-	visible: {
-		opacity: 1,
-		transition: {
-			staggerChildren: 0.2,
-		},
-	},
-};
+interface BYDSectionProps {
+	carModel: CarModel;
+}
 
-export default function BYDSection() {
+export default function BYDSection({ carModel }: BYDSectionProps) {
+	// Refs for parallax elements
+	const mainImageRef = useRef(null);
+	const bottomImageRef = useRef(null);
+
+	// Parallax effects
+	const { scrollYProgress: mainImageScroll } = useScroll({
+		target: mainImageRef,
+		offset: ["start end", "end start"],
+	});
+
+	const { scrollYProgress: bottomImageScroll } = useScroll({
+		target: bottomImageRef,
+		offset: ["start end", "end start"],
+	});
+
+	// Transform values for parallax
+	const mainImageY = useTransform(mainImageScroll, [0, 1], [0, -30]);
+	const bottomImageY = useTransform(bottomImageScroll, [0, 1], [0, -50]);
+
 	return (
-		<section className="py-16 bg-white text-slate-800">
-			<div className="container mx-auto px-4">
-				{/* Battery Warranty */}
-				<motion.div
-					className="flex flex-col items-center text-center mb-16"
-					initial="hidden"
-					whileInView="visible"
-					viewport={{ once: true, margin: "-100px" }}
-					variants={fadeIn}
-				>
-					<BatteryChargingAnimation />
-					<h3 className="text-sm uppercase tracking-wider text-slate-600 mb-1">
-						รับประกันแบตเตอรี่นาน
-					</h3>
-					<h2 className="text-4xl font-bold mb-3">8 years or 160,000 km</h2>
-					<div className="w-16 h-1 bg-blue-600 mx-auto"></div>
-				</motion.div>
-
-				{/* BYD SEAL Heading */}
+		<section className="py-16 bg-white text-slate-800 overflow-hidden">
+			<div className="container mx-auto px-4 max-w-4xl">
+				{/* Header */}
 				<motion.div
 					className="text-center mb-12"
 					initial="hidden"
@@ -53,153 +50,141 @@ export default function BYDSection() {
 					viewport={{ once: true, margin: "-100px" }}
 					variants={fadeIn}
 				>
-					<h2 className="text-3xl font-bold mb-4">
-						BYD SEAL: energy
-						<br />
-						innovation for better
-						<br />
-						living experience
-					</h2>
+					<p className="text-md text-gray-500 mb-4">รับประกันแบตเตอรี่นาน</p>
+					<h2 className="text-4xl font-bold mb-2">8 ปี หรือ 160,000 กม.</h2>
+					<span className="text-sm text-gray-500">
+						(แล้วแต่อย่างใดอย่างหนึ่งถึงก่อน)
+					</span>
+					<h3 className="text-4xl font-bold mb-2">
+						{carModel.name} ปลุกพลังใหม่
+					</h3>
+					<h3 className="text-3xl font-bold">ปลุกชีวิตที่ดีกว่า</h3>
 				</motion.div>
 
-				{/* Main Feature Image */}
-				<motion.div
-					className="mb-16"
-					initial="hidden"
-					whileInView="visible"
-					viewport={{ once: true, margin: "-100px" }}
-					variants={fadeIn}
-				>
-					<Card className="overflow-hidden bg-gradient-to-r from-blue-900 to-blue-700">
-						<CardContent className="p-0">
+				{/* Main Blade Battery Image */}
+				<div ref={mainImageRef} className="mb-16 overflow-visible">
+					<motion.div
+						style={{ y: mainImageY }}
+						className="mx-auto max-w-[90%]" // Center and constrain width
+					>
+						<div className="relative rounded-lg overflow-hidden shadow-lg">
 							<Image
-								src="/images/byd-seal-battery.jpg"
-								alt="BYD SEAL battery technology"
+								src={
+									carModel.batteryImage || "/images/section/blade-battery.webp"
+								}
+								alt="BLADE BATTERY"
 								width={800}
-								height={400}
+								height={450}
 								className="w-full object-cover"
 							/>
-							<p className="text-xs text-slate-300 p-4">
-								BYD SEAL features groundbreaking Battery technology, including
-								innovative Cell-to-Body (CTB) provides best-in-class safety
-								features with optimal fit and weight distribution.
-							</p>
-						</CardContent>
-					</Card>
-				</motion.div>
-
-				{/* Feature Cards */}
-				<motion.div
-					className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16"
-					initial="hidden"
-					whileInView="visible"
-					viewport={{ once: true, margin: "-100px" }}
-					variants={staggerChildren}
-				>
-					{/* Feature 1 */}
-					<motion.div variants={fadeIn}>
-						<Card className="h-full">
-							<CardContent className="p-4">
-								<Image
-									src="/images/byd-seal-drivetrain.jpg"
-									alt="BYD SEAL drivetrain"
-									width={400}
-									height={250}
-									className="w-full object-cover rounded-md mb-4"
-								/>
-								<p className="text-xs text-slate-600">
-									High-performance dual-motor configuration provides exceptional
-									power and acceleration with precise control for both everyday
-									driving and sporty experiences.
+							<div className="mt-3 px-2 pb-3">
+								<h4 className="font-bold text-md uppercase">BLADE BATTERY</h4>
+								<p className="text-md text-gray-600">
+									เทคโนโลยีแบตเตอรี่ความปลอดภัยสูง
+									สุดยอดนวัตกรรมแบตเตอรี่ระดับโลกจาก BYD ชาร์จไวไปได้ไกลกว่า
+									ขับขี่ได้อย่างมั่นใจในทุกเส้นทาง
 								</p>
-							</CardContent>
-						</Card>
+							</div>
+						</div>
+					</motion.div>
+				</div>
+
+				{/* Two Images Side by Side - No Overlapping */}
+				<div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+					{/* Left Image - e-Platform 3.0 */}
+					<motion.div
+						initial="hidden"
+						whileInView="visible"
+						viewport={{ once: true, margin: "-100px" }}
+						variants={fadeIn}
+					>
+						<div className="rounded-lg overflow-hidden h-full mt-8 mr-8">
+							<div className="h-[200px] relative">
+								<Image
+									src={
+										carModel.platformImage || "/images/section/e-platform3.webp"
+									}
+									alt="e-Platform 3.0"
+									fill
+									className="object-cover"
+								/>
+							</div>
+							<div className="p-4">
+								<h4 className="font-bold text-sm uppercase">e-PLATFORM 3.0</h4>
+								<p className="text-xs text-gray-600 mt-2">
+									ยกระดับการขับขี่สู่อนาคตด้วยนวัตกรรมแพลตฟอร์มที่พัฒนาขึ้นเพื่อรถยนต์พลังงานไฟฟ้าโดยเฉพาะ
+									ด้วยเทคโนโลยี CTB (CELL-TO-BODY)
+									ที่จัดวางแบตเตอรี่และอุปกรณ์โดยคำนึงถึงความแข็งแรงและปลอดภัยเพื่อสมรรถนะที่เยี่ยม
+									ทั้งการเกาะถนนและความนุ่มนวล สมดุลของทุกการขับขี่
+								</p>
+							</div>
+						</div>
 					</motion.div>
 
-					{/* Feature 2 */}
-					<motion.div variants={fadeIn}>
-						<Card className="h-full">
-							<CardContent className="p-4">
+					{/* Right Image - Panoramic Roof */}
+					<motion.div
+						initial="hidden"
+						whileInView="visible"
+						viewport={{ once: true, margin: "-100px" }}
+						variants={fadeIn}
+					>
+						<div className="rounded-lg overflow-hidden h-full ml-8">
+							<div className="h-[200px] relative">
 								<Image
-									src="/images/byd-seal-panoramic-roof.jpg"
-									alt="BYD SEAL panoramic roof"
-									width={400}
-									height={250}
-									className="w-full object-cover rounded-md mb-4"
+									src={
+										carModel.roofImage || "/images/section/silver-platform.webp"
+									}
+									alt="Panoramic Roof"
+									fill
+									className="object-cover"
 								/>
-								<p className="text-xs text-slate-600">
-									Ultra-efficient panoramic glass roof design combines maximum
-									visibility with advanced UV protection for a bright, airy
-									cabin while maintaining thermal comfort and efficiency levels.
+							</div>
+							<div className="p-4">
+								<h4 className="font-bold text-sm uppercase">{}</h4>
+								<p className="text-md text-gray-600 mt-2">
+									หลังคากระจกพาโนรามิค 2 ชั้น ขนาดใหญ่ถึง 1.9 ตารางเมตร
+									ให้มุมมองที่กว้างกว่า พร้อมการเคลือบด้วย Silver-plated
+									ที่ช่วยลดปริมาณแสงที่ผ่านเข้ามา ให้ห้องโดยสารพร้อมป้องกัน แสง
+									UV ทำให้ห้องโดยสารเย็นสบายตลอดการขับขี่
 								</p>
-							</CardContent>
-						</Card>
+							</div>
+						</div>
 					</motion.div>
-				</motion.div>
+				</div>
 
-				{/* Bottom Car Image with Features */}
-				<motion.div
-					initial="hidden"
-					whileInView="visible"
-					viewport={{ once: true, margin: "-100px" }}
-					variants={fadeIn}
+				{/* Bottom Car Image - Full width but with margin */}
+				<div
+					ref={bottomImageRef}
+					className="overflow-hidden rounded-lg mx-auto max-w-[90%]"
 				>
-					<Card className="overflow-hidden bg-gradient-to-r from-slate-800 to-slate-700">
-						<CardContent className="p-0 relative">
+					<motion.div style={{ y: bottomImageY }}>
+						<div className="relative shadow-lg">
 							<Image
-								src="/images/byd-seal-exterior.jpg"
-								alt="BYD SEAL exterior"
+								src={carModel.exteriorImage || "/images/byd-seal-exterior.jpg"}
+								alt={`${carModel.name} Exterior`}
 								width={1000}
 								height={500}
-								className="w-full object-cover"
+								className="w-full object-cover rounded-lg"
 							/>
-
-							{/* Feature List */}
-							<div className="absolute bottom-0 left-0 right-0 p-6 bg-black bg-opacity-50 text-white">
-								<div className="grid grid-cols-2 gap-4">
-									<div className="space-y-2">
-										<div className="flex items-center">
-											<div className="w-1 h-1 bg-blue-400 rounded-full mr-2"></div>
-											<p className="text-xs">
-												Ocean X inspired aerodynamic design
-											</p>
-										</div>
-										<div className="flex items-center">
-											<div className="w-1 h-1 bg-blue-400 rounded-full mr-2"></div>
-											<p className="text-xs">
-												Impressive 0.219 drag coefficient
-											</p>
-										</div>
-										<div className="flex items-center">
-											<div className="w-1 h-1 bg-blue-400 rounded-full mr-2"></div>
-											<p className="text-xs">
-												Up to 650km maximum range (NEDC)
-											</p>
-										</div>
-									</div>
-									<div className="space-y-2">
-										<div className="flex items-center">
-											<div className="w-1 h-1 bg-blue-400 rounded-full mr-2"></div>
-											<p className="text-xs">
-												Intelligent temperature management system
-											</p>
-										</div>
-										<div className="flex items-center">
-											<div className="w-1 h-1 bg-blue-400 rounded-full mr-2"></div>
-											<p className="text-xs">Rapid DC charging capability</p>
-										</div>
-										<div className="flex items-center">
-											<div className="w-1 h-1 bg-blue-400 rounded-full mr-2"></div>
-											<p className="text-xs">
-												Vehicle-to-Load (V2L) power sharing
-											</p>
-										</div>
-									</div>
-								</div>
+							<div className="mt-3 px-2 pb-3">
+								<h4 className="font-bold text-sm uppercase">
+									e-Motion NEVER Calm
+								</h4>
+								<p className="text-xs text-gray-600">
+									ดีไซน์ภายนอก 1 ใน 3 ของ Ocean Series ออกแบบโดย Wolfgang Egger
+									ผู้เคยออกแบบให้กับแบรนด์รถยุโรปชั้นนำ
+								</p>
 							</div>
-						</CardContent>
-					</Card>
-				</motion.div>
+						</div>
+					</motion.div>
+				</div>
+
+				{/* Test Drive Button */}
+				<div className="text-center mt-16">
+					<Button className="bg-red-600 hover:bg-red-700 text-white px-10 py-3 rounded-full font-medium">
+						ทดลองขับ {carModel.name}
+					</Button>
+				</div>
 			</div>
 		</section>
 	);

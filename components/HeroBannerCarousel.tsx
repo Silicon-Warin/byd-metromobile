@@ -24,6 +24,10 @@ const slides = [
 	},
 ];
 
+// Simplified blur data placeholder
+const placeholderBlurData =
+	"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=";
+
 const HeroBannerCarousel = () => {
 	const [currentSlide, setCurrentSlide] = useState(0);
 	const [isAutoplay, setIsAutoplay] = useState(true);
@@ -90,11 +94,13 @@ const HeroBannerCarousel = () => {
 							alt="bydmetromobile banner"
 							fill
 							priority={currentSlide === 0}
-							quality={85}
+							quality={75}
 							className={`${
-								isMobile ? "object-cover object-center" : "object-cover"
+								isMobile ? "object-contain object-center" : "object-cover"
 							}`}
-							sizes="100vw"
+							sizes="(max-width: 768px) 100vw, 100vw"
+							placeholder="blur"
+							blurDataURL={placeholderBlurData}
 						/>
 					</div>
 				</motion.div>
