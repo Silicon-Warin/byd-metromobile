@@ -15,14 +15,14 @@ const inter = Inter({
 });
 
 const ibmPlexThai = IBM_Plex_Sans_Thai({
-	subsets: ["thai", "latin"],
+	subsets: ["thai"],
 	weight: ["300", "400", "700"],
 	variable: "--font-ibm",
 	display: "swap",
 });
 
 const prompt = Prompt({
-	subsets: ["thai", "latin"],
+	subsets: ["thai"],
 	weight: ["300", "400", "700"],
 	variable: "--font-prompt",
 	display: "swap",
@@ -72,7 +72,7 @@ export default function RootLayout({
 					type="image/png"
 				/>
 			</head>
-			<body className="max-w-[100vw] overflow-x-hidden">
+			<body className="max-w-[100vw] overflow-x-hidden font-prompt">
 				<SpeedInsights />
 				<Header />
 				<main className="min-h-screen overflow-x-hidden flex flex-col">

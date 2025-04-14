@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
@@ -28,6 +28,7 @@ import {
 } from "@/components/Models/motion-components";
 import ColorSelectorSection from "./color-selector-section";
 import BYDSection from "./byd-section";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 // First, update the component props interface
 interface ModelPageContentProps {
@@ -50,10 +51,10 @@ export default function ModelPageContent({
 	// Check if carModel has variants
 	const heroRef = useRef<HTMLDivElement>(null);
 
-	const scrollToShowcase = () => {
-		const showcase = document.getElementById("showcase");
-		if (showcase) {
-			showcase.scrollIntoView({ behavior: "smooth" });
+	const scrollToOverview = () => {
+		const overview = document.getElementById("overview");
+		if (overview) {
+			overview.scrollIntoView({ behavior: "smooth" });
 		}
 	};
 
@@ -63,7 +64,7 @@ export default function ModelPageContent({
 	return (
 		<div className="bg-background text-foreground">
 			{/* Hero Section with Full Screen Car Image */}
-			<div className="relative h-screen w-full" ref={heroRef} id="overview">
+			<div className="relative h-screen w-full" ref={heroRef}>
 				<Image
 					src={carModel.imageUrlHero || "/placeholder.svg"}
 					alt={carModel.name}
@@ -123,19 +124,21 @@ export default function ModelPageContent({
 							initial={{ opacity: 0 }}
 							animate={{ opacity: 1 }}
 							transition={{ delay: 0.8 }}
-							onClick={scrollToShowcase}
+							onClick={scrollToOverview}
 						>
 							<ChevronDown className="w-10 h-10 animate-scroll-down" />
 						</motion.div>
 					</div>
 				</div>
 			</div>
-
 			{/* Overview Section */}
-			<ModelOverview carModel={carModel} selectedVariant={selectedVariant} />
+			<ModelOverview
+				id="overview"
+				carModel={carModel}
+				selectedVariant={selectedVariant}
+			/>
 			{/* BYD Section */}
 			<BYDSection carModel={carModel} />
-
 			{/* Showcase Swiper Section */}
 			<section
 				id="showcase"
@@ -196,7 +199,6 @@ export default function ModelPageContent({
 					</Swiper>
 				</div>
 			</section>
-
 			{/* Choose Color and Model Section */}
 			<section
 				id="colors"
@@ -214,60 +216,127 @@ export default function ModelPageContent({
 						/>
 					)}
 			</section>
-
-			{/* Two Side Pic and Paragraph Section */}
+			{/* Modern 2D Gallery Section */}
 			<section className="py-20 bg-gradient-to-b from-background to-card">
 				<div className="container mx-auto px-4">
-					{/* Center 16:9 Expanding Image */}
-					<div className="mb-20">
-						<h2 className="text-3xl sm:text-4xl font-bold mb-8 text-center">
-							{carModel.name} ในมุมมองที่สมบูรณ์แบบ
-						</h2>
-						<CarRevealImage
-							src={carModel.imageUrlReal || "/placeholder.svg"}
-							alt={`${carModel.name} Center View`}
-							priority
-						/>
-					</div>
+					<h2 className="text-3xl sm:text-4xl font-bold mb-12 text-center">
+						{carModel.name} Gallery
+					</h2>
 
-					{/* Two-sided content sections */}
-					<div className="space-y-24">
-						{highlights.map((highlight, index) => (
-							<div
-								key={index}
-								className={`grid grid-cols-1 md:grid-cols-2 gap-12 items-center ${
-									index % 2 === 1 ? "md:grid-flow-col-reverse" : ""
-								}`}
-							>
-								<ParallaxSection speed={0.3}>
-									<div className="relative h-[400px] rounded-xl overflow-hidden">
+					<Tabs defaultValue="exterior" className="w-full">
+						<TabsList className="grid w-full max-w-[400px] mx-auto grid-cols-2">
+							<TabsTrigger value="exterior">Exterior</TabsTrigger>
+							<TabsTrigger value="interior">Interior</TabsTrigger>
+						</TabsList>
+						<TabsContent value="exterior">
+							<div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+								{/* Main Image */}
+								<motion.div
+									className="md:col-span-2 h-[50vh] rounded-xl overflow-hidden relative"
+									initial={{ opacity: 0, y: 20 }}
+									animate={{ opacity: 1, y: 0 }}
+									transition={{ duration: 0.6 }}
+								>
+									<Image
+										src={carModel.imageUrlReal || "/placeholder.svg"}
+										alt={`${carModel.name} Exterior View`}
+										fill
+										className="object-cover"
+										priority
+									/>
+									<div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-6">
+										<div>
+											<h3 className="text-2xl font-bold text-white mb-2">
+												มุมมองภายนอก
+											</h3>
+											<p className="text-gray-200 text-sm max-w-md">
+												สัมผัสประสบการณ์การขับขี่ที่เหนือระดับด้วยดีไซน์ที่ทันสมัย
+											</p>
+										</div>
+									</div>
+								</motion.div>
+
+								{/* Thumbnail Images */}
+								{highlights.slice(0, 4).map((highlight, index) => (
+									<motion.div
+										key={index}
+										className="h-64 rounded-xl overflow-hidden relative group cursor-pointer"
+										initial={{ opacity: 0, y: 20 }}
+										animate={{ opacity: 1, y: 0 }}
+										transition={{ duration: 0.6, delay: 0.1 * index }}
+										whileHover={{ scale: 1.02 }}
+									>
 										<Image
 											src={highlight.image}
 											alt={highlight.title}
 											fill
-											className="object-cover"
-											sizes="(max-width: 768px) 100vw, 50vw"
+											className="object-cover transition-transform duration-500 group-hover:scale-110"
 										/>
-									</div>
-								</ParallaxSection>
-
-								<div className={index % 2 === 1 ? "md:order-first" : ""}>
-									<RevealText text={highlight.title} delay={0.2} />
-									<FadeInView delay={0.4}>
-										<p className="text-gray-300 mb-6">
-											{highlight.description}
-										</p>
-										<Button className="bg-bydblue hover:bg-bydblue/80 text-white">
-											เรียนรู้เพิ่มเติม
-										</Button>
-									</FadeInView>
-								</div>
+										<div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+											<h4 className="text-lg font-medium text-white">
+												{highlight.title}
+											</h4>
+										</div>
+									</motion.div>
+								))}
 							</div>
-						))}
-					</div>
+						</TabsContent>
+						<TabsContent value="interior">
+							<div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+								{/* Main Image */}
+								<motion.div
+									className="md:col-span-2 h-[50vh] rounded-xl overflow-hidden relative"
+									initial={{ opacity: 0, y: 20 }}
+									animate={{ opacity: 1, y: 0 }}
+									transition={{ duration: 0.6 }}
+								>
+									<Image
+										src={carModel.imageUrlReal || "/placeholder.svg"}
+										alt={`${carModel.name} Interior View`}
+										fill
+										className="object-cover"
+										priority
+									/>
+									<div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-6">
+										<div>
+											<h3 className="text-2xl font-bold text-white mb-2">
+												มุมมองภายใน
+											</h3>
+											<p className="text-gray-200 text-sm max-w-md">
+												สัมผัสประสบการณ์การขับขี่ที่เหนือระดับด้วยดีไซน์ที่ทันสมัย
+											</p>
+										</div>
+									</div>
+								</motion.div>
+
+								{/* Thumbnail Images */}
+								{highlights.slice(0, 4).map((highlight, index) => (
+									<motion.div
+										key={index}
+										className="h-64 rounded-xl overflow-hidden relative group cursor-pointer"
+										initial={{ opacity: 0, y: 20 }}
+										animate={{ opacity: 1, y: 0 }}
+										transition={{ duration: 0.6, delay: 0.1 * index }}
+										whileHover={{ scale: 1.02 }}
+									>
+										<Image
+											src={highlight.image}
+											alt={highlight.title}
+											fill
+											className="object-cover transition-transform duration-500 group-hover:scale-110"
+										/>
+										<div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+											<h4 className="text-lg font-medium text-white">
+												{highlight.title}
+											</h4>
+										</div>
+									</motion.div>
+								))}
+							</div>
+						</TabsContent>
+					</Tabs>
 				</div>
 			</section>
-
 			{/* Cards Section */}
 			<section className="container mx-auto py-16 px-4">
 				<div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -311,7 +380,6 @@ export default function ModelPageContent({
 					</Card>
 				</div>
 			</section>
-
 			{/* Footer Image Area */}
 			<section className="relative h-[400px]">
 				<Image
@@ -329,7 +397,6 @@ export default function ModelPageContent({
 					</div>
 				</div>
 			</section>
-
 			{/* Compare Link Section */}
 			<section className="py-10 bg-gradient-to-b from-background to-card">
 				<div className="container mx-auto px-4 text-center">
@@ -347,7 +414,6 @@ export default function ModelPageContent({
 					</Link>
 				</div>
 			</section>
-
 			{/* Action Buttons Section */}
 			<section className="py-12 bg-richblack">
 				<div className="container mx-auto px-4">

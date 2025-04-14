@@ -15,6 +15,9 @@ export interface CarModel {
   imageWidth: number;
   imageHeight: number;
   featuresTitle: string;
+  specialFeature: string;
+  specialFeatureDescription: string;
+  specialFeatureImage: string;
   specs?: {
     acceleration: string;
     range: string;
@@ -26,11 +29,12 @@ export interface CarModel {
   };
   colors?: CarColor[];
   variants: CarVariant[];
-  promotion: string[];  
+  specialOffers: string[];  
   features: string[] | CarFeature[];
   gallery?: string[];
   techHighlight?: hightlightSpec[];
   techSpec?: TechSpec;
+  promotion?: any; // เพิ่ม property promotion
 }
 
 export interface CarColor {
@@ -98,6 +102,9 @@ export const defaultModels: CarModel[] = [
     imageWidth: 1200,
     imageHeight: 800,
     featuresTitle: "",
+    specialFeature: "",
+    specialFeatureDescription: "",
+    specialFeatureImage: "",
     specs: {
       acceleration: "5.4 วินาที",
       range: "542 กิโลเมตร",
@@ -107,6 +114,36 @@ export const defaultModels: CarModel[] = [
       charging: "AC type 2 / DC CCS 2 (150 กิโลวัตต์)",
       annotate: "*AWD Performance performance and specifications"
     },
+    colors: [
+      {
+        name: "Horizon white",
+        code: "#F5F5F5",
+        gradient: "linear-gradient(145deg, #FFFFFF, #E6E6E6)",
+        shadow: "inset 2px 2px 5px rgba(255, 255, 255, 0.5), inset -2px -2px 5px rgba(0, 0, 0, 0.1)",
+        image: "/images/models/sealion7/sealion7-horizon-white.png",
+      },
+      {
+        name: "Quantum Black",
+        code: "#121212",
+        gradient: "linear-gradient(145deg, #222222, #000000)",
+        border: "1px solid rgba(255, 255, 255, 0.7)",
+        image: "/images/models/sealion7/sealion7-quantum-black.png",
+      },
+      {
+        name: "Space Grey",
+        code: "#2C5C8F",
+        gradient: "linear-gradient(145deg, #2C5C8F, #1D3D5F)",
+        shadow: "inset 2px 2px 5px rgba(255, 255, 255, 0.2), inset -2px -2px 5px rgba(0, 0, 0, 0.3)",
+        image: "/images/models/sealion7/sealion7-space-grey.png",
+      },
+      {
+        name: "Shark Grey",
+        code: "#7AA5CD",
+        gradient: "linear-gradient(145deg, #7AA5CD, #5585B5)",
+        shadow: "inset 2px 2px 5px rgba(255, 255, 255, 0.3), inset -2px -2px 5px rgba(0, 0, 0, 0.2)",
+        image: "/images/models/sealion7/sealion7-shark-grey.png",
+      },
+    ],
     variants: [
       {
         id: "sealion7-rwd",
@@ -125,7 +162,7 @@ export const defaultModels: CarModel[] = [
     ],
     features: [      
     ],
-    promotion: ["ประกันภัยชั้น 1 พร้อม พรบ. ระยะเวลา 1 ปี",
+    specialOffers: ["ประกันภัยชั้น 1 พร้อม พรบ. ระยะเวลา 1 ปี",
       "บริการช่วยเหลือฉุกเฉิน ตลอด 24 ชั่วโมง 8 ปีเต็ม",
       "รับประกันตัวรถ (WARRANTY) 8 ปี หรือ 160,000 กม.",
       "รับประกันแบตเตอรี่ 8 ปี หรือ 160,000 กม.",
@@ -147,6 +184,10 @@ export const defaultModels: CarModel[] = [
     imageUrlReal: "/images/models/m6/m6-real.jpg",
     imageWidth: 1200,
     imageHeight: 800,
+    featuresTitle: "",
+    specialFeature: "",
+    specialFeatureDescription: "",
+    specialFeatureImage: "",
     specs: {
       acceleration: "8.5 วินาที",
       range: "530 กิโลเมตร", 
@@ -190,8 +231,8 @@ export const defaultModels: CarModel[] = [
       "ค่าจดทะเบียน",
       "ฟรี ฟิล์มกรองแสง XUV-MAX-CERAMIC",
     ],
-    promotion: [],
-    featuresTitle: ""
+    specialOffers: [],
+   
   },
   {
     id: 3,
@@ -205,6 +246,10 @@ export const defaultModels: CarModel[] = [
     imageUrlReal: "/images/models/sealion6dmi/sealion6dmi-real.jpg",
     imageWidth: 1200,
     imageHeight: 800,
+    featuresTitle: "",
+    specialFeature: "",
+    specialFeatureDescription: "",
+    specialFeatureImage: "",
     specs: {
       acceleration: "6.9 วินาที",
       range: "200 กิโลเมตร",
@@ -241,8 +286,8 @@ export const defaultModels: CarModel[] = [
       "ค่าจดทะเบียน",
       "ฟรี ฟิล์มกรองแสง XUV-MAX-CERAMIC",
     ],
-    promotion: [],
-    featuresTitle: ""
+    specialOffers: [],
+    
   },
   {
     id: 4,
@@ -257,6 +302,9 @@ export const defaultModels: CarModel[] = [
     imageWidth: 1200,
     imageHeight: 800,
     featuresTitle: "ที่สุดแห่งสมรรถนะ",    
+    specialFeature: "",
+    specialFeatureDescription: "",
+    specialFeatureImage: "",
     specs: {
       acceleration: "3.8 วินาที",
       range: "580 กิโลเมตร",
@@ -394,7 +442,7 @@ export const defaultModels: CarModel[] = [
 
       },
     ],
-    promotion: [
+    specialOffers: [
       "ประกันภัยชั้น 1 พร้อม พรบ. ระยะเวลา 1 ปี",
       "บริการช่วยเหลือฉุกเฉิน ตลอด 24 ชั่วโมง 8 ปีเต็ม", 
       "รับประกันตัวรถ (WARRANTY) 8 ปี หรือ 160,000 กม.",
@@ -430,6 +478,10 @@ export const defaultModels: CarModel[] = [
     imageUrlReal: "/images/models/atto3/atto3-real.jpg",
     imageWidth: 1200,
     imageHeight: 800,
+    featuresTitle: "",
+    specialFeature: "",
+    specialFeatureDescription: "",
+    specialFeatureImage: "",
     specs: {
       acceleration: "7.3 วินาที",
       range: "480 กิโลเมตร",
@@ -459,8 +511,7 @@ export const defaultModels: CarModel[] = [
       "พรมเข้ารูป กรอบป้ายทะเบียน ฟิล์มกันรอยหน้าจอ",
       "ค่าจดทะเบียน",
     ],
-    promotion: [],
-    featuresTitle: ""
+    specialOffers: [],   
   },
   {
     id: 6,
@@ -476,6 +527,10 @@ export const defaultModels: CarModel[] = [
     imageUrlDataRight: "/images/models/dolphin/dolphin-data-right.jpg",
     imageWidth: 1200,
     imageHeight: 800,
+    featuresTitle: "",
+    specialFeature: "",
+    specialFeatureDescription: "",
+    specialFeatureImage: "",
     specs: {
       acceleration: "7 วินาที",
       range: "490 กิโลเมตร",
@@ -513,8 +568,7 @@ export const defaultModels: CarModel[] = [
       "ค่าจดทะเบียน",
       "ฟรี HOME CHARGER ยี่ห้อ ZHIDA (เฉพาะรุ่น EXTENDED)",
     ],
-    promotion: [],
-    featuresTitle: ""
+    specialOffers: [],
   },  
 ];
 

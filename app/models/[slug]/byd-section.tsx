@@ -5,6 +5,7 @@ import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import type { CarModel } from "./types";
+import Battery from "@/components/Battery";
 
 const fadeIn = {
 	hidden: { opacity: 0, y: 20 },
@@ -30,14 +31,8 @@ export default function BYDSection({ carModel }: BYDSectionProps) {
 		offset: ["start end", "end start"],
 	});
 
-	const { scrollYProgress: bottomImageScroll } = useScroll({
-		target: bottomImageRef,
-		offset: ["start end", "end start"],
-	});
-
 	// Transform values for parallax
 	const mainImageY = useTransform(mainImageScroll, [0, 1], [0, -30]);
-	const bottomImageY = useTransform(bottomImageScroll, [0, 1], [0, -50]);
 
 	return (
 		<section className="py-16 bg-white text-slate-800 overflow-hidden">
@@ -50,15 +45,20 @@ export default function BYDSection({ carModel }: BYDSectionProps) {
 					viewport={{ once: true, margin: "-100px" }}
 					variants={fadeIn}
 				>
-					<p className="text-md text-gray-500 mb-4">รับประกันแบตเตอรี่นาน</p>
-					<h2 className="text-4xl font-bold mb-2">8 ปี หรือ 160,000 กม.</h2>
+					<Battery />
+					<h1 className="mb-4 text-center">รับประกันแบตเตอรี่นาน</h1>
+					<h2 className="text-5xl font-bold mb-4 text-center text-balance">
+						8 ปี หรือ 160,000 กม.
+					</h2>
 					<span className="text-sm text-gray-500">
 						(แล้วแต่อย่างใดอย่างหนึ่งถึงก่อน)
 					</span>
 					<h3 className="text-4xl font-bold mb-2">
 						{carModel.name} ปลุกพลังใหม่
 					</h3>
-					<h3 className="text-3xl font-bold">ปลุกชีวิตที่ดีกว่า</h3>
+					<h3 className="text-3xl font-bold text-balance">
+						ปลุกชีวิตที่ดีกว่า
+					</h3>
 				</motion.div>
 
 				{/* Main Blade Battery Image */}
@@ -79,7 +79,7 @@ export default function BYDSection({ carModel }: BYDSectionProps) {
 							/>
 							<div className="mt-3 px-2 pb-3">
 								<h4 className="font-bold text-md uppercase">BLADE BATTERY</h4>
-								<p className="text-md text-gray-600">
+								<p className="text-lg text-gray-600">
 									เทคโนโลยีแบตเตอรี่ความปลอดภัยสูง
 									สุดยอดนวัตกรรมแบตเตอรี่ระดับโลกจาก BYD ชาร์จไวไปได้ไกลกว่า
 									ขับขี่ได้อย่างมั่นใจในทุกเส้นทาง
@@ -111,7 +111,7 @@ export default function BYDSection({ carModel }: BYDSectionProps) {
 							</div>
 							<div className="p-4">
 								<h4 className="font-bold text-sm uppercase">e-PLATFORM 3.0</h4>
-								<p className="text-xs text-gray-600 mt-2">
+								<p className="text-md text-gray-600 mt-2">
 									ยกระดับการขับขี่สู่อนาคตด้วยนวัตกรรมแพลตฟอร์มที่พัฒนาขึ้นเพื่อรถยนต์พลังงานไฟฟ้าโดยเฉพาะ
 									ด้วยเทคโนโลยี CTB (CELL-TO-BODY)
 									ที่จัดวางแบตเตอรี่และอุปกรณ์โดยคำนึงถึงความแข็งแรงและปลอดภัยเพื่อสมรรถนะที่เยี่ยม
@@ -121,7 +121,7 @@ export default function BYDSection({ carModel }: BYDSectionProps) {
 						</div>
 					</motion.div>
 
-					{/* Right Image - Panoramic Roof */}
+					{/* Right Image - special feature */}
 					<motion.div
 						initial="hidden"
 						whileInView="visible"
@@ -132,7 +132,8 @@ export default function BYDSection({ carModel }: BYDSectionProps) {
 							<div className="h-[200px] relative">
 								<Image
 									src={
-										carModel.roofImage || "/images/section/silver-platform.webp"
+										carModel.specialFeatureImage ||
+										"/images/section/seal/special-feature.webp"
 									}
 									alt="Panoramic Roof"
 									fill
@@ -140,39 +141,11 @@ export default function BYDSection({ carModel }: BYDSectionProps) {
 								/>
 							</div>
 							<div className="p-4">
-								<h4 className="font-bold text-sm uppercase">{}</h4>
-								<p className="text-md text-gray-600 mt-2">
-									หลังคากระจกพาโนรามิค 2 ชั้น ขนาดใหญ่ถึง 1.9 ตารางเมตร
-									ให้มุมมองที่กว้างกว่า พร้อมการเคลือบด้วย Silver-plated
-									ที่ช่วยลดปริมาณแสงที่ผ่านเข้ามา ให้ห้องโดยสารพร้อมป้องกัน แสง
-									UV ทำให้ห้องโดยสารเย็นสบายตลอดการขับขี่
-								</p>
-							</div>
-						</div>
-					</motion.div>
-				</div>
-
-				{/* Bottom Car Image - Full width but with margin */}
-				<div
-					ref={bottomImageRef}
-					className="overflow-hidden rounded-lg mx-auto max-w-[90%]"
-				>
-					<motion.div style={{ y: bottomImageY }}>
-						<div className="relative shadow-lg">
-							<Image
-								src={carModel.exteriorImage || "/images/byd-seal-exterior.jpg"}
-								alt={`${carModel.name} Exterior`}
-								width={1000}
-								height={500}
-								className="w-full object-cover rounded-lg"
-							/>
-							<div className="mt-3 px-2 pb-3">
 								<h4 className="font-bold text-sm uppercase">
-									e-Motion NEVER Calm
+									{carModel.specialFeature}
 								</h4>
-								<p className="text-xs text-gray-600">
-									ดีไซน์ภายนอก 1 ใน 3 ของ Ocean Series ออกแบบโดย Wolfgang Egger
-									ผู้เคยออกแบบให้กับแบรนด์รถยุโรปชั้นนำ
+								<p className="text-md text-gray-600 mt-2">
+									{carModel.specialFeatureDescription}
 								</p>
 							</div>
 						</div>

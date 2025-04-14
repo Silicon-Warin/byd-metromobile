@@ -15,33 +15,36 @@ datasource db {
 }
 
 model CarModel {
-  id                Int             @id @default(autoincrement())
-  model             String
-  slug              String?         @unique
-  tagline           String?
-  description       String
-  basePrice         Float
-  imageUrlPromo     String
-  imageUrlModel     String
-  imageUrlHero      String?
-  imageUrlReal      String?
-  imageUrlDataLeft  String?
-  imageUrlDataRight String?
-  imageWidth        Int
-  imageHeight       Int
-  featuresTitle     String
-  specsOverview     Json?
-  promotion         String[]
-  gallery           String[]
+  id                        Int             @id @default(autoincrement())
+  model                     String
+  slug                      String?         @unique
+  tagline                   String?
+  description               String
+  basePrice                 Float
+  imageUrlPromo             String
+  imageUrlModel             String
+  imageUrlHero              String?
+  imageUrlReal              String?
+  imageUrlDataLeft          String?
+  imageUrlDataRight         String?
+  imageWidth                Int
+  imageHeight               Int
+  featuresTitle             String
+  specialFeature            String?
+  specialFeatureDescription String?
+  specialFeatureImage       String?
+  specsOverview             Json?
+  promotion                 String[]
+  gallery                   String[]
   // Relationships
-  colors            CarColor[]
-  variants          CarVariant[]
-  features          CarFeature[]
-  techHighlights    HighlightSpec[]
-  createdAt         DateTime        @default(now())
-  updatedAt         DateTime        @updatedAt
-  TechSpec          TechSpec?       @relation(fields: [techSpecId], references: [id])
-  techSpecId        Int?
+  colors                    CarColor[]
+  variants                  CarVariant[]
+  features                  CarFeature[]
+  techHighlights            HighlightSpec[]
+  createdAt                 DateTime        @default(now())
+  updatedAt                 DateTime        @updatedAt
+  TechSpec                  TechSpec?       @relation(fields: [techSpecId], references: [id])
+  techSpecId                Int?
 }
 
 model CarColor {

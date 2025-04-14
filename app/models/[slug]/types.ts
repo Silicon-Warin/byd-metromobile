@@ -15,6 +15,7 @@ export interface CarVariant extends BaseCarVariant {
 }
 
 export interface CarModel extends BaseCarModel {
+  promotion?: any
   colors?: CarColor[]
   variants: CarVariant[]  
   batteryImage?: string
