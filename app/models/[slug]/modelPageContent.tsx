@@ -232,7 +232,7 @@ export default function ModelPageContent({
 							<div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 								{/* Main Image */}
 								<motion.div
-									className="md:col-span-2 h-[50vh] rounded-xl overflow-hidden relative"
+									className="md:col-span-2 h-[70vh] rounded-xl overflow-hidden relative"
 									initial={{ opacity: 0, y: 20 }}
 									animate={{ opacity: 1, y: 0 }}
 									transition={{ duration: 0.6 }}
@@ -285,7 +285,7 @@ export default function ModelPageContent({
 							<div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 								{/* Main Image */}
 								<motion.div
-									className="md:col-span-2 h-[50vh] rounded-xl overflow-hidden relative"
+									className="md:col-span-2 h-[50vh] rounded-xl relative"
 									initial={{ opacity: 0, y: 20 }}
 									animate={{ opacity: 1, y: 0 }}
 									transition={{ duration: 0.6 }}

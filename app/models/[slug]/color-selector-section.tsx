@@ -54,10 +54,10 @@ export default function ColorSelectorSection({
 
 	return (
 		<section className="relative z-10">
-			<div className="sm:px-6 md:mx-auto relative max-w-[1050px] 2xl:max-w-[1200px]">
+			<div className="sm:px-6 sm:flex md:mx-auto relative max-w-[1050px] 2xl:max-w-[1200px]">
 				{/* Car Images */}
 				<div
-					className="absolute left-1/2 -translate-x-1/3 z-20"
+					className="absolute left-1/2 -translate-x-1/3 z-20 sm:flex sm:flex-col sm:items-center sm:justify-center "
 					style={{
 						top: "clamp(10%, 18vw, 24%)",
 						transform: "translateX(-50%) scale(clamp(0.85, 1.4vw, 1.25))",
