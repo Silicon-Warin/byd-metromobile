@@ -4,8 +4,8 @@ import { useRef } from "react";
 import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import type { CarModel } from "./types";
 import Battery from "@/components/Battery";
+import { CarModel } from "@/data/carModel";
 
 const fadeIn = {
 	hidden: { opacity: 0, y: 20 },
@@ -23,7 +23,6 @@ interface BYDSectionProps {
 export default function BYDSection({ carModel }: BYDSectionProps) {
 	// Refs for parallax elements
 	const mainImageRef = useRef(null);
-	const bottomImageRef = useRef(null);
 
 	// Parallax effects
 	const { scrollYProgress: mainImageScroll } = useScroll({
@@ -69,9 +68,7 @@ export default function BYDSection({ carModel }: BYDSectionProps) {
 					>
 						<div className="relative rounded-lg overflow-hidden shadow-lg">
 							<Image
-								src={
-									carModel.batteryImage || "/images/section/blade-battery.webp"
-								}
+								src={"/images/section/blade-battery.webp"}
 								alt="BLADE BATTERY"
 								width={800}
 								height={450}
@@ -102,7 +99,8 @@ export default function BYDSection({ carModel }: BYDSectionProps) {
 							<div className="h-[200px] relative">
 								<Image
 									src={
-										carModel.platformImage || "/images/section/e-platform3.webp"
+										carModel.imageUrlDataLeft ||
+										"/images/section/e-platform3.webp"
 									}
 									alt="e-Platform 3.0"
 									fill
@@ -133,9 +131,9 @@ export default function BYDSection({ carModel }: BYDSectionProps) {
 								<Image
 									src={
 										carModel.specialFeatureImage ||
-										"/images/section/seal/special-feature.webp"
+										"/images/metromobile-logo.png"
 									}
-									alt="Panoramic Roof"
+									alt="special feature"
 									fill
 									className="object-cover"
 								/>
