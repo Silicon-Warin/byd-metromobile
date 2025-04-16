@@ -12,14 +12,12 @@ import {
 	CardTitle,
 } from "@/components/ui/card";
 import { useLoanCalculator } from "@/hooks/useLoanCalculator";
-import type { CarModel } from "../types";
+import { CarModel } from "@/data/carModel";
 
 export default function LoanCalculatorPage({
 	initialCarModel,
-	slug,
 }: {
 	initialCarModel: CarModel;
-	slug: string;
 }) {
 	const [carModel] = useState<CarModel>(initialCarModel);
 	const [selectedVariant, setSelectedVariant] = useState<any>(

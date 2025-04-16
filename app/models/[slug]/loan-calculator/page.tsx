@@ -18,7 +18,7 @@ export default async function Page({
 
 	return (
 		<Suspense fallback={<ModelPageLoading />}>
-			<LoanCalculatorPage initialCarModel={carModel} slug={slug} />
+			<LoanCalculatorPage initialCarModel={carModel} />
 		</Suspense>
 	);
 }

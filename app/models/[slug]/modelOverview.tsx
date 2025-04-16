@@ -3,7 +3,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import type { CarModel, CarVariant } from "./types";
+import type { CarModel } from "@/data/carModel";
 import {
 	MapPin,
 	Gauge,
@@ -12,6 +12,7 @@ import {
 	BatteryChargingIcon,
 	Zap,
 } from "lucide-react";
+import { CarVariant } from "@/data/carModel";
 
 interface ModelOverviewProps {
 	carModel: CarModel;

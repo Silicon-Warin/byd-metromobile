@@ -18,17 +18,11 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { Button } from "@/components/ui/button";
-import type { CarModel, CarColor } from "./types";
 import ModelOverview from "./modelOverview";
-import {
-	ParallaxSection,
-	RevealText,
-	FadeInView,
-	CarRevealImage,
-} from "@/components/Models/motion-components";
 import ColorSelectorSection from "./color-selector-section";
 import BYDSection from "./byd-section";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { CarModel, CarColor } from "@/data/carModel";
 
 // First, update the component props interface
 interface ModelPageContentProps {
