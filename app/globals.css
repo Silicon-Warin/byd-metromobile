@@ -216,6 +216,12 @@
   }
 }
 
+@layer utilities {
+  .backface-hidden {
+    backface-visibility: hidden;
+  }
+}
+
 /* Font classes */
 .font-prompt {
   font-family: var(--font-prompt);

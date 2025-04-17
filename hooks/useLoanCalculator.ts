@@ -51,7 +51,7 @@ export function useLoanCalculator(selectedVariant: CarVariant | null) {
       // If no down payment options are available, create a default one
       const defaultPrice = selectedVariant?.price || 1000000
       const defaultPercentage = 20
-      const defaultAmount = (defaultPrice * defaultPercentage) / 100
+      const defaultAmount = Math.round((defaultPrice * defaultPercentage) / 100)
 
       return {
         percentage: defaultPercentage,
@@ -59,22 +59,22 @@ export function useLoanCalculator(selectedVariant: CarVariant | null) {
         monthlyPayments: [
           {
             months: 48,
-            amount: (defaultPrice - defaultAmount) / 48,
+            amount: Math.round((defaultPrice - defaultAmount) / 48),
             interestRate: "2.99%",
           },
           {
             months: 60,
-            amount: (defaultPrice - defaultAmount) / 60,
+            amount: Math.round((defaultPrice - defaultAmount) / 60),
             interestRate: "3.49%",
           },
           {
             months: 72,
-            amount: (defaultPrice - defaultAmount) / 72,
+            amount: Math.round((defaultPrice - defaultAmount) / 72),
             interestRate: "3.99%",
           },
           {
             months: 84,
-            amount: (defaultPrice - defaultAmount) / 84,
+            amount: Math.round((defaultPrice - defaultAmount) / 84),
             interestRate: "4.49%",
           },
         ],

@@ -169,13 +169,13 @@ export default function LoanCalculatorPage({
 									<div>
 										<div className="text-sm opacity-80">ราคารถ</div>
 										<div className="text-2xl font-bold">
-											฿{selectedVariant?.price.toLocaleString()}
+											฿{(selectedVariant?.price || 0).toLocaleString()}
 										</div>
 									</div>
 									<div>
 										<div className="text-sm opacity-80">เงินดาวน์</div>
 										<div className="text-2xl font-bold">
-											฿{downPaymentOption?.amount.toLocaleString()}
+											฿{(downPaymentOption?.amount || 0).toLocaleString()}
 										</div>
 									</div>
 									<div>
@@ -187,7 +187,7 @@ export default function LoanCalculatorPage({
 									<div>
 										<div className="text-sm opacity-80">ค่างวดต่อเดือน</div>
 										<div className="text-2xl font-bold">
-											฿{monthlyPayment?.amount.toLocaleString()}
+											฿{(monthlyPayment?.amount || 0).toLocaleString()}
 										</div>
 									</div>
 								</div>

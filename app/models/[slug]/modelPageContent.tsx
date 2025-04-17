@@ -226,7 +226,7 @@ export default function ModelPageContent({
 							<div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 								{/* Main Image */}
 								<motion.div
-									className="md:col-span-2 h-[70vh] rounded-xl overflow-hidden relative"
+									className="md:col-span-2 md:h-[50vh] h-[40vh] rounded-xl overflow-hidden relative"
 									initial={{ opacity: 0, y: 20 }}
 									animate={{ opacity: 1, y: 0 }}
 									transition={{ duration: 0.6 }}
@@ -243,9 +243,6 @@ export default function ModelPageContent({
 											<h3 className="text-2xl font-bold text-white mb-2">
 												มุมมองภายนอก
 											</h3>
-											<p className="text-gray-200 text-sm max-w-md">
-												สัมผัสประสบการณ์การขับขี่ที่เหนือระดับด้วยดีไซน์ที่ทันสมัย
-											</p>
 										</div>
 									</div>
 								</motion.div>
@@ -279,7 +276,7 @@ export default function ModelPageContent({
 							<div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 								{/* Main Image */}
 								<motion.div
-									className="md:col-span-2 h-[50vh] rounded-xl relative"
+									className="md:col-span-2 md:h-[50vh] h-[40vh] rounded-xl overflow-hidden relative"
 									initial={{ opacity: 0, y: 20 }}
 									animate={{ opacity: 1, y: 0 }}
 									transition={{ duration: 0.6 }}
@@ -296,9 +293,6 @@ export default function ModelPageContent({
 											<h3 className="text-2xl font-bold text-white mb-2">
 												มุมมองภายใน
 											</h3>
-											<p className="text-gray-200 text-sm max-w-md">
-												สัมผัสประสบการณ์การขับขี่ที่เหนือระดับด้วยดีไซน์ที่ทันสมัย
-											</p>
 										</div>
 									</div>
 								</motion.div>

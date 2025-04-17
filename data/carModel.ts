@@ -2,7 +2,7 @@
 export interface CarModel {  
   id: number | string;
   name: string;
-  slug?: string; // Add this property
+  slug?: string; 
   tagline?: string;
   description: string;
   price: number;
@@ -87,7 +87,7 @@ export function findModelBySlug(slug: string): CarModel | undefined {
   return model;
 }
 
-// รายการรถยนต์ที่มีอยู่เดิม (คงไว้เพื่อความเข้ากันได้กับโค้ดเดิม)
+
 export const defaultModels: CarModel[] = [
   {
     id: 1,
@@ -161,7 +161,24 @@ export const defaultModels: CarModel[] = [
 
       },
     ],
-    features: [      
+    features: [
+      {        
+        title: "แบตเตอรี่ที่มีความปลอดภัยสูง",
+        description: "เทคโนโลยีล้ำสมัย ความปลอดภัยเหนือระดับ",
+        image: "/images/models/sealion7/sealion7-design-card1.jpg",
+      },
+      {
+        
+        title: "ความหรูหราเหนือระดับ",
+        description: "เทคโนโลยี NFC สำหรับการเข้าถึงรถ",
+        image: "/images/models/sealion7/sealion7-design-card2.jpg",
+      },
+      {
+        
+        title: "ทุกโค้งสมบูรณ์แบบ",
+        description: "ควบคุมแม่นยำ ตอบสนองได้ทุกสถานการณ์",
+        image: "/images/models/sealion7/sealion7-design-card3.jpg",
+      },
     ],
     specialOffers: ["ประกันภัยชั้น 1 พร้อม พรบ. ระยะเวลา 1 ปี",
       "บริการช่วยเหลือฉุกเฉิน ตลอด 24 ชั่วโมง 8 ปีเต็ม",
@@ -222,7 +239,9 @@ export const defaultModels: CarModel[] = [
       },
     ],
     features: [
-      "ประกันภัยชั้น 1 พร้อม พรบ. ระยะเวลา 1 ปี",
+      
+    ],
+    specialOffers: ["ประกันภัยชั้น 1 พร้อม พรบ. ระยะเวลา 1 ปี",
       "บริการช่วยเหลือฉุกเฉิน ตลอด 24 ชั่วโมง 8 ปีเต็ม",
       "รับประกันตัวรถ (WARRANTY) 8 ปี หรือ 160,000 กม.",
       "รับประกันแบตเตอรี่ 8 ปี หรือ 160,000 กม.",
@@ -230,9 +249,7 @@ export const defaultModels: CarModel[] = [
       "สายชาร์จเคลื่อนที่ AC PORTABLE CHARGER",
       "พรมเข้ารูป กรอบป้ายทะเบียน ฟิล์มกันรอยหน้าจอ",
       "ค่าจดทะเบียน",
-      "ฟรี ฟิล์มกรองแสง XUV-MAX-CERAMIC",
-    ],
-    specialOffers: [],
+      "ฟรี ฟิล์มกรองแสง XUV-MAX-CERAMIC"],
    
   },
   {
@@ -276,8 +293,9 @@ export const defaultModels: CarModel[] = [
 
       },
     ],
-    features: [
-      "ประกันภัยชั้น 1 พร้อม พรบ. ระยะเวลา 1 ปี",
+    features: [      
+    ],
+    specialOffers: ["ประกันภัยชั้น 1 พร้อม พรบ. ระยะเวลา 1 ปี",
       "รับประกันตัวรถ (WARRANTY) 6 ปี หรือ 150,000 กม.",
       "รับประกันแบตเตอรี่ 8 ปี หรือ 160,000 กม.",
       "บริการช่วยเหลือฉุกเฉิน ตลอด 24 ชั่วโมง 8 ปีเต็ม",
@@ -285,9 +303,7 @@ export const defaultModels: CarModel[] = [
       "สายชาร์จเคลื่อนที่ AC PORTABLE CHARGER",
       "พรมเข้ารูป กรอบป้ายทะเบียน ฟิล์มกันรอยหน้าจอ",
       "ค่าจดทะเบียน",
-      "ฟรี ฟิล์มกรองแสง XUV-MAX-CERAMIC",
-    ],
-    specialOffers: [],
+      "ฟรี ฟิล์มกรองแสง XUV-MAX-CERAMIC",],
     
   },
   {
@@ -502,7 +518,9 @@ export const defaultModels: CarModel[] = [
       },
     ],
     features: [
-      "ประกันภัยชั้น 1 พร้อม พรบ. ระยะเวลา 1 ปี",
+      
+    ],
+    specialOffers: ["ประกันภัยชั้น 1 พร้อม พรบ. ระยะเวลา 1 ปี",
       "บริการช่วยเหลือฉุกเฉิน ตลอด 24 ชั่วโมง 8 ปีเต็ม",
       "รับประกันตัวรถ (WARRANTY) 8 ปี หรือ 160,000 กม.",
       "รับประกันแบตเตอรี่ 8 ปี หรือ 160,000 กม.",
@@ -510,9 +528,7 @@ export const defaultModels: CarModel[] = [
       "สายต่อพ่วงอุปกรณ์ไฟฟ้า หรือ V TO L",
       "สายชาร์จเคลื่อนที่ AC PORTABLE CHARGER",
       "พรมเข้ารูป กรอบป้ายทะเบียน ฟิล์มกันรอยหน้าจอ",
-      "ค่าจดทะเบียน",
-    ],
-    specialOffers: [],   
+      "ค่าจดทะเบียน"],   
   },
   {
     id: 6,
@@ -558,7 +574,9 @@ export const defaultModels: CarModel[] = [
       },
     ],
     features: [
-      "ประกันภัยชั้น 1 พร้อม พรบ. ระยะเวลา 1 ปี",
+      
+    ],
+    specialOffers: ["ประกันภัยชั้น 1 พร้อม พรบ. ระยะเวลา 1 ปี",
       "บริการช่วยเหลือฉุกเฉิน ตลอด 24 ชั่วโมง 8 ปีเต็ม",
       "รับประกันตัวรถ (WARRANTY) 8 ปี หรือ 160,000 กม.",
       "รับประกันแบตเตอรี่ 8 ปี หรือ 160,000 กม.",
@@ -567,9 +585,7 @@ export const defaultModels: CarModel[] = [
       "สายชาร์จเคลื่อนที่ AC PORTABLE CHARGER",
       "พรมเข้ารูป กรอบป้ายทะเบียน ฟิล์มกันรอยหน้าจอ",
       "ค่าจดทะเบียน",
-      "ฟรี HOME CHARGER ยี่ห้อ ZHIDA (เฉพาะรุ่น EXTENDED)",
-    ],
-    specialOffers: [],
+      "ฟรี HOME CHARGER ยี่ห้อ ZHIDA (เฉพาะรุ่น EXTENDED)",],
   },  
 ];
 
