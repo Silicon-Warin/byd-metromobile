@@ -2,45 +2,46 @@
 
 import type * as React from "react";
 import { motion } from "framer-motion";
-import { Home, Settings, Bell, User } from "lucide-react";
+import { Palette, Car, Gauge, Layers } from "lucide-react";
 
 interface MenuItem {
+	id: string;
 	icon: React.ReactNode;
 	label: string;
-	href: string;
 	gradient: string;
 	iconColor: string;
 }
 
-const menuItems: MenuItem[] = [
+// Model sections with icons
+const modelSections: MenuItem[] = [
 	{
-		icon: <Home className="h-5 w-5" />,
-		label: "Home",
-		href: "#",
+		id: "overview",
+		icon: <Car className="h-5 w-5" />,
+		label: "ภาพรวม",
 		gradient:
 			"radial-gradient(circle, rgba(59,130,246,0.15) 0%, rgba(37,99,235,0.06) 50%, rgba(29,78,216,0) 100%)",
 		iconColor: "text-blue-500",
 	},
 	{
-		icon: <Bell className="h-5 w-5" />,
-		label: "Notifications",
-		href: "#",
+		id: "showcase",
+		icon: <Layers className="h-5 w-5" />,
+		label: "จุดเด่น",
 		gradient:
 			"radial-gradient(circle, rgba(249,115,22,0.15) 0%, rgba(234,88,12,0.06) 50%, rgba(194,65,12,0) 100%)",
 		iconColor: "text-orange-500",
 	},
 	{
-		icon: <Settings className="h-5 w-5" />,
-		label: "Settings",
-		href: "#",
+		id: "colors",
+		icon: <Palette className="h-5 w-5" />,
+		label: "สีรถ",
 		gradient:
 			"radial-gradient(circle, rgba(34,197,94,0.15) 0%, rgba(22,163,74,0.06) 50%, rgba(21,128,61,0) 100%)",
 		iconColor: "text-green-500",
 	},
 	{
-		icon: <User className="h-5 w-5" />,
-		label: "Profile",
-		href: "#",
+		id: "specs",
+		icon: <Gauge className="h-5 w-5" />,
+		label: "สเปค",
 		gradient:
 			"radial-gradient(circle, rgba(239,68,68,0.15) 0%, rgba(220,38,38,0.06) 50%, rgba(185,28,28,0) 100%)",
 		iconColor: "text-red-500",
@@ -87,7 +88,21 @@ const sharedTransition = {
 	duration: 0.5,
 };
 
-export function MenuBar() {
+interface MenuBarProps {
+	onSectionClick?: (sectionId: string) => void;
+}
+
+export function MenuBar({ onSectionClick }: MenuBarProps) {
+	const handleClick = (
+		e: React.MouseEvent<HTMLAnchorElement>,
+		sectionId: string
+	) => {
+		e.preventDefault();
+		if (onSectionClick) {
+			onSectionClick(sectionId);
+		}
+	};
+
 	return (
 		<motion.nav
 			className="p-2 rounded-2xl bg-gradient-to-b from-background/80 to-background/40 backdrop-blur-lg border border-border/40 shadow-lg relative overflow-hidden"
@@ -99,8 +114,8 @@ export function MenuBar() {
 				variants={navGlowVariants}
 			/>
 			<ul className="flex items-center gap-2 relative z-10">
-				{menuItems.map((item, index) => (
-					<motion.li key={item.label} className="relative">
+				{modelSections.map((item) => (
+					<motion.li key={item.id} className="relative">
 						<motion.div
 							className="block rounded-xl overflow-visible group relative"
 							style={{ perspective: "600px" }}
@@ -117,7 +132,8 @@ export function MenuBar() {
 								}}
 							/>
 							<motion.a
-								href={item.href}
+								href={`#${item.id}`}
+								onClick={(e) => handleClick(e, item.id)}
 								className="flex items-center gap-2 px-4 py-2 relative z-10 bg-transparent text-muted-foreground group-hover:text-foreground transition-colors rounded-xl"
 								variants={itemVariants}
 								transition={sharedTransition}
@@ -134,7 +150,8 @@ export function MenuBar() {
 								<span>{item.label}</span>
 							</motion.a>
 							<motion.a
-								href={item.href}
+								href={`#${item.id}`}
+								onClick={(e) => handleClick(e, item.id)}
 								className="flex items-center gap-2 px-4 py-2 absolute inset-0 z-10 bg-transparent text-muted-foreground group-hover:text-foreground transition-colors rounded-xl"
 								variants={backVariants}
 								transition={sharedTransition}

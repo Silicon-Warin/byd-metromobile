@@ -240,43 +240,25 @@ export default function AboutPage() {
 						</p>
 					</motion.div>
 
-					<div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+					<div className="grid grid-cols-1 gap-6 sm:gap-8 mb-8 sm:mb-12 md:mb-16">
 						<motion.div
 							variants={fadeInUp}
-							className="bg-card/50 backdrop-blur-sm p-8 rounded-2xl border border-border/50 shadow-lg"
+							className="bg-card/50 backdrop-blur-sm p-4 sm:p-6 md:p-8 rounded-2xl border border-border/50 shadow-lg"
 						>
-							<h3 className="text-2xl font-prompt font-bold mb-4">
+							<h3 className="text-xl sm:text-2xl font-prompt font-bold mb-3 sm:mb-4">
 								วิสัยทัศน์ของเรา
 							</h3>
-							<p className="text-lg mb-4">
+							<p className="text-base sm:text-lg mb-3 sm:mb-4">
 								Metromobile คือ ศูนย์รวมนวัตกรรมยานยนต์แห่งโลกอนาคต
 								ที่พร้อมจะพาคุณขับเคลื่อน สู่โลกเเละสิ่งเเวดล้อมในฝันที่ดีขึ้น
 								ผ่านเทคโนโลยีและยานยนต์พลังงานรูปแบบใหม่ที่นอกจากจะเป็นมิตรกับสิ่งเเวดล้อมเเล้ว
 							</p>
-							<p className="text-lg">
+							<p className="text-base sm:text-lg">
 								Metromobile
 								ยังพร้อมให้บริการดูเเลรักษาให้คําปรึกษาทุกเรื่องที่เกี่ยวกับรถยนต์
 								ผ่านบริการหลังการขาย
 								ที่ครบวงจรโดยผู้เชี่ยวชาญเพื่อให้ทุกการเดินทางของคุณอบอุ่น
 								ปลอดภัย ในทุกเส้นทาง
-							</p>
-						</motion.div>
-
-						<motion.div
-							variants={fadeInUp}
-							className="bg-card/50 backdrop-blur-sm p-8 rounded-2xl border border-border/50 shadow-lg"
-						>
-							<h3 className="text-2xl font-prompt font-bold mb-4">
-								พันธกิจของเรา
-							</h3>
-							<p className="text-lg mb-4">
-								เพราะเราเชื่อว่า รถ ไม่ใช่เเค่ยานพาหนะเเต่ รถ
-								ยังเปรียบเสมือนจุดเชื่อมต่อ ประสบการณ์
-								เเละความทรงจําตลอดระยะเส้นทางการเดินทางของชีวิต
-							</p>
-							<p className="text-lg">
-								มาร่วมขับเคลื่อนไปสู่โลกอนาคตในฝัน อย่างมั่งคง
-								เเละปลอดภัยด้วยกันที่ Metromobile
 							</p>
 						</motion.div>
 					</div>

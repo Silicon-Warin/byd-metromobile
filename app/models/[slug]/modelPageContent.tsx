@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
@@ -21,10 +21,8 @@ import { Button } from "@/components/ui/button";
 import ModelOverview from "./modelOverview";
 import ColorSelectorSection from "./color-selector-section";
 import BYDSection from "./byd-section";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { CarModel, CarColor } from "@/data/carModel";
-
-// First, update the component props interface
+import type { CarColor, CarModel } from "@/data/carModel";
+import { GallerySection } from "@/components/Models/GallerySection";
 interface ModelPageContentProps {
 	initialCarModel: CarModel;
 	slug: string;
@@ -38,11 +36,12 @@ export default function ModelPageContent({
 	const [selectedColor, setSelectedColor] = useState<CarColor | null>(
 		carModel?.colors && carModel.colors.length > 0 ? carModel.colors[0] : null
 	);
+
 	const selectedVariant =
 		carModel.variants && carModel.variants.length > 0
 			? carModel.variants[0]
 			: null;
-	// Check if carModel has variants
+
 	const heroRef = useRef<HTMLDivElement>(null);
 
 	const scrollToOverview = () => {
@@ -52,7 +51,6 @@ export default function ModelPageContent({
 		}
 	};
 
-	// Use techHighlight from carModel or provide empty array as fallback
 	const highlights = carModel.techHighlight || [];
 
 	return (
@@ -125,14 +123,17 @@ export default function ModelPageContent({
 					</div>
 				</div>
 			</div>
+
 			{/* Overview Section */}
 			<ModelOverview
 				id="overview"
 				carModel={carModel}
 				selectedVariant={selectedVariant}
 			/>
+
 			{/* BYD Section */}
 			<BYDSection carModel={carModel} />
+
 			{/* Showcase Swiper Section */}
 			<section
 				id="showcase"
@@ -193,6 +194,7 @@ export default function ModelPageContent({
 					</Swiper>
 				</div>
 			</section>
+
 			{/* Choose Color and Model Section */}
 			<section
 				id="colors"
@@ -210,121 +212,9 @@ export default function ModelPageContent({
 						/>
 					)}
 			</section>
-			{/* Modern 2D Gallery Section */}
-			<section className="py-20 bg-gradient-to-b from-background to-card">
-				<div className="container mx-auto px-4">
-					<h2 className="text-3xl sm:text-4xl font-bold mb-12 text-center">
-						{carModel.name} Gallery
-					</h2>
 
-					<Tabs defaultValue="exterior" className="w-full">
-						<TabsList className="grid w-full max-w-[400px] mx-auto grid-cols-2">
-							<TabsTrigger value="exterior">Exterior</TabsTrigger>
-							<TabsTrigger value="interior">Interior</TabsTrigger>
-						</TabsList>
-						<TabsContent value="exterior">
-							<div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-								{/* Main Image */}
-								<motion.div
-									className="md:col-span-2 md:h-[50vh] h-[40vh] rounded-xl overflow-hidden relative"
-									initial={{ opacity: 0, y: 20 }}
-									animate={{ opacity: 1, y: 0 }}
-									transition={{ duration: 0.6 }}
-								>
-									<Image
-										src={carModel.imageUrlReal || "/placeholder.svg"}
-										alt={`${carModel.name} Exterior View`}
-										fill
-										className="object-cover"
-										priority
-									/>
-									<div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-6">
-										<div>
-											<h3 className="text-2xl font-bold text-white mb-2">
-												มุมมองภายนอก
-											</h3>
-										</div>
-									</div>
-								</motion.div>
+			<GallerySection carModel={carModel} highlights={highlights} />
 
-								{/* Thumbnail Images */}
-								{highlights.slice(0, 4).map((highlight, index) => (
-									<motion.div
-										key={index}
-										className="h-64 rounded-xl overflow-hidden relative group cursor-pointer"
-										initial={{ opacity: 0, y: 20 }}
-										animate={{ opacity: 1, y: 0 }}
-										transition={{ duration: 0.6, delay: 0.1 * index }}
-										whileHover={{ scale: 1.02 }}
-									>
-										<Image
-											src={highlight.image}
-											alt={highlight.title}
-											fill
-											className="object-cover transition-transform duration-500 group-hover:scale-110"
-										/>
-										<div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
-											<h4 className="text-lg font-medium text-white">
-												{highlight.title}
-											</h4>
-										</div>
-									</motion.div>
-								))}
-							</div>
-						</TabsContent>
-						<TabsContent value="interior">
-							<div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-								{/* Main Image */}
-								<motion.div
-									className="md:col-span-2 md:h-[50vh] h-[40vh] rounded-xl overflow-hidden relative"
-									initial={{ opacity: 0, y: 20 }}
-									animate={{ opacity: 1, y: 0 }}
-									transition={{ duration: 0.6 }}
-								>
-									<Image
-										src={carModel.imageUrlReal || "/placeholder.svg"}
-										alt={`${carModel.name} Interior View`}
-										fill
-										className="object-cover"
-										priority
-									/>
-									<div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-6">
-										<div>
-											<h3 className="text-2xl font-bold text-white mb-2">
-												มุมมองภายใน
-											</h3>
-										</div>
-									</div>
-								</motion.div>
-
-								{/* Thumbnail Images */}
-								{highlights.slice(0, 4).map((highlight, index) => (
-									<motion.div
-										key={index}
-										className="h-64 rounded-xl overflow-hidden relative group cursor-pointer"
-										initial={{ opacity: 0, y: 20 }}
-										animate={{ opacity: 1, y: 0 }}
-										transition={{ duration: 0.6, delay: 0.1 * index }}
-										whileHover={{ scale: 1.02 }}
-									>
-										<Image
-											src={highlight.image}
-											alt={highlight.title}
-											fill
-											className="object-cover transition-transform duration-500 group-hover:scale-110"
-										/>
-										<div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
-											<h4 className="text-lg font-medium text-white">
-												{highlight.title}
-											</h4>
-										</div>
-									</motion.div>
-								))}
-							</div>
-						</TabsContent>
-					</Tabs>
-				</div>
-			</section>
 			{/* Cards Section */}
 			<section className="container mx-auto py-16 px-4">
 				<div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -368,6 +258,7 @@ export default function ModelPageContent({
 					</Card>
 				</div>
 			</section>
+
 			{/* Footer Image Area */}
 			<section className="relative h-[400px]">
 				<Image
@@ -385,6 +276,7 @@ export default function ModelPageContent({
 					</div>
 				</div>
 			</section>
+
 			{/* Compare Link Section */}
 			<section className="py-10 bg-gradient-to-b from-background to-card">
 				<div className="container mx-auto px-4 text-center">
@@ -402,6 +294,7 @@ export default function ModelPageContent({
 					</Link>
 				</div>
 			</section>
+
 			{/* Action Buttons Section */}
 			<section className="py-12 bg-richblack">
 				<div className="container mx-auto px-4">
@@ -409,18 +302,7 @@ export default function ModelPageContent({
 						<Button className="bg-bydblue hover:bg-bydblue/80 min-w-[150px]">
 							จองทดลองขับ
 						</Button>
-						<Button
-							variant="outline"
-							className="border-bydblue text-bydblue hover:bg-bydblue hover:text-white min-w-[150px]"
-						>
-							ออกแบบรถของคุณ
-						</Button>
-						<Button
-							variant="outline"
-							className="border-bydblue text-bydblue hover:bg-bydblue hover:text-white min-w-[150px]"
-						>
-							Line OA
-						</Button>
+
 						<Button
 							variant="outline"
 							className="border-bydblue text-bydblue hover:bg-bydblue hover:text-white min-w-[150px]"

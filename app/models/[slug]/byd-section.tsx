@@ -4,7 +4,7 @@ import { useRef } from "react";
 import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import Battery from "@/components/Battery";
+import BatteryChargingAnimation from "@/components/Models/BatteryChargingAnimation";
 import { CarModel } from "@/data/carModel";
 
 const fadeIn = {
@@ -44,7 +44,7 @@ export default function BYDSection({ carModel }: BYDSectionProps) {
 					viewport={{ once: true, margin: "-100px" }}
 					variants={fadeIn}
 				>
-					<Battery />
+					<BatteryChargingAnimation />
 					<h1 className="mb-4 text-center">รับประกันแบตเตอรี่นาน</h1>
 					<h2 className="text-5xl font-bold mb-4 text-center text-balance">
 						8 ปี หรือ 160,000 กม.

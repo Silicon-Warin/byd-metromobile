@@ -1,32 +1,21 @@
-import { Suspense } from "react";
 import { findModelBySlug } from "@/data/carModel";
-import ModelPageContent from "./modelPageContent";
-import ModelPageLoading from "./loading";
 import { notFound } from "next/navigation";
+import ModelPageContent from "./modelPageContent";
 
-export default async function Page({
+// Server Component
+export default async function ModelPage({
 	params,
 }: {
-	params: Promise<{ slug: string }>;
+	params: { slug: string };
 }) {
-	const { slug } = await params;
-	const carModel = findModelBySlug(slug);
+	// ใช้ await เพื่อรอให้ params พร้อมใช้งาน
+	const { slug } = await Promise.resolve(params);
 
-	// If the car model doesn't exist, show the not-found page
+	const carModel = await findModelBySlug(slug);
+
 	if (!carModel) {
 		notFound();
 	}
 
-	// Check if carModel has variants
-	if (!carModel.variants || carModel.variants.length === 0) {
-		console.warn(`Car model ${slug} has no variants`);
-		// You could add default variants here if needed
-		carModel.variants = [];
-	}
-
-	return (
-		<Suspense fallback={<ModelPageLoading />}>
-			<ModelPageContent initialCarModel={carModel} slug={slug} />
-		</Suspense>
-	);
+	return <ModelPageContent initialCarModel={carModel} slug={slug} />;
 }

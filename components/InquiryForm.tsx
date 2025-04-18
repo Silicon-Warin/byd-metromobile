@@ -17,18 +17,8 @@ interface CustomerInfo {
 	preferredTime?: string;
 }
 
-interface InterestInfo {
-	testDrive?: boolean;
-	financing?: boolean;
-	tradeIn?: boolean;
-	color?: string;
-	urgency?: "immediate" | "within_month" | "no_rush";
-	comments?: string;
-}
-
 interface FormData {
 	customer: CustomerInfo;
-	interest: InterestInfo;
 }
 
 // Update the props interface to include lineProfile
@@ -149,44 +139,6 @@ export function InquiryForm({ model }: InquiryFormProps) {
 							<option value="phone">โทรศัพท์</option>
 							<option value="email">อีเมล</option>
 						</select>
-					</div>
-
-					{/* ข้อมูลความสนใจ */}
-					<div className="space-y-2">
-						<label className="flex items-center gap-2">
-							<input type="checkbox" {...register("interest.testDrive")} />
-							สนใจทดลองขับ
-						</label>
-						<label className="flex items-center gap-2">
-							<input type="checkbox" {...register("interest.financing")} />
-							สนใจสอบถามไฟแนนซ์
-						</label>
-						<label className="flex items-center gap-2">
-							<input type="checkbox" {...register("interest.tradeIn")} />
-							สนใจเทิร์นรถ
-						</label>
-						<select
-							{...register("interest.color")}
-							className="w-full p-2 border rounded text-accent-foreground"
-						>
-							<option value="" className="text-gray-900">
-								เลือกสี
-							</option>
-							<option value="white" className="text-gray-900">
-								ขาว
-							</option>
-							<option value="black" className="text-gray-900">
-								ดำ
-							</option>
-							<option value="gray" className="text-gray-900">
-								เทา
-							</option>
-						</select>
-						<textarea
-							{...register("interest.comments")}
-							placeholder="หมายเหตุเพิ่มเติม"
-							className="w-full p-2 border rounded"
-						/>
 					</div>
 
 					<Button type="submit" disabled={isLoading}>

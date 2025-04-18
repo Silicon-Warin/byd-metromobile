@@ -10,17 +10,17 @@ const slides = [
 	{
 		id: 1,
 		image: "/images/banners/banner-1.jpg",
-		buttonLink: "/offers",
+		buttonLink: "/promotions",
 	},
 	{
 		id: 2,
 		image: "/images/banners/banner-2.jpg",
-		buttonLink: "/order",
+		buttonLink: "/promotions",
 	},
 	{
 		id: 3,
 		image: "/images/banners/banner-3.jpg",
-		buttonLink: "/vehicles",
+		buttonLink: "/promotions",
 	},
 ];
 

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Prompt, IBM_Plex_Sans_Thai } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
-import Header from "@/components/Header/Header";
+import { MainHeader } from "@/components/Header/main-header";
 import { Footer } from "@/components/Footer";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Viewport } from "next";
@@ -51,7 +51,10 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
 	width: "device-width",
 	initialScale: 1,
+	maximumScale: 5,
+	userScalable: true,
 	themeColor: "#000000",
+	viewportFit: "cover",
 };
 
 export default function RootLayout({
@@ -71,11 +74,14 @@ export default function RootLayout({
 					as="image"
 					type="image/png"
 				/>
+				<meta name="format-detection" content="telephone=no" />
+				<meta name="image-rendering" content="optimizeQuality" />
+				<meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
 			</head>
-			<body className="max-w-[100vw] overflow-x-hidden font-prompt">
+			<body className="font-prompt">
 				<SpeedInsights />
-				<Header />
-				<main className="min-h-screen overflow-x-hidden flex flex-col">
+				<MainHeader />
+				<main className="w-full min-h-screen overflow-x-hidden">
 					{children}
 				</main>
 				<Footer />

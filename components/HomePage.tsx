@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import { ChevronRight, Shield, Zap, Clock, Phone } from "lucide-react";
 import Link from "next/link";
 import { Suspense } from "react";
-import { type MotionProps } from "framer-motion";
 
 // Dynamic imports for heavy components
 const MotionDiv = dynamic(
@@ -46,31 +45,26 @@ type HomePageProps = {
 	}[];
 };
 
+const fadeIn = {
+	hidden: { opacity: 0, y: 20 },
+	visible: {
+		opacity: 1,
+		y: 0,
+		transition: { duration: 0.6 },
+	},
+};
+
+const staggerContainer = {
+	hidden: { opacity: 0 },
+	visible: {
+		opacity: 1,
+		transition: {
+			staggerChildren: 0.2,
+		},
+	},
+};
+
 export default function HomePage({ models }: HomePageProps) {
-	// Animation variants
-	const fadeIn = {
-		hidden: { opacity: 0, y: 20 },
-		visible: {
-			opacity: 1,
-			y: 0,
-			transition: { duration: 0.6 },
-		},
-	};
-
-	const staggerContainer = {
-		hidden: { opacity: 0 },
-		visible: {
-			opacity: 1,
-			transition: {
-				staggerChildren: 0.2,
-			},
-		},
-	};
-
-	const handleItemClick = (item: { name: string }) => {
-		console.log("คุณคลิกที่:", item.name);
-	};
-
 	return (
 		<main className="min-h-screen bg-background text-foreground">
 			{/* Hero Section */}
@@ -136,8 +130,8 @@ export default function HomePage({ models }: HomePageProps) {
 					>
 						<ProductSlider
 							items={models}
-							onItemClick={handleItemClick}
-							buttonText="สั่งซื้อเลย"
+							buttonText="ทดลองขับ"
+							onItemClick={() => {}}
 						/>
 					</Suspense>
 				</div>
@@ -179,18 +173,18 @@ export default function HomePage({ models }: HomePageProps) {
 						whileInView="visible"
 						viewport={{ once: true, margin: "-100px" }}
 						variants={fadeIn}
-						className="mb-12"
+						className="mb-6 sm:mb-8 md:mb-12"
 					>
-						<h2 className="text-3xl md:text-4xl font-bold text-center mb-4">
+						<h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-3 sm:mb-4">
 							ทำไมต้องเลือก BYD Metromobile
 						</h2>
-						<p className="text-gray-400 text-center max-w-2xl mx-auto">
+						<p className="text-gray-400 text-center max-w-2xl mx-auto text-sm sm:text-base">
 							เราให้ความสำคัญกับคุณภาพและความพึงพอใจของลูกค้าเป็นอันดับหนึ่ง
 						</p>
 					</MotionDiv>
 
 					<MotionDiv
-						className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10"
+						className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8"
 						variants={staggerContainer}
 						initial="hidden"
 						whileInView="visible"
@@ -198,13 +192,15 @@ export default function HomePage({ models }: HomePageProps) {
 					>
 						<MotionDiv
 							variants={fadeIn}
-							className="glass-effect p-8 rounded-xl card-hover"
+							className="glass-effect p-4 sm:p-6 md:p-8 rounded-xl card-hover"
 						>
-							<div className="bg-white/5 p-3 rounded-lg w-fit mb-6">
-								<Zap className="h-8 w-8 text-white" />
+							<div className="bg-white/5 p-3 rounded-lg w-fit mb-4 sm:mb-6">
+								<Zap className="h-6 w-6 sm:h-8 sm:w-8 text-white" />
 							</div>
-							<h3 className="text-xl font-bold mb-4">เทคโนโลยีล้ำสมัย</h3>
-							<p className="text-gray-400">
+							<h3 className="text-lg sm:text-xl font-bold mb-2 sm:mb-4">
+								เทคโนโลยีล้ำสมัย
+							</h3>
+							<p className="text-gray-400 text-sm sm:text-base">
 								นวัตกรรมแบตเตอรี่และระบบขับเคลื่อนที่ทันสมัย
 								ให้ประสิทธิภาพสูงสุดและเป็นมิตรกับสิ่งแวดล้อม
 							</p>
@@ -212,13 +208,15 @@ export default function HomePage({ models }: HomePageProps) {
 
 						<MotionDiv
 							variants={fadeIn}
-							className="glass-effect p-8 rounded-xl card-hover"
+							className="glass-effect p-4 sm:p-6 md:p-8 rounded-xl card-hover"
 						>
-							<div className="bg-white/5 p-3 rounded-lg w-fit mb-6">
-								<Shield className="h-8 w-8 text-white" />
+							<div className="bg-white/5 p-3 rounded-lg w-fit mb-4 sm:mb-6">
+								<Shield className="h-6 w-6 sm:h-8 sm:w-8 text-white" />
 							</div>
-							<h3 className="text-xl font-bold mb-4">การรับประกันคุณภาพ</h3>
-							<p className="text-gray-400">
+							<h3 className="text-lg sm:text-xl font-bold mb-2 sm:mb-4">
+								การรับประกันคุณภาพ
+							</h3>
+							<p className="text-gray-400 text-sm sm:text-base">
 								รับประกันคุณภาพสูงสุดพร้อมบริการฉุกเฉิน 24 ชั่วโมง
 								เพื่อความมั่นใจในทุกการเดินทาง
 							</p>
@@ -226,13 +224,15 @@ export default function HomePage({ models }: HomePageProps) {
 
 						<MotionDiv
 							variants={fadeIn}
-							className="glass-effect p-8 rounded-xl card-hover"
+							className="glass-effect p-4 sm:p-6 md:p-8 rounded-xl card-hover"
 						>
-							<div className="bg-white/5 p-3 rounded-lg w-fit mb-6">
-								<Clock className="h-8 w-8 text-white" />
+							<div className="bg-white/5 p-3 rounded-lg w-fit mb-4 sm:mb-6">
+								<Clock className="h-6 w-6 sm:h-8 sm:w-8 text-white" />
 							</div>
-							<h3 className="text-xl font-bold mb-4">บริการหลังการขาย</h3>
-							<p className="text-gray-400">
+							<h3 className="text-lg sm:text-xl font-bold mb-2 sm:mb-4">
+								บริการหลังการขาย
+							</h3>
+							<p className="text-gray-400 text-sm sm:text-base">
 								ทีมงานมืออาชีพพร้อมให้บริการหลังการขายที่รวดเร็วและมีประสิทธิภาพ
 								ตลอดอายุการใช้งานรถยนต์
 							</p>

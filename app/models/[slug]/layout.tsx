@@ -1,23 +1,27 @@
-import { Suspense } from "react";
 import { notFound } from "next/navigation";
 import { findModelBySlug } from "@/data/carModel";
-import ModelPageLoading from "./loading";
+import { ModelHeader } from "@/components/Header/model-header";
 
-export default async function LoanCalculatorLayout({
+// app/models/[slug]/page.tsx
+export default async function ModelPage({
 	children,
 	params,
 }: {
 	children: React.ReactNode;
 	params: Promise<{ slug: string }>;
 }) {
-	// ตรวจสอบว่ามีรถยนต์ที่ตรงกับ slug หรือไม่
+	// รอให้ params resolve ก่อนใช้
 	const { slug } = await params;
-	const carModel = findModelBySlug(slug);
 
-	// ถ้าไม่พบรถยนต์ที่ตรงกับ slug ให้แสดงหน้า not found
+	const carModel = findModelBySlug(slug);
 	if (!carModel) {
 		notFound();
 	}
 
-	return <Suspense fallback={<ModelPageLoading />}>{children}</Suspense>;
+	return (
+		<section>
+			<ModelHeader />
+			{children}
+		</section>
+	);
 }

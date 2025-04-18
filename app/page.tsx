@@ -8,10 +8,10 @@ export const revalidate = 86400;
 
 export default function HomePage() {
 	// แปลงข้อมูลให้ตรงกับที่ HomePage component ต้องการ
-	const models = defaultModels.map((model) => ({
-		id: model.id.toString(),
-		name: model.name,
-		imageUrl: model.imageUrlModel,
+	const models = defaultModels.map(({ id, name, imageUrlModel }) => ({
+		id: id.toString(),
+		name,
+		imageUrl: imageUrlModel,
 	}));
 
 	// เพิ่ม metadata เพื่อ optimization
