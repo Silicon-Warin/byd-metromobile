@@ -1,10 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { BrandFacebook, BrandInstagram, BrandTiktok } from "tabler-icons-react";
-import LineIcon from "@/components/ui/LineIcon";
 import { navCarModels } from "@/data/navCarModels";
 import { useState } from "react";
+import SocialIcons from "@/lib/SocialIcon";
 
 export function Footer() {
 	const [openSection, setOpenSection] = useState<string | null>(null);
@@ -36,39 +35,8 @@ export function Footer() {
 							<h4 className="text-lg font-semibold mb-4 text-white">
 								ติดตามเรา
 							</h4>
-							<div className="flex gap-5">
-								<Link
-									href="https://line.me/R/ti/p/%40bydmetromobile"
-									className="text-gray-300 hover:text-green-400 transition-colors duration-300"
-									aria-label="Line"
-								>
-									<LineIcon />
-								</Link>
 
-								<Link
-									href="https://www.facebook.com/BYDBANGKOK"
-									className="text-gray-300 hover:text-blue-400 transition-colors duration-300"
-									aria-label="Facebook"
-								>
-									<BrandFacebook size={32} />
-								</Link>
-
-								<Link
-									href="https://www.instagram.com/byd.metromobile"
-									className="text-gray-300 hover:text-pink-400 transition-colors duration-300"
-									aria-label="Instagram"
-								>
-									<BrandInstagram size={32} />
-								</Link>
-
-								<Link
-									href="https://www.tiktok.com/@byd_metromobile"
-									className="text-gray-300 hover:text-red-400 transition-colors duration-300"
-									aria-label="TikTok"
-								>
-									<BrandTiktok size={32} />
-								</Link>
-							</div>
+							<SocialIcons size={40} />
 						</div>
 					</div>
 

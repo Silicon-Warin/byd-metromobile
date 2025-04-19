@@ -197,7 +197,7 @@
   }
 
   .section-spacing {
-    @apply py-8 sm:py-10 md:py-12 lg:py-20 xl:py-24;
+    @apply pt-12 md:pt-16;
   }
 
   .card-hover {
@@ -207,9 +207,7 @@
   .text-gradient {
     @apply bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400;
   }
-}
 
-@layer components {
   .nav-button {
     box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
     transition: all 0.3s ease;
@@ -224,6 +222,37 @@
     background: linear-gradient(to bottom, #121212, #000000);
     position: relative;
     overflow: hidden;
+  }
+
+   /* ทำให้ gradient ระหว่าง section ต่อเนื่องกันมากขึ้น */
+  .bg-rich-black-gradient-continuous {
+    background: linear-gradient(to bottom, #121212, #080808, #121212);
+    position: relative;
+    overflow: hidden;
+  }
+
+    /* สำหรับลบเส้นขอบระหว่าง section */
+    .section-fade-connector {
+      position: relative;
+      margin-top: -2rem; /* ค่าลบเพื่อให้ section ทับซ้อนกันเล็กน้อย */
+      padding-top: 2rem;
+      z-index: 1;
+    }
+
+  /* สำหรับเพิ่ม overlay ที่เชื่อมต่อระหว่าง section */
+  .section-connector-overlay {
+    position: relative;
+  }
+
+  .section-connector-overlay::before {
+    content: "";
+    position: absolute;
+    top: -75px;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    background: linear-gradient(to bottom, transparent, #121212);
+    z-index: 1;
   }
 
   .bg-rich-black-gradient::before {

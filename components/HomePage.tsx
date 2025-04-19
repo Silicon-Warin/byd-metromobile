@@ -104,7 +104,7 @@ export default function HomePage({ models }: HomePageProps) {
 			</section>
 
 			{/* Featured Models Section */}
-			<section className="py-12 bg-primary min-h-screen relative">
+			<section className="py-12 bg-rich-black-gradient-continuous h-auto relative">
 				<div className="absolute top-1/4 left-1/4 w-full h-1/2 bg-[#afb5ff] opacity-10 blur-[100px] rounded-full"></div>
 				<div className="absolute bottom-1/4 right-1/4 w-screen h-1/2 bg-[#3765ff] opacity-10 blur-[100px] rounded-full"></div>
 				<div className="container-custom z-10 pt-12">
@@ -113,15 +113,14 @@ export default function HomePage({ models }: HomePageProps) {
 						whileInView="visible"
 						viewport={{ once: true, margin: "-100px" }}
 						variants={fadeIn}
-						className="mb-12"
+						className="w-full max-w-md mb-12"
 					>
-						<h2 className="text-3xl md:text-4xl font-bold text-center mb-4">
-							<span className="text-gradient">รถยนต์ไฟฟ้ารุ่นยอดนิยม</span>
+						<h2 className="text-3xl md:text-4xl font-normal text-left md:text-center p-4">
+							Models.{" "}
+							<span className="text-muted-foreground text-sm md:text-base">
+								Build your dreams.
+							</span>
 						</h2>
-						<p className="text-gray-400 text-center max-w-2xl mx-auto">
-							ค้นพบรถยนต์ไฟฟ้า BYD รุ่นต่างๆ
-							ที่ผสมผสานเทคโนโลยีล้ำสมัยและการออกแบบที่โดดเด่น
-						</p>
 					</MotionDiv>
 					<Suspense
 						fallback={
@@ -138,21 +137,18 @@ export default function HomePage({ models }: HomePageProps) {
 			</section>
 
 			{/* Services Section */}
-			<section className="section-spacing bg-rich-black-gradient-subtle">
-				<div className="container-custom">
+			<section className="section-spacing bg-rich-black-gradient-continuous section-fade-connector section-connector-overlay pt-12">
+				<div className="container-custom ">
 					<MotionDiv
 						initial="hidden"
 						whileInView="visible"
-						viewport={{ once: true, margin: "-10px" }}
+						viewport={{ once: true, margin: "-100px" }}
 						variants={fadeIn}
-						className="mb-12"
+						className="w-full max-w-md mb-12"
 					>
-						<h2 className="text-3xl md:text-4xl font-bold text-center mb-4">
-							บริการของเรา
+						<h2 className="text-3xl md:text-4xl font-normal text-left md:text-center p-4">
+							Services.
 						</h2>
-						<p className="text-gray-400 text-center max-w-2xl mx-auto">
-							บริการครบวงจรเพื่อประสบการณ์การใช้รถยนต์ไฟฟ้าที่ไร้กังวล
-						</p>
 					</MotionDiv>
 					{/* Component แสดงรายการบริการ */}
 					<Suspense
@@ -166,7 +162,7 @@ export default function HomePage({ models }: HomePageProps) {
 			</section>
 
 			{/* Why Choose Us Section */}
-			<section className="section-spacing bg-rich-black-gradient">
+			<section className="section-spacing bg-rich-black-gradient-continuous section-fade-connector section-connector-overlay">
 				<div className="container-custom">
 					<MotionDiv
 						initial="hidden"

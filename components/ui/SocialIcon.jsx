@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { BrandFacebook, BrandInstagram, BrandTiktok } from "tabler-icons-react";
-import LineIcon from "./LineIcon";
+import LineIcon from "../../lib/LineIcon";
 // ข้อมูล Icon และสีที่ใช้
 const platformConfig = {
 	line: {
@@ -28,7 +28,7 @@ const platformConfig = {
 };
 
 // ทำเป็น Function Component ธรรมดา ไม่มี Type
-export function SocialIcon({ platform, size = 36, className = "", href }) {
+export function SocialIcon({ platform, size = 48, className = "", href }) {
 	// แปลงเป็นตัวพิมพ์เล็กเพื่อความสม่ำเสมอ
 	const platformKey = platform.toLowerCase();
 

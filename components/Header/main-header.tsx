@@ -5,7 +5,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import {
+	Sheet,
+	SheetContent,
+	SheetTrigger,
+	SheetTitle,
+} from "@/components/ui/sheet";
 import { Menu, ChevronDown, X } from "lucide-react";
 import { navItems } from "@/data/navigation";
 import { navCarModels } from "@/data/navCarModels";
@@ -61,7 +66,7 @@ export function MainHeader() {
 							alt="BYD Metromobile"
 							width={180}
 							height={60}
-							className="h-12 w-auto object-contain"
+							className="h-auto w-auto object-contain"
 							priority
 						/>
 					</Link>
@@ -143,7 +148,7 @@ export function MainHeader() {
 							alt="BYD Metromobile"
 							width={140}
 							height={50}
-							className="h-10 w-auto object-contain"
+							className="h-auto w-auto object-contain"
 							priority
 						/>
 					</Link>
@@ -164,6 +169,7 @@ export function MainHeader() {
 							<div className="flex flex-col h-full bg-white">
 								{/* Mobile Menu Header */}
 								<div className="flex items-center justify-between p-4 border-b">
+									<SheetTitle className="sr-only">เมนูหลัก</SheetTitle>
 									<Image
 										src="/images/metromobile-logo.png"
 										alt="BYD Metromobile"
