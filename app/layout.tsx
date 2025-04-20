@@ -68,12 +68,6 @@ export default function RootLayout({
 			className={`${inter.variable} ${prompt.variable} ${ibmPlexThai.variable}`}
 		>
 			<head>
-				<link
-					rel="preload"
-					href="/images/metromobile-logo.png"
-					as="image"
-					type="image/png"
-				/>
 				<meta name="format-detection" content="telephone=no" />
 				<meta name="image-rendering" content="optimizeQuality" />
 				<meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />

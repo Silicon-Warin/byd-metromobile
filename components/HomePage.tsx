@@ -1,40 +1,13 @@
 "use client";
 
-import dynamic from "next/dynamic";
 import { Button } from "@/components/ui/button";
 import { ChevronRight, Shield, Zap, Clock, Phone } from "lucide-react";
 import Link from "next/link";
 import { Suspense } from "react";
-
-// Dynamic imports for heavy components
-const MotionDiv = dynamic(
-	() => import("framer-motion").then((mod) => mod.motion.div),
-	{ ssr: false }
-);
-
-const HeroBannerCarousel = dynamic(
-	() => import("@/components/HeroBannerCarousel"),
-	{
-		loading: () => (
-			<div className="w-full h-[500px] md:h-[600px] lg:h-screen bg-gray-900 animate-pulse" />
-		),
-	}
-);
-
-const ProductSlider = dynamic(
-	() => import("@/components/ProductSlider").then((mod) => mod.ProductSlider),
-	{
-		loading: () => (
-			<div className="w-full h-[400px] bg-gray-800/30 rounded-xl animate-pulse" />
-		),
-	}
-);
-
-const ServiceGrid = dynamic(() => import("@/components/ServiceGrid"), {
-	loading: () => (
-		<div className="w-full h-[300px] bg-gray-800/30 rounded-xl animate-pulse" />
-	),
-});
+import HeroBannerCarousel from "@/components/HeroBannerCarousel";
+import { ProductSlider } from "@/components/ProductSlider";
+import ServiceGrid from "@/components/ServiceGrid";
+import { motion } from "framer-motion";
 
 // Type definition for the props
 type HomePageProps = {
@@ -78,7 +51,7 @@ export default function HomePage({ models }: HomePageProps) {
 					<HeroBannerCarousel />
 				</Suspense>
 				<div className="absolute bottom-0 left-0 right-0 z-20 p-4 md:p-8 lg:p-12">
-					<MotionDiv
+					<motion.div
 						className="container-custom"
 						initial="hidden"
 						animate="visible"
@@ -99,29 +72,29 @@ export default function HomePage({ models }: HomePageProps) {
 								<ChevronRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
 							</Link>
 						</Button>
-					</MotionDiv>
+					</motion.div>
 				</div>
 			</section>
 
 			{/* Featured Models Section */}
-			<section className="py-12 bg-rich-black-gradient-continuous h-auto relative">
+			<section className="bg-rich-black-gradient-continuous h-auto relative overflow-hidden">
 				<div className="absolute top-1/4 left-1/4 w-full h-1/2 bg-[#afb5ff] opacity-10 blur-[100px] rounded-full"></div>
 				<div className="absolute bottom-1/4 right-1/4 w-screen h-1/2 bg-[#3765ff] opacity-10 blur-[100px] rounded-full"></div>
-				<div className="container-custom z-10 pt-12">
-					<MotionDiv
+				<div className="custom-container relative z-10 pt-12 pb-24">
+					<motion.div
 						initial="hidden"
 						whileInView="visible"
 						viewport={{ once: true, margin: "-100px" }}
 						variants={fadeIn}
-						className="w-full max-w-md mb-12"
+						className="relative w-full h-full md:w-4/5 mx-auto px-4 mb-3"
 					>
-						<h2 className="text-3xl md:text-4xl font-normal text-left md:text-center p-4">
+						<h2 className="text-3xl md:text-4xl font-semibold text-start mb-0 pt-5">
 							Models.{" "}
 							<span className="text-muted-foreground text-sm md:text-base">
 								Build your dreams.
 							</span>
 						</h2>
-					</MotionDiv>
+					</motion.div>
 					<Suspense
 						fallback={
 							<div className="w-full h-[400px] bg-gray-800/30 rounded-xl animate-pulse" />
@@ -139,7 +112,7 @@ export default function HomePage({ models }: HomePageProps) {
 			{/* Services Section */}
 			<section className="section-spacing bg-rich-black-gradient-continuous section-fade-connector section-connector-overlay pt-12">
 				<div className="container-custom ">
-					<MotionDiv
+					<motion.div
 						initial="hidden"
 						whileInView="visible"
 						viewport={{ once: true, margin: "-100px" }}
@@ -149,7 +122,7 @@ export default function HomePage({ models }: HomePageProps) {
 						<h2 className="text-3xl md:text-4xl font-normal text-left md:text-center p-4">
 							Services.
 						</h2>
-					</MotionDiv>
+					</motion.div>
 					{/* Component แสดงรายการบริการ */}
 					<Suspense
 						fallback={
@@ -164,7 +137,7 @@ export default function HomePage({ models }: HomePageProps) {
 			{/* Why Choose Us Section */}
 			<section className="section-spacing bg-rich-black-gradient-continuous section-fade-connector section-connector-overlay">
 				<div className="container-custom">
-					<MotionDiv
+					<motion.div
 						initial="hidden"
 						whileInView="visible"
 						viewport={{ once: true, margin: "-100px" }}
@@ -177,16 +150,16 @@ export default function HomePage({ models }: HomePageProps) {
 						<p className="text-gray-400 text-center max-w-2xl mx-auto text-sm sm:text-base">
 							เราให้ความสำคัญกับคุณภาพและความพึงพอใจของลูกค้าเป็นอันดับหนึ่ง
 						</p>
-					</MotionDiv>
+					</motion.div>
 
-					<MotionDiv
+					<motion.div
 						className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8"
 						variants={staggerContainer}
 						initial="hidden"
 						whileInView="visible"
 						viewport={{ once: true, margin: "-100px" }}
 					>
-						<MotionDiv
+						<motion.div
 							variants={fadeIn}
 							className="glass-effect p-4 sm:p-6 md:p-8 rounded-xl card-hover"
 						>
@@ -200,9 +173,9 @@ export default function HomePage({ models }: HomePageProps) {
 								นวัตกรรมแบตเตอรี่และระบบขับเคลื่อนที่ทันสมัย
 								ให้ประสิทธิภาพสูงสุดและเป็นมิตรกับสิ่งแวดล้อม
 							</p>
-						</MotionDiv>
+						</motion.div>
 
-						<MotionDiv
+						<motion.div
 							variants={fadeIn}
 							className="glass-effect p-4 sm:p-6 md:p-8 rounded-xl card-hover"
 						>
@@ -216,9 +189,9 @@ export default function HomePage({ models }: HomePageProps) {
 								รับประกันคุณภาพสูงสุดพร้อมบริการฉุกเฉิน 24 ชั่วโมง
 								เพื่อความมั่นใจในทุกการเดินทาง
 							</p>
-						</MotionDiv>
+						</motion.div>
 
-						<MotionDiv
+						<motion.div
 							variants={fadeIn}
 							className="glass-effect p-4 sm:p-6 md:p-8 rounded-xl card-hover"
 						>
@@ -232,8 +205,8 @@ export default function HomePage({ models }: HomePageProps) {
 								ทีมงานมืออาชีพพร้อมให้บริการหลังการขายที่รวดเร็วและมีประสิทธิภาพ
 								ตลอดอายุการใช้งานรถยนต์
 							</p>
-						</MotionDiv>
-					</MotionDiv>
+						</motion.div>
+					</motion.div>
 				</div>
 			</section>
 
@@ -242,7 +215,7 @@ export default function HomePage({ models }: HomePageProps) {
 				<div className="absolute inset-0 bg-gradient-to-r from-black via-black/90 to-black"></div>
 
 				<div className="container-custom relative z-10">
-					<MotionDiv
+					<motion.div
 						initial="hidden"
 						whileInView="visible"
 						viewport={{ once: true }}
@@ -274,7 +247,7 @@ export default function HomePage({ models }: HomePageProps) {
 								นัดหมายทดลองขับ
 							</Button>
 						</div>
-					</MotionDiv>
+					</motion.div>
 				</div>
 			</section>
 		</main>

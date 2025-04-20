@@ -44,6 +44,8 @@ const BatteryChargingAnimation = () => {
 							initial={{ width: 0 }}
 							animate={{ width: `${chargeLevel}%` }}
 							transition={{ type: "tween" }}
+							whileInView={{ width: `${chargeLevel}%` }}
+							viewport={{ once: true, margin: "-100px" }}
 						/>
 
 						{/* Lightning icon when fully charged */}

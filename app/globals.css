@@ -139,17 +139,7 @@
   }
 }
 
-/* Custom Swiper Styles */
-.swiper-container {
-  width: 100%;
-  height: 100%;
-}
 
-.swiper-slide {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
 
 /* Animation for scroll down arrow */
 @keyframes scroll-down {
@@ -272,7 +262,23 @@
     background-clip: text;
     color: transparent;
   }
+
+ 
+  /* Custom Swiper Styles */
+.slider-card {
+  aspect-ratio: 4 / 5.5;
+  border-radius: 15px;
+  margin-inline-end: 1.5rem;
+  max-height: 70vh;
+  overflow: hidden;  
 }
+
+.slider-card-bg {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;  
+}}
 
 @layer utilities {
   .backface-hidden {

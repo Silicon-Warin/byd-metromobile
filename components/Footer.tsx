@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { navCarModels } from "@/data/navCarModels";
 import { useState } from "react";
-import SocialIcons from "@/lib/SocialIcon";
+import SocialIcons from "@/app/utils/SocialIcon";
 
 export function Footer() {
 	const [openSection, setOpenSection] = useState<string | null>(null);

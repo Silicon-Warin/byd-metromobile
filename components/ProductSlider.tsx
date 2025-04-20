@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { FreeMode } from "swiper/modules";
 import { Button } from "@/components/ui/button";
@@ -31,33 +30,64 @@ export function ProductSlider({
 	const [swiper, setSwiper] = useState<SwiperType | null>(null);
 
 	return (
-		<div className="relative w-full md:w-4/5 mx-auto px-4">
-			<div className="overflow-visible">
+		<div className="relative md:w-4/6 w-[90%] mx-auto px-2 h-auto">
+			<div className="">
 				<Swiper
 					modules={[FreeMode]}
 					freeMode={true}
 					spaceBetween={20}
 					slidesPerView={1.2}
 					breakpoints={{
-						640: { slidesPerView: 2.2 },
-						1024: { slidesPerView: 3.2 },
+						640: { slidesPerView: 1.5 },
+						768: { slidesPerView: 2.5 },
+						1024: { slidesPerView: 2.5 },
+						1280: { slidesPerView: 3.4 },
 					}}
 					onSwiper={setSwiper}
-					className="!overflow-visible"
+					className="!overflow-visible pb-8"
+					slidesOffsetBefore={16}
 				>
 					{items.map((item) => (
-						<SwiperSlide key={item.id} className="!overflow-visible">
-							<ProductCard
-								item={item}
-								onClick={() => onItemClick(item)}
-								buttonText={buttonText}
-							/>
+						<SwiperSlide
+							key={item.id}
+							className="my-1 slider-card"
+							style={{
+								backgroundImage: `url("${
+									item.imageUrl || "/placeholder.svg"
+								}")`,
+								backgroundSize: "cover",
+								backgroundPosition: "center",
+							}}
+						>
+							<div className="slider-card-bg">
+								<div className="slider-card-top text-white">
+									<div className="p-4">
+										<h3 className="text-xl font-semibold">{item.name}</h3>
+										<div className="mt-2">
+											<a
+												href="#"
+												className="text-white text-sm hover:underline"
+											>
+												Learn more &gt;
+											</a>
+										</div>
+									</div>
+								</div>
+								<div className="slider-card-bottom p-4 mt-auto">
+									<button
+										className="w-full bg-white hover:bg-white/90 text-black border-0 py-2 px-4 rounded-full font-medium"
+										onClick={() => onItemClick(item)}
+									>
+										{buttonText}
+									</button>
+								</div>
+							</div>
 						</SwiperSlide>
 					))}
 				</Swiper>
 			</div>
 
-			<div className="flex justify-center gap-4 mt-8">
+			{/* <div className="flex justify-center gap-4 mt-8">
 				<Button
 					variant="outline"
 					size="icon"
@@ -74,53 +104,9 @@ export function ProductSlider({
 				>
 					<ChevronRight className="h-5 w-5" />
 				</Button>
-			</div>
+			</div> */}
 		</div>
 	);
 }
 
-interface ProductCardProps {
-	item: ProductItem;
-	onClick: () => void;
-	buttonText: string;
-	description?: string;
-}
-
-function ProductCard({
-	item,
-	onClick,
-	buttonText,
-	description,
-}: ProductCardProps) {
-	return (
-		<div className="max-w-sm w-full mx-auto rounded-xl border border-[rgba(255,255,255,0.10)] bg-[rgba(40,40,40,0.70)] shadow-[0_0_15px_rgba(100,100,100,0.15),0_0_30px_rgba(100,100,100,0.1)] group overflow-hidden h-[400px] flex flex-col transition-all duration-300 hover:shadow-[0_0_20px_rgba(150,150,150,0.3),0_0_40px_rgba(150,150,150,0.2)]">
-			<div className="p-6">
-				<h3 className="text-lg font-semibold text-white">{item.name}</h3>
-			</div>
-			<div className="flex-1 relative p-4 flex items-center justify-center">
-				<div className="relative w-full aspect-[4/3] overflow-hidden">
-					<Image
-						src={item.imageUrl || "/placeholder.svg"}
-						alt={item.name}
-						fill
-						className="object-contain"
-					/>
-				</div>
-			</div>
-			{description && (
-				<p className="text-sm font-normaltext-neutral-400 px-6">
-					{description}
-				</p>
-			)}
-			<div className="p-4">
-				<Button
-					variant="outline"
-					className="w-full bg-white/10 backdrop-blur-sm text-white hover:bg-white/20 border border-white/20 rounded-full shadow-[0_0_10px_rgba(255,255,255,0.1)] transition-all duration-300"
-					onClick={onClick}
-				>
-					{buttonText}
-				</Button>
-			</div>
-		</div>
-	);
-}
+export default ProductSlider;

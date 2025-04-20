@@ -59,13 +59,6 @@ export function ModelPromoCard({ model }: ModelCardProps) {
 						</Button>
 					</Link>
 				</div>
-
-				{/* Feature badge */}
-				{model.variants.length > 0 && model.variants[0].range && (
-					<div className="absolute top-4 right-4 bg-primary/90 text-white text-xs px-2 py-1 rounded-full z-10">
-						{model.variants[0].range}
-					</div>
-				)}
 			</div>
 		</div>
 	);

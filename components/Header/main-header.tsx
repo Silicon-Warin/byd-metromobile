@@ -66,7 +66,6 @@ export function MainHeader() {
 							alt="BYD Metromobile"
 							width={180}
 							height={60}
-							className="h-auto w-auto object-contain"
 							priority
 						/>
 					</Link>

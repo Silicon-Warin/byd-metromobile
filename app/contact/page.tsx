@@ -1,12 +1,10 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Phone, Mail, MapPin, Clock, Send } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
-import { SocialIcon } from "@/components/ui/SocialIcon";
-
+import { SocialIcon } from "../utils/SocialIcon";
 export default function ContactPage() {
 	// Animation variants
 	const fadeIn = {
@@ -228,14 +226,24 @@ export default function ContactPage() {
 									</div>
 									<h3 className="text-xl font-bold mb-2">โซเชียลมีเดีย</h3>
 									<div className="flex gap-4">
-										{socialMedia.map((social) => (
-											<SocialIcon
-												key={social.platform}
-												platform={social.platform}
-												href={social.url}
-												size={36}
-											/>
-										))}
+									<SocialIcon
+									platform="Line"
+									url= />
+										<SocialIcon
+											platform="facebook"
+											url="https://www.facebook.com/bydbangkok"
+											size={36}
+										/>
+										<SocialIcon
+											type="instagram"
+											url="https://www.instagram.com/byd.metromobile"
+											size={36}
+										/>
+										<SocialIcon
+											type="tiktok"
+											url="https://www.tiktok.com/@byd_metromobile"
+											size={36}
+										/>
 									</div>
 								</CardContent>
 							</Card>

@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import { cn } from "@/lib/utils";
 import { MessageCircle, X } from "tabler-icons-react";
-import { SocialIcon } from "@/lib/SocialIcon";
+import { SocialIcon } from "@/app/utils/SocialIcon";
 
 export default function ContactFAB() {
 	const [isOpen, setIsOpen] = useState(false);

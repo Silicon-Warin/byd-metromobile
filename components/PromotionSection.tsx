@@ -61,7 +61,7 @@ export function PromotionSection() {
 						{defaultModels.map((model) => (
 							<SwiperSlide
 								key={model.id}
-								className="h-[400px] sm:h-[450px] md:h-[500px] py-4"
+								className="swiper-slide group aspect-[4/5.5] max-h-[70vh] transition-all duration-300 hover:-translate-y-1"
 							>
 								<motion.div
 									className="h-full w-full transition-all duration-300 rounded-xl overflow-hidden"
