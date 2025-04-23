@@ -37,13 +37,6 @@ export default function ContactPage() {
 		mapUrl: string;
 	}
 
-	// ข้อมูลโซเชียลมีเดีย
-	interface SocialMediaItem {
-		platform: string;
-		url: string;
-		icon: string;
-	}
-
 	// ข้อมูลการติดต่อทั่วไป
 	interface ContactInfo {
 		email: string;
@@ -92,30 +85,6 @@ export default function ContactPage() {
 			hours: "เปิดทำการ: วันจันทร์-อาทิตย์ 08.30-17.30 น.",
 			mapUrl:
 				"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5150.343180311472!2d100.66649121169309!3d13.832594395359672!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x311d6300152470d1%3A0xb40e702132cf177a!2zQllEIOC4o-C4suC4oeC4reC4tOC4meC4l-C4o-C4siDguIHguKEuOSDguYDguKHguYLguJfguKPguYLguKHguJrguLTguKU!5e1!3m2!1sth!2sth!4v1742592571020!5m2!1sth!2sth",
-		},
-	];
-
-	// โซเชียลมีเดีย
-	const socialMedia: SocialMediaItem[] = [
-		{
-			platform: "facebook",
-			url: "https://facebook.com/bydbangkok",
-			icon: "facebook",
-		},
-		{
-			platform: "instagram",
-			url: "https://instagram.com/bydbangkok",
-			icon: "instagram",
-		},
-		{
-			platform: "line",
-			url: "https://line.me/R/ti/p/%40bydmetromobile",
-			icon: "line",
-		},
-		{
-			platform: "tiktok",
-			url: "https://www.tiktok.com/@byd_metromobile",
-			icon: "tiktok",
 		},
 	];
 
@@ -226,11 +195,13 @@ export default function ContactPage() {
 									</div>
 									<h3 className="text-xl font-bold mb-2">โซเชียลมีเดีย</h3>
 									<div className="flex gap-4">
-									<SocialIcon
-									platform="Line"
-									url= />
 										<SocialIcon
-											platform="facebook"
+											type="line"
+											url="https://line.me/R/ti/p/%40bydmetromobile"
+											size={36}
+										/>
+										<SocialIcon
+											type="facebook"
 											url="https://www.facebook.com/bydbangkok"
 											size={36}
 										/>
