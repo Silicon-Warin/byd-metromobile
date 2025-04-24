@@ -32,7 +32,6 @@ export default function ContactPage() {
 		name: string;
 		address: string;
 		phone: string;
-
 		hours: string;
 		mapUrl: string;
 	}
