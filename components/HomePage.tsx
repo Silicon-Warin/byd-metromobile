@@ -39,9 +39,8 @@ const staggerContainer = {
 
 export default function HomePage({ models }: HomePageProps) {
 	return (
-		<main className="min-h-screen bg-background text-foreground">
-			{/* Hero Section */}
-			<section className="relative">
+		<>
+			<section className="relative h-[700px] md:h-[100vh] w-[100vw] md:-mt-[120px] xl:-mt-[105px]">
 				<div className="absolute inset-0 bg-gradient-to-b from-transparent to-background/90 z-10 pointer-events-none" />
 				<Suspense
 					fallback={
@@ -76,7 +75,6 @@ export default function HomePage({ models }: HomePageProps) {
 				</div>
 			</section>
 
-			{/* Featured Models Section */}
 			<section className="bg-rich-black-gradient-continuous h-auto relative overflow-hidden">
 				<div className="absolute top-1/4 left-1/4 w-full h-1/2 bg-[#afb5ff] opacity-10 blur-[100px] rounded-full"></div>
 				<div className="absolute bottom-1/4 right-1/4 w-screen h-1/2 bg-[#3765ff] opacity-10 blur-[100px] rounded-full"></div>
@@ -250,6 +248,6 @@ export default function HomePage({ models }: HomePageProps) {
 					</motion.div>
 				</div>
 			</section>
-		</main>
+		</>
 	);
 }

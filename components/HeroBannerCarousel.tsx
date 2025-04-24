@@ -9,17 +9,17 @@ import { Button } from "@/components/ui/button";
 const slides = [
 	{
 		id: 1,
-		image: "/images/banners/banner-1.jpg",
+		image: "/images/banners/byd-banner-1.webp",
 		buttonLink: "/promotions",
 	},
 	{
 		id: 2,
-		image: "/images/banners/banner-2.jpg",
+		image: "/images/banners/byd-banner-2.webp",
 		buttonLink: "/promotions",
 	},
 	{
 		id: 3,
-		image: "/images/banners/banner-3.jpg",
+		image: "/images/banners/byd-banner-3.webp",
 		buttonLink: "/promotions",
 	},
 ];
@@ -77,7 +77,7 @@ const HeroBannerCarousel = () => {
 	return (
 		<div
 			ref={carouselRef}
-			className="relative w-full h-[500px] md:h-[600px] lg:h-screen overflow-hidden"
+			className="relative w-full h-screen md:h-[600px] lg:h-screen overflow-hidden"
 		>
 			<AnimatePresence mode="wait">
 				<motion.div
@@ -88,15 +88,14 @@ const HeroBannerCarousel = () => {
 					transition={{ duration: 0.7, ease: "easeInOut" }}
 					className="absolute inset-0"
 				>
-					<div className="relative w-full h-full">
+					<div className="relative w-full h-[80vh] md:h-screen overflow-hidden">
 						<Image
 							src={slides[currentSlide].image || "/placeholder.svg"}
 							alt="bydmetromobile banner"
 							fill
 							priority={currentSlide === 0}
-							quality={75}
 							className={`${
-								isMobile ? "object-contain object-center" : "object-cover"
+								isMobile ? "object-cover object-center" : "object-cover"
 							}`}
 							sizes="(max-width: 768px) 100vw, 100vw"
 							placeholder="blur"

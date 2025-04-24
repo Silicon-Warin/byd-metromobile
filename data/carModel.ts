@@ -313,7 +313,7 @@ export const defaultModels: CarModel[] = [
     description: "ซีดานไฟฟ้าสมรรถนะสูง พร้อมระยะทางขับขี่ไกลและเทคโนโลยีล้ำสมัย",
     price: 999900,
     imageUrlPromo: "/images/promotions/seal.webp",          
-      imageUrlModel:"/images/models/seal/byd-seal-card.webp",
+    imageUrlModel:"/images/models/seal/byd-seal-card.webp",
     imageUrlHero: "/images/models/seal/seal-hero.jpg",
     imageUrlReal: "/images/models/seal/seal-real.jpg",
     imageWidth: 1200,

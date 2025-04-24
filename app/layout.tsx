@@ -75,9 +75,7 @@ export default function RootLayout({
 			<body className="font-prompt">
 				<SpeedInsights />
 				<MainHeader />
-				<main className="w-full min-h-screen overflow-x-hidden">
-					{children}
-				</main>
+				<main className="max-w-[100vw] overflow-x-hidden">{children}</main>
 				<Footer />
 				<Analytics />
 			</body>
