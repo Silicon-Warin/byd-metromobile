@@ -8,6 +8,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import type { Swiper as SwiperType } from "swiper";
 import "swiper/css";
 import "swiper/css/free-mode";
+import Link from "next/link";
 
 interface ProductItem {
 	id: string;
@@ -25,32 +26,31 @@ interface ProductSliderProps {
 export function ProductSlider({
 	items,
 	onItemClick,
-	buttonText = "Order Now",
+	buttonText = "ทดลองขับ",
 }: ProductSliderProps) {
 	const [swiper, setSwiper] = useState<SwiperType | null>(null);
 
 	return (
-		<div className="relative md:w-4/6 w-[90%] mx-auto px-2 h-auto">
-			<div className="">
+		<>
+			<div className="relative md:w-5/6 mx-auto px-0 h-auto mr-8">
 				<Swiper
 					modules={[FreeMode]}
 					freeMode={true}
-					spaceBetween={20}
-					slidesPerView={1.2}
+					spaceBetween={15}
 					breakpoints={{
-						640: { slidesPerView: 1.5 },
-						768: { slidesPerView: 2.5 },
-						1024: { slidesPerView: 2.5 },
-						1280: { slidesPerView: 3.4 },
+						640: { slidesPerView: 1.2 },
+						768: { slidesPerView: 1.2 },
+						1024: { slidesPerView: 2.2 },
+						1280: { slidesPerView: 2.2 },
 					}}
 					onSwiper={setSwiper}
-					className="!overflow-visible pb-8"
-					slidesOffsetBefore={16}
+					className="!overflow-visible pb-8 "
+					slidesOffsetBefore={0}
 				>
 					{items.map((item) => (
 						<SwiperSlide
 							key={item.id}
-							className="my-1 slider-card"
+							className="my-1 model-card w-[321px] mr-8"
 							style={{
 								backgroundImage: `url("${
 									item.imageUrl || "/placeholder.svg"
@@ -59,7 +59,7 @@ export function ProductSlider({
 								backgroundPosition: "center",
 							}}
 						>
-							<div className="slider-card-bg">
+							<div className="slider-card-bg flex flex-col h-full">
 								<div className="slider-card-top text-white">
 									<div className="p-4">
 										<h3 className="text-xl font-semibold">{item.name}</h3>
@@ -73,13 +73,16 @@ export function ProductSlider({
 										</div>
 									</div>
 								</div>
-								<div className="slider-card-bottom p-4 mt-auto">
-									<button
-										className="w-full bg-white hover:bg-white/90 text-black border-0 py-2 px-4 rounded-full font-medium"
-										onClick={() => onItemClick(item)}
-									>
-										{buttonText}
-									</button>
+								<div className="p-4 mt-auto flex justify-end w-full">
+									<Button className="btn-modern btn-modern-primary" asChild>
+										<Link
+											href="https://line.me/R/ti/p/%40bydmetromobile"
+											target="_blank"
+											rel="noopener noreferrer"
+										>
+											{buttonText}
+										</Link>
+									</Button>
 								</div>
 							</div>
 						</SwiperSlide>
@@ -87,7 +90,7 @@ export function ProductSlider({
 				</Swiper>
 			</div>
 
-			{/* <div className="flex justify-center gap-4 mt-8">
+			<div className="flex justify-center md:justify-end gap-4 mt-8 pr-8">
 				<Button
 					variant="outline"
 					size="icon"
@@ -104,8 +107,8 @@ export function ProductSlider({
 				>
 					<ChevronRight className="h-5 w-5" />
 				</Button>
-			</div> */}
-		</div>
+			</div>
+		</>
 	);
 }
 

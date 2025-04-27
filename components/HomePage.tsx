@@ -40,16 +40,20 @@ const staggerContainer = {
 export default function HomePage({ models }: HomePageProps) {
 	return (
 		<>
-			<section className="relative h-[700px] md:h-[100vh] w-[100vw] md:-mt-[120px] xl:-mt-[105px]">
-				<div className="absolute inset-0 bg-gradient-to-b from-transparent to-background/90 z-10 pointer-events-none" />
+			<section className="relative h-screen w-full">
+				<div className="absolute inset-0 z-10 pointer-events-none top-shadow"></div>
 				<Suspense
 					fallback={
-						<div className="w-full h-[500px] md:h-[600px] lg:h-screen bg-gray-900 animate-pulse" />
+						<div className="w-full h-[90vh] bg-gray-900 animate-pulse" />
 					}
 				>
 					<HeroBannerCarousel />
 				</Suspense>
-				<div className="absolute bottom-0 left-0 right-0 z-20 p-4 md:p-8 lg:p-12">
+
+				{/* ย้าย bottom-shadow มาอยู่นอก div เนื้อหา */}
+				<div className="absolute bottom-0 left-0 right-0 w-full z-10 pointer-events-none bottom-shadow"></div>
+
+				<div className="absolute bottom-0 left-0 right-0 z-20 p-4">
 					<motion.div
 						className="container-custom"
 						initial="hidden"
@@ -75,36 +79,36 @@ export default function HomePage({ models }: HomePageProps) {
 				</div>
 			</section>
 
-			<section className="bg-rich-black-gradient-continuous h-auto relative overflow-hidden">
+			<section className="bg-rich-black-gradient-continuous overflow-visible pt-8 pb-16">
 				<div className="absolute top-1/4 left-1/4 w-full h-1/2 bg-[#afb5ff] opacity-10 blur-[100px] rounded-full"></div>
 				<div className="absolute bottom-1/4 right-1/4 w-screen h-1/2 bg-[#3765ff] opacity-10 blur-[100px] rounded-full"></div>
-				<div className="custom-container relative z-10 pt-12 pb-24">
+				<div className="container mx-auto px-4">
 					<motion.div
 						initial="hidden"
 						whileInView="visible"
 						viewport={{ once: true, margin: "-100px" }}
 						variants={fadeIn}
-						className="relative w-full h-full md:w-4/5 mx-auto px-4 mb-3"
+						className="mb-4"
 					>
-						<h2 className="text-3xl md:text-4xl font-semibold text-start mb-0 pt-5">
+						<h2 className="text-3xl md:text-4xl font-semibold text-start mb-4 pt-4">
 							Models.{" "}
 							<span className="text-muted-foreground text-sm md:text-base">
 								Build your dreams.
 							</span>
 						</h2>
 					</motion.div>
-					<Suspense
-						fallback={
-							<div className="w-full h-[400px] bg-gray-800/30 rounded-xl animate-pulse" />
-						}
-					>
-						<ProductSlider
-							items={models}
-							buttonText="ทดลองขับ"
-							onItemClick={() => {}}
-						/>
-					</Suspense>
 				</div>
+				<Suspense
+					fallback={
+						<div className="w-full h-[400px] bg-gray-800/30 rounded-xl animate-pulse" />
+					}
+				>
+					<ProductSlider
+						items={models}
+						buttonText="Order Now"
+						onItemClick={() => {}}
+					/>
+				</Suspense>
 			</section>
 
 			{/* Services Section */}
