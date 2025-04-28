@@ -79,16 +79,16 @@ export default function HomePage({ models }: HomePageProps) {
 				</div>
 			</section>
 
-			<section className="bg-rich-black-gradient-continuous overflow-visible pt-8 pb-16">
+			<section className="bg-rich-black-gradient-continuous overflow-x-hidden min-h-[500px]">
 				<div className="absolute top-1/4 left-1/4 w-full h-1/2 bg-[#afb5ff] opacity-10 blur-[100px] rounded-full"></div>
 				<div className="absolute bottom-1/4 right-1/4 w-screen h-1/2 bg-[#3765ff] opacity-10 blur-[100px] rounded-full"></div>
-				<div className="container mx-auto px-4">
+				<div className="w-[90%] md:w-[66%] mx-auto mb-3">
 					<motion.div
 						initial="hidden"
 						whileInView="visible"
 						viewport={{ once: true, margin: "-100px" }}
 						variants={fadeIn}
-						className="mb-4"
+						className="mb-0 pt-5 w-[90%] md:w-[66%]"
 					>
 						<h2 className="text-3xl md:text-4xl font-semibold text-start mb-4 pt-4">
 							Models.{" "}
@@ -103,25 +103,21 @@ export default function HomePage({ models }: HomePageProps) {
 						<div className="w-full h-[400px] bg-gray-800/30 rounded-xl animate-pulse" />
 					}
 				>
-					<ProductSlider
-						items={models}
-						buttonText="Order Now"
-						onItemClick={() => {}}
-					/>
+					<ProductSlider items={models} buttonText="ทดลองขับ" />
 				</Suspense>
 			</section>
 
 			{/* Services Section */}
-			<section className="section-spacing bg-rich-black-gradient-continuous section-fade-connector section-connector-overlay pt-12">
-				<div className="container-custom ">
+			<section className="section-spacing bg-rich-black-gradient-continuous section-fade-connector section-connector-overlay overflow-x-hidden min-h-[500px]">
+				<div className="w-[90%] md:w-[66%] mx-auto mb-3">
 					<motion.div
 						initial="hidden"
 						whileInView="visible"
 						viewport={{ once: true, margin: "-100px" }}
 						variants={fadeIn}
-						className="w-full max-w-md mb-12"
+						className="mb-0 pt-5 w-[90%] md:w-[66%]"
 					>
-						<h2 className="text-3xl md:text-4xl font-normal text-left md:text-center p-4">
+						<h2 className="text-3xl md:text-4xl font-semibold text-start mb-4 pt-4">
 							Services.
 						</h2>
 					</motion.div>

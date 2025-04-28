@@ -1,21 +1,27 @@
-import { findModelBySlug } from "@/data/carModel";
+// app/models/[slug]/page.tsx
+import { findModelBySlug, defaultModels } from "@/data/carModel";
 import { notFound } from "next/navigation";
 import ModelPageContent from "./modelPageContent";
 
-// Server Component
+// สร้าง static routes สำหรับทุกรุ่นรถที่มีอยู่ใน defaultModels
+export async function generateStaticParams() {
+	return defaultModels.map((model) => ({
+		slug: model.slug,
+	}));
+}
+
 export default async function ModelPage({
 	params,
 }: {
-	params: { slug: string };
+	params: Promise<{ slug: string }>;
 }) {
-	// ใช้ await เพื่อรอให้ params พร้อมใช้งาน
-	const { slug } = await Promise.resolve(params);
+	const { slug } = await params;
 
-	const carModel = await findModelBySlug(slug);
+	if (!slug) notFound();
 
-	if (!carModel) {
-		notFound();
-	}
+	const carModel = findModelBySlug(slug);
+
+	if (!carModel) notFound();
 
 	return <ModelPageContent initialCarModel={carModel} slug={slug} />;
 }

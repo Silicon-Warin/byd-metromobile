@@ -84,34 +84,6 @@ export default function ModelPageContent({
 						</motion.p>
 
 						<motion.div
-							className="flex flex-wrap justify-center gap-4 mt-8"
-							initial={{ opacity: 0, y: 20 }}
-							animate={{ opacity: 1, y: 0 }}
-							transition={{ delay: 0.6 }}
-						>
-							<div className="text-center px-6 py-4 sm:py-0 w-full sm:w-auto">
-								<p className="text-3xl font-bold">
-									{carModel?.specs?.acceleration || ""}
-								</p>
-								<p className="text-sm text-gray-300">0-100 กม./ชม.</p>
-							</div>
-							<div className="text-center px-6 py-4 sm:py-0 w-[1/2] sm:w-auto border-t border-b sm:border-t-0 sm:border-b-0 sm:border-l sm:border-r border-gray-600">
-								<p className="text-3xl font-bold">
-									{carModel?.specs?.range || ""}
-								</p>
-								<p className="text-sm text-gray-300">ระยะทางขับขี่</p>
-							</div>
-							<div className="text-center px-6 py-4 sm:py-0 w-full sm:w-auto">
-								<p className="text-3xl font-bold">
-									{carModel?.specs?.drivetrain || ""}
-								</p>
-								<p className="text-sm text-gray-300">
-									{carModel?.specs?.motor || ""}
-								</p>
-							</div>
-						</motion.div>
-
-						<motion.div
 							className="absolute bottom-10 left-1/2 transform -translate-x-1/2 cursor-pointer"
 							initial={{ opacity: 0 }}
 							animate={{ opacity: 1 }}

@@ -23,11 +23,7 @@ export function MainHeader() {
 	const [expandedMobileItems, setExpandedMobileItems] = useState<string[]>([]);
 
 	const isScrolled = scrollY > 50;
-
-	// ไม่แสดง MainHeader ในหน้า models/[slug]
-	if (pathname.match(/^\/models\/[^\/]+$/)) {
-		return null;
-	}
+	const isModelDetailPage = pathname.match(/^\/models\/[^\/]+$/);
 
 	// Handle scroll events
 	useEffect(() => {
@@ -47,6 +43,11 @@ export function MainHeader() {
 	const toggleDesktopDropdown = (id: string) => {
 		setActiveDropdown(activeDropdown === id ? null : id);
 	};
+
+	// ย้าย if statement มาอยู่ตรงนี้แทน
+	if (isModelDetailPage) {
+		return null;
+	}
 
 	return (
 		<header
