@@ -54,7 +54,7 @@ export default function ModelPageContent({
 	const highlights = carModel.techHighlight || [];
 
 	return (
-		<div className="bg-background text-foreground">
+		<>
 			{/* Hero Section with Full Screen Car Image */}
 			<div className="relative h-screen w-full" ref={heroRef}>
 				<Image
@@ -64,36 +64,34 @@ export default function ModelPageContent({
 					className="object-cover"
 					priority
 				/>
-				<div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent">
-					<div className="container mx-auto h-full flex flex-col justify-evenly items-center text-center px-4">
-						<motion.h1
-							className="text-5xl md:text-7xl font-bold mb-4"
-							initial={{ opacity: 0, y: 20 }}
-							animate={{ opacity: 1, y: 0 }}
-							transition={{ delay: 0.2 }}
-						>
-							{carModel.name}
-						</motion.h1>
-						<motion.p
-							className="text-xl md:text-2xl mb-8"
-							initial={{ opacity: 0, y: 20 }}
-							animate={{ opacity: 1, y: 0 }}
-							transition={{ delay: 0.4 }}
-						>
-							{carModel?.tagline || ""}
-						</motion.p>
+				<div className="top-shadow inset-0"></div>
 
-						<motion.div
-							className="absolute bottom-10 left-1/2 transform -translate-x-1/2 cursor-pointer"
-							initial={{ opacity: 0 }}
-							animate={{ opacity: 1 }}
-							transition={{ delay: 0.8 }}
-							onClick={scrollToOverview}
-						>
-							<ChevronDown className="w-10 h-10 animate-scroll-down" />
-						</motion.div>
-					</div>
+				<div className="absolute z-10 left-1/2 -translate-x-1/2 top-32 w-full px-5 max-w-[600px] text-center">
+					<h1 className="text-4xl md:text-7xl font-bold mb-4 text-white">
+						{carModel.name}
+					</h1>
+					<motion.p
+						className="text-xl md:text-2xl mb-8"
+						initial={{ opacity: 0, y: 20 }}
+						animate={{ opacity: 1, y: 0 }}
+						transition={{ delay: 0.4 }}
+					>
+						{carModel?.tagline || ""}
+					</motion.p>
 				</div>
+
+				<div className="absolute z-10 w-full bottom-10">
+					<motion.div
+						className="flex items-center justify-center gap-2"
+						initial={{ opacity: 0 }}
+						animate={{ opacity: 1 }}
+						transition={{ delay: 0.8 }}
+						onClick={scrollToOverview}
+					>
+						<ChevronDown className="w-10 h-10 animate-scroll-down" />
+					</motion.div>
+				</div>
+				<div className="bottom-shadow "></div>
 			</div>
 
 			{/* Overview Section */}
@@ -284,6 +282,6 @@ export default function ModelPageContent({
 					</div>
 				</div>
 			</section>
-		</div>
+		</>
 	);
 }

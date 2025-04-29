@@ -22,7 +22,7 @@ interface ProductSliderProps {
 	buttonText?: string;
 }
 
-export function ProductSlider({ items, buttonText }: ProductSliderProps) {
+export function ProductSlider({ items = [], buttonText }: ProductSliderProps) {
 	const [swiper, setSwiper] = useState<SwiperType | null>(null);
 
 	return (

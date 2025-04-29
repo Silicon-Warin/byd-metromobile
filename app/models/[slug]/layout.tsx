@@ -1,7 +1,6 @@
 // app/models/[slug]/layout.tsx
 import { notFound } from "next/navigation";
 import { findModelBySlug } from "@/data/carModel";
-import { ModelHeader } from "@/components/Header/model-header";
 
 export default async function ModelPageLayout({
 	children,
@@ -18,10 +17,5 @@ export default async function ModelPageLayout({
 
 	if (!carModel) notFound();
 
-	return (
-		<section>
-			<ModelHeader />
-			{children}
-		</section>
-	);
+	return <section>{children}</section>;
 }

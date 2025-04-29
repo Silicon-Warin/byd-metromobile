@@ -23,8 +23,8 @@ export function MainHeader() {
 	const [expandedMobileItems, setExpandedMobileItems] = useState<string[]>([]);
 
 	const isScrolled = scrollY > 50;
-	const isModelDetailPage = pathname.match(/^\/models\/[^\/]+$/);
-
+	// Check if the current page is a model detail page
+	const isModelDetailPage = pathname.startsWith("/model/");
 	// Handle scroll events
 	useEffect(() => {
 		const handleScroll = () => setScrollY(window.scrollY);
@@ -140,7 +140,7 @@ export function MainHeader() {
 				</div>
 
 				{/* Mobile Header */}
-				<div className="flex md:hidden items-center justify-between">
+				<div className="flex justify-between items-center px-5 md:hidden min-h-[70px] z-30 relative">
 					{/* Logo */}
 					<Link href="/" className="block">
 						<Image
@@ -148,7 +148,7 @@ export function MainHeader() {
 							alt="BYD Metromobile"
 							width={140}
 							height={50}
-							className="h-auto w-auto object-contain"
+							className="cursor-pointer object-contain z-10 min-h-[22px] h-[18px] lg:h-[30px] "
 							priority
 						/>
 					</Link>
