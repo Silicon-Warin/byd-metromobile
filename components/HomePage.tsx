@@ -49,10 +49,7 @@ export default function HomePage({ models }: HomePageProps) {
 				>
 					<HeroBannerCarousel />
 				</Suspense>
-
-				{/* ย้าย bottom-shadow มาอยู่นอก div เนื้อหา */}
 				<div className="absolute bottom-0 left-0 right-0 w-full z-10 pointer-events-none bottom-shadow"></div>
-
 				<div className="absolute bottom-0 left-0 right-0 z-20 p-4">
 					<motion.div
 						className="container-custom"
@@ -79,16 +76,17 @@ export default function HomePage({ models }: HomePageProps) {
 				</div>
 			</section>
 
+			{/* Models Section */}
 			<section className="bg-rich-black-gradient-continuous overflow-x-hidden min-h-[500px]">
 				<div className="absolute top-1/4 left-1/4 w-full h-1/2 bg-[#afb5ff] opacity-10 blur-[100px] rounded-full"></div>
 				<div className="absolute bottom-1/4 right-1/4 w-screen h-1/2 bg-[#3765ff] opacity-10 blur-[100px] rounded-full"></div>
-				<div className="w-[90%] md:w-[66%] mx-auto mb-3">
+				<div className="w-[90%] md:w-[80%] mx-auto mb-3">
 					<motion.div
 						initial="hidden"
 						whileInView="visible"
 						viewport={{ once: true, margin: "-100px" }}
 						variants={fadeIn}
-						className="mb-0 pt-5 w-[90%] md:w-[66%]"
+						className="mb-0 pt-5"
 					>
 						<h2 className="text-3xl md:text-4xl font-semibold text-start mb-4 pt-4">
 							Models.{" "}
@@ -115,7 +113,7 @@ export default function HomePage({ models }: HomePageProps) {
 						whileInView="visible"
 						viewport={{ once: true, margin: "-100px" }}
 						variants={fadeIn}
-						className="mb-0 pt-5 w-[90%] md:w-[66%]"
+						className="mb-0 pt-5"
 					>
 						<h2 className="text-3xl md:text-4xl font-semibold text-start mb-4 pt-4">
 							Services.

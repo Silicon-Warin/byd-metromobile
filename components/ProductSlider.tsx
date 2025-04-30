@@ -27,7 +27,7 @@ export function ProductSlider({ items = [], buttonText }: ProductSliderProps) {
 
 	return (
 		<>
-			<div className="relative w-[90%] md:w-[66%] mx-auto h-auto">
+			<div className="relative w-[90%] md:w-[80%] lg:w-[70%] mx-auto h-full">
 				<div className="swiper-container-wrapper">
 					<Swiper
 						modules={[FreeMode]}
@@ -102,25 +102,24 @@ export function ProductSlider({ items = [], buttonText }: ProductSliderProps) {
 						))}
 					</Swiper>
 				</div>
-			</div>
-
-			<div className="hidden md:flex justify-end gap-4 mt-8 pr-8">
-				<Button
-					variant="outline"
-					size="icon"
-					className="rounded-full border-gray-800 bg-black/50 hover:bg-white/10 text-white h-10 w-10 z-10 nav-button"
-					onClick={() => swiper?.slidePrev()}
-				>
-					<ChevronLeft className="h-5 w-5" />
-				</Button>
-				<Button
-					variant="outline"
-					size="icon"
-					className="rounded-full border-gray-800 bg-black/50 hover:bg-white/10 text-white h-10 w-10 z-10 nav-button"
-					onClick={() => swiper?.slideNext()}
-				>
-					<ChevronRight className="h-5 w-5" />
-				</Button>
+				<div className="hidden md:flex justify-end gap-4 mt-8 pr-8">
+					<Button
+						variant="outline"
+						size="icon"
+						className="rounded-full border-gray-800 bg-black/50 hover:bg-white/10 text-white h-10 w-10 z-10 nav-button"
+						onClick={() => swiper?.slidePrev()}
+					>
+						<ChevronLeft className="h-5 w-5" />
+					</Button>
+					<Button
+						variant="outline"
+						size="icon"
+						className="rounded-full border-gray-800 bg-black/50 hover:bg-white/10 text-white h-10 w-10 z-10 nav-button"
+						onClick={() => swiper?.slideNext()}
+					>
+						<ChevronRight className="h-5 w-5" />
+					</Button>
+				</div>
 			</div>
 		</>
 	);

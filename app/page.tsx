@@ -69,7 +69,7 @@ export default function HomePage() {
 			</section>
 
 			{/* Services Section */}
-			<section className="section-spacing bg-rich-black-gradient-continuous section-fade-connector section-connector-overlay overflow-x-hidden min-h-[500px]">
+			<section className="section-spacing bg-rich-black-gradient-continuous overflow-x-hidden min-h-[500px]">
 				<div className="w-[90%] md:w-[66%] mx-auto mb-3">
 					<h2 className="text-3xl md:text-4xl font-semibold text-start mb-4 pt-4">
 						Services.
@@ -86,8 +86,9 @@ export default function HomePage() {
 			</section>
 
 			{/* Why Choose Us Section */}
-			<section className="section-spacing bg-rich-black-gradient-continuous section-fade-connector section-connector-overlay">
-				<div className="container-custom">
+			<section className="section-spacing bg-rich-black-gradient-continuous">
+				<div className="container mx-auto mt-8 mb-4 sm:mb-6 md:mb-12">
+					{/* Title and Description */}
 					<div className="mb-6 sm:mb-8 md:mb-12">
 						<h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-3 sm:mb-4">
 							ทำไมต้องเลือก BYD Metromobile
@@ -141,36 +142,32 @@ export default function HomePage() {
 			</section>
 
 			{/* Contact Section */}
-			<section className="section-spacing bg-background relative overflow-hidden">
-				<div className="absolute inset-0 bg-gradient-to-r from-black via-black/90 to-black"></div>
+			<section className="relative overflow-hidden">
+				<div className="max-w-3xl mx-auto text-center">
+					<h2 className="text-3xl md:text-4xl font-bold mb-6">
+						ติดต่อ BYD Metromobile
+					</h2>
+					<p className="text-xl text-gray-300 mb-8">
+						พร้อมให้คำปรึกษาและบริการที่ดีที่สุดสำหรับคุณ
+						ไม่ว่าจะเป็นการทดลองขับ หรือข้อมูลเพิ่มเติมเกี่ยวกับรถยนต์ของเรา
+					</p>
 
-				<div className="container-custom relative z-10">
-					<div className="max-w-3xl mx-auto text-center">
-						<h2 className="text-3xl md:text-4xl font-bold mb-6">
-							ติดต่อ BYD Metromobile
-						</h2>
-						<p className="text-xl text-gray-300 mb-8">
-							พร้อมให้คำปรึกษาและบริการที่ดีที่สุดสำหรับคุณ
-							ไม่ว่าจะเป็นการทดลองขับ หรือข้อมูลเพิ่มเติมเกี่ยวกับรถยนต์ของเรา
-						</p>
+					<div className="flex flex-col sm:flex-row gap-4 justify-center">
+						<Button
+							size="lg"
+							className="bg-white hover:bg-white/90 text-black group"
+						>
+							<Phone className="mr-2 h-5 w-5" />
+							ติดต่อเรา
+						</Button>
 
-						<div className="flex flex-col sm:flex-row gap-4 justify-center">
-							<Button
-								size="lg"
-								className="bg-white hover:bg-white/90 text-black group"
-							>
-								<Phone className="mr-2 h-5 w-5" />
-								ติดต่อเรา
-							</Button>
-
-							<Button
-								size="lg"
-								variant="outline"
-								className="border-gray-700 text-white hover:bg-gray-800"
-							>
-								นัดหมายทดลองขับ
-							</Button>
-						</div>
+						<Button
+							size="lg"
+							variant="outline"
+							className="border-gray-700 text-white hover:bg-gray-800"
+						>
+							นัดหมายทดลองขับ
+						</Button>
 					</div>
 				</div>
 			</section>

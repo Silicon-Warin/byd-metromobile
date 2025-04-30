@@ -218,7 +218,7 @@ export function Footer() {
 			</div>
 
 			{/* Quick links - Desktop only */}
-			<div className="hidden md:grid grid-cols-4 gap-6 mb-12">
+			<div className="hidden md:grid grid-cols-4 gap-0 mb-12 container mx-auto mt-8 max-w-7xl px-4">
 				<div>
 					<h5 className="font-medium text-white mb-3">รถยนต์</h5>
 					<ul className="space-y-2">
