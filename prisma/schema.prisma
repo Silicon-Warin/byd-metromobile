@@ -15,36 +15,42 @@ datasource db {
 }
 
 model CarModel {
-  id                        Int             @id @default(autoincrement())
-  model                     String
-  slug                      String?         @unique
-  tagline                   String?
-  description               String
-  basePrice                 Float
-  imageUrlPromo             String
-  imageUrlModel             String
-  imageUrlHero              String?
-  imageUrlReal              String?
-  imageUrlDataLeft          String?
-  imageUrlDataRight         String?
-  imageWidth                Int
-  imageHeight               Int
-  featuresTitle             String
+  // Required fields ที่ทุกรุ่นต้องมี
+  id            Int    @id @default(autoincrement())
+  model         String // ชื่อรุ่น เช่น BYD SEAL
+  description   String // รายละเอียดรถ
+  basePrice     Int // ราคาเริ่มต้น
+  imageUrlPromo String // รูปสำหรับโปรโมท
+  imageUrlModel String // รูปหลักของรถ
+  imageWidth    Int // ความกว้างรูป
+  imageHeight   Int // ความสูงรูป
+  featuresTitle String // หัวข้อฟีเจอร์เด่น
+
+  // Optional fields
+  slug                      String?  @unique
+  tagline                   String? // คำโปรย
+  imageUrlHero              String? // รูป hero 
+  imageUrlReal              String? // รูปจริง
+  imageUrlDataLeft          String? // รูปข้อมูลซ้าย
+  imageUrlDataRight         String? // รูปข้อมูลขวา
   specialFeature            String?
   specialFeatureDescription String?
   specialFeatureImage       String?
-  specsOverview             Json?
-  promotion                 String[]
-  gallery                   String[]
-  // Relationships
-  colors                    CarColor[]
-  variants                  CarVariant[]
-  features                  CarFeature[]
-  techHighlights            HighlightSpec[]
-  createdAt                 DateTime        @default(now())
-  updatedAt                 DateTime        @updatedAt
-  TechSpec                  TechSpec?       @relation(fields: [techSpecId], references: [id])
-  techSpecId                Int?
+  specsOverview             Json? // สเปคโดยรวม
+  promotion                 String[] // รายการโปรโมชั่น
+  gallery                   String[] // แกลเลอรี่
+
+  // Relations
+  colors         CarColor[]
+  variants       CarVariant[]
+  features       CarFeature[]
+  techHighlights HighlightSpec[]
+
+  // Timestamps
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  TechSpec   TechSpec? @relation(fields: [techSpecId], references: [id])
+  techSpecId Int?
 }
 
 model CarColor {
@@ -76,7 +82,7 @@ model CarVariant {
   id                    Int                    @id @unique @default(autoincrement())
   variantId             String
   name                  String
-  price                 Float
+  price                 Int
   range                 String
   power                 String?
   acceleration          String?
@@ -142,6 +148,9 @@ model DimensionsWeight {
 model PowertrainSystem {
   id                String     @id @default(uuid())
   driveType         String // "RWD: Rear Wheel Drive", "Four-Wheel Drive", etc.
+  engineType        String? // "1.5L Turbo", "2.0L NA", etc.
+  enginePower       Int? // in kW
+  engineTorque      Int? // in Nm
   frontMotorType    String? // "Asynchronous Motor", etc.
   frontMotorPower   Int? // in kW
   frontMotorTorque  Int? // in Nm
@@ -250,6 +259,12 @@ model SafetyFeatures {
   drivingAssistanceSystem  Boolean // DAW - Driver attention warning
   headsUpDisplay           Boolean // W-HUD - Windshield heads-up display
   intelligentTorqueControl Boolean // ITAC system
+  rearCollisionWarning     Boolean? // RCW - Rear Collision Warning
+  rearCrossTrafficBrake    Boolean? // RCTB - Rear Cross Traffic Brake
+  intelligentCruiseControl Boolean? // ICC - Intelligent Cruise Control
+  brakeDiscWiping          Boolean? // BDW - Brake Disc Wiping
+  curveSpeedControl        Boolean? // CSC - Curve Speed Control
+  rolloverMitigation       Boolean? // CRM - Rollover Mitigation
   variantId                Int        @unique
   variant                  CarVariant @relation(fields: [variantId], references: [id], onDelete: Cascade)
   createdAt                DateTime   @default(now())
@@ -270,6 +285,9 @@ model ExteriorFeatures {
   antiPinchWindowsWithOneTouchSystem Boolean // กระจกเปิดปิดอัตโนมัติแบบสัมผัสวิดจิทัลพร้อมระบบป้องกันการหนีบ
   frontRearParkingSensors            Boolean // กระจกด้านหน้าเก็บเสียงแบบสองชั้น
   heatedSideView                     Boolean // กระจกด้านหลังแบบมีระบบทำความร้อนไล่ฝ้า
+  roofRails                          Boolean? // ราวหลังคา
+  remoteWindowOperation              Boolean? // ระบบควบคุมการเปิด-ปิดกระจกหน้าต่างระยะไกลีย
+  autoDimmingSideMirrors             Boolean? // กระจกมองข้างปรับลดแสงสะท้อนอัตโนมัติ
   variantId                          Int        @unique
   variant                            CarVariant @relation(fields: [variantId], references: [id], onDelete: Cascade)
   createdAt                          DateTime   @default(now())
@@ -299,6 +317,9 @@ model InteriorFeatures {
   framelessRearviewMirror        Boolean // โบนัสน้ำฝนระบบอัตโนมัติแบบไร้โครงเหล็ก (Frameless)
   antiBurglaryDoorPillar         Boolean // แผ่นเหล็กป้องกันรอยขีดข่วนรถกันประตู
   frontIlluminatedVanityMirror   Boolean // ที่บังแดดด้านหน้าพร้อมกระจกและไฟส่องสว่าง
+  rearArmrest                    Boolean? // ที่เท้าแขนด้านหลัง
+  foldableSecondRowSeats         Boolean? // เบาะแถว 2 พับได้ 60:40
+  foldableThirdRowSeats          Boolean? // เบาะแถว 3 พับราบได้
   variantId                      Int        @unique
   variant                        CarVariant @relation(fields: [variantId], references: [id], onDelete: Cascade)
   createdAt                      DateTime   @default(now())
@@ -319,6 +340,7 @@ model EntertainmentFeatures {
   frontUsbTypeAC            Boolean // USB 2 พอร์ต สำหรับผู้โดยสารคอนหน้า (typeA& typeC)
   rearUsbTypeAC             Boolean // USB 2 พอร์ต สำหรับผู้โดยสารคอนหลัง (typeA& typeC)
   otaUpdateSupport          Boolean // รองรับการอัพเดทซอฟต์แวร์ผ่านสัญญาณอินเทอร์เน็ต (OTA)
+  speakerCount              Int? // จำนวนชุดเสียง
   variantId                 Int        @unique
   variant                   CarVariant @relation(fields: [variantId], references: [id], onDelete: Cascade)
   createdAt                 DateTime   @default(now())
@@ -359,6 +381,10 @@ model ComfortFeatures {
   rearAirVents           Boolean // ช่องระบายอากาศตรงกลางด้านหลัง
   firstAidKit            Boolean // ชุดประจุฉุกเฉิน
   emergencyKit           Boolean // ชุดอุปกรณ์ฉุกเฉิน
+  bydDigitalKey          Boolean? // ระบบกุญแจ BYD Digital Key
+  rearArmrest            Boolean? // ที่วางแขนเบาะหลัง (เฉพาะบางรุ่น)
+  foldableSecondRowSeats Boolean? // เบาะแถว 2 พับได้
+  foldableThirdRowSeats  Boolean? // เบาะแถว 3 พับได้
   variantId              Int        @unique
   variant                CarVariant @relation(fields: [variantId], references: [id], onDelete: Cascade)
   createdAt              DateTime   @default(now())
