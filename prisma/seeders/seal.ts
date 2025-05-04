@@ -3,10 +3,10 @@ import { PrismaClient } from '@prisma/client';
 export async function seedSeal(prisma: PrismaClient) {
   console.log('Seeding BYD SEAL...');
 
-  // ========== BYD SEAL SEEDING ========== 
+  // 1. สร้าง CarModel สำหรับ BYD SEAL
   const carModel = await prisma.carModel.upsert({
     where: { slug: "byd-seal" },
-    update: {},
+    update: {}, // ไม่มีการอัปเดตถ้ามีอยู่แล้ว
     create: {
       model: "BYD SEAL",
       slug: "byd-seal",
@@ -133,103 +133,57 @@ export async function seedSeal(prisma: PrismaClient) {
       },
     },
   });
-  console.log('Seeded Car Model:', carModel);
+  console.log('Created BYD SEAL model');
 
-  // ค้นหา variant id เพื่อใช้ในการเพิ่มข้อมูลเทคนิค
+  // 2. ค้นหา variant ทั้งหมดของ SEAL เพื่อนำ id ไปใช้สร้าง relation อื่นๆ
   const sealVariants = await prisma.carVariant.findMany({
     where: {
       carModel: { slug: "byd-seal" }
     }
   });
+  
+  console.log(`Found ${sealVariants.length} SEAL variants`);
 
-  // เพิ่มข้อมูล DimensionsWeight ของแต่ละรุ่น
+  // 3. สร้าง relation ต่างๆ สำหรับแต่ละ variant ของ SEAL
   for (const variant of sealVariants) {
-    if (variant.name === "Dynamic") {
-      await prisma.dimensionsWeight.upsert({
-        where: { variantId: variant.id },
-        create: {
-          length: 4800,
-          width: 1875,
-          height: 1460,
-          wheelbase: 2920,
-          unladenWeight: 1922,
-          grossWeight: 2344,
-          groundClearance: 120,
-          frontTrack: null, // ถ้าไม่มีข้อมูลให้เป็น null
-          rearTrack: null,
-          variantId: variant.id
-        },
-        update: {}
-      });
-    } else if (variant.name === "Premium") {
-      await prisma.dimensionsWeight.upsert({
-        where: { variantId: variant.id },
-        create: {
-          length: 4800,
-          width: 1875,
-          height: 1460,
-          wheelbase: 2920,
-          unladenWeight: 2055,
-          grossWeight: 2501,
-          groundClearance: 120,
-          frontTrack: null,
-          rearTrack: null,
-          variantId: variant.id
-        },
-        update: {}
-      });
-    } else if (variant.name === "AWD Performance") {
-      await prisma.dimensionsWeight.upsert({
-        where: { variantId: variant.id },
-        create: {
-          length: 4800,
-          width: 1875,
-          height: 1460,
-          wheelbase: 2920,
-          unladenWeight: 2185,
-          grossWeight: 2631,
-          groundClearance: 120,
-          frontTrack: null,
-          rearTrack: null,
-          variantId: variant.id
-        },
-        update: {}
-      });
-    }
+    console.log(`Creating specifications for ${variant.name} (ID: ${variant.id})`);
+    
+    const isDynamic = variant.name === "Dynamic";
+    const isPremium = variant.name === "Premium";
+    const isPerformance = variant.name === "AWD Performance";
 
-    // เพิ่ม PowertrainSystem
-    if (variant.name === "Dynamic") {
-      await prisma.powertrainSystem.upsert({
-        where: { variantId: variant.id },
-        create: {
+    // 3.1 สร้าง DimensionsWeight
+    await prisma.dimensionsWeight.create({
+      data: {
+        length: 4800,
+        width: 1875,
+        height: 1460,
+        wheelbase: 2920,
+        groundClearance: 120,
+        unladenWeight: isDynamic ? 1922 : (isPremium ? 2055 : 2185),
+        grossWeight: isDynamic ? 2344 : (isPremium ? 2501 : 2631),
+        frontTrack: null,
+        rearTrack: null,
+        variantId: variant.id
+      }
+    });
+
+    // 3.2 สร้าง PowertrainSystem
+    if (isDynamic || isPremium) {
+      await prisma.powertrainSystem.create({
+        data: {
           driveType: "RWD",
           rearMotorType: "Permanent Magnet Synchronous Motor",
-          rearMotorPower: 150,
-          rearMotorTorque: 310,
-          totalSystemPower: 150,
-          totalSystemTorque: 310,
+          rearMotorPower: isDynamic ? 150 : 230,
+          rearMotorTorque: isDynamic ? 310 : 360,
+          totalSystemPower: isDynamic ? 150 : 230,
+          totalSystemTorque: isDynamic ? 310 : 360,
           variantId: variant.id
-        },
-        update: {}
+        }
       });
-    } else if (variant.name === "Premium") {
-      await prisma.powertrainSystem.upsert({
-        where: { variantId: variant.id },
-        create: {
-          driveType: "RWD",
-          rearMotorType: "Permanent Magnet Synchronous Motor",
-          rearMotorPower: 230,
-          rearMotorTorque: 360,
-          totalSystemPower: 230,
-          totalSystemTorque: 360,
-          variantId: variant.id
-        },
-        update: {}
-      });
-    } else if (variant.name === "AWD Performance") {
-      await prisma.powertrainSystem.upsert({
-        where: { variantId: variant.id },
-        create: {
+    } else if (isPerformance) {
+      await prisma.powertrainSystem.create({
+        data: {
           driveType: "AWD",
           frontMotorType: "Asynchronous Motor",
           frontMotorPower: 160,
@@ -240,123 +194,60 @@ export async function seedSeal(prisma: PrismaClient) {
           totalSystemPower: 390,
           totalSystemTorque: 670,
           variantId: variant.id
-        },
-        update: {}
+        }
       });
     }
 
-    // เพิ่ม Performance
-    if (variant.name === "Dynamic") {
-      await prisma.performance.upsert({
-        where: { variantId: variant.id },
-        create: {
-          acceleration0To100: 7.5,
-          range: 510,
-          seatingCapacity: 5,
-          variantId: variant.id
-        },
-        update: {}
-      });
-    } else if (variant.name === "Premium") {
-      await prisma.performance.upsert({
-        where: { variantId: variant.id },
-        create: {
-          acceleration0To100: 5.9,
-          range: 650,
-          seatingCapacity: 5,
-          variantId: variant.id
-        },
-        update: {}
-      });
-    } else if (variant.name === "AWD Performance") {
-      await prisma.performance.upsert({
-        where: { variantId: variant.id },
-        create: {
-          acceleration0To100: 3.8,
-          range: 580,
-          seatingCapacity: 5,
-          variantId: variant.id
-        },
-        update: {}
-      });
-    }
+    // 3.3 สร้าง Performance
+    await prisma.performance.create({
+      data: {
+        acceleration0To100: isDynamic ? 7.5 : (isPremium ? 5.9 : 3.8),
+        range: isDynamic ? 510 : (isPremium ? 650 : 580),
+        seatingCapacity: 5,
+        variantId: variant.id
+      }
+    });
 
-    // เพิ่ม Battery
-    if (variant.name === "Dynamic") {
-      await prisma.battery.upsert({
-        where: { variantId: variant.id },
-        create: {
-          type: "BYD Blade Battery",
-          capacity: 61.44,
-          variantId: variant.id
-        },
-        update: {}
-      });
-    } else {
-      await prisma.battery.upsert({
-        where: { variantId: variant.id },
-        create: {
-          type: "BYD Blade Battery",
-          capacity: 82.56,
-          variantId: variant.id
-        },
-        update: {}
-      });
-    }
+    // 3.4 สร้าง Battery
+    await prisma.battery.create({
+      data: {
+        type: "BYD Blade Battery",
+        capacity: isDynamic ? 61.44 : 82.56,
+        variantId: variant.id
+      }
+    });
 
-    // เพิ่ม SuspensionBraking
-    if (variant.name === "Dynamic") {
-      await prisma.suspensionBraking.upsert({
-        where: { variantId: variant.id },
-        create: {
-          frontSuspension: "ระบบกันสะเทือนแบบปีกนกคู่ Double Wishbone",
-          rearSuspension: "ระบบกันสะเทือนด้านหลังแบบมัลติลิงค์",
-          adaptiveSuspension: false,
-          frontBrakeType: "ดิสก์เบรกระบายความร้อน",
-          rearBrakeType: "ดิสก์เบรกระบายความร้อน",
-          regenerativeBraking: true,
-          tireSize: "225/50 R18",
-          variantId: variant.id
-        },
-        update: {}
-      });
-    } else {
-      await prisma.suspensionBraking.upsert({
-        where: { variantId: variant.id },
-        create: {
-          frontSuspension: "ระบบกันสะเทือนแบบปีกนกคู่ Double Wishbone",
-          rearSuspension: "ระบบกันสะเทือนด้านหลังแบบมัลติลิงค์",
-          adaptiveSuspension: true,
-          frontBrakeType: variant.name === "Premium" ? "แบบคาลิปเปอร์" : "แบบคาลิปเปอร์",
-          rearBrakeType: "ดิสก์เบรกระบายความร้อน",
-          regenerativeBraking: true,
-          tireSize: "235/45 R19",
-          variantId: variant.id
-        },
-        update: {}
-      });
-    }
+    // 3.5 สร้าง SuspensionBraking
+    await prisma.suspensionBraking.create({
+      data: {
+        frontSuspension: "ระบบกันสะเทือนแบบปีกนกคู่ Double Wishbone",
+        rearSuspension: "ระบบกันสะเทือนด้านหลังแบบมัลติลิงค์",
+        adaptiveSuspension: !isDynamic,
+        frontBrakeType: isDynamic ? "ดิสก์เบรกระบายความร้อน" : "แบบคาลิปเปอร์",
+        rearBrakeType: "ดิสก์เบรกระบายความร้อน",
+        regenerativeBraking: true,
+        tireSize: isDynamic ? "225/50 R18" : "235/45 R19",
+        variantId: variant.id
+      }
+    });
 
-    // ระบบชาร์จ ChargingSystem
-    await prisma.chargingSystem.upsert({
-      where: { variantId: variant.id },
-      create: {
+    // 3.6 สร้าง ChargingSystem
+    await prisma.chargingSystem.create({
+      data: {
         acChargerType: "Type 2",
         acChargerPower: 11,
-        dcChargerType1: variant.name === "Dynamic" ? "CCS 2 (110kW)" : "CCS 2 (150kW)",
-        dcChargerPower1: variant.name === "Dynamic" ? 110 : 150,
+        dcChargerType1: isDynamic ? "CCS 2 (110kW)" : "CCS 2 (150kW)",
+        dcChargerPower1: isDynamic ? 110 : 150,
         v2lSupport: true,
         v2lAdapter: true,
         regenerativeBraking: true,
         variantId: variant.id
-      },
-      update: {}
+      }
     });
 
-    // SafetyFeatures
-    await prisma.safetyFeatures.upsert({
-      where: { variantId: variant.id },
-      create: {
+    // 3.7 สร้าง SafetyFeatures
+    await prisma.safetyFeatures.create({
+      data: {
         frontAirbags: true,
         sideAirbags: true,
         curtainAirbags: true,
@@ -387,124 +278,113 @@ export async function seedSeal(prisma: PrismaClient) {
         doorOpenWarningSystem: true,
         intelligentHeadlights: true,
         drivingAssistanceSystem: true,
-        headsUpDisplay: variant.name === "Dynamic" ? false : true,
-        intelligentTorqueControl: variant.name === "AWD Performance" ? true : false,        
+        headsUpDisplay: !isDynamic,
+        intelligentTorqueControl: isPerformance,
         variantId: variant.id
-      },
-      update: {}
+      }
     });
 
-    // สร้าง Exterior Features
-    await prisma.exteriorFeatures.upsert({
-      where: { variantId: variant.id },
-      update: {},
-      create: {
-        panoramicGlassRoof: true, // หลังคากระจกพาโนรามิคเคลือบซิลเวอร์
-        electricSunroof: true, // มือจับประตูไฟฟ้าแบบซ่อน
-        rearWiperWithIntermittentFunction: true, // กระจกหลังแบบซ่อนระบบปรับสัญญาณวิทยุ
-        electricTailgate: true, // ฝากระโปรงท้ายไฟฟ้า
-        rearWindowHeatedWithTimer: true, // กระจกบองหลังปรับไฟฟ้าแบบมีระบบทำความร้อน ไล่ฝ้า
-        powerFoldingMirrors: true, // กระจกมองข้างพับเก็บแบบไฟฟ้า
-        autoFoldingMirrors: variant.name === "Dynamic" ? false : true, // กระจกมองข้างปรับองศาอัตโนมัติเมื่อถอยหลัง
-        memoryPositionMirrors: variant.name === "Dynamic" ? false : true, // ระบบบันทึกตำแหน่งกระจกมองข้าง
-        antiPinchWindowsWithOneTouchSystem: true, // กระจกเปิดปิดอัตโนมัติแบบสัมผัสวิดจิทัลพร้อมระบบป้องกันการหนีบ
-        frontRearParkingSensors: true, // กระจกด้านหน้าเก็บเสียงแบบสองชั้น
-        heatedSideView: true, // กระจกด้านหลังแบบมีระบบทำความร้อนไล่ฝ้า
+    // 3.8 สร้าง ExteriorFeatures
+    await prisma.exteriorFeatures.create({
+      data: {
+        panoramicGlassRoof: true,
+        electricSunroof: true,
+        rearWiperWithIntermittentFunction: true,
+        electricTailgate: true,
+        rearWindowHeatedWithTimer: true,
+        powerFoldingMirrors: true,
+        autoFoldingMirrors: !isDynamic,
+        memoryPositionMirrors: !isDynamic,
+        antiPinchWindowsWithOneTouchSystem: true,
+        frontRearParkingSensors: true,
+        heatedSideView: true,
         variantId: variant.id
       }
     });
     
-    // สร้าง Interior Features
-    await prisma.interiorFeatures.upsert({
-      where: { variantId: variant.id },
-      update: {},
-      create: {
-        multiColorAmbientLighting: true, // พวงมาลัยแบบมัลติฟังก์ชัน
-        leatherSyntheticSeats: variant.name === "Dynamic" ? true : false, // พวงมาลัยแบบหุ้มหนังสังเคราะห์
-        leatherSeats: variant.name === "Dynamic" ? false : true, // พวงมาลัยแบบหุ้มหนังแท้
-        lcdDisplay10Inch: true, // หน้าจอ LCD เรือนไมล์ ขนาด 10.25 นิ้ว
-        centerConsoleStorage: true, // ช่องเก็บของพื้นที่คอนโซลกลาง
-        syntheticLeatherSteeringWheel: variant.name === "Dynamic" ? true : false, // เบาะนั่งแบบหุ้มหนังสังเคราะห์
-        leatherSteeringWheel: variant.name === "Dynamic" ? false : true, // เบาะนั่งแบบหุ้มหนังแท้
-        eightWayPowerSeats: true, // เบาะคนขับปรับไฟฟ้า 8 ทิศทาง
-        backSeat4WayAdjustment: variant.name === "Dynamic" ? false : true, // ระบบพนักพิงด้านหลังเบาะคนขับปรับไฟฟ้า 4 ทิศทาง
-        frontSeatHeating: true, // เบาะผู้โดยสารคอนหน้าปรับไฟฟ้า 6 ทิศทาง
-        ventilatedSeatsWithACSystem: true, // เบาะนั่งคู่หน้าแบบระบายอากาศพร้อมระบบอุ่นเบาะนั่ง
-        electricMemorySeatDrivers: variant.name === "Dynamic" ? false : true, // ระบบจดจำตำแหน่งที่นั่งเบาะคนขับ
-        steeringWheelHeatedAndMemory: variant.name === "Dynamic" ? false : true, // เบาะนั่งคนขับเลื่อนอัตโนมัติพร้อมสตาร์ทและดับรถยนต์
-        twoWaySunshades: true, // แผงบังอัตพร้อมกระจกแก้ว 2 ใบ
-        adjustableRearHeadRests: true, // หัวแก้วด้านหน้าแบบปรับระดับได้
-        rearHeadRests2Way: true, // ที่พักแขนด้านหลัง (พร้อมที่วางแก้ว 2 ใบ)
-        automaticDimmingRearviewMirror: true, // กระจกมองหลังแบบตัดแสงอัตโนมัติ
-        framelessRearviewMirror: true, // โบนัสน้ำฝนระบบอัตโนมัติแบบไร้โครงเหล็ก (Frameless)
-        antiBurglaryDoorPillar: true, // แผ่นเหล็กป้องกันรอยขีดข่วนรถกันประตู
-        frontIlluminatedVanityMirror: true, // ที่บังแดดด้านหน้าพร้อมกระจกและไฟส่องสว่าง
+    // 3.9 สร้าง InteriorFeatures
+    await prisma.interiorFeatures.create({
+      data: {
+        multiColorAmbientLighting: true,
+        leatherSyntheticSeats: isDynamic,
+        leatherSeats: !isDynamic,
+        lcdDisplay10Inch: true,
+        centerConsoleStorage: true,
+        syntheticLeatherSteeringWheel: isDynamic,
+        leatherSteeringWheel: !isDynamic,
+        eightWayPowerSeats: true,
+        backSeat4WayAdjustment: !isDynamic,
+        frontSeatHeating: true,
+        ventilatedSeatsWithACSystem: true,
+        electricMemorySeatDrivers: !isDynamic,
+        steeringWheelHeatedAndMemory: !isDynamic,
+        twoWaySunshades: true,
+        adjustableRearHeadRests: true,
+        rearHeadRests2Way: true,
+        automaticDimmingRearviewMirror: true,
+        framelessRearviewMirror: true,
+        antiBurglaryDoorPillar: true,
+        frontIlluminatedVanityMirror: true,
         variantId: variant.id
       }
     });
     
-    // สร้าง Entertainment Features
-    await prisma.entertainmentFeatures.upsert({
-      where: { variantId: variant.id },
-      update: {},
-      create: {
-        fmRadio: true, // วิทยุ FM
-        appleCarPlayAndroid: true, // รองรับ Apple CarPlay® (เชื่อมต่อผ่าน USB) และ Android Auto™ (แบบไร้สาย)
-        bluetoothConnectivity: true, // รองรับการเชื่อมต่อโทรศัพท์มือถือผ่านบลูทูธ
-        touchscreen15Inch: true, // หน้าจอสัมผัสระบบมัลติมีเดียพร้อมระบบหมุนไฟฟ้าขนาด 15.6 นิ้ว
-        dynAudio12Speakers: true, // เครื่องเสียง DYNAUDIO ลำโพง 12 ชุด
-        thaiVoiceControl: true, // ระบบสั่งการด้วยเสียง-ภาษาไทย
-        ambientTemperatureDisplay: true, // ระบบนำทางด้วยดาวเทียม
-        digitalRadio: true, // มีดิจิตอลเรดิโอ
-        frontUsbTypeAC: true, // USB 2 พอร์ต สำหรับผู้โดยสารคอนหน้า (typeA& typeC)
-        rearUsbTypeAC: true, // USB 2 พอร์ต สำหรับผู้โดยสารคอนหลัง (typeA& typeC)
-        otaUpdateSupport: true, // รองรับการอัพเดทซอฟต์แวร์ผ่านสัญญาณอินเทอร์เน็ต (OTA)
+    // 3.10 สร้าง EntertainmentFeatures
+    await prisma.entertainmentFeatures.create({
+      data: {
+        fmRadio: true,
+        appleCarPlayAndroid: true,
+        bluetoothConnectivity: true,
+        touchscreen15Inch: true,
+        dynAudio12Speakers: true,
+        thaiVoiceControl: true,
+        ambientTemperatureDisplay: true,
+        digitalRadio: true,
+        frontUsbTypeAC: true,
+        rearUsbTypeAC: true,
+        otaUpdateSupport: true,
         variantId: variant.id
       }
     });
     
-    // สร้าง Lighting Features
-    await prisma.lightingFeatures.upsert({
-      where: { variantId: variant.id },
-      update: {},
-      create: {
-        ledHeadlights: true, // ไฟหน้าแบบ LED
-        followMeHomeFunction: true, // ฟังก์ชันหน่วงเวลาการปิดไฟหน้า Follow Me Home
-        ledDaytimeRunningLights: true, // ไฟส่องสว่างกลางวันแบบ LED
-        ledTaillights: true, // ไฟท้ายแบบ LED
-        rearFogLights: true, // ไฟตัดหมอกด้านหลัง
-        sequentialRearTurnSignals: true, // ระบบไฟเลี้ยวด้านหลังแบบ Sequential
-        thirdBrakeLights: true, // ไฟเบรกบน ดวงที่ 3 แบบ LED
-        rgbDynamicMoodLights: variant.name === "Dynamic" ? false : true,
+    // 3.11 สร้าง LightingFeatures
+    await prisma.lightingFeatures.create({
+      data: {
+        ledHeadlights: true,
+        followMeHomeFunction: true,
+        ledDaytimeRunningLights: true,
+        ledTaillights: true,
+        rearFogLights: true,
+        sequentialRearTurnSignals: true,
+        thirdBrakeLights: true,
+        rgbDynamicMoodLights: !isDynamic,
         frontReadingLights: true,
-        rearReadingLights: variant.name === "Dynamic" ? false : true,
+        rearReadingLights: !isDynamic,
         doorSillScuffPlates: true,
         variantId: variant.id
       }
     });
     
-    // สร้าง Comfort Features
-    await prisma.comfortFeatures.upsert({
-      where: { variantId: variant.id },
-      update: {},
-      create: {
-        keylessEntry: true, // ระบบการเข้ารถ และ สตาร์ทแบบ Keyless
-        nfcCardKey: true, // ระบบกุญแจแบบบัตรอิเล็กทรอนิกส์ NFC (NFC Card)
-        wirelessPhoneChargers: true, // ที่ชาร์จโทรศัพท์มือถือแบบไร้สาย 2 จุด
-        twelveVoltOutlet: true, // ช่องจ่ายไฟ 12V
-        pm25AirFilter: true, // ระบบกรองฝุ่น PM2.5
-        cn95AirFilter: true, // กรองอากาศ PM2.5 แบบประสิทธิภาพสูง (CN95)
-        airIonizer: true, // ระบบกรองอากาศแบบ Ionizer
-        dualZoneClimateControl: true, // ระบบปรับอากาศแบบ 2 โซน พร้อมระบบทำความร้อน
-        rearAirVents: true, // ช่องระบายอากาศตรงกลางด้านหลัง
-        firstAidKit: true, // ชุดประจุฉุกเฉิน
-        emergencyKit: true, // ชุดอุปกรณ์ฉุกเฉิน
+    // 3.12 สร้าง ComfortFeatures
+    await prisma.comfortFeatures.create({
+      data: {
+        keylessEntry: true,
+        nfcCardKey: true,
+        wirelessPhoneChargers: true,
+        twelveVoltOutlet: true,
+        pm25AirFilter: true,
+        cn95AirFilter: true,
+        airIonizer: true,
+        dualZoneClimateControl: true,
+        rearAirVents: true,
+        firstAidKit: true,
+        emergencyKit: true,
         variantId: variant.id
       }
     });
+    
+    console.log(`Seeding completed successfully for ${variant.name}`);
   }
-  
-  console.log('All features have been added to SEAL variants!');
 
   console.log('Completed seeding BYD SEAL.');
 } 

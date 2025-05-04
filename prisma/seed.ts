@@ -3,6 +3,7 @@ import { seedSeal } from './seeders/seal';
 import { seedSealion7 } from './seeders/sealion7';
 import { seedDolphin } from './seeders/dolphin';
 import { seedM6 } from './seeders/m6';
+import { seedSealion6dmi } from './seeders/sealion6dmi';
 
 const prisma = new PrismaClient();
 
@@ -12,6 +13,7 @@ async function main() {
   await seedSealion7(prisma);
   await seedDolphin(prisma); 
   await seedM6(prisma);
+  await seedSealion6dmi(prisma);
 }
 
 main()
