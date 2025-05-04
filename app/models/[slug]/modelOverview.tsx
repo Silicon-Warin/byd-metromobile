@@ -3,7 +3,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import type { CarModel } from "@/data/carModel";
+import type { Prisma } from "@prisma/client";
 import {
 	MapPin,
 	Gauge,
@@ -12,11 +12,21 @@ import {
 	BatteryChargingIcon,
 	Zap,
 } from "lucide-react";
-import { CarVariant } from "@/data/carModel";
+import type { CarModelWithRelations } from "./modelPageContent";
+
+type VariantWithDetails = Prisma.CarVariantGetPayload<{
+	include: {
+		DimensionsWeight: true;
+		PowertrainSystem: true;
+		Performance: true;
+		Battery: true;
+		ChargingSystem: true;
+	};
+}>;
 
 interface ModelOverviewProps {
-	carModel: CarModel;
-	selectedVariant: CarVariant | null;
+	carModel: CarModelWithRelations;
+	selectedVariant: VariantWithDetails | null;
 	id?: string;
 }
 
@@ -26,12 +36,17 @@ export default function ModelOverview({
 	id,
 }: ModelOverviewProps) {
 	const specs = {
-		range: carModel.specs?.range || "",
-		acceleration: carModel.specs?.acceleration || "",
-		motor: carModel.specs?.motor || "",
-		battery: carModel.specs?.battery || "",
-		charging: carModel.specs?.charging || "",
-		annotate: carModel.specs?.annotate || "",
+		range: selectedVariant?.Performance?.range?.toString() || "N/A",
+		acceleration:
+			selectedVariant?.Performance?.acceleration0To100?.toString() || "N/A",
+		motor:
+			selectedVariant?.PowertrainSystem?.totalSystemPower?.toString() || "N/A",
+		battery: selectedVariant?.Battery?.capacity?.toString() || "N/A",
+		chargingAC:
+			selectedVariant?.ChargingSystem?.acChargerPower?.toString() || "N/A",
+		chargingDC:
+			selectedVariant?.ChargingSystem?.dcChargerPower1?.toString() || "N/A",
+		annotate: carModel.description || "",
 	};
 
 	return (
@@ -63,7 +78,7 @@ export default function ModelOverview({
 									</span>
 								</div>
 								<div className="text-3xl font-bold text-white">
-									{specs.range.split(" ")[0]} km
+									{specs.range} km
 								</div>
 							</div>
 
@@ -74,7 +89,7 @@ export default function ModelOverview({
 									<span className="text-sm text-gray-400">0-100 km/h</span>
 								</div>
 								<div className="text-3xl font-bold text-white">
-									{specs.acceleration.split(" ")[0]} s
+									{specs.acceleration} s
 								</div>
 							</div>
 
@@ -85,7 +100,7 @@ export default function ModelOverview({
 									<span className="text-sm text-gray-400">Motor</span>
 								</div>
 								<div className="text-3xl font-bold text-white">
-									{specs.motor.split(" ")[0]} kW
+									{specs.motor} kW
 								</div>
 							</div>
 
@@ -96,7 +111,7 @@ export default function ModelOverview({
 									<span className="text-sm text-gray-400">Charging</span>
 								</div>
 								<div className="text-3xl font-bold text-white">
-									{specs.battery.split(" ")[0]} kWh
+									{specs.battery} kWh
 								</div>
 							</div>
 						</div>
@@ -108,13 +123,13 @@ export default function ModelOverview({
 								<span className="text-sm text-gray-400">EV charger</span>
 							</div>
 							<div className="text-3xl font-bold text-white">
-								AC type 2 / DC CCS 2 (150kW)
+								{`AC ${specs.chargingAC}kW / DC ${specs.chargingDC}kW`}
 							</div>
 						</div>
 
 						{/* AWD Performance range */}
 						<div className="mt-8 border-t border-blue-900 pt-4 text-center text-sm text-gray-400">
-							{carModel.specs?.annotate}
+							{specs.annotate}
 						</div>
 
 						{/* Technical information button */}
@@ -131,7 +146,7 @@ export default function ModelOverview({
 					{carModel.variants && carModel.variants.length > 1 && (
 						<div className="mt-16 pt-8 border-t border-blue-900">
 							<div className="grid grid-cols-3 gap-0">
-								{carModel.variants.map((variant, i) => (
+								{carModel.variants.map((variant: VariantWithDetails, i) => (
 									<div
 										key={variant.id}
 										className={`text-center ${
@@ -141,13 +156,15 @@ export default function ModelOverview({
 										}`}
 									>
 										<div className="text-xl font-bold text-white mb-1">
-											{carModel.name}
+											{carModel.model}
 										</div>
 										<div className="text-gray-400 mb-6">{variant.name}</div>
 
 										<div className="mb-4">
 											<div className="text-3xl font-bold text-white">
-												{variant.acceleration?.split(" ")[0] || "7.5"} Sec
+												{variant.Performance?.acceleration0To100?.toString() ||
+													"N/A"}{" "}
+												Sec
 											</div>
 											<div className="text-xs text-gray-500 mt-1">
 												0-100 km/h
@@ -159,7 +176,7 @@ export default function ModelOverview({
 
 										<div className="mt-6">
 											<div className="text-3xl font-bold text-white">
-												{variant.range?.split(" ")[0] || "500"} km
+												{variant.Performance?.range?.toString() || "N/A"} km
 											</div>
 										</div>
 									</div>
@@ -169,12 +186,13 @@ export default function ModelOverview({
 					)}
 				</div>
 
-				{/* Mobile version (original layout) */}
+				{/* Mobile version */}
 				<div className="md:hidden">
 					{/* ส่วนบนแสดงข้อมูลหลัก */}
 					<div className="grid grid-cols-1 gap-y-8 mb-8 md:mb-16">
 						{/* คอลัมน์ซ้าย */}
 						<div className="flex flex-col gap-8 p-8">
+							{/* Range */}
 							<div>
 								<motion.div
 									className="flex items-start gap-4"
@@ -190,12 +208,13 @@ export default function ModelOverview({
 											ระยะทางขับขี่
 										</p>
 										<h3 className="text-4xl font-bold text-white">
-											{specs.range.split(" ")[0]} กิโลเมตร
+											{specs.range} กิโลเมตร
 										</h3>
 									</div>
 								</motion.div>
 							</div>
 
+							{/* Acceleration */}
 							<div>
 								<motion.div
 									className="flex items-start gap-4"
@@ -211,12 +230,13 @@ export default function ModelOverview({
 											0-100 กม/ชม
 										</p>
 										<h3 className="text-4xl font-bold text-white">
-											{specs.acceleration}
+											{specs.acceleration} วินาที
 										</h3>
 									</div>
 								</motion.div>
 							</div>
 
+							{/* Motor */}
 							<div>
 								<motion.div
 									className="flex items-start gap-4"
@@ -232,12 +252,13 @@ export default function ModelOverview({
 											มอเตอร์
 										</p>
 										<h3 className="text-4xl font-bold text-white">
-											{specs.motor}
+											{specs.motor} kW
 										</h3>
 									</div>
 								</motion.div>
 							</div>
 
+							{/* Battery */}
 							<div>
 								<motion.div
 									className="flex items-start gap-4"
@@ -253,12 +274,13 @@ export default function ModelOverview({
 											แบตเตอรี่
 										</p>
 										<h3 className="text-4xl font-bold text-white">
-											{specs.battery}
+											{specs.battery} kWh
 										</h3>
 									</div>
 								</motion.div>
 							</div>
 
+							{/* Charging */}
 							<div>
 								<motion.div
 									className="flex items-start gap-4"
@@ -271,10 +293,10 @@ export default function ModelOverview({
 									</div>
 									<div>
 										<p className="text-red-500 text-xs uppercase tracking-wider mb-1">
-											ชาร์จเจอร์
+											การชาร์จ (AC/DC)
 										</p>
 										<h3 className="text-2xl font-bold text-white">
-											{specs.charging}
+											{specs.chargingAC} kW / {specs.chargingDC} kW
 										</h3>
 										<span className="text-xs text-gray-400 text-balance">
 											{specs.annotate}

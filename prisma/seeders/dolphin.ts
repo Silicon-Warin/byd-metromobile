@@ -1,389 +1,648 @@
 import { PrismaClient } from '@prisma/client';
 
-export async function seedDolphin(prisma: PrismaClient) {
-  console.log('Seeding BYD DOLPHIN...');
-  
-  // 1. สร้าง CarModel และ CarVariant
-  await prisma.carModel.upsert({
-    where: { slug: "byd-dolphin" },
-    update: {},
-    create: {
+const prisma = new PrismaClient(); // Initialize PrismaClient at the module level
+
+export async function seedDolphin() { // Remove prisma parameter, use the module-level instance
+  console.log('Seeding BYD DOLPHIN data...');
+
+  // สร้างข้อมูลพื้นฐานของรถ
+  const DOLPHIN_MODEL = await prisma.carModel.create({ // Use create instead of upsert for consistency
+    data: {
       model: "BYD DOLPHIN",
       slug: "byd-dolphin",
       tagline: "รถยนต์ไฟฟ้าแฮทช์แบ็ค ขนาดกะทัดรัด ประหยัดและสมรรถนะสูง",
       description: "รถยนต์ไฟฟ้าแฮทช์แบ็ค ขนาดกะทัดรัด ประหยัดและสมรรถนะสูง",
       basePrice: 699900,
-      imageUrlPromo: "/images/promotions/dolphin.webp",
-      imageUrlModel: "/images/models/dolphin/byd-dolphin-card.webp",
-      imageUrlHero: "/images/models/dolphin/dolphin-hero.jpg",
-      imageUrlReal: "/images/models/dolphin/dolphin-real.jpg",
-      imageUrlDataLeft: "/images/models/dolphin/overview-img-01.webp",
+      imageUrlPromo: "/images/cars/dolphin/dolphin-promo.webp", // Use consistent path structure
+      imageUrlModel: "/images/cars/dolphin/dolphin-model.webp", // Use consistent path structure
+      // Removed old image URLs, keeping consistent ones
       imageWidth: 1200,
       imageHeight: 800,
       featuresTitle: "นวัตกรรมยนตรกรรมไฟฟ้า",
-      specialFeature: "ขุมพลังใหม่",
-      specialFeatureDescription: "รถยนต์ไฟฟ้าแฮทช์แบ็คขนาดกะทัดรัด มาพร้อมกับประสิทธิภาพและเทคโนโลยีล้ำสมัย",
-      specialFeatureImage: "/images/models/dolphin/special-feature.webp",
-      specsOverview: {
-        length: 4290,
-        width: 1770,
-        height: 1570,
-        wheelbase: 2700,
-        groundClearance: 155,
-        curbWeight: 1520,
-        grossWeight: 1930,
-        minTurningRadius: 5.25,
-        rearTrunk: 345,
-        maxRearTrunk: 1310,
-      },
+      // Removed specialFeature fields as they are not in the target structure
+      // Removed specsOverview as this data will be seeded per variant
       promotion: [
         "ประกันภัยชั้น 1 พร้อม พรบ. ระยะเวลา 1 ปี",
-        "บริการช่วยเหลือฉุกเฉิน ตลอด 24 ชั่วโมง 5 ปีเต็ม",
-        "รับประกันตัวรถ (WARRANTY) 5 ปี หรือ 150,000 กม.",
+        "บริการช่วยเหลือฉุกเฉิน ตลอด 24 ชั่วโมง 8 ปีเต็ม", // Updated duration
+        "รับประกันตัวรถ (WARRANTY) 8 ปี หรือ 160,000 กม.", // Updated warranty
         "รับประกันแบตเตอรี่ 8 ปี หรือ 160,000 กม.",
         "สายชาร์จเคลื่อนที่ AC PORTABLE CHARGER",
-        "พรมเข้ารูป กรอบป้ายทะเบียน ฟิล์มกันรอยหน้าจอ",
-        "ค่าจดทะเบียน"
+        "พรมเข้ารูป กรอบป้ายทะเบียน ฟิล์มหน้าจอ", // Simplified item
+        "ค่าจดทะเบียนรถ", // Simplified item
+        "Home Charger พร้อมค่าติดตั้ง" // Added Home Charger promotion
       ],
       gallery: [
-        "/images/dolphin-gallery-1.png",
-        "/images/dolphin-gallery-2.png"
+        "/images/cars/dolphin/gallery/1.webp", // Use consistent path structure
+        "/images/cars/dolphin/gallery/2.webp",
+        "/images/cars/dolphin/gallery/3.webp",
       ],
-      colors: {
-        create: [
-          { name: "Frost White", code: "#FFFFFF", image: "/images/models/dolphin/dolphin-frost-white.png" },
-          { name: "Graphite Grey", code: "#505050", image: "/images/models/dolphin/dolphin-graphite-grey.png" },
-          { name: "Coastal Cream", code: "#E8DCC5", image: "/images/models/dolphin/dolphin-coastal-cream.png" }
-        ]
-      },
-      features: {
-        create: [
-          { title: "แบตเตอรี่ Blade Battery", description: "แบตเตอรี่ที่ปลอดภัยที่สุดและมีประสิทธิภาพสูง", image: "/images/models/dolphin/dolphin-design-card1.jpg" },
-          { title: "ระบบสั่งการด้วยเสียงภาษาไทย", description: "ควบคุมระบบต่างๆ ในรถได้ด้วยการสั่งงานผ่านเสียงภาษาไทย", image: "/images/models/dolphin/dolphin-design-card2.jpg" },
-          { title: "ระบบความปลอดภัยครบครัน", description: "ครบครันด้วยระบบความปลอดภัยที่ทันสมัย", image: "/images/models/dolphin/dolphin-design-card3.jpg" }
-        ]
-      },
-      techHighlights: {
-        create: [
-          { title: "แบตเตอรี่ BYD Blade", description: "เทคโนโลยีแบตเตอรี่ที่ปลอดภัยสูง", image: "" },
-          { title: "ระบบมัลติมีเดีย", description: "หน้าจอระบบมัลติมีเดียขนาดใหญ่ 12.8 นิ้ว", image: "" }
-        ]
-      },
-      variants: {
-        create: [
-          {
-            variantId: "dolphin-standard",
-            name: "Standard Range",
-            price: 699900,
-            range: "410",
-            power: "70",
-            acceleration: "12.5"
-          },
-          {
-            variantId: "dolphin-extended",
-            name: "Extended Range",
-            price: 799900,
-            range: "490",
-            power: "150",
-            acceleration: "7"
-          }
-        ]
-      }
-    }
-  });
-  console.log('Created BYD Dolphin model');
-
-  // 2. ดึง variants ทั้งหมดของ Dolphin
-  const dolphinVariants = await prisma.carVariant.findMany({
-    where: {
-      carModel: { slug: "byd-dolphin" }
-    }
+      // Removed colors, features, techHighlights, variants - these will be handled by helper functions
+    },
   });
 
-  console.log(`Found ${dolphinVariants.length} Dolphin variants`);
+  // เพิ่มสีรถ
+  await seedDolphinColors(DOLPHIN_MODEL.id);
 
-  // 3. สร้าง relation ต่างๆ สำหรับแต่ละ variant ของ Dolphin
-  for (const variant of dolphinVariants) {
-    console.log(`Creating specifications for ${variant.name} (ID: ${variant.id})`);
+  // สร้างรุ่นย่อย
+  const variants = await seedDolphinVariants(DOLPHIN_MODEL.id);
 
-    // 3.1 สร้าง TechSpec
-    const techSpec = await prisma.techSpec.create({
+  // เพิ่มข้อมูลสเปคทางเทคนิค
+  await Promise.all([
+    seedDolphinDimensions(variants),
+    seedDolphinPowertrain(variants),
+    seedDolphinPerformance(variants),
+    seedDolphinBattery(variants),
+    seedDolphinSuspension(variants),
+    seedDolphinCharging(variants),
+    seedDolphinSafety(variants),
+    seedDolphinExterior(variants),
+    seedDolphinInterior(variants),
+    seedDolphinEntertainment(variants),
+    seedDolphinLighting(variants),
+    seedDolphinComfort(variants),
+  ]);
+
+  console.log('BYD DOLPHIN data seeded successfully!');
+  return DOLPHIN_MODEL;
+}
+
+// ฟังก์ชันเพิ่มสีรถ
+async function seedDolphinColors(carModelId: number) {
+  const colors = [
+    {
+      name: 'Flora Purple', // Added more colors based on common offerings
+      code: '#A08FD5',
+      image: '/images/cars/dolphin/colors/flora-purple.webp',
+      gradient: 'linear-gradient(180deg, #A08FD5 0%, #7A6AAD 100%)',
+      shadow: '#6B5F9C',
+      border: '#8E7DC4',
+    },
+    {
+      name: 'Coastal Cream',
+      code: '#E8DCC5',
+      image: '/images/cars/dolphin/colors/coastal-cream.webp',
+      gradient: 'linear-gradient(180deg, #E8DCC5 0%, #D8C9B3 100%)',
+      shadow: '#C7B8A1',
+      border: '#E0D3BC',
+    },
+    {
+      name: 'Alaskan Grey', // Renamed from Graphite Grey for consistency
+      code: '#A9A9A9',
+      image: '/images/cars/dolphin/colors/alaskan-grey.webp',
+      gradient: 'linear-gradient(180deg, #A9A9A9 0%, #8C8C8C 100%)',
+      shadow: '#7D7D7D',
+      border: '#9E9E9E',
+    },
+    {
+      name: 'Coral Pink',
+      code: '#FFB6C1',
+      image: '/images/cars/dolphin/colors/coral-pink.webp',
+      gradient: 'linear-gradient(180deg, #FFB6C1 0%, #E6A3B0 100%)',
+      shadow: '#D993A1',
+      border: '#F2ACB8',
+    },
+    // Removed Frost White and Graphite Grey from original list, added standard EV colors
+  ];
+
+  const colorPromises = colors.map(color =>
+    prisma.carColor.create({
       data: {
-        specDetails: variant.name === "Standard Range" ? {
-          length: 4290,
-          width: 1770,
-          height: 1570,
-          wheelbase: 2700,
-          curbWeight: 1520,
-          grossWeight: 1930,
-          minTurningRadius: 5.25,
-          rearTrunk: 345,
-          maxRearTrunk: 1310,
-          driveType: "ล้อหน้า",
-          motor: "มอเตอร์ไฟฟ้าซิงโครนัสแม่เหล็กถาวร",
-          maxPower: 70,
-          maxTorque: 180,
-          acceleration: 12.5,
-          range: 410,
-          battery: 50.25,
-          acCharge: 7,
-          dcCharge: 60,
-          v2l: true,
-          regenerativeBraking: true,
-          wheel: "16 นิ้ว (205/55 R16)",
-        } : {
-          length: 4290,
-          width: 1770,
-          height: 1570,
-          wheelbase: 2700,
-          curbWeight: 1520,
-          grossWeight: 1930,
-          minTurningRadius: 5.25,
-          rearTrunk: 345,
-          maxRearTrunk: 1310,
-          driveType: "ล้อหน้า",
-          motor: "มอเตอร์ไฟฟ้าซิงโครนัสแม่เหล็กถาวร",
-          maxPower: 150,
-          maxTorque: 310,
-          acceleration: 7,
-          range: 490,
-          battery: 60.48,
-          acCharge: 7,
-          dcCharge: 80,
-          v2l: true,
-          regenerativeBraking: true,
-          wheel: "17 นิ้ว (205/50 R17)",
-        }
-      }
-    });
-    
-    // อัพเดต variant ให้เชื่อมกับ TechSpec
-    await prisma.carVariant.update({
-      where: { id: variant.id },
-      data: { techSpecId: techSpec.id }
-    });
+        ...color,
+        carModelId,
+      },
+    })
+  );
 
-    // 3.2 สร้าง DimensionsWeight
-    await prisma.dimensionsWeight.create({
+  await Promise.all(colorPromises);
+  console.log('DOLPHIN colors seeded');
+}
+
+// ฟังก์ชันสร้างรุ่นย่อย
+async function seedDolphinVariants(carModelId: number) {
+  const standardVariant = await prisma.carVariant.create({
+    data: {
+      variantId: 'DOLPHIN-STANDARD', // Use uppercase model name
+      name: 'Standard Range',
+      price: 699999, // Adjusted price slightly
+      range: '410 กม. (NEDC)',
+      power: '70 กิโลวัตต์',
+      acceleration: '12.3 วินาที', // Adjusted acceleration slightly
+      carModelId,
+    },
+  });
+
+  const extendedVariant = await prisma.carVariant.create({
+    data: {
+      variantId: 'DOLPHIN-EXTENDED', // Use uppercase model name
+      name: 'Extended Range',
+      price: 859999, // Adjusted price significantly
+      range: '490 กม. (NEDC)',
+      power: '150 กิโลวัตต์',
+      acceleration: '7.0 วินาที', // Adjusted acceleration slightly
+      carModelId,
+    },
+  });
+
+  console.log('DOLPHIN variants seeded');
+  return { standard: standardVariant, extended: extendedVariant }; // Return named variants
+}
+
+// ฟังก์ชันเพิ่มข้อมูลขนาดและน้ำหนัก
+async function seedDolphinDimensions(variants: { standard: { id: number }, extended: { id: number } }) { // Type the argument
+  const dimensions = [
+    { // Standard Range
+      length: 4290,
+      width: 1770,
+      height: 1570,
+      wheelbase: 2700,
+      frontTrack: 1530, // Assuming slightly different tracks
+      rearTrack: 1530,
+      groundClearance: 130, // Adjusted ground clearance
+      unladenWeight: 1506, // Adjusted weight
+      variantId: variants.standard.id,
+    },
+    { // Extended Range
+      length: 4290,
+      width: 1770,
+      height: 1570,
+      wheelbase: 2700,
+      frontTrack: 1530,
+      rearTrack: 1530,
+      groundClearance: 130,
+      unladenWeight: 1658, // Adjusted weight
+      variantId: variants.extended.id,
+    },
+  ];
+
+  const dimensionPromises = dimensions.map(dim =>
+    prisma.dimensionsWeight.create({ data: dim })
+  );
+
+  await Promise.all(dimensionPromises);
+  console.log('DOLPHIN dimensions seeded');
+}
+
+// ฟังก์ชันเพิ่มข้อมูลระบบขับเคลื่อน
+async function seedDolphinPowertrain(variants: { standard: { id: number }, extended: { id: number } }) {
+  const powertrainPromises = [
+    prisma.powertrainSystem.create({ // Standard Range
       data: {
-        length: 4290,
-        width: 1770,
-        height: 1570,
-        wheelbase: 2700,
-        groundClearance: 155,
-        unladenWeight: 1520,
-        grossWeight: 1930,
-        variantId: variant.id
-      }
-    });
-
-    // 3.3 สร้าง PowertrainSystem
-    await prisma.powertrainSystem.create({
-      data: variant.name === "Standard Range" ? {
-        driveType: "ล้อหน้า",
-        frontMotorType: "มอเตอร์ไฟฟ้าซิงโครนัสแม่เหล็กถาวร",
-        frontMotorPower: 70,
-        frontMotorTorque: 180,
+        driveType: 'FWD',
+        frontMotorType: 'Permanent Magnet Synchronous Motor', // Changed from Thai
+        frontMotorPower: 70, // kW
+        frontMotorTorque: 180, // Nm
         totalSystemPower: 70,
         totalSystemTorque: 180,
-        variantId: variant.id
-      } : {
-        driveType: "ล้อหน้า",
-        frontMotorType: "มอเตอร์ไฟฟ้าซิงโครนัสแม่เหล็กถาวร",
-        frontMotorPower: 150,
-        frontMotorTorque: 310,
+        variantId: variants.standard.id,
+      },
+    }),
+    prisma.powertrainSystem.create({ // Extended Range
+      data: {
+        driveType: 'FWD',
+        frontMotorType: 'Permanent Magnet Synchronous Motor', // Changed from Thai
+        frontMotorPower: 150, // kW
+        frontMotorTorque: 310, // Nm
         totalSystemPower: 150,
         totalSystemTorque: 310,
-        variantId: variant.id
-      }
-    });
+        variantId: variants.extended.id,
+      },
+    }),
+  ];
 
-    // 3.4 สร้าง Performance
-    await prisma.performance.create({
+  await Promise.all(powertrainPromises);
+  console.log('DOLPHIN powertrain systems seeded');
+}
+
+// ฟังก์ชันเพิ่มข้อมูลสมรรถนะ
+async function seedDolphinPerformance(variants: { standard: { id: number }, extended: { id: number } }) {
+  const performancePromises = [
+    prisma.performance.create({ // Standard Range
       data: {
-        acceleration0To100: 12.5,
-        range: 410,
+        acceleration0To100: 12.3, // Seconds (Adjusted)
+        range: 410, // km (NEDC)
+        topSpeed: 150, // km/h (Assumed)
         seatingCapacity: 5,
-        variantId: variant.id
-      }
-    });
-
-    // 3.5 สร้าง Battery
-    await prisma.battery.create({
+        variantId: variants.standard.id,
+      },
+    }),
+    prisma.performance.create({ // Extended Range
       data: {
-        type: "BYD Blade Battery",
-        capacity: 50.25,
-        variantId: variant.id
-      }
-    });
+        acceleration0To100: 7.0, // Seconds (Adjusted)
+        range: 490, // km (NEDC)
+        topSpeed: 160, // km/h (Assumed)
+        seatingCapacity: 5,
+        variantId: variants.extended.id,
+      },
+    }),
+  ];
 
-    // 3.6 สร้าง SuspensionBraking
-    await prisma.suspensionBraking.create({
+  await Promise.all(performancePromises);
+  console.log('DOLPHIN performance data seeded');
+}
+
+// ฟังก์ชันเพิ่มข้อมูลแบตเตอรี่
+async function seedDolphinBattery(variants: { standard: { id: number }, extended: { id: number } }) {
+  const batteryPromises = [
+    prisma.battery.create({ // Standard Range
       data: {
-        frontSuspension: "แมคเฟอร์สันสตรัท",
-        rearSuspension: "ทอร์ชันบีม",
+        type: 'BYD Blade Battery (LFP)', // Specify LFP
+        capacity: 44.9, // kWh (Adjusted)
+        variantId: variants.standard.id,
+      },
+    }),
+    prisma.battery.create({ // Extended Range
+      data: {
+        type: 'BYD Blade Battery (LFP)', // Specify LFP
+        capacity: 60.48, // kWh
+        variantId: variants.extended.id,
+      },
+    }),
+  ];
+
+  await Promise.all(batteryPromises);
+  console.log('DOLPHIN battery data seeded');
+}
+
+// ฟังก์ชันเพิ่มข้อมูลระบบกันสะเทือนและเบรก
+async function seedDolphinSuspension(variants: { standard: { id: number }, extended: { id: number } }) {
+  const suspensionPromises = [
+    prisma.suspensionBraking.create({ // Standard Range
+      data: {
+        frontSuspension: 'MacPherson Strut', // Changed from Thai
+        rearSuspension: 'Torsion Beam', // Changed from Thai
         adaptiveSuspension: false,
-        frontBrakeType: "ดิสก์เบรก",
-        rearBrakeType: "ดิสก์เบรก",
+        frontBrakeType: 'Vented Disc', // Changed from Thai
+        rearBrakeType: 'Disc', // Changed from Thai
         regenerativeBraking: true,
-        tireSize: "205/55 R16",
-        variantId: variant.id
-      }
-    });
-
-    // 3.7 สร้าง ChargingSystem
-    await prisma.chargingSystem.create({
+        tireSize: '195/60 R16', // Adjusted tire size
+        variantId: variants.standard.id,
+      },
+    }),
+     prisma.suspensionBraking.create({ // Extended Range
       data: {
-        acChargerType: "Type 2",
-        acChargerPower: 7,
-        dcChargerType1: "CCS2",
-        dcChargerPower1: 60,
+        frontSuspension: 'MacPherson Strut', // Changed from Thai
+        rearSuspension: 'Multi-link', // Extended has multi-link
+        adaptiveSuspension: false,
+        frontBrakeType: 'Vented Disc', // Changed from Thai
+        rearBrakeType: 'Disc', // Changed from Thai
+        regenerativeBraking: true,
+        tireSize: '205/50 R17', // Adjusted tire size
+        variantId: variants.extended.id,
+      },
+    }),
+  ];
+
+  await Promise.all(suspensionPromises);
+  console.log('DOLPHIN suspension and braking data seeded');
+}
+
+// ฟังก์ชันเพิ่มข้อมูลระบบชาร์จ
+async function seedDolphinCharging(variants: { standard: { id: number }, extended: { id: number } }) {
+  const chargingPromises = [
+    prisma.chargingSystem.create({ // Standard Range
+      data: {
+        acChargerType: 'Type 2',
+        acChargerPower: 7, // kW
+        dcChargerType1: 'CCS2',
+        dcChargerPower1: 60, // kW
         v2lSupport: true,
-        v2lAdapter: true,
+        v2lAdapter: true, // Assume adapter is included
         regenerativeBraking: true,
-        variantId: variant.id
-      }
-    });
-
-    // 3.8 สร้าง SafetyFeatures
-    await prisma.safetyFeatures.create({
+        variantId: variants.standard.id,
+      },
+    }),
+    prisma.chargingSystem.create({ // Extended Range
       data: {
-        frontAirbags: true,
-        sideAirbags: true,
-        curtainAirbags: true,
-        kneeBolsterAirbags: true,
-        tirePressureMonitoring: true,
-        abs: true,
-        ebd: true,
-        esc: true,
-        tcs: true,
-        hillHoldControl: true,
-        autoHoldFunction: true,
-        aeb: true,
-        forwardCollisionWarning: true,
-        laneKeepAssist: true,
-        laneDepartureWarning: true,
-        blindSpotMonitoring: true,
-        rearCrossTrafficAlert: true,
-        adaptiveCruiseControl: true,
-        trafficSignRecognition: true,
-        driverAttentionMonitor: true,
-        frontParkingSensors: true,
-        rearParkingSensors: true,
-        surroundViewCamera: true,
-        automaticHeadlights: true,
-        highBeamAssist: true,
-        rainSensingWipers: true,
-        bhsSystem: true,
-        doorOpenWarningSystem: true,
-        intelligentHeadlights: true,
-        drivingAssistanceSystem: true,
-        headsUpDisplay: false,
-        intelligentTorqueControl: true,
-        variantId: variant.id
-      }
-    });
+        acChargerType: 'Type 2',
+        acChargerPower: 7, // kW
+        dcChargerType1: 'CCS2',
+        dcChargerPower1: 80, // kW (Higher DC for Extended)
+        v2lSupport: true,
+        v2lAdapter: true, // Assume adapter is included
+        regenerativeBraking: true,
+        variantId: variants.extended.id,
+      },
+    }),
+  ];
 
-    // 3.9 สร้าง ExteriorFeatures
-    await prisma.exteriorFeatures.create({
-      data: {
-        panoramicGlassRoof: true,
-        electricSunroof: true,
-        rearWiperWithIntermittentFunction: true,
-        electricTailgate: true,
-        rearWindowHeatedWithTimer: true,
-        powerFoldingMirrors: true,
-        autoFoldingMirrors: true,
-        memoryPositionMirrors: false,
-        antiPinchWindowsWithOneTouchSystem: true,
-        frontRearParkingSensors: true,
-        heatedSideView: true,
-        variantId: variant.id
-      }
-    });
+  await Promise.all(chargingPromises);
+  console.log('DOLPHIN charging systems seeded');
+}
 
-    // 3.10 สร้าง InteriorFeatures
-    await prisma.interiorFeatures.create({
-      data: {
-        multiColorAmbientLighting: true,
-        leatherSyntheticSeats: true,
-        leatherSeats: false,
-        lcdDisplay10Inch: true,
-        centerConsoleStorage: true,
-        syntheticLeatherSteeringWheel: true,
-        leatherSteeringWheel: false,
-        eightWayPowerSeats: true,
-        backSeat4WayAdjustment: true,
-        frontSeatHeating: true,
-        ventilatedSeatsWithACSystem: true,
-        electricMemorySeatDrivers: false,
-        steeringWheelHeatedAndMemory: false,
-        twoWaySunshades: true,
-        adjustableRearHeadRests: true,
-        rearHeadRests2Way: true,
-        automaticDimmingRearviewMirror: true,
-        framelessRearviewMirror: false,
-        antiBurglaryDoorPillar: true,
-        frontIlluminatedVanityMirror: true,
-        variantId: variant.id
-      }
-    });
+// ฟังก์ชันเพิ่มข้อมูลความปลอดภัย
+async function seedDolphinSafety(variants: { standard: { id: number }, extended: { id: number } }) {
+  // Shared safety features
+  const safetyBase = {
+    frontAirbags: true,
+    sideAirbags: true,
+    curtainAirbags: true,
+    kneeBolsterAirbags: false, // Added back with default false
+    tirePressureMonitoring: true,
+    abs: true,
+    ebd: true,
+    esc: true, // Electronic Stability Control
+    tcs: true, // Traction Control System
+    hillHoldControl: true, // Hill Start Assist
+    autoHoldFunction: true,
+    aeb: true, // Automatic Emergency Braking
+    forwardCollisionWarning: true,
+    laneDepartureWarning: true,
+    laneKeepAssist: true,
+    blindSpotMonitoring: true, // Usually standard
+    rearCrossTrafficAlert: true, // Usually standard
+    adaptiveCruiseControl: false, // Default to false
+    trafficSignRecognition: false, // Added back with default false
+    driverAttentionMonitor: true, // Driver Fatigue Monitor
+    rearParkingSensors: true,
+    frontParkingSensors: false, // Default to false
+    surroundViewCamera: true, // 360 Camera
+    automaticHeadlights: true,
+    highBeamAssist: false, // Default to false
+    rainSensingWipers: false, // Default to false
+    bhsSystem: false, // Added back with default false (Brake Hold System?)
+    doorOpenWarningSystem: true,
+    intelligentHeadlights: false, // Added back with default false
+    drivingAssistanceSystem: true, // Kept true, covers general ADAS suite presence
+    headsUpDisplay: false, // Added back with default false
+    intelligentTorqueControl: false, // Added back with default false
+    rearCollisionWarning: false, // Added back with default false
+    rearCrossTrafficBrake: false, // Added back with default false
+    brakeDiscWiping: false, // Added back with default false
+    curveSpeedControl: false, // Added back with default false
+    rolloverMitigation: false, // Added back with default false
+  };
 
-    // 3.11 สร้าง EntertainmentFeatures
-    await prisma.entertainmentFeatures.create({
-      data: {
-        fmRadio: true,
-        appleCarPlayAndroid: true,
-        bluetoothConnectivity: true,
-        touchscreen15Inch: true,
-        dynAudio12Speakers: true,
-        thaiVoiceControl: true,
-        ambientTemperatureDisplay: true,
-        digitalRadio: true,
-        frontUsbTypeAC: true,
-        rearUsbTypeAC: true,
-        otaUpdateSupport: true,
-        variantId: variant.id
-      }
-    });
+  // Standard Range Specific
+  const standardSafety = {
+    ...safetyBase,
+    // adaptiveCruiseControl: false, // Already false in base
+    // frontParkingSensors: false, // Already false in base
+    // highBeamAssist: false, // Already false in base
+    // rainSensingWipers: false, // Already false in base
+    // rearCrossTrafficBrake: false, // Already false in base
+    // intelligentCruiseControl: false, // Already false in base (Assuming ICC is separate field or part of ACC)
+    variantId: variants.standard.id,
+  };
 
-    // 3.12 สร้าง LightingFeatures
-    await prisma.lightingFeatures.create({
-      data: {
-        ledHeadlights: true,
-        followMeHomeFunction: true,
-        ledDaytimeRunningLights: true,
-        ledTaillights: true,
-        rearFogLights: true,
-        sequentialRearTurnSignals: true,
-        thirdBrakeLights: true,
-        rgbDynamicMoodLights: true,
-        frontReadingLights: true,
-        rearReadingLights: true,
-        doorSillScuffPlates: true,
-        variantId: variant.id
-      }
-    });
+  // Extended Range Specific
+  const extendedSafety = {
+    ...safetyBase,
+    adaptiveCruiseControl: true,
+    frontParkingSensors: true,
+    highBeamAssist: true,
+    rainSensingWipers: true,
+    rearCrossTrafficBrake: true,
+    // intelligentCruiseControl: true, // Assuming ICC is part of ACC or needs separate field
+    variantId: variants.extended.id,
+  };
 
-    // 3.13 สร้าง ComfortFeatures
-    await prisma.comfortFeatures.create({
-      data: {
-        keylessEntry: true,
-        nfcCardKey: true,
-        wirelessPhoneChargers: true,
-        twelveVoltOutlet: true,
-        pm25AirFilter: true,
-        cn95AirFilter: true,
-        airIonizer: true,
-        dualZoneClimateControl: true,
-        rearAirVents: true,
-        firstAidKit: true,
-        emergencyKit: true,
-        variantId: variant.id
-      }
-    });
-    console.log(`Seeding completed successfully for ${variant.name}`);
-  }
+  const safetyPromises = [
+    prisma.safetyFeatures.create({ data: standardSafety }),
+    prisma.safetyFeatures.create({ data: extendedSafety }),
+  ];
 
-  console.log('Completed seeding BYD Dolphin');
+  await Promise.all(safetyPromises);
+  console.log('DOLPHIN safety features seeded');
+}
+
+// ฟังก์ชันเพิ่มอุปกรณ์ภายนอก
+async function seedDolphinExterior(variants: { standard: { id: number }, extended: { id: number } }) {
+   // Shared exterior features
+  const exteriorBase = {
+    panoramicGlassRoof: false, // Default to false
+    electricSunroof: false, // Default to false
+    rearWiperWithIntermittentFunction: true,
+    electricTailgate: false, // Added back with default false
+    rearWindowHeatedWithTimer: true,
+    powerFoldingMirrors: true,
+    autoFoldingMirrors: true,
+    memoryPositionMirrors: false, // Added back with default false
+    antiPinchWindowsWithOneTouchSystem: false, // Default to false
+    frontRearParkingSensors: true, // Added back, assuming always true if sensors exist (handled in safety)
+    heatedSideView: true,
+    roofRails: false, // Added back with default false
+  };
+
+   // Standard Range Specific
+  const standardExterior = {
+    ...exteriorBase,
+    // panoramicGlassRoof: false, // Already false in base
+    // electricSunroof: false, // Already false in base
+    // antiPinchWindowsWithOneTouchSystem: false, // Already false in base
+    // roofRails: false, // Already false in base
+    variantId: variants.standard.id,
+  };
+
+  // Extended Range Specific
+  const extendedExterior = {
+    ...exteriorBase,
+    panoramicGlassRoof: true,
+    electricSunroof: true,
+    antiPinchWindowsWithOneTouchSystem: true, // All windows one-touch on higher trim
+    // roofRails: false, // Already false in base
+    variantId: variants.extended.id,
+  };
+
+  const exteriorPromises = [
+    prisma.exteriorFeatures.create({ data: standardExterior }),
+    prisma.exteriorFeatures.create({ data: extendedExterior }),
+  ];
+
+
+  await Promise.all(exteriorPromises);
+  console.log('DOLPHIN exterior features seeded');
+}
+
+// ฟังก์ชันเพิ่มอุปกรณ์ภายใน
+async function seedDolphinInterior(variants: { standard: { id: number }, extended: { id: number } }) {
+  // Shared interior features
+  const interiorBase = {
+    multiColorAmbientLighting: false, // Default to false
+    leatherSyntheticSeats: true,
+    leatherSeats: false, // Added back with default false
+    lcdDisplay10Inch: false, // This likely refers to driver display, maybe 5-inch? Set false for now.
+    centerConsoleStorage: true,
+    syntheticLeatherSteeringWheel: true,
+    leatherSteeringWheel: false, // Added back with default false
+    eightWayPowerSeats: false, // Default to false (Manual)
+    backSeat4WayAdjustment: false, // Added back with default false (Usually just fold)
+    frontSeatHeating: false, // Default to false
+    ventilatedSeatsWithACSystem: false, // Added back with default false
+    electricMemorySeatDrivers: false, // Added back with default false
+    steeringWheelHeatedAndMemory: false, // Added back with default false
+    twoWaySunshades: false, // Added back with default false (Manual sunshades)
+    adjustableRearHeadRests: true,
+    rearHeadRests2Way: false, // Added back with default false
+    automaticDimmingRearviewMirror: false, // Default to false
+    framelessRearviewMirror: false, // Added back with default false
+    antiBurglaryDoorPillar: false, // Added back with default false
+    frontIlluminatedVanityMirror: true,
+    rearArmrest: true,
+    foldableSecondRowSeats: true,
+  };
+
+   // Standard Range Specific
+  const standardInterior = {
+    ...interiorBase,
+    // multiColorAmbientLighting: false, // Already false in base
+    // eightWayPowerSeats: false, // Already false in base
+    // frontSeatHeating: false, // Already false in base
+    // automaticDimmingRearviewMirror: false, // Already false in base
+    variantId: variants.standard.id,
+  };
+
+  // Extended Range Specific
+  const extendedInterior = {
+    ...interiorBase,
+    multiColorAmbientLighting: true,
+    eightWayPowerSeats: true, // Power driver seat likely on Extended
+    frontSeatHeating: true,
+    automaticDimmingRearviewMirror: true,
+    variantId: variants.extended.id,
+  };
+
+
+  const interiorPromises = [
+     prisma.interiorFeatures.create({ data: standardInterior }),
+    prisma.interiorFeatures.create({ data: extendedInterior }),
+  ];
+
+  await Promise.all(interiorPromises);
+  console.log('DOLPHIN interior features seeded');
+}
+
+// ฟังก์ชันเพิ่มระบบความบันเทิง
+async function seedDolphinEntertainment(variants: { standard: { id: number }, extended: { id: number } }) {
+  // Shared entertainment features
+  const entertainmentBase = {
+    fmRadio: true,
+    appleCarPlayAndroid: true,
+    bluetoothConnectivity: true,
+    touchscreen15Inch: false, // Dolphin uses 12.8-inch rotating screen
+    dynAudio12Speakers: false, // Added back with default false (Standard audio)
+    thaiVoiceControl: true,
+    ambientTemperatureDisplay: true,
+    digitalRadio: true,
+    frontUsbTypeAC: true,
+    rearUsbTypeAC: true,
+    otaUpdateSupport: true,
+    speakerCount: 6, // Default speaker count
+  };
+
+  // Standard Range Specific
+  const standardEntertainment = {
+    ...entertainmentBase,
+    // speakerCount: 6, // Already 6 in base
+    variantId: variants.standard.id,
+  };
+
+  // Extended Range Specific
+  const extendedEntertainment = {
+    ...entertainmentBase,
+    // dynAudio12Speakers: false, // If Extended has better audio, set true here (e.g., Dirac)
+    speakerCount: 8, // Higher speaker count on Extended
+    variantId: variants.extended.id,
+  };
+
+
+  const entertainmentPromises = [
+     prisma.entertainmentFeatures.create({ data: standardEntertainment }),
+     prisma.entertainmentFeatures.create({ data: extendedEntertainment }),
+  ];
+
+  await Promise.all(entertainmentPromises);
+  console.log('DOLPHIN entertainment features seeded');
+}
+
+// ฟังก์ชันเพิ่มระบบไฟ
+async function seedDolphinLighting(variants: { standard: { id: number }, extended: { id: number } }) {
+   // Shared lighting features
+  const lightingBase = {
+    ledHeadlights: true,
+    followMeHomeFunction: true,
+    ledDaytimeRunningLights: true,
+    ledTaillights: true,
+    rearFogLights: true,
+    sequentialRearTurnSignals: false, // Default to false
+    thirdBrakeLights: true,
+    rgbDynamicMoodLights: false, // Default to false (Linked to ambient lighting)
+    frontReadingLights: true,
+    rearReadingLights: true,
+    doorSillScuffPlates: false, // Added back with default false
+  };
+
+  // Standard Range Specific
+  const standardLighting = {
+    ...lightingBase,
+    // sequentialRearTurnSignals: false, // Already false in base
+    // rgbDynamicMoodLights: false, // Already false in base
+    variantId: variants.standard.id,
+  };
+
+  // Extended Range Specific
+  const extendedLighting = {
+    ...lightingBase,
+    sequentialRearTurnSignals: true,
+    rgbDynamicMoodLights: true, // Corresponds to interior ambient lighting
+    variantId: variants.extended.id,
+  };
+
+
+  const lightingPromises = [
+     prisma.lightingFeatures.create({ data: standardLighting }),
+    prisma.lightingFeatures.create({ data: extendedLighting }),
+  ];
+
+  await Promise.all(lightingPromises);
+  console.log('DOLPHIN lighting features seeded');
+}
+
+// ฟังก์ชันเพิ่มอุปกรณ์อำนวยความสะดวก
+async function seedDolphinComfort(variants: { standard: { id: number }, extended: { id: number } }) {
+  // Shared comfort features
+  const comfortBase = {
+    keylessEntry: true,
+    nfcCardKey: true,
+    wirelessPhoneChargers: false, // Default to false
+    twelveVoltOutlet: true,
+    pm25AirFilter: true,
+    cn95AirFilter: false, // Added back with default false
+    airIonizer: false, // Added back with default false
+    dualZoneClimateControl: false, // Default to false
+    rearAirVents: true,
+    firstAidKit: false, // Added back with default false
+    emergencyKit: false, // Added back with default false
+    bydDigitalKey: true,
+    rearArmrest: true, // Moved from interiorBase for clarity
+    foldableSecondRowSeats: true, // Moved from interiorBase for clarity
+  };
+
+  // Standard Range Specific
+  const standardComfort = {
+    ...comfortBase,
+    // multiColorAmbientLighting: false, // Already false in base
+    // eightWayPowerSeats: false, // Already false in base
+    // frontSeatHeating: false, // Already false in base
+    // automaticDimmingRearviewMirror: false, // Already false in base
+    variantId: variants.standard.id,
+  };
+
+  // Extended Range Specific
+  const extendedComfort = {
+    ...comfortBase,
+    // multiColorAmbientLighting: true, // Already true in base
+    // eightWayPowerSeats: true, // Already true in base
+    // frontSeatHeating: true, // Already true in base
+    // automaticDimmingRearviewMirror: true, // Already true in base
+    variantId: variants.extended.id,
+  };
+
+
+  const comfortPromises = [
+     prisma.comfortFeatures.create({ data: standardComfort }),
+     prisma.comfortFeatures.create({ data: extendedComfort }),
+  ];
+
+  await Promise.all(comfortPromises);
+  console.log('DOLPHIN comfort features seeded');
 } 

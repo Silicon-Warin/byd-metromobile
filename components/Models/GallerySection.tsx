@@ -4,11 +4,12 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import type { CarModel } from "@/data/carModel";
+import type { CarModelWithRelations } from "../../app/models/[slug]/modelPageContent";
+import type { CarFeature } from "@prisma/client";
 
 interface GallerySectionProps {
-	carModel: CarModel;
-	highlights: any[];
+	carModel: CarModelWithRelations;
+	highlights: CarFeature[];
 }
 
 export function GallerySection({ carModel, highlights }: GallerySectionProps) {
@@ -16,7 +17,7 @@ export function GallerySection({ carModel, highlights }: GallerySectionProps) {
 		<section className="py-20 bg-gradient-to-b from-background to-card">
 			<div className="container mx-auto px-4">
 				<h2 className="text-3xl sm:text-4xl font-bold mb-12 text-center">
-					{carModel.name} Gallery
+					{carModel.model} Gallery
 				</h2>
 
 				<Tabs defaultValue="exterior" className="w-full">
@@ -34,8 +35,11 @@ export function GallerySection({ carModel, highlights }: GallerySectionProps) {
 								transition={{ duration: 0.6 }}
 							>
 								<Image
-									src={carModel.imageUrlReal || "/placeholder.svg"}
-									alt={`${carModel.name} Exterior View`}
+									src={
+										carModel.imageUrlReal?.replace("/cars/", "/models/") ||
+										"/placeholder.svg"
+									}
+									alt={`${carModel.model} Exterior View`}
 									fill
 									className="object-cover"
 									priority
@@ -84,8 +88,11 @@ export function GallerySection({ carModel, highlights }: GallerySectionProps) {
 								transition={{ duration: 0.6 }}
 							>
 								<Image
-									src={carModel.imageUrlReal || "/placeholder.svg"}
-									alt={`${carModel.name} Interior View`}
+									src={
+										carModel.imageUrlReal?.replace("/cars/", "/models/") ||
+										"/placeholder.svg"
+									}
+									alt={`${carModel.model} Interior View`}
 									fill
 									className="object-cover"
 									priority

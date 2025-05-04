@@ -1,393 +1,445 @@
 import { PrismaClient } from '@prisma/client';
 
-export async function seedSealion7(prisma: PrismaClient) {
-  console.log('Seeding BYD SEALION 7...');
-  
-  // 1. สร้าง CarModel และ CarVariant
-  await prisma.carModel.upsert({
-    where: { slug: "byd-sealion7" },
-    update: {},
-    create: {
+const prisma = new PrismaClient();
+
+export async function seedSealion7() {
+  console.log('Seeding BYD SEALION 7 data...');
+
+  // สร้างข้อมูลพื้นฐานของรถ
+  const SEALION7_MODEL = await prisma.carModel.create({
+    data: {
       model: "BYD SEALION 7",
       slug: "byd-sealion7",
-      tagline: "SUV ไฟฟ้าขนาดใหญ่ ดีไซน์ล้ำสมัย มาพร้อมสมรรถนะสูง",
-      description: "SUV ไฟฟ้าขนาดใหญ่ ดีไซน์ล้ำสมัย มาพร้อมสมรรถนะสูง",
-      basePrice: 1249900,
-      imageUrlPromo: "/images/promotions/sealion7.webp",
-      imageUrlModel: "/images/models/sealion7/byd-sealion7-card.webp",
-      imageUrlHero: "/images/models/sealion7/sealion7-hero.jpg",
-      imageUrlReal: "/images/models/sealion7/sealion7-real.jpg",
-      imageUrlDataLeft: "/images/models/sealion7/overview-img-01.webp",
+      tagline: "SUV ไฟฟ้าดีไซน์สปอร์ต สมรรถนะเหนือระดับ",
+      description: "SUV ไฟฟ้าขนาดกลาง ดีไซน์สปอร์ตล้ำสมัย พร้อมเทคโนโลยี Cell-to-Body และสมรรถนะที่เร้าใจ",
+      basePrice: 1699900,
+      imageUrlPromo: "/images/cars/sealion7/sealion7-promo.webp",
+      imageUrlModel: "/images/cars/sealion7/sealion7-model.webp",
       imageWidth: 1200,
       imageHeight: 800,
-      featuresTitle: "",
-      specialFeature: "INFOTAINMENT & LIFESTYLE",
-      specialFeatureDescription: "ปลุกทุกความตื่นเต้นเร้าใจ ด้วยสุนทรียภาพของการขับขี่ เหนือระดับตลอดการเดินทางด้วยฟังก์ชันการใช้งานที่ล้ำสมัย ตอบโจทย์ไลฟ์สไตล์คนเมืองอย่างแท้จริง",
-      specialFeatureImage: "/images/models/sealion7/special-feature.webp",
-      specsOverview: {
-        length: 4830,
-        width: 1925,
-        height: 1620,
-        wheelbase: 2930,
-        rearTrack: "1660/1660",
-        curbWeight: 2225,
-        grossWeight: 2635,
-        minTurningRadius: 5.85,
-        frontTrunk: 58,
-        rearTrunk: 500,
-      },
+      featuresTitle: "เทคโนโลยีและดีไซน์เพื่ออนาคต",
       promotion: [
         "ประกันภัยชั้น 1 พร้อม พรบ. ระยะเวลา 1 ปี",
         "บริการช่วยเหลือฉุกเฉิน ตลอด 24 ชั่วโมง 8 ปีเต็ม",
         "รับประกันตัวรถ (WARRANTY) 8 ปี หรือ 160,000 กม.",
         "รับประกันแบตเตอรี่ 8 ปี หรือ 160,000 กม.",
-        "สายต่อพ่วงอุปกรณ์ไฟฟ้า หรือ V TO L",
-        "สายชาร์จเคลื่อนที่ AC PORTABLE CHARGER",
-        "พรมเข้ารูป กรอบป้ายทะเบียน ฟิล์มกันรอยหน้าจอ",
-        "ค่าจดทะเบียน"
+        "สายต่อพ่วงอุปกรณ์ไฟฟ้า (V2L)",
+        "สายชาร์จเคลื่อนที่ AC Portable Charger",
+        "พรมเข้ารูป",
+        "กรอบป้ายทะเบียน",
+        "ฟิล์มหน้าจอ",
+        "ค่าจดทะเบียนรถ",
+        "Home Charger พร้อมค่าติดตั้ง (ตามเงื่อนไขบริษัท)"
       ],
       gallery: [
-        "/images/sealion7-gallery-1.png",
-        "/images/sealion7-gallery-2.png"
+        "/images/cars/sealion7/gallery/1.webp",
+        "/images/cars/sealion7/gallery/2.webp",
+        "/images/cars/sealion7/gallery/3.webp",
       ],
-      colors: {
-        create: [
-          { name: "Horizon white", code: "#F5F5F5", image: "/images/models/sealion7/sealion7-horizon-white.png" },
-          { name: "Quantum Black", code: "#121212", image: "/images/models/sealion7/sealion7-quantum-black.png" },
-          { name: "Space Grey", code: "#2C5C8F", image: "/images/models/sealion7/sealion7-space-grey.png" },
-          { name: "Shark Grey", code: "#7AA5CD", image: "/images/models/sealion7/sealion7-shark-grey.png" }
-        ]
-      },
-      features: {
-        create: [
-          { title: "แบตเตอรี่ที่มีความปลอดภัยสูง", description: "BYD Blade Battery", image: "/images/models/sealion7/sealion7-design-card1.jpg" },
-          { title: "ระบบสั่งการด้วยเสียงภาษาไทย", description: "ควบคุมระบบต่างๆ ในรถได้ด้วยการสั่งงานผ่านเสียงภาษาไทย", image: "/images/models/sealion7/sealion7-design-card2.jpg" },
-          { title: "ระบบความปลอดภัยครบครัน", description: "ครบครันด้วยระบบความปลอดภัยที่ทันสมัย", image: "/images/models/sealion7/sealion7-design-card3.jpg" }
-        ]
-      },
-      techHighlights: {
-        create: [
-          { title: "ระบบกันสะเทือนหน้า", description: "ปีกนกคู่", image: "" },
-          { title: "ระบบกันสะเทือนหลัง", description: "มัลติลิงก์", image: "" }
-        ]
-      },
-      variants: {
-        create: [
-          {
-            variantId: "sealion7-premium",
-            name: "Premium",
-            price: 1249900,
-            range: "567",
-            power: "230",
-            acceleration: "6.7"
-          },
-          {
-            variantId: "sealion7-awd",
-            name: "AWD Performance",
-            price: 1399900,
-            range: "542",
-            power: "230+160",
-            acceleration: "4.5"
-          }
-        ]
-      }
     }
   });
-  console.log('Created BYD Sealion 7 model');
+  console.log('Created BYD SEALION 7 model');
 
-  // 2. ดึง variants ทั้งหมดเพื่อนำ id ไปใช้สร้าง relation อื่นๆ
-  const sealion7Variants = await prisma.carVariant.findMany({
-    where: {
-      carModel: { slug: "byd-sealion7" }
-    }
+  // เพิ่มสีรถ
+  await seedSealion7Colors(SEALION7_MODEL.id);
+
+  // สร้างรุ่นย่อย
+  const variants = await seedSealion7Variants(SEALION7_MODEL.id);
+
+  // เพิ่มข้อมูลสเปคทางเทคนิค
+  await Promise.all([
+    seedSealion7Dimensions(variants),
+    seedSealion7Powertrain(variants),
+    seedSealion7Performance(variants),
+    seedSealion7Battery(variants),
+    seedSealion7Suspension(variants),
+    seedSealion7Charging(variants),
+    seedSealion7Safety(variants),
+    seedSealion7Exterior(variants),
+    seedSealion7Interior(variants),
+    seedSealion7Entertainment(variants),
+    seedSealion7Lighting(variants),
+    seedSealion7Comfort(variants),
+  ]);
+
+  console.log('BYD SEALION 7 data seeded successfully!');
+  return SEALION7_MODEL;
+}
+
+// ฟังก์ชันเพิ่มสีรถ
+async function seedSealion7Colors(carModelId: number) {
+  const colors = [
+    {
+      name: "Aurora White",
+      code: "#FFFFFF",
+      image: "/images/cars/sealion7/colors/aurora-white.webp",
+      gradient: "linear-gradient(180deg, #FFFFFF 0%, #F0F0F0 100%)",
+      shadow: "#DEDEDE",
+      border: "#EBEBEB",
+    },
+    {
+      name: "Cosmos Black",
+      code: "#000000",
+      image: "/images/cars/sealion7/colors/cosmos-black.webp",
+      gradient: "linear-gradient(180deg, #333333 0%, #000000 100%)",
+      shadow: "#000000",
+      border: "#222222",
+    },
+    {
+      name: "Azure Blue",
+      code: "#2C5C8F",
+      image: "/images/cars/sealion7/colors/azure-blue.webp",
+      gradient: "linear-gradient(145deg, #2C5C8F, #1D3D5F)",
+      shadow: "#18324E",
+      border: "#254D76",
+    },
+    {
+      name: "Lunar Grey",
+      code: "#808080",
+      image: "/images/cars/sealion7/colors/lunar-grey.webp",
+      gradient: "linear-gradient(180deg, #8A8A8A 0%, #707070 100%)",
+      shadow: "#606060",
+      border: "#7A7A7A",
+    },
+  ];
+
+  const colorPromises = colors.map(color =>
+    prisma.carColor.create({ data: { ...color, carModelId } })
+  );
+  await Promise.all(colorPromises);
+  console.log('SEALION 7 colors seeded');
+}
+
+// ฟังก์ชันสร้างรุ่นย่อย
+async function seedSealion7Variants(carModelId: number) {
+  const premiumVariant = await prisma.carVariant.create({
+    data: {
+      variantId: "SEALION7-PREMIUM",
+      name: "Premium RWD",
+      price: 1699900,
+      range: "550 กม. (CLTC)",
+      power: "230 กิโลวัตต์",
+      acceleration: "6.7 วินาที",
+      carModelId,
+    },
   });
 
-  console.log(`Found ${sealion7Variants.length} Sealion 7 variants`);
+  const awdVariant = await prisma.carVariant.create({
+    data: {
+      variantId: "SEALION7-AWD",
+      name: "AWD Performance",
+      price: 1899900,
+      range: "500 กม. (CLTC)",
+      power: "390 กิโลวัตต์ (รวม)",
+      acceleration: "4.5 วินาที",
+      carModelId,
+    },
+  });
 
-  // 3. สร้าง relation ต่างๆ สำหรับแต่ละ variant
-  for (const variant of sealion7Variants) {
-    console.log(`Creating specifications for ${variant.name} (ID: ${variant.id})`);
+  console.log('SEALION 7 variants seeded');
+  return { premium: premiumVariant, awd: awdVariant };
+}
 
-    // 3.1 สร้าง TechSpec
-    const techSpec = await prisma.techSpec.create({
+// Helper type for variants
+type Seal7Variants = {
+  premium: { id: number };
+  awd: { id: number };
+};
+
+// ฟังก์ชันเพิ่มข้อมูลขนาดและน้ำหนัก
+async function seedSealion7Dimensions(variants: Seal7Variants) {
+  const dimensionBase = {
+    length: 4830,
+    width: 1925,
+    height: 1620,
+    wheelbase: 2930,
+    frontTrack: 1660,
+    rearTrack: 1660,
+    groundClearance: 160,
+  };
+  const dimensions = [
+    { ...dimensionBase, unladenWeight: 2195, variantId: variants.premium.id },
+    { ...dimensionBase, unladenWeight: 2310, variantId: variants.awd.id },
+  ];
+  await Promise.all(dimensions.map(dim => prisma.dimensionsWeight.create({ data: dim })));
+  console.log('SEALION 7 dimensions seeded');
+}
+
+// ฟังก์ชันเพิ่มข้อมูลระบบขับเคลื่อน
+async function seedSealion7Powertrain(variants: Seal7Variants) {
+  const powertrainPromises = [
+    prisma.powertrainSystem.create({ // Premium RWD
       data: {
-        specDetails: variant.name === "Premium" ? {
-          length: 4830,
-          width: 1925,
-          height: 1620,
-          wheelbase: 2930,
-          curbWeight: 2225,
-          grossWeight: 2635,
-          minTurningRadius: 5.85,
-          frontTrunk: 58,
-          rearTrunk: 500,
-          driveType: "ขับเคลื่อนล้อหลัง",
-          motor: "มอเตอร์ซิงโครนัสแม่เหล็กถาวร",
-          maxPower: 230,
-          maxTorque: 380,
-          acceleration: 6.7,
-          range: 567,
-          battery: 82.5,
-          acCharge: 11,
-          dcCharge: 150,
-          v2l: true,
-          regenerativeBraking: true,
-          wheel: "19 นิ้ว (หน้า 235/50 R19, หลัง 255/45 R19)",
-        } : {
-          length: 4830,
-          width: 1925,
-          height: 1620,
-          wheelbase: 2930,
-          curbWeight: 2225,
-          grossWeight: 2635,
-          minTurningRadius: 5.85,
-          frontTrunk: 58,
-          rearTrunk: 500,
-          driveType: "ขับเคลื่อน 4 ล้อตลอดเวลา",
-          motor: "มอเตอร์ซิงโครนัสแม่เหล็กถาวร",
-          maxPower: "230+160",
-          maxTorque: 690,
-          acceleration: 4.5,
-          range: 542,
-          battery: 82.5,
-          acCharge: 11,
-          dcCharge: 150,
-          v2l: true,
-          regenerativeBraking: true,
-          wheel: "20 นิ้ว (245/45 R20)",
-        }
-      }
-    });
-    
-    // อัพเดต variant ให้เชื่อมกับ TechSpec
-    await prisma.carVariant.update({
-      where: { id: variant.id },
-      data: { techSpecId: techSpec.id }
-    });
-
-    // 3.2 สร้าง DimensionsWeight
-    await prisma.dimensionsWeight.create({
-      data: {
-        length: 4830,
-        width: 1925,
-        height: 1620,
-        wheelbase: 2930,
-        frontTrack: 1660,
-        rearTrack: 1660,
-        groundClearance: 157,
-        unladenWeight: 2225,
-        grossWeight: 2635,
-        variantId: variant.id
-      }
-    });
-
-    // 3.3 สร้าง PowertrainSystem
-    await prisma.powertrainSystem.create({
-      data: variant.name === "Premium" ? {
-        driveType: "ขับเคลื่อนล้อหลัง",
-        rearMotorType: "PMS",
+        driveType: "RWD",
+        rearMotorType: "Permanent Magnet Synchronous Motor",
         rearMotorPower: 230,
         rearMotorTorque: 380,
         totalSystemPower: 230,
         totalSystemTorque: 380,
-        variantId: variant.id
-      } : {
-        driveType: "ขับเคลื่อน 4 ล้อตลอดเวลา",
-        frontMotorType: "มอเตอร์ซิงโครนัสแม่เหล็กถาวร",
+        variantId: variants.premium.id,
+      }
+    }),
+    prisma.powertrainSystem.create({ // AWD Performance
+      data: {
+        driveType: "AWD",
+        frontMotorType: "Asynchronous Motor", // Or PMSM - confirm spec
         frontMotorPower: 160,
         frontMotorTorque: 310,
+        rearMotorType: "Permanent Magnet Synchronous Motor",
+        rearMotorPower: 230,
+        rearMotorTorque: 380,
         totalSystemPower: 390,
         totalSystemTorque: 690,
-        variantId: variant.id
+        variantId: variants.awd.id,
       }
-    });
+    }),
+  ];
+  await Promise.all(powertrainPromises);
+  console.log('SEALION 7 powertrain systems seeded');
+}
 
-    // 3.4 สร้าง Performance
-    await prisma.performance.create({
-      data: {
-        acceleration0To100: 6.7,
-        range: 567,
-        seatingCapacity: 5,
-        variantId: variant.id
-      }
-    });
+// ฟังก์ชันเพิ่มข้อมูลสมรรถนะ
+async function seedSealion7Performance(variants: Seal7Variants) {
+  const performanceBase = { seatingCapacity: 5, topSpeed: 180 };
+  const performancePromises = [
+    prisma.performance.create({ data: { ...performanceBase, acceleration0To100: 6.7, range: 550, variantId: variants.premium.id } }),
+    prisma.performance.create({ data: { ...performanceBase, acceleration0To100: 4.5, range: 500, variantId: variants.awd.id } }),
+  ];
+  await Promise.all(performancePromises);
+  console.log('SEALION 7 performance data seeded');
+}
 
-    // 3.5 สร้าง Battery
-    await prisma.battery.create({
-      data: {
-        type: "BYD Blade Battery",
-        capacity: 82.5,
-        variantId: variant.id
-      }
-    });
+// ฟังก์ชันเพิ่มข้อมูลแบตเตอรี่
+async function seedSealion7Battery(variants: Seal7Variants) {
+  const batteryData = {
+    type: "BYD Blade Battery (LFP)",
+    capacity: 82.56,
+  };
+  const batteryPromises = [
+    prisma.battery.create({ data: { ...batteryData, variantId: variants.premium.id } }),
+    prisma.battery.create({ data: { ...batteryData, variantId: variants.awd.id } }),
+  ];
+  await Promise.all(batteryPromises);
+  console.log('SEALION 7 battery data seeded');
+}
 
-    // 3.6 สร้าง SuspensionBraking
-    await prisma.suspensionBraking.create({
-      data: {
-        frontSuspension: "ปีกนกคู่",
-        rearSuspension: "มัลติลิงก์",
-        adaptiveSuspension: false,
-        frontBrakeType: "ดิสก์เบรก",
-        rearBrakeType: "ดิสก์เบรก",
-        regenerativeBraking: true,
-        tireSize: "235/50 R19",
-        variantId: variant.id
-      }
-    });
+// ฟังก์ชันเพิ่มข้อมูลระบบกันสะเทือนและเบรก
+async function seedSealion7Suspension(variants: Seal7Variants) {
+  const suspensionBase = {
+    frontSuspension: "Double Wishbone",
+    rearSuspension: "Multi-link",
+    frontBrakeType: "Vented Disc",
+    rearBrakeType: "Vented Disc",
+    regenerativeBraking: true,
+    adaptiveSuspension: true, // Assume DiSus-C standard
+  };
+  const suspensionPromises = [
+    prisma.suspensionBraking.create({ data: { ...suspensionBase, tireSize: "235/50 R19", variantId: variants.premium.id } }),
+    prisma.suspensionBraking.create({ data: { ...suspensionBase, tireSize: "245/45 R20", variantId: variants.awd.id } }),
+  ];
+  await Promise.all(suspensionPromises);
+  console.log('SEALION 7 suspension and braking data seeded');
+}
 
-    // 3.7 สร้าง ChargingSystem
-    await prisma.chargingSystem.create({
-      data: {
-        acChargerType: "Type 2",
-        acChargerPower: 11,
-        dcChargerType1: "CCS2",
-        dcChargerPower1: 150,
-        v2lSupport: true,
-        v2lAdapter: true,
-        regenerativeBraking: true,
-        variantId: variant.id
-      }
-    });
+// ฟังก์ชันเพิ่มข้อมูลระบบชาร์จ
+async function seedSealion7Charging(variants: Seal7Variants) {
+  const chargingData = {
+    acChargerType: "Type 2",
+    acChargerPower: 7,
+    dcChargerType1: "CCS2",
+    dcChargerPower1: 150,
+    v2lSupport: true,
+    v2lAdapter: true,
+    regenerativeBraking: true,
+  };
+  const chargingPromises = [
+    prisma.chargingSystem.create({ data: { ...chargingData, variantId: variants.premium.id } }),
+    prisma.chargingSystem.create({ data: { ...chargingData, variantId: variants.awd.id } }),
+  ];
+  await Promise.all(chargingPromises);
+  console.log('SEALION 7 charging systems seeded');
+}
 
-    // 3.8 สร้าง SafetyFeatures
-    await prisma.safetyFeatures.create({
-      data: {
-        frontAirbags: true,
-        sideAirbags: true,
-        curtainAirbags: true,
-        kneeBolsterAirbags: true,
-        tirePressureMonitoring: true,
-        abs: true,
-        ebd: true,
-        esc: true,
-        tcs: true,
-        hillHoldControl: true,
-        autoHoldFunction: true,
-        aeb: true,
-        forwardCollisionWarning: true,
-        laneKeepAssist: true,
-        laneDepartureWarning: true,
-        blindSpotMonitoring: true,
-        rearCrossTrafficAlert: true,
-        adaptiveCruiseControl: true,
-        trafficSignRecognition: true,
-        driverAttentionMonitor: true,
-        frontParkingSensors: true,
-        rearParkingSensors: true,
-        surroundViewCamera: true,
-        automaticHeadlights: true,
-        highBeamAssist: true,
-        rainSensingWipers: true,
-        bhsSystem: true,
-        doorOpenWarningSystem: true,
-        intelligentHeadlights: true,
-        drivingAssistanceSystem: true,
-        headsUpDisplay: false,
-        intelligentTorqueControl: true,
-        variantId: variant.id
-      }
-    });
+// ฟังก์ชันเพิ่มข้อมูลความปลอดภัย
+async function seedSealion7Safety(variants: Seal7Variants) {
+  const safetyData = {
+    frontAirbags: true,
+    sideAirbags: true,
+    curtainAirbags: true,
+    kneeBolsterAirbags: true,
+    tirePressureMonitoring: true,
+    abs: true,
+    ebd: true,
+    esc: true,
+    tcs: true,
+    hillHoldControl: true,
+    autoHoldFunction: true,
+    aeb: true,
+    forwardCollisionWarning: true,
+    laneKeepAssist: true,
+    laneDepartureWarning: true,
+    blindSpotMonitoring: true,
+    rearCrossTrafficAlert: true,
+    adaptiveCruiseControl: true,
+    trafficSignRecognition: true,
+    driverAttentionMonitor: true,
+    frontParkingSensors: true,
+    rearParkingSensors: true,
+    surroundViewCamera: true,
+    automaticHeadlights: true,
+    highBeamAssist: true,
+    rainSensingWipers: true,
+    bhsSystem: true,
+    doorOpenWarningSystem: true,
+    intelligentHeadlights: true,
+    drivingAssistanceSystem: true,
+    headsUpDisplay: true,
+    intelligentTorqueControl: true,
+    rearCollisionWarning: true,
+    rearCrossTrafficBrake: true,
+    intelligentCruiseControl: true,
+    brakeDiscWiping: true,
+    curveSpeedControl: true,
+    rolloverMitigation: true,
+  };
+  const safetyPromises = [
+    prisma.safetyFeatures.create({ data: { ...safetyData, variantId: variants.premium.id } }),
+    prisma.safetyFeatures.create({ data: { ...safetyData, variantId: variants.awd.id } }),
+  ];
+  await Promise.all(safetyPromises);
+  console.log('SEALION 7 safety features seeded');
+}
 
-    // 3.9 สร้าง ExteriorFeatures
-    await prisma.exteriorFeatures.create({
-      data: {
-        panoramicGlassRoof: true,
-        electricSunroof: true,
-        rearWiperWithIntermittentFunction: true,
-        electricTailgate: true,
-        rearWindowHeatedWithTimer: true,
-        powerFoldingMirrors: true,
-        autoFoldingMirrors: true,
-        memoryPositionMirrors: false,
-        antiPinchWindowsWithOneTouchSystem: true,
-        frontRearParkingSensors: true,
-        heatedSideView: true,
-        variantId: variant.id
-      }
-    });
+// ฟังก์ชันเพิ่มอุปกรณ์ภายนอก
+async function seedSealion7Exterior(variants: Seal7Variants) {
+  const exteriorData = {
+    panoramicGlassRoof: true,
+    electricSunroof: true,
+    rearWiperWithIntermittentFunction: true,
+    electricTailgate: true,
+    rearWindowHeatedWithTimer: true,
+    powerFoldingMirrors: true,
+    autoFoldingMirrors: true,
+    memoryPositionMirrors: true,
+    antiPinchWindowsWithOneTouchSystem: true,
+    frontRearParkingSensors: true,
+    heatedSideView: true,
+    roofRails: true,
+    autoDimmingSideMirrors: true,
+    remoteWindowOperation: true,
+  };
+  const exteriorPromises = [
+    prisma.exteriorFeatures.create({ data: { ...exteriorData, variantId: variants.premium.id } }),
+    prisma.exteriorFeatures.create({ data: { ...exteriorData, variantId: variants.awd.id } }),
+  ];
+  await Promise.all(exteriorPromises);
+  console.log('SEALION 7 exterior features seeded');
+}
 
-    // 3.10 สร้าง InteriorFeatures
-    await prisma.interiorFeatures.create({
-      data: {
-        multiColorAmbientLighting: true,
-        leatherSyntheticSeats: false,
-        leatherSeats: true,
-        lcdDisplay10Inch: true,
-        centerConsoleStorage: true,
-        syntheticLeatherSteeringWheel: true,
-        leatherSteeringWheel: false,
-        eightWayPowerSeats: true,
-        backSeat4WayAdjustment: true,
-        frontSeatHeating: true,
-        ventilatedSeatsWithACSystem: true,
-        electricMemorySeatDrivers: false,
-        steeringWheelHeatedAndMemory: false,
-        twoWaySunshades: true,
-        adjustableRearHeadRests: true,
-        rearHeadRests2Way: true,
-        automaticDimmingRearviewMirror: true,
-        framelessRearviewMirror: false,
-        antiBurglaryDoorPillar: true,
-        frontIlluminatedVanityMirror: true,
-        variantId: variant.id
-      }
-    });
+// ฟังก์ชันเพิ่มอุปกรณ์ภายใน
+async function seedSealion7Interior(variants: Seal7Variants) {
+  const interiorData = {
+    multiColorAmbientLighting: true,
+    leatherSyntheticSeats: false,
+    leatherSeats: true,
+    lcdDisplay10Inch: true,
+    centerConsoleStorage: true,
+    syntheticLeatherSteeringWheel: false,
+    leatherSteeringWheel: true,
+    eightWayPowerSeats: true,
+    backSeat4WayAdjustment: true,
+    frontSeatHeating: true,
+    ventilatedSeatsWithACSystem: true,
+    electricMemorySeatDrivers: true,
+    steeringWheelHeatedAndMemory: true,
+    twoWaySunshades: true,
+    adjustableRearHeadRests: true,
+    rearHeadRests2Way: true,
+    automaticDimmingRearviewMirror: true,
+    framelessRearviewMirror: true,
+    antiBurglaryDoorPillar: true,
+    frontIlluminatedVanityMirror: true,
+    rearArmrest: true,
+    foldableSecondRowSeats: true,
+    foldableThirdRowSeats: false,
+  };
+  const interiorPromises = [
+    prisma.interiorFeatures.create({ data: { ...interiorData, variantId: variants.premium.id } }),
+    prisma.interiorFeatures.create({ data: { ...interiorData, variantId: variants.awd.id } }),
+  ];
+  await Promise.all(interiorPromises);
+  console.log('SEALION 7 interior features seeded');
+}
 
-    // 3.11 สร้าง EntertainmentFeatures
-    await prisma.entertainmentFeatures.create({
-      data: {
-        fmRadio: true,
-        appleCarPlayAndroid: true,
-        bluetoothConnectivity: true,
-        touchscreen15Inch: true,
-        dynAudio12Speakers: true,
-        thaiVoiceControl: true,
-        ambientTemperatureDisplay: true,
-        digitalRadio: true,
-        frontUsbTypeAC: true,
-        rearUsbTypeAC: true,
-        otaUpdateSupport: true,
-        variantId: variant.id
-      }
-    });
+// ฟังก์ชันเพิ่มระบบความบันเทิง
+async function seedSealion7Entertainment(variants: Seal7Variants) {
+  const entertainmentData = {
+    fmRadio: true,
+    appleCarPlayAndroid: true,
+    bluetoothConnectivity: true,
+    touchscreen15Inch: true,
+    dynAudio12Speakers: true,
+    thaiVoiceControl: true,
+    ambientTemperatureDisplay: true,
+    digitalRadio: true,
+    frontUsbTypeAC: true,
+    rearUsbTypeAC: true,
+    otaUpdateSupport: true,
+    speakerCount: 12,
+  };
+  const entertainmentPromises = [
+    prisma.entertainmentFeatures.create({ data: { ...entertainmentData, variantId: variants.premium.id } }),
+    prisma.entertainmentFeatures.create({ data: { ...entertainmentData, variantId: variants.awd.id } }),
+  ];
+  await Promise.all(entertainmentPromises);
+  console.log('SEALION 7 entertainment features seeded');
+}
 
-    // 3.12 สร้าง LightingFeatures
-    await prisma.lightingFeatures.create({
-      data: {
-        ledHeadlights: true,
-        followMeHomeFunction: true,
-        ledDaytimeRunningLights: true,
-        ledTaillights: true,
-        rearFogLights: true,
-        sequentialRearTurnSignals: true,
-        thirdBrakeLights: true,
-        rgbDynamicMoodLights: true,
-        frontReadingLights: true,
-        rearReadingLights: true,
-        doorSillScuffPlates: true,
-        variantId: variant.id
-      }
-    });
+// ฟังก์ชันเพิ่มระบบไฟ
+async function seedSealion7Lighting(variants: Seal7Variants) {
+  const lightingData = {
+    ledHeadlights: true,
+    followMeHomeFunction: true,
+    ledDaytimeRunningLights: true,
+    ledTaillights: true,
+    rearFogLights: true,
+    sequentialRearTurnSignals: true,
+    thirdBrakeLights: true,
+    rgbDynamicMoodLights: true,
+    frontReadingLights: true,
+    rearReadingLights: true,
+    doorSillScuffPlates: true,
+  };
+  const lightingPromises = [
+    prisma.lightingFeatures.create({ data: { ...lightingData, variantId: variants.premium.id } }),
+    prisma.lightingFeatures.create({ data: { ...lightingData, variantId: variants.awd.id } }),
+  ];
+  await Promise.all(lightingPromises);
+  console.log('SEALION 7 lighting features seeded');
+}
 
-    // 3.13 สร้าง ComfortFeatures
-    await prisma.comfortFeatures.create({
-      data: {
-        keylessEntry: true,
-        nfcCardKey: true,
-        wirelessPhoneChargers: true,
-        twelveVoltOutlet: true,
-        pm25AirFilter: true,
-        cn95AirFilter: true,
-        airIonizer: true,
-        dualZoneClimateControl: true,
-        rearAirVents: true,
-        firstAidKit: true,
-        emergencyKit: true,
-        variantId: variant.id
-      }
-    });
-    console.log(`Seeding completed successfully for ${variant.name}`);
-  }
-
-  console.log('Completed seeding BYD Sealion 7');
+// ฟังก์ชันเพิ่มอุปกรณ์อำนวยความสะดวก
+async function seedSealion7Comfort(variants: Seal7Variants) {
+  const comfortData = {
+    keylessEntry: true,
+    nfcCardKey: true,
+    wirelessPhoneChargers: true,
+    twelveVoltOutlet: true,
+    pm25AirFilter: true,
+    cn95AirFilter: true,
+    airIonizer: true,
+    dualZoneClimateControl: true,
+    rearAirVents: true,
+    bydDigitalKey: true,
+    firstAidKit: false,
+    emergencyKit: false,
+    rearArmrest: true,
+    foldableSecondRowSeats: true,
+  };
+  const comfortPromises = [
+    prisma.comfortFeatures.create({ data: { ...comfortData, variantId: variants.premium.id } }),
+    prisma.comfortFeatures.create({ data: { ...comfortData, variantId: variants.awd.id } }),
+  ];
+  await Promise.all(comfortPromises);
+  console.log('SEALION 7 comfort features seeded');
 }

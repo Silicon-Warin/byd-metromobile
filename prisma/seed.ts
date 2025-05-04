@@ -9,11 +9,11 @@ const prisma = new PrismaClient();
 
 async function main() {
   // เรียกใช้งานฟังก์ชัน seeder ต่างๆ
-  await seedSeal(prisma);
-  await seedSealion7(prisma);
-  await seedDolphin(prisma); 
-  await seedM6(prisma);
-  await seedSealion6dmi(prisma);
+  await seedSeal();
+  await seedSealion7();
+  await seedDolphin();
+  await seedM6();
+  await seedSealion6dmi();
 }
 
 main()

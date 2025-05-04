@@ -21,10 +21,31 @@ import { Button } from "@/components/ui/button";
 import ModelOverview from "./modelOverview";
 import ColorSelectorSection from "./color-selector-section";
 import BYDSection from "./byd-section";
-import type { CarColor, CarModel } from "@/data/carModel";
+import type { Prisma, CarModel, CarColor } from "@prisma/client";
 import { GallerySection } from "@/components/Models/GallerySection";
+
+// สร้าง type จาก Prisma query result ใน page.tsx
+// Export the type so it can be imported elsewhere
+export type CarModelWithRelations = CarModel &
+	Prisma.CarModelGetPayload<{
+		include: {
+			variants: {
+				// Include relations needed by VariantWithDetails
+				include: {
+					DimensionsWeight: true;
+					PowertrainSystem: true;
+					Performance: true;
+					Battery: true;
+					ChargingSystem: true;
+				};
+			};
+			colors: true; // Include colors
+			features: true; // Include features
+		};
+	}>;
+
 interface ModelPageContentProps {
-	initialCarModel: CarModel;
+	initialCarModel: CarModelWithRelations;
 	slug: string;
 }
 
@@ -32,7 +53,7 @@ export default function ModelPageContent({
 	initialCarModel,
 	slug,
 }: ModelPageContentProps) {
-	const [carModel] = useState<CarModel>(initialCarModel);
+	const [carModel] = useState<CarModelWithRelations>(initialCarModel);
 	const [selectedColor, setSelectedColor] = useState<CarColor | null>(
 		carModel?.colors && carModel.colors.length > 0 ? carModel.colors[0] : null
 	);
@@ -51,15 +72,18 @@ export default function ModelPageContent({
 		}
 	};
 
-	const highlights = carModel.techHighlight || [];
+	const highlights: any[] = [];
 
 	return (
 		<>
 			{/* Hero Section with Full Screen Car Image */}
 			<div className="relative h-screen w-full" ref={heroRef}>
 				<Image
-					src={carModel.imageUrlHero || "/placeholder.svg"}
-					alt={carModel.name}
+					src={
+						carModel.imageUrlModel?.replace("/cars/", "/models/") ||
+						"/placeholder.svg"
+					}
+					alt={carModel.model || "Car Model"}
 					fill
 					className="object-cover"
 					priority
@@ -68,7 +92,7 @@ export default function ModelPageContent({
 
 				<div className="absolute z-10 left-1/2 -translate-x-1/2 top-32 w-full px-5 max-w-[600px] text-center">
 					<h1 className="text-4xl md:text-7xl font-bold mb-4 text-white">
-						{carModel.name}
+						{carModel.model || "Car Model"}
 					</h1>
 					<motion.p
 						className="text-xl md:text-2xl mb-8"
@@ -76,7 +100,7 @@ export default function ModelPageContent({
 						animate={{ opacity: 1, y: 0 }}
 						transition={{ delay: 0.4 }}
 					>
-						{carModel?.tagline || ""}
+						{carModel.description || ""}
 					</motion.p>
 				</div>
 
@@ -178,7 +202,7 @@ export default function ModelPageContent({
 							colors={carModel.colors}
 							initialColor={selectedColor}
 							onColorChange={setSelectedColor}
-							modelName={carModel.name}
+							modelName={carModel.model || "Car Model"}
 						/>
 					)}
 			</section>

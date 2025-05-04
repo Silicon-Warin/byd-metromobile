@@ -5,7 +5,7 @@ import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import BatteryChargingAnimation from "@/components/Models/BatteryChargingAnimation";
-import { CarModel } from "@/data/carModel";
+import type { CarModelWithRelations } from "./modelPageContent";
 
 const fadeIn = {
 	hidden: { opacity: 0, y: 20 },
@@ -17,7 +17,7 @@ const fadeIn = {
 };
 
 interface BYDSectionProps {
-	carModel: CarModel;
+	carModel: CarModelWithRelations;
 }
 
 export default function BYDSection({ carModel }: BYDSectionProps) {
@@ -53,7 +53,7 @@ export default function BYDSection({ carModel }: BYDSectionProps) {
 						(แล้วแต่อย่างใดอย่างหนึ่งถึงก่อน)
 					</span>
 					<h3 className="text-4xl font-bold mb-2">
-						{carModel.name} ปลุกพลังใหม่
+						{carModel.model} ปลุกพลังใหม่
 					</h3>
 					<h3 className="text-3xl font-bold text-balance">
 						ปลุกชีวิตที่ดีกว่า
@@ -153,7 +153,7 @@ export default function BYDSection({ carModel }: BYDSectionProps) {
 				{/* Test Drive Button */}
 				<div className="text-center mt-16">
 					<Button className="bg-red-600 hover:bg-red-700 text-white px-10 py-3 rounded-full font-medium">
-						ทดลองขับ {carModel.name}
+						ทดลองขับ {carModel.model}
 					</Button>
 				</div>
 			</div>

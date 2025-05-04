@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import type { CarColor } from "@/data/carModel";
+import type { CarColor } from "@prisma/client";
 
 interface ColorSelectorSectionProps {
 	colors: CarColor[];
@@ -87,7 +87,12 @@ export default function ColorSelectorSection({
 									className="absolute inset-0 w-full h-full z-10"
 								>
 									<Image
-										src={colorTransition.from.image || "/placeholder.svg"}
+										src={
+											colorTransition.from.image?.replace(
+												"/cars/",
+												"/models/"
+											) || "/placeholder.svg"
+										}
 										alt={`${modelName} in ${colorTransition.from.name}`}
 										fill
 										className="object-contain"
@@ -106,7 +111,10 @@ export default function ColorSelectorSection({
 							className="absolute inset-0 w-full h-full z-20"
 						>
 							<Image
-								src={colorTransition.to.image || "/placeholder.svg"}
+								src={
+									colorTransition.to.image?.replace("/cars/", "/models/") ||
+									"/placeholder.svg"
+								}
 								alt={`${modelName} in ${colorTransition.to.name}`}
 								fill
 								className="object-contain"
@@ -146,7 +154,7 @@ export default function ColorSelectorSection({
 									<span
 										className="inline-flex h-full w-full items-center justify-center rounded-lg backdrop-blur-3xl"
 										style={{
-											background: color.gradient || color.code,
+											background: color.gradient ?? color.code,
 											boxShadow: color.shadow || "none",
 											border: color.border || "none",
 										}}

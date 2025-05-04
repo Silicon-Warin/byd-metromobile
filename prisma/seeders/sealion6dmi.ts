@@ -1,310 +1,485 @@
 import { PrismaClient } from '@prisma/client';
 
-export async function seedSealion6dmi(prisma: PrismaClient) {
-  console.log('Seeding BYD SEALION 6 DM-i...');
+const prisma = new PrismaClient();
 
-  // 1. สร้าง CarModel สำหรับ BYD SEALION 6 DM-i
-  const carModel = await prisma.carModel.upsert({
-    where: { slug: "byd-sealion6dmi" },
-    update: {}, // ไม่มีการอัปเดตถ้ามีอยู่แล้ว
-    create: {
+export async function seedSealion6dmi() {
+  console.log('Seeding BYD SEALION 6 DM-i data...');
+
+  // สร้างข้อมูลพื้นฐานของรถ
+  const SEALION6_MODEL = await prisma.carModel.create({
+    data: {
       model: "BYD SEALION 6 DM-i",
       slug: "byd-sealion6dmi",
-      description: "SUV Plug-in Hybrid ขับเคลื่อน 4 ล้อ พลังงานสะอาด",
-      basePrice: 939900,
-      imageUrlPromo: "/images/promotions/sealion6dmi.webp",
-      imageUrlModel: "/images/models/sealion6dmi/byd-sealion6dmi-card.webp",
-      imageUrlHero: "/images/models/sealion6dmi/sealion6dmi-hero.jpg",
-      imageUrlReal: "/images/models/sealion6dmi/sealion6dmi-real.jpg",
+      tagline: "SUV Plug-in Hybrid ขับเคลื่อนชีวิตอย่างชาญฉลาด", // Updated tagline
+      description: "SUV Plug-in Hybrid ขับเคลื่อนล้อหน้า ผสานพลังงานเครื่องยนต์และมอเตอร์ไฟฟ้า ประหยัดและเป็นมิตรต่อสิ่งแวดล้อม", // Updated description
+      basePrice: 998900, // Updated base price (Dynamic)
+      imageUrlPromo: "/images/cars/sealion6/sealion6-promo.webp", // Consistent path
+      imageUrlModel: "/images/cars/sealion6/sealion6-model.webp", // Consistent path
       imageWidth: 1200,
       imageHeight: 800,
-      featuresTitle: "SUV Plug-in Hybrid สมรรถนะสูง",
-      specsOverview: {
-        acceleration: "6.9 วินาที",
-        range: "200 กิโลเมตร",
-        drivetrain: "AWD Premium",
-        motor: "มอเตอร์ 320 กิโลวัตต์",
-        battery: "18.3 กิโลวัตต์-ชั่วโมง",
-        charging: "AC type 2 / DC CCS 2 (18 กิโลวัตต์)",
-      },
+      featuresTitle: "SUV Plug-in Hybrid สมรรถนะเหนือชั้น", // Updated title
+      // Removed specsOverview
       promotion: [
         "ประกันภัยชั้น 1 พร้อม พรบ. ระยะเวลา 1 ปี",
-        "รับประกันตัวรถ (WARRANTY) 6 ปี หรือ 150,000 กม.",
+        "รับประกันตัวรถ (WARRANTY) 8 ปี หรือ 160,000 กม.", // Updated warranty
         "รับประกันแบตเตอรี่ 8 ปี หรือ 160,000 กม.",
         "บริการช่วยเหลือฉุกเฉิน ตลอด 24 ชั่วโมง 8 ปีเต็ม",
-        "สายต่อพ่วงอุปกรณ์ไฟฟ้า หรือ V TO L",
-        "สายชาร์จเคลื่อนที่ AC PORTABLE CHARGER",
-        "พรมเข้ารูป กรอบป้ายทะเบียน ฟิล์มกันรอยหน้าจอ",
-        "ค่าจดทะเบียน",
-        "ฟรี ฟิล์มกรองแสง XUV-MAX-CERAMIC"
+        "สายต่อพ่วงอุปกรณ์ไฟฟ้า (V2L)",
+        "สายชาร์จเคลื่อนที่ AC Portable Charger",
+        "พรมเข้ารูป",
+        "กรอบป้ายทะเบียน",
+        "ฟิล์มหน้าจอ",
+        "ค่าจดทะเบียนรถ",
+        "Home Charger ยี่ห้อ AUTEL พร้อมค่าติดตั้ง"
       ],
-      colors: {
-        create: [
-          { name: "Horizon White", code: "#FFFFFF", image: "/images/models/sealion6dmi/sealion6dmi-horizon-white.png" },
-          { name: "Quantum Black", code: "#000000", image: "/images/models/sealion6dmi/sealion6dmi-quantum-black.png" },
-          { name: "Graphite Grey", code: "#505050", image: "/images/models/sealion6dmi/sealion6dmi-graphite-grey.png" },
-        ]
-      },
-      variants: {
-        create: [
-          {
-            variantId: "sealion6-dynamic",
-            name: "Dynamic",
-            price: 939900,
-            range: "200",
-          },
-          {
-            variantId: "sealion6-premium",
-            name: "Premium",
-            price: 1039900,
-            range: "200",
-          },
-        ],
-      },
+      gallery: [
+          "/images/cars/sealion6/gallery/1.webp",
+          "/images/cars/sealion6/gallery/2.webp",
+          "/images/cars/sealion6/gallery/3.webp",
+      ],
+      // Removed inline relations
     },
   });
   console.log('Created BYD SEALION 6 DM-i model');
 
-  // 2. ค้นหา variants ทั้งหมดของ SEALION 6 DM-i
-  const sealion6Variants = await prisma.carVariant.findMany({
-    where: {
-      carModel: { slug: "byd-sealion6dmi" }
-    }
+  // เพิ่มสีรถ
+  await seedSealion6dmiColors(SEALION6_MODEL.id);
+
+  // สร้างรุ่นย่อย
+  const variants = await seedSealion6dmiVariants(SEALION6_MODEL.id);
+
+  // เพิ่มข้อมูลสเปคทางเทคนิค
+  await Promise.all([
+    seedSealion6dmiDimensions(variants),
+    seedSealion6dmiPowertrain(variants),
+    seedSealion6dmiPerformance(variants),
+    seedSealion6dmiBattery(variants),
+    seedSealion6dmiSuspension(variants),
+    seedSealion6dmiCharging(variants),
+    seedSealion6dmiSafety(variants),
+    seedSealion6dmiExterior(variants),
+    seedSealion6dmiInterior(variants),
+    seedSealion6dmiEntertainment(variants),
+    seedSealion6dmiLighting(variants),
+    seedSealion6dmiComfort(variants),
+  ]);
+
+  console.log('BYD SEALION 6 DM-i data seeded successfully!');
+  return SEALION6_MODEL;
+}
+
+// ฟังก์ชันเพิ่มสีรถ
+async function seedSealion6dmiColors(carModelId: number) {
+  const colors = [
+    {
+      name: "Arctic White", // Changed name
+      code: "#FFFFFF",
+      image: "/images/cars/sealion6/colors/arctic-white.webp",
+      gradient: "linear-gradient(180deg, #FFFFFF 0%, #F0F0F0 100%)",
+      shadow: "#DEDEDE",
+      border: "#EBEBEB",
+    },
+    {
+      name: "Azure Black", // Changed name
+      code: "#000000",
+      image: "/images/cars/sealion6/colors/azure-black.webp",
+      gradient: "linear-gradient(180deg, #333333 0%, #000000 100%)",
+      shadow: "#000000",
+      border: "#222222",
+    },
+    {
+      name: "Moon Grey", // Changed name
+      code: "#A9A9A9", // Standard grey code
+      image: "/images/cars/sealion6/colors/moon-grey.webp",
+      gradient: "linear-gradient(180deg, #A9A9A9 0%, #8C8C8C 100%)",
+      shadow: "#7D7D7D",
+      border: "#9E9E9E",
+    },
+  ];
+
+  const colorPromises = colors.map(color =>
+    prisma.carColor.create({ data: { ...color, carModelId } })
+  );
+  await Promise.all(colorPromises);
+  console.log('SEALION 6 DM-i colors seeded');
+}
+
+// ฟังก์ชันสร้างรุ่นย่อย
+async function seedSealion6dmiVariants(carModelId: number) {
+  const dynamicVariant = await prisma.carVariant.create({
+    data: {
+      variantId: "SEALION6-DYNAMIC", // Uppercase model
+      name: "Dynamic",
+      price: 998900, // Updated price
+      range: "92 กม. (EV Range - NEDC)", // Specify EV range
+      power: "160 กิโลวัตต์ (รวม)", // Total system power
+      acceleration: "8.5 วินาที", // Updated accel
+      carModelId,
+    },
   });
-  
-  console.log(`Found ${sealion6Variants.length} SEALION 6 DM-i variants`);
 
-  // 3. สร้าง relation ต่างๆ สำหรับแต่ละ variant
-  for (const variant of sealion6Variants) {
-    console.log(`Creating specifications for ${variant.name} (ID: ${variant.id})`);
-    
-    const isDynamic = variant.name === "Dynamic";
-    const isPremium = variant.name === "Premium";
+  const premiumVariant = await prisma.carVariant.create({
+    data: {
+      variantId: "SEALION6-PREMIUM", // Uppercase model
+      name: "Premium",
+      price: 1098900, // Updated price
+      range: "121 กม. (EV Range - NEDC)", // Specify EV range
+      power: "175 กิโลวัตต์ (รวม)", // Total system power
+      acceleration: "7.9 วินาที", // Updated accel
+      carModelId,
+    },
+  });
 
-    // 3.1 สร้าง DimensionsWeight
-    await prisma.dimensionsWeight.create({
+  console.log('SEALION 6 DM-i variants seeded');
+  return { dynamic: dynamicVariant, premium: premiumVariant };
+}
+
+// Helper type for variants
+type Sealion6Variants = {
+  dynamic: { id: number };
+  premium: { id: number };
+};
+
+// ฟังก์ชันเพิ่มข้อมูลขนาดและน้ำหนัก
+async function seedSealion6dmiDimensions(variants: Sealion6Variants) {
+  const dimensionBase = {
+      length: 4775,
+      width: 1890,
+      height: 1670,
+      wheelbase: 2765,
+      frontTrack: 1630,
+      rearTrack: 1630,
+      groundClearance: 180,
+  };
+  const dimensions = [
+    { ...dimensionBase, unladenWeight: 1850, variantId: variants.dynamic.id },
+    { ...dimensionBase, unladenWeight: 1885, variantId: variants.premium.id }, // Premium slightly heavier
+  ];
+  await Promise.all(dimensions.map(dim => prisma.dimensionsWeight.create({ data: dim })));
+  console.log('SEALION 6 DM-i dimensions seeded');
+}
+
+// ฟังก์ชันเพิ่มข้อมูลระบบขับเคลื่อน (DM-i)
+async function seedSealion6dmiPowertrain(variants: Sealion6Variants) {
+  const powertrainBase = {
+      driveType: "FWD",
+      engineType: "1.5L Xiaoyun Plug-in Hybrid Engine", // English
+      engineDisplacement: 1498, // cc
+      enginePower: 72, // kW @ 6000 rpm
+      engineTorque: 122, // Nm @ 4000-4500 rpm
+      frontMotorType: "Permanent Magnet Synchronous Motor",
+  };
+
+  const powertrainPromises = [
+    prisma.powertrainSystem.create({ // Dynamic
       data: {
-        length: 4775,
-        width: 1890,
-        height: 1670,
-        wheelbase: 2765,
-        frontTrack: 1630,
-        rearTrack: 1630,
-        groundClearance: 180,
-        unladenWeight: 1850,
-        grossWeight: 2260,
-        variantId: variant.id
-      }
-    });
-
-    // 3.2 สร้าง PowertrainSystem
-    await prisma.powertrainSystem.create({
-      data: {
-        driveType: "ขับเคลื่อนล้อหน้า",
-        engineType: "เครื่องยนต์ Xiao Yun ออกแบบเฉพาะลักษณ์ไฮบริด 1.5 ลิตร",
-        enginePower: 72,
-        engineTorque: 122,
-        frontMotorType: "มอเตอร์ซิงโครนัสแม่เหล็กถาวร (PMS)",
+        ...powertrainBase,
         frontMotorPower: 145,
-        frontMotorTorque: 300,
+        frontMotorTorque: 210,
         totalSystemPower: 160,
         totalSystemTorque: 300,
-        variantId: variant.id
+        variantId: variants.dynamic.id,
       }
-    });
+    }),
+    prisma.powertrainSystem.create({ // Premium
+      data: {
+        ...powertrainBase,
+        frontMotorPower: 160,
+        frontMotorTorque: 250,
+        totalSystemPower: 175,
+        totalSystemTorque: 350,
+        variantId: variants.premium.id,
+      }
+    }),
+  ];
+  await Promise.all(powertrainPromises);
+  console.log('SEALION 6 DM-i powertrain systems seeded');
+}
 
-    // 3.3 สร้าง Performance
-    await prisma.performance.create({
-      data: {
-        acceleration0To100: 0,
-        range: 425,
-        seatingCapacity: 5,
-        variantId: variant.id
-      }
-    });
+// ฟังก์ชันเพิ่มข้อมูลสมรรถนะ
+async function seedSealion6dmiPerformance(variants: Sealion6Variants) {
+  const performanceBase = { seatingCapacity: 5, topSpeed: 180 }; // Assumed top speed
+  const performancePromises = [
+    prisma.performance.create({ data: { ...performanceBase, acceleration0To100: 8.5, range: 92, variantId: variants.dynamic.id } }), // EV Range NEDC
+    prisma.performance.create({ data: { ...performanceBase, acceleration0To100: 7.9, range: 121, variantId: variants.premium.id } }), // EV Range NEDC
+  ];
+  await Promise.all(performancePromises);
+  console.log('SEALION 6 DM-i performance data seeded');
+}
 
-    // 3.4 สร้าง Battery
-    await prisma.battery.create({
-      data: {
-        type: "BYD Blade Battery",
-        capacity: 18.3,
-        variantId: variant.id
-      }
-    });
+// ฟังก์ชันเพิ่มข้อมูลแบตเตอรี่
+async function seedSealion6dmiBattery(variants: Sealion6Variants) {
+  const batteryBase = { type: "BYD Blade Battery (LFP)" };
+  const batteryPromises = [
+    prisma.battery.create({ data: { ...batteryBase, capacity: 18.3, variantId: variants.dynamic.id } }),
+    prisma.battery.create({ data: { ...batteryBase, capacity: 26.6, variantId: variants.premium.id } }),
+  ];
+  await Promise.all(batteryPromises);
+  console.log('SEALION 6 DM-i battery data seeded');
+}
 
-    // 3.5 สร้าง SuspensionBraking
-    await prisma.suspensionBraking.create({
-      data: {
-        frontSuspension: "แม็คเฟอร์สันสตรัท",
-        rearSuspension: "มัลติลิงค์",
-        adaptiveSuspension: false,
-        frontBrakeType: "ดิสก์เบรกแบบระบายอากาศ",
-        rearBrakeType: "ดิสก์เบรกแบบระบายอากาศ",
-        regenerativeBraking: true,
-        tireSize: "235/50 R19",
-        variantId: variant.id
-      }
-    });
+// ฟังก์ชันเพิ่มข้อมูลระบบกันสะเทือนและเบรก
+async function seedSealion6dmiSuspension(variants: Sealion6Variants) {
+  const suspensionData = {
+      frontSuspension: "MacPherson Strut",
+      rearSuspension: "Multi-link",
+      adaptiveSuspension: false,
+      frontBrakeType: "Vented Disc",
+      rearBrakeType: "Vented Disc",
+      regenerativeBraking: true,
+      tireSize: "235/50 R19",
+  };
+  const suspensionPromises = [
+    prisma.suspensionBraking.create({ data: { ...suspensionData, variantId: variants.dynamic.id } }),
+    prisma.suspensionBraking.create({ data: { ...suspensionData, variantId: variants.premium.id } }),
+  ];
+  await Promise.all(suspensionPromises);
+  console.log('SEALION 6 DM-i suspension and braking data seeded');
+}
 
-    // 3.6 สร้าง ChargingSystem
-    await prisma.chargingSystem.create({
-      data: {
-        acChargerType: "Type 2",
-        acChargerPower: 6.6,
-        dcChargerType1: "CCS 2",
-        dcChargerPower1: 18,
-        v2lSupport: true,
-        v2lAdapter: true,
-        regenerativeBraking: true,
-        variantId: variant.id
-      }
-    });
+// ฟังก์ชันเพิ่มข้อมูลระบบชาร์จ
+async function seedSealion6dmiCharging(variants: Sealion6Variants) {
+  const chargingBase = {
+    acChargerType: "Type 2",
+    acChargerPower: 7, // Updated AC power
+    dcChargerType1: "CCS2",
+    v2lSupport: true,
+    v2lAdapter: true,
+    regenerativeBraking: true,
+  };
+  const chargingPromises = [
+    prisma.chargingSystem.create({ data: { ...chargingBase, dcChargerPower1: 18, variantId: variants.dynamic.id } }), // kW
+    prisma.chargingSystem.create({ data: { ...chargingBase, dcChargerPower1: 18, variantId: variants.premium.id } }), // kW
+  ];
+  await Promise.all(chargingPromises);
+  console.log('SEALION 6 DM-i charging systems seeded');
+}
 
-    // 3.7 สร้าง SafetyFeatures
-    await prisma.safetyFeatures.create({
-      data: {
-        frontAirbags: true,
-        sideAirbags: true,
-        curtainAirbags: true,
-        kneeBolsterAirbags: true,
-        tirePressureMonitoring: true,
-        abs: true,
-        ebd: true,
-        esc: true,
-        tcs: true,
-        hillHoldControl: true,
-        autoHoldFunction: true,
-        aeb: !isDynamic,
-        forwardCollisionWarning: !isDynamic,
-        laneKeepAssist: !isDynamic,
-        laneDepartureWarning: !isDynamic,
-        blindSpotMonitoring: !isDynamic,
-        rearCrossTrafficAlert: !isDynamic,
-        adaptiveCruiseControl: !isDynamic,
-        trafficSignRecognition: !isDynamic,
-        driverAttentionMonitor: false,
-        frontParkingSensors: true,
-        rearParkingSensors: true,
-        surroundViewCamera: true,
-        automaticHeadlights: true,
-        highBeamAssist: !isDynamic,
-        rainSensingWipers: false,
-        bhsSystem: false,
-        doorOpenWarningSystem: !isDynamic,
-        intelligentHeadlights: !isDynamic,
-        drivingAssistanceSystem: false,
-        headsUpDisplay: false,
-        intelligentTorqueControl: false,
-        rearCollisionWarning: !isDynamic,
-        rearCrossTrafficBrake: !isDynamic,
-        intelligentCruiseControl: !isDynamic,
-        variantId: variant.id
-      }
-    });
+// ฟังก์ชันเพิ่มข้อมูลความปลอดภัย
+async function seedSealion6dmiSafety(variants: Sealion6Variants) {
+  const safetyBase = {
+    frontAirbags: true,
+    sideAirbags: true,
+    curtainAirbags: true,
+    kneeBolsterAirbags: false, // Assuming no knee airbags
+    tirePressureMonitoring: true,
+    abs: true,
+    ebd: true,
+    esc: true,
+    tcs: true,
+    hillHoldControl: true,
+    autoHoldFunction: true,
+    frontParkingSensors: true,
+    rearParkingSensors: true,
+    surroundViewCamera: true,
+    automaticHeadlights: true,
+    // Defaults for fields that might vary or be missing
+    aeb: false,
+    forwardCollisionWarning: false,
+    laneKeepAssist: false,
+    laneDepartureWarning: false,
+    blindSpotMonitoring: false,
+    rearCrossTrafficAlert: false,
+    adaptiveCruiseControl: false,
+    trafficSignRecognition: false,
+    driverAttentionMonitor: false,
+    highBeamAssist: false,
+    rainSensingWipers: false,
+    bhsSystem: false,
+    doorOpenWarningSystem: false,
+    intelligentHeadlights: false,
+    drivingAssistanceSystem: false,
+    headsUpDisplay: false,
+    intelligentTorqueControl: false,
+    rearCollisionWarning: false,
+    rearCrossTrafficBrake: false,
+    intelligentCruiseControl: false,
+    brakeDiscWiping: false,
+    curveSpeedControl: false,
+    rolloverMitigation: false,
+  };
 
-    // 3.8 สร้าง ExteriorFeatures
-    await prisma.exteriorFeatures.create({
-      data: {
-        panoramicGlassRoof: true,
-        electricSunroof: false,
-        rearWiperWithIntermittentFunction: true,
-        electricTailgate: true,
-        rearWindowHeatedWithTimer: true,
-        powerFoldingMirrors: true,
-        autoFoldingMirrors: true, 
-        memoryPositionMirrors: true,
-        antiPinchWindowsWithOneTouchSystem: true,
-        frontRearParkingSensors: true,
-        heatedSideView: true,
-        variantId: variant.id
-      }
-    });
-    
-    // 3.9 สร้าง InteriorFeatures
-    await prisma.interiorFeatures.create({
-      data: {
-        multiColorAmbientLighting: true,
-        leatherSyntheticSeats: true,
-        leatherSeats: false,
-        lcdDisplay10Inch: true,
-        centerConsoleStorage: true,
-        syntheticLeatherSteeringWheel: true,
-        leatherSteeringWheel: false,
-        eightWayPowerSeats: isPremium,
-        backSeat4WayAdjustment: true,
-        frontSeatHeating: false,
-        ventilatedSeatsWithACSystem: true,
-        electricMemorySeatDrivers: true,
-        steeringWheelHeatedAndMemory: false,
-        twoWaySunshades: true,
-        adjustableRearHeadRests: true,
-        rearHeadRests2Way: true,
-        automaticDimmingRearviewMirror: true,
-        framelessRearviewMirror: false,
-        antiBurglaryDoorPillar: false,
-        frontIlluminatedVanityMirror: true,
-        variantId: variant.id
-      }
-    });
-    
-    // 3.10 สร้าง EntertainmentFeatures
-    await prisma.entertainmentFeatures.create({
-      data: {
-        fmRadio: true,
-        appleCarPlayAndroid: true,
-        bluetoothConnectivity: true,
-        touchscreen15Inch: true,
-        dynAudio12Speakers: isPremium,
-        thaiVoiceControl: true,
-        ambientTemperatureDisplay: true, 
-        digitalRadio: true,
-        frontUsbTypeAC: true,
-        rearUsbTypeAC: true,
-        otaUpdateSupport: true,
-        speakerCount: isPremium ? 10 : 9,
-        variantId: variant.id
-      }
-    });
-    
-    // 3.11 สร้าง LightingFeatures
-    await prisma.lightingFeatures.create({
-      data: {
-        ledHeadlights: true,
-        followMeHomeFunction: isPremium,
-        ledDaytimeRunningLights: true,
-        ledTaillights: true,
-        rearFogLights: isPremium,
-        sequentialRearTurnSignals: true,
-        thirdBrakeLights: true,
-        rgbDynamicMoodLights: isPremium,
-        frontReadingLights: true,
-        rearReadingLights: true,
-        doorSillScuffPlates: true,
-        variantId: variant.id
-      }
-    });
-    
-    // 3.12 สร้าง ComfortFeatures
-    await prisma.comfortFeatures.create({
-      data: {
-        keylessEntry: true,
-        nfcCardKey: true,
-        wirelessPhoneChargers: true,
-        twelveVoltOutlet: true,
-        pm25AirFilter: true,
-        cn95AirFilter: false,
-        airIonizer: false,
-        dualZoneClimateControl: true,
-        rearAirVents: true,
-        firstAidKit: false,
-        emergencyKit: false,
-        bydDigitalKey: true,
-        variantId: variant.id
-      }
-    });
-    
-    console.log(`Seeding completed successfully for ${variant.name}`);
-  }
+  const dynamicSafety = { ...safetyBase };
+  const premiumSafety = {
+    ...safetyBase,
+    aeb: true,
+    forwardCollisionWarning: true,
+    laneKeepAssist: true,
+    laneDepartureWarning: true,
+    blindSpotMonitoring: true,
+    rearCrossTrafficAlert: true,
+    adaptiveCruiseControl: true, // ACC Stop & Go
+    trafficSignRecognition: true,
+    highBeamAssist: true,
+    doorOpenWarningSystem: true,
+    intelligentHeadlights: true, // Adaptive
+    rearCollisionWarning: true,
+    rearCrossTrafficBrake: true,
+    intelligentCruiseControl: true,
+  };
 
-  console.log('Completed seeding BYD SEALION 6 DM-i.');
+  await Promise.all([
+    prisma.safetyFeatures.create({ data: { ...dynamicSafety, variantId: variants.dynamic.id } }),
+    prisma.safetyFeatures.create({ data: { ...premiumSafety, variantId: variants.premium.id } }),
+  ]);
+  console.log('SEALION 6 DM-i safety features seeded');
+}
+
+// ฟังก์ชันเพิ่มอุปกรณ์ภายนอก
+async function seedSealion6dmiExterior(variants: Sealion6Variants) {
+  const exteriorData = {
+    panoramicGlassRoof: true,
+    electricSunroof: false, // Part of pano roof
+    rearWiperWithIntermittentFunction: true,
+    electricTailgate: true,
+    rearWindowHeatedWithTimer: true,
+    powerFoldingMirrors: true,
+    autoFoldingMirrors: true,
+    memoryPositionMirrors: true,
+    antiPinchWindowsWithOneTouchSystem: true,
+    frontRearParkingSensors: true,
+    heatedSideView: true,
+    roofRails: true,
+    // Added schema defaults
+    autoDimmingSideMirrors: false,
+    remoteWindowOperation: false,
+  };
+  const exteriorPromises = [
+    prisma.exteriorFeatures.create({ data: { ...exteriorData, variantId: variants.dynamic.id } }),
+    prisma.exteriorFeatures.create({ data: { ...exteriorData, variantId: variants.premium.id } }),
+  ];
+  await Promise.all(exteriorPromises);
+  console.log('SEALION 6 DM-i exterior features seeded');
+}
+
+// ฟังก์ชันเพิ่มอุปกรณ์ภายใน
+async function seedSealion6dmiInterior(variants: Sealion6Variants) {
+  const interiorBase = {
+      multiColorAmbientLighting: true,
+      leatherSyntheticSeats: true,
+      leatherSeats: false,
+      lcdDisplay10Inch: true, // 12.3 inch driver display
+      centerConsoleStorage: true,
+      syntheticLeatherSteeringWheel: true,
+      leatherSteeringWheel: false,
+      backSeat4WayAdjustment: true, // Passenger 4-way manual
+      ventilatedSeatsWithACSystem: true, // Driver + Passenger
+      twoWaySunshades: true,
+      adjustableRearHeadRests: true,
+      rearHeadRests2Way: true,
+      automaticDimmingRearviewMirror: true,
+      framelessRearviewMirror: false,
+      frontIlluminatedVanityMirror: true,
+      rearArmrest: true,
+      foldableSecondRowSeats: true, // 60:40
+      foldableThirdRowSeats: false,
+      // Added schema defaults
+      eightWayPowerSeats: false,
+      frontSeatHeating: false,
+      electricMemorySeatDrivers: false,
+      steeringWheelHeatedAndMemory: false,
+      antiBurglaryDoorPillar: false,
+  };
+
+  const dynamicInterior = {
+    ...interiorBase,
+    eightWayPowerSeats: true, // Driver 6-way power
+    electricMemorySeatDrivers: true, // Driver memory
+  };
+  const premiumInterior = {
+    ...interiorBase,
+    eightWayPowerSeats: true, // Driver 8-way power
+    backSeat4WayAdjustment: true, // Passenger 4-way power
+    electricMemorySeatDrivers: true,
+    frontSeatHeating: true, // Added heating for premium
+  };
+
+  await Promise.all([
+    prisma.interiorFeatures.create({ data: { ...dynamicInterior, variantId: variants.dynamic.id } }),
+    prisma.interiorFeatures.create({ data: { ...premiumInterior, variantId: variants.premium.id } }),
+  ]);
+  console.log('SEALION 6 DM-i interior features seeded');
+}
+
+// ฟังก์ชันเพิ่มระบบความบันเทิง
+async function seedSealion6dmiEntertainment(variants: Sealion6Variants) {
+  const entertainmentBase = {
+      fmRadio: true,
+      appleCarPlayAndroid: true, // Wired & Wireless
+      bluetoothConnectivity: true,
+      touchscreen15Inch: true, // 15.6 inch rotating
+      thaiVoiceControl: true,
+      ambientTemperatureDisplay: true,
+      digitalRadio: true,
+      frontUsbTypeAC: true, // A+C
+      rearUsbTypeAC: true, // A+C
+      otaUpdateSupport: true,
+      // Added schema default
+      dynAudio12Speakers: false,
+  };
+  const dynamicEntertainment = { ...entertainmentBase, speakerCount: 8 };
+  const premiumEntertainment = { ...entertainmentBase, speakerCount: 10, dynAudio12Speakers: true }; // Infinity speakers
+
+  await Promise.all([
+    prisma.entertainmentFeatures.create({ data: { ...dynamicEntertainment, variantId: variants.dynamic.id } }),
+    prisma.entertainmentFeatures.create({ data: { ...premiumEntertainment, variantId: variants.premium.id } }),
+  ]);
+  console.log('SEALION 6 DM-i entertainment features seeded');
+}
+
+// ฟังก์ชันเพิ่มระบบไฟ
+async function seedSealion6dmiLighting(variants: Sealion6Variants) {
+  const lightingBase = {
+      ledHeadlights: true,
+      ledDaytimeRunningLights: true,
+      ledTaillights: true,
+      sequentialRearTurnSignals: true,
+      thirdBrakeLights: true,
+      frontReadingLights: true,
+      rearReadingLights: true,
+      doorSillScuffPlates: true,
+      // Added schema defaults
+      followMeHomeFunction: false,
+      rearFogLights: false,
+      rgbDynamicMoodLights: false,
+  };
+  const dynamicLighting = { ...lightingBase };
+  const premiumLighting = {
+      ...lightingBase,
+      followMeHomeFunction: true,
+      rearFogLights: true,
+      rgbDynamicMoodLights: true, // Multi-color
+  };
+  await Promise.all([
+    prisma.lightingFeatures.create({ data: { ...dynamicLighting, variantId: variants.dynamic.id } }),
+    prisma.lightingFeatures.create({ data: { ...premiumLighting, variantId: variants.premium.id } }),
+  ]);
+  console.log('SEALION 6 DM-i lighting features seeded');
+}
+
+// ฟังก์ชันเพิ่มอุปกรณ์อำนวยความสะดวก
+async function seedSealion6dmiComfort(variants: Sealion6Variants) {
+  const comfortData = {
+      keylessEntry: true,
+      nfcCardKey: true,
+      wirelessPhoneChargers: true,
+      twelveVoltOutlet: true,
+      pm25AirFilter: true,
+      cn95AirFilter: false, // Assuming PM2.5 only
+      airIonizer: false, // Assuming PM2.5 only
+      dualZoneClimateControl: true,
+      rearAirVents: true,
+      bydDigitalKey: true,
+      // Added schema defaults
+      firstAidKit: false,
+      emergencyKit: false,
+      rearArmrest: true, // Covered in interior
+      foldableSecondRowSeats: true, // Covered in interior
+  };
+  const comfortPromises = [
+    prisma.comfortFeatures.create({ data: { ...comfortData, variantId: variants.dynamic.id } }),
+    prisma.comfortFeatures.create({ data: { ...comfortData, variantId: variants.premium.id } }),
+  ];
+  await Promise.all(comfortPromises);
+  console.log('SEALION 6 DM-i comfort features seeded');
 }

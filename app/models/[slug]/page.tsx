@@ -1,27 +1,45 @@
 // app/models/[slug]/page.tsx
-import { findModelBySlug, defaultModels } from "@/data/carModel";
+import { prisma } from "@/lib/prisma";
 import { notFound } from "next/navigation";
 import ModelPageContent from "./modelPageContent";
 
-// สร้าง static routes สำหรับทุกรุ่นรถที่มีอยู่ใน defaultModels
 export async function generateStaticParams() {
-	return defaultModels.map((model) => ({
-		slug: model.slug,
-	}));
+	// ดึง slug จาก database
+	const models = await prisma.carModel.findMany({
+		select: { slug: true },
+	});
+	return models.map((model: { slug: any }) => ({ slug: model.slug }));
 }
 
 export default async function ModelPage({
 	params,
 }: {
-	params: Promise<{ slug: string }>;
+	params: { slug: string };
 }) {
-	const { slug } = await params;
+	const { slug } = params;
 
 	if (!slug) notFound();
 
-	const carModel = findModelBySlug(slug);
+	const carModel = await prisma.carModel.findUnique({
+		where: { slug },
+		include: {
+			variants: {
+				// ดึงข้อมูลรุ่นย่อยทั้งหมด
+				include: {
+					DimensionsWeight: true,
+					PowertrainSystem: true,
+					Performance: true,
+					Battery: true,
+					ChargingSystem: true,
+				},
+			},
+			colors: true, // สีทั้งหมดของรุ่นหลัก (ยังคงไว้อยู่)
+			features: true, // Include features relation
+		},
+	});
 
 	if (!carModel) notFound();
 
+	// Pass the fetched carModel data with the correct prop name
 	return <ModelPageContent initialCarModel={carModel} slug={slug} />;
 }
