@@ -52,21 +52,19 @@ export function MainHeader() {
 	return (
 		<header
 			className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-				isScrolled
-					? "bg-primary/90 backdrop-blur-lg shadow-lg"
-					: "bg-transparent"
+				isScrolled ? "bg-primary/50" : "bg-transparent"
 			}`}
 		>
-			<div className="container mx-auto px-4 py-3">
+			<div className="container mx-auto px-4 lg:px-8 2xl:px-0">
 				{/* Desktop Header */}
-				<div className="hidden md:flex items-center justify-between">
+				<div className="hidden lg:flex justify-between items-center px-4 lg:px-8 2xl:px-0 max-w-[1150px] w-full lg:w-[90vw] mx-auto md:min-h-[105px] min-h-[70px] bg-dark-blue lg:bg-transparent transition-all duration-300 z-30 relative">
 					{/* Logo */}
-					<Link href="/" className="block">
+					<Link href="/" className="block w-6/12 lg:w-4/12">
 						<Image
 							src="/images/metromobile-logo.png"
 							alt="BYD Metromobile"
-							width={180}
-							height={60}
+							width={200}
+							height={100}
 							priority
 						/>
 					</Link>
@@ -140,15 +138,17 @@ export function MainHeader() {
 				</div>
 
 				{/* Mobile Header */}
-				<div className="flex justify-between items-center px-5 md:hidden min-h-[70px] z-30 relative">
+				<div className="lg:hidden flex justify-between p-8 items-center mx-auto bg-dark-blue z-20 relative">
 					{/* Logo */}
-					<Link href="/" className="block">
+					<Link
+						href="/"
+						className="flex flex-col items-start self-center cursor-pointer w-6/12"
+					>
 						<Image
 							src="/images/metromobile-logo.png"
 							alt="BYD Metromobile"
-							width={140}
-							height={50}
-							className="cursor-pointer object-contain z-10 min-h-[22px] h-[18px] lg:h-[30px] "
+							width={250}
+							height={170}
 							priority
 						/>
 					</Link>
@@ -156,16 +156,20 @@ export function MainHeader() {
 					{/* Mobile Menu Button */}
 					<Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
 						<SheetTrigger asChild>
-							<Button variant="ghost" size="icon" className="md:hidden">
+							<Button
+								variant="ghost"
+								size="lg"
+								className="lg:hidden w-12 sm:w-16 p-2 sm:p-3"
+							>
 								<Menu
-									className={`h-6 w-6 ${
+									className={`h-8 w-8 ${
 										isScrolled ? "text-gray-800" : "text-white"
 									}`}
 								/>
 								<span className="sr-only">เปิดเมนู</span>
 							</Button>
 						</SheetTrigger>
-						<SheetContent side="right" className="w-[280px] sm:w-[350px] p-0">
+						<SheetContent side="right" className="w-[300px] sm:w-[450px] p-0">
 							<div className="flex flex-col h-full bg-white">
 								{/* Mobile Menu Header */}
 								<div className="flex items-center justify-between p-4 border-b">

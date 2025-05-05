@@ -21,8 +21,8 @@ export function GallerySection({ carModel, highlights }: GallerySectionProps) {
 
 				<Tabs defaultValue="exterior" className="w-full">
 					<TabsList className="grid w-full max-w-[400px] mx-auto grid-cols-2">
-						<TabsTrigger value="exterior">Exterior</TabsTrigger>
-						<TabsTrigger value="interior">Interior</TabsTrigger>
+						<TabsTrigger value="exterior">ภายนอก</TabsTrigger>
+						<TabsTrigger value="interior">ภายใน</TabsTrigger>
 					</TabsList>
 					<TabsContent value="exterior">
 						<div className="grid grid-cols-1 md:grid-cols-2 gap-6">

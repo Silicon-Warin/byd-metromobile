@@ -72,7 +72,7 @@ export default function RootLayout({
 				<meta name="image-rendering" content="optimizeQuality" />
 				<meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
 			</head>
-			<body className="font-prompt">
+			<body className="font-prompt bg-background text-foreground antialiased">
 				<SpeedInsights />
 				<MainHeader />
 				<main className="max-w-[100vw] overflow-x-hidden">{children}</main>

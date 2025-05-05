@@ -1,11 +1,12 @@
 import { Button } from "@/components/ui/button";
-import { ChevronRight, Shield, Zap, Clock, Phone } from "lucide-react";
+import { ChevronRight, Phone } from "lucide-react";
 import Link from "next/link";
 import { Suspense } from "react";
 import HeroBannerCarousel from "@/components/HeroBannerCarousel";
 import ProductSlider from "@/components/ProductSlider";
 import ServiceGrid from "@/components/ServiceGrid";
 import { defaultModels } from "@/data/carModel";
+import Features from "@/components/Features";
 
 // Type definition for the props
 const productSliderModels = defaultModels.map((model) => ({
@@ -19,7 +20,7 @@ export default function HomePage() {
 	return (
 		<>
 			<section className="relative h-screen w-full">
-				<div className="absolute inset-0 z-10 pointer-events-none top-shadow"></div>
+				<div className="absolute inset-0 z-20 pointer-events-none top-shadow"></div>
 				<Suspense
 					fallback={
 						<div className="w-full h-[90vh] bg-gray-900 animate-pulse" />
@@ -29,148 +30,107 @@ export default function HomePage() {
 				</Suspense>
 
 				{/* ย้าย bottom-shadow มาอยู่นอก div เนื้อหา */}
-				<div className="absolute bottom-0 left-0 right-0 w-full z-10 pointer-events-none bottom-shadow"></div>
+				<div className="absolute bottom-0 left-0 right-0 w-full z-20 pointer-events-none bottom-shadow"></div>
 
 				<div className="absolute bottom-0 left-0 right-0 z-20 p-4">
-					<div className="container-custom">
-						<h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-2 sm:mb-4 drop-shadow-lg">
-							BYD Metromobile
-						</h1>
-						<p className="text-sm sm:text-lg md:text-xl text-gray-200 max-w-xl mb-4 sm:mb-6 drop-shadow-lg">
-							ยานยนต์ไฟฟ้าแห่งอนาคต พร้อมเทคโนโลยีล้ำสมัยเพื่อโลกที่ยั่งยืน
-						</p>
-						<Button
-							className="bg-white hover:bg-white/90 text-black group text-sm sm:text-base"
-							asChild
-						>
-							<Link href="/promotions">
-								ค้นพบรถยนต์ของเรา
-								<ChevronRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-							</Link>
-						</Button>
+					<div className="container-hero flex justify-center items-center">
+						<div className="rounded-xl px-6 md:px-8 py-6 md:py-8 max-w-2xl w-full mx-auto text-left">
+							<h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-2 sm:mb-4 drop-shadow-lg">
+								BYD Metromobile
+							</h1>
+							<p className="text-sm sm:text-lg md:text-xl text-gray-200 max-w-xl mb-4 sm:mb-6 drop-shadow-lg">
+								สัมผัสประสบการณ์การขับขี่ที่เหนือระดับด้วยรถยนต์ไฟฟ้าจาก BYD
+								ที่มาพร้อมเทคโนโลยีและการออกแบบที่ล้ำสมัย
+							</p>
+							<div className="flex gap-3 mt-2">
+								<Button
+									className="bg-white hover:bg-white/90 text-black group text-sm sm:text-base"
+									asChild
+								>
+									<Link href="/promotions">
+										ดูโปรโมชั่น
+										<ChevronRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+									</Link>
+								</Button>
+								<Button
+									className="bg-orange-500 hover:bg-orange-600 text-white group text-sm sm:text-base"
+									asChild
+								>
+									<Link href="/test-drive">
+										จองทดลองขับ
+										<ChevronRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+									</Link>
+								</Button>
+							</div>
+						</div>
 					</div>
 				</div>
 			</section>
 
-			<section className="bg-rich-black-gradient-continuous overflow-x-hidden min-h-[500px]">
-				<div className="absolute top-1/4 left-1/4 w-full h-1/2 bg-[#afb5ff] opacity-10 blur-[100px] rounded-full"></div>
-				<div className="absolute bottom-1/4 right-1/4 w-screen h-1/2 bg-[#3765ff] opacity-10 blur-[100px] rounded-full"></div>
-				<div className="w-[90%] md:w-[66%] mx-auto mb-3">
-					<div className="mb-0 pt-5 w-[90%] md:w-[66%]">
+			{/* Models Section */}
+			<div className="relative min-h-screen">
+				{/* Gradient background and blur effects */}
+				<div className="pointer-events-none fixed inset-0 -z-10">
+					<div className="absolute inset-0 bg-gradient-to-b from-background via-background/90 to-background" />
+					<div className="absolute right-0 top-0 h-[500px] w-[500px] bg-blue-500/10 blur-[100px]" />
+					<div className="absolute bottom-0 left-0 h-[500px] w-[500px] bg-purple-500/10 blur-[100px]" />
+				</div>
+				<div className="relative z-10">
+					{/* Models Section Header */}
+					<div className="w-[90%] md:w-[66%] mx-auto mb-0 pt-6">
 						<h2 className="text-3xl md:text-4xl font-semibold text-start mb-4 pt-4">
-							Models.{" "}
-							<span className="text-muted-foreground text-sm md:text-base">
+							Models{" "}
+							<span className="text-gradient text-sm md:text-base">
 								Build your dreams.
 							</span>
 						</h2>
 					</div>
-				</div>
-				<ProductSlider items={productSliderModels} buttonText="ทดลองขับ" />
-			</section>
 
-			{/* Services Section */}
-			<section className="section-spacing bg-rich-black-gradient-continuous overflow-x-hidden min-h-[500px]">
-				<div className="w-[90%] md:w-[66%] mx-auto mb-3">
-					<h2 className="text-3xl md:text-4xl font-semibold text-start mb-4 pt-4">
-						Services.
-					</h2>
-				</div>
-				{/* Component แสดงรายการบริการ */}
-				<Suspense
-					fallback={
-						<div className="w-full h-[300px] bg-gray-800/30 rounded-xl animate-pulse" />
-					}
-				>
-					<ServiceGrid />
-				</Suspense>
-			</section>
+					<ProductSlider items={productSliderModels} buttonText="ทดลองขับ" />
 
-			{/* Why Choose Us Section */}
-			<section className="section-spacing bg-rich-black-gradient-continuous">
-				<div className="container mx-auto mt-8 mb-4 sm:mb-6 md:mb-12">
-					{/* Title and Description */}
-					<div className="mb-6 sm:mb-8 md:mb-12">
-						<h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-3 sm:mb-4">
-							ทำไมต้องเลือก BYD Metromobile
+					{/* Services Section */}
+					<div className="w-[90%] md:w-[66%] mx-auto mb-3">
+						<h2 className="text-3xl md:text-4xl font-semibold text-start mb-4 pt-4">
+							Services.
 						</h2>
-						<p className="text-gray-400 text-center max-w-2xl mx-auto text-sm sm:text-base">
-							เราให้ความสำคัญกับคุณภาพและความพึงพอใจของลูกค้าเป็นอันดับหนึ่ง
-						</p>
 					</div>
+					{/* Component แสดงรายการบริการ */}
+					<Suspense
+						fallback={
+							<div className="w-full h-[300px] bg-gray-800/30 rounded-xl animate-pulse" />
+						}
+					>
+						<ServiceGrid />
+					</Suspense>
+					<Features />
 
-					<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
-						<div className="glass-effect p-4 sm:p-6 md:p-8 rounded-xl card-hover">
-							<div className="bg-white/5 p-3 rounded-lg w-fit mb-4 sm:mb-6">
-								<Zap className="h-6 w-6 sm:h-8 sm:w-8 text-white" />
-							</div>
-							<h3 className="text-lg sm:text-xl font-bold mb-2 sm:mb-4">
-								เทคโนโลยีล้ำสมัย
-							</h3>
-							<p className="text-gray-400 text-sm sm:text-base">
-								นวัตกรรมแบตเตอรี่และระบบขับเคลื่อนที่ทันสมัย
-								ให้ประสิทธิภาพสูงสุดและเป็นมิตรกับสิ่งแวดล้อม
-							</p>
-						</div>
+					{/* Background with gradient and blur effects */}
+					<div className="absolute inset-0 z-0">
+						{/* Blur effects similar to cursor.so */}
+						<div className="absolute top-1/4 left-1/3 w-1/2 h-1/2 bg-[#3765ff] opacity-10 blur-[120px] rounded-full"></div>
+						<div className="absolute bottom-0 right-1/4 w-1/2 h-1/2 bg-[#afb5ff] opacity-10 blur-[100px] rounded-full"></div>
+					</div>
+					<div className="relative z-10 max-w-4xl mx-auto text-center px-4">
+						<div className="flex flex-col sm:flex-row gap-4 justify-center p-8">
+							<Button
+								size="lg"
+								className="bg-white hover:bg-white/90 text-black group"
+							>
+								<Phone className="mr-2 h-5 w-5" />
+								ติดต่อเรา
+							</Button>
 
-						<div className="glass-effect p-4 sm:p-6 md:p-8 rounded-xl card-hover">
-							<div className="bg-white/5 p-3 rounded-lg w-fit mb-4 sm:mb-6">
-								<Shield className="h-6 w-6 sm:h-8 sm:w-8 text-white" />
-							</div>
-							<h3 className="text-lg sm:text-xl font-bold mb-2 sm:mb-4">
-								การรับประกันคุณภาพ
-							</h3>
-							<p className="text-gray-400 text-sm sm:text-base">
-								รับประกันคุณภาพสูงสุดพร้อมบริการฉุกเฉิน 24 ชั่วโมง
-								เพื่อความมั่นใจในทุกการเดินทาง
-							</p>
-						</div>
-
-						<div className="glass-effect p-4 sm:p-6 md:p-8 rounded-xl card-hover">
-							<div className="bg-white/5 p-3 rounded-lg w-fit mb-4 sm:mb-6">
-								<Clock className="h-6 w-6 sm:h-8 sm:w-8 text-white" />
-							</div>
-							<h3 className="text-lg sm:text-xl font-bold mb-2 sm:mb-4">
-								บริการหลังการขาย
-							</h3>
-							<p className="text-gray-400 text-sm sm:text-base">
-								ทีมงานมืออาชีพพร้อมให้บริการหลังการขายที่รวดเร็วและมีประสิทธิภาพ
-								ตลอดอายุการใช้งานรถยนต์
-							</p>
+							<Button
+								size="lg"
+								variant="outline"
+								className="border-gray-700 text-white hover:bg-gray-800"
+							>
+								นัดหมายทดลองขับ
+							</Button>
 						</div>
 					</div>
 				</div>
-			</section>
-
-			{/* Contact Section */}
-			<section className="relative overflow-hidden">
-				<div className="max-w-3xl mx-auto text-center">
-					<h2 className="text-3xl md:text-4xl font-bold mb-6">
-						ติดต่อ BYD Metromobile
-					</h2>
-					<p className="text-xl text-gray-300 mb-8">
-						พร้อมให้คำปรึกษาและบริการที่ดีที่สุดสำหรับคุณ
-						ไม่ว่าจะเป็นการทดลองขับ หรือข้อมูลเพิ่มเติมเกี่ยวกับรถยนต์ของเรา
-					</p>
-
-					<div className="flex flex-col sm:flex-row gap-4 justify-center">
-						<Button
-							size="lg"
-							className="bg-white hover:bg-white/90 text-black group"
-						>
-							<Phone className="mr-2 h-5 w-5" />
-							ติดต่อเรา
-						</Button>
-
-						<Button
-							size="lg"
-							variant="outline"
-							className="border-gray-700 text-white hover:bg-gray-800"
-						>
-							นัดหมายทดลองขับ
-						</Button>
-					</div>
-				</div>
-			</section>
+			</div>
 		</>
 	);
 }

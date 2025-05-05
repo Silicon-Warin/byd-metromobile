@@ -2,22 +2,12 @@
 
 import Link from "next/link";
 import { navCarModels } from "@/data/navCarModels";
-import { useState } from "react";
+
 import SocialIcons from "@/app/utils/SocialIcon";
 
 export function Footer() {
-	const [openSection, setOpenSection] = useState<string | null>(null);
-
-	const toggleSection = (section: string) => {
-		if (openSection === section) {
-			setOpenSection(null);
-		} else {
-			setOpenSection(section);
-		}
-	};
-
 	return (
-		<footer className="py-16 bg-gradient-to-b from-gray-900 to-black text-white">
+		<footer className="py-16 bg-gradient-to-b from-[#0a0d0f] to-grey-900 text-white">
 			<div className="container mx-auto px-4 max-w-7xl">
 				{/* Main footer content */}
 				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 mb-12">

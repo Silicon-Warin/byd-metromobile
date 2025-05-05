@@ -21,16 +21,11 @@ interface BYDSectionProps {
 }
 
 export default function BYDSection({ carModel }: BYDSectionProps) {
-	// Refs for parallax elements
 	const mainImageRef = useRef(null);
-
-	// Parallax effects
 	const { scrollYProgress: mainImageScroll } = useScroll({
 		target: mainImageRef,
 		offset: ["start end", "end start"],
 	});
-
-	// Transform values for parallax
 	const mainImageY = useTransform(mainImageScroll, [0, 1], [0, -30]);
 
 	return (
@@ -62,14 +57,11 @@ export default function BYDSection({ carModel }: BYDSectionProps) {
 
 				{/* Main Blade Battery Image */}
 				<div ref={mainImageRef} className="mb-16 overflow-visible">
-					<motion.div
-						style={{ y: mainImageY }}
-						className="mx-auto max-w-[90%]" // Center and constrain width
-					>
+					<motion.div style={{ y: mainImageY }} className="mx-auto max-w-[90%]">
 						<div className="relative rounded-lg overflow-hidden shadow-lg">
 							<Image
 								src={"/images/section/blade-battery.webp"}
-								alt="BLADE BATTERY"
+								alt="แบตเตอรี่ BLADE BATTERY"
 								width={800}
 								height={450}
 								className="w-full object-cover"
@@ -77,8 +69,7 @@ export default function BYDSection({ carModel }: BYDSectionProps) {
 							<div className="mt-3 px-2 pb-3">
 								<h4 className="font-bold text-md uppercase">BLADE BATTERY</h4>
 								<p className="text-lg text-gray-600">
-									เทคโนโลยีแบตเตอรี่ความปลอดภัยสูง
-									สุดยอดนวัตกรรมแบตเตอรี่ระดับโลกจาก BYD ชาร์จไวไปได้ไกลกว่า
+									เทคโนโลยีแบตเตอรี่ความปลอดภัยสูง ชาร์จไวไปได้ไกลกว่า
 									ขับขี่ได้อย่างมั่นใจในทุกเส้นทาง
 								</p>
 							</div>
@@ -86,9 +77,8 @@ export default function BYDSection({ carModel }: BYDSectionProps) {
 					</motion.div>
 				</div>
 
-				{/* Two Images Side by Side - No Overlapping */}
+				{/* Two Images Side by Side */}
 				<div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
-					{/* Left Image - e-Platform 3.0 */}
 					<motion.div
 						initial="hidden"
 						whileInView="visible"
@@ -112,14 +102,14 @@ export default function BYDSection({ carModel }: BYDSectionProps) {
 								<p className="text-md text-gray-600 mt-2">
 									ยกระดับการขับขี่สู่อนาคตด้วยนวัตกรรมแพลตฟอร์มที่พัฒนาขึ้นเพื่อรถยนต์พลังงานไฟฟ้าโดยเฉพาะ
 									ด้วยเทคโนโลยี CTB (CELL-TO-BODY)
-									ที่จัดวางแบตเตอรี่และอุปกรณ์โดยคำนึงถึงความแข็งแรงและปลอดภัยเพื่อสมรรถนะที่เยี่ยม
-									ทั้งการเกาะถนนและความนุ่มนวล สมดุลของทุกการขับขี่
+									ที่จัดวางแบตเตอรี่และอุปกรณ์โดยคำนึงถึงความแข็งแรงและปลอดภัย
+									เพื่อสมรรถนะที่เยี่ยม ทั้งการเกาะถนนและความนุ่มนวล
+									สมดุลของทุกการขับขี่
 								</p>
 							</div>
 						</div>
 					</motion.div>
 
-					{/* Right Image - special feature */}
 					<motion.div
 						initial="hidden"
 						whileInView="visible"
@@ -133,7 +123,7 @@ export default function BYDSection({ carModel }: BYDSectionProps) {
 										carModel.specialFeatureImage ||
 										"/images/metromobile-logo.png"
 									}
-									alt="special feature"
+									alt={carModel.specialFeature}
 									fill
 									className="object-cover"
 								/>
