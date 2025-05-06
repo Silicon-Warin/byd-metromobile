@@ -1,29 +1,29 @@
+import Image from "next/image";
+import PromotionSection from "./components/PromotionSection";
 import HeroContent from "./components/HeroContent";
-import { PromotionSection } from "@/components/PromotionSection";
 
 export default function PromotionsPage() {
 	return (
-		<div className="min-h-screen relative bg-gradient-to-b from-blue-950 via-blue-900 to-blue-950">
-			<div className="container mx-auto px-4 py-8 md:py-16 relative z-10">
-				<div className="text-center mb-10">
-					<h1 className="text-3xl md:text-5xl font-bold mb-4 text-center text-white">
-						<span className="inline-block transform hover:scale-105 transition-transform">
-							<span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-300 to-cyan-300">
-								BIG SPLASH BIG DEAL
-							</span>
-						</span>
-					</h1>
-					<p className="text-xl text-blue-200">
-						โปรโมชั่นพิเศษรับเทศกาลสงกรานต์
-					</p>
-				</div>
+		<div className="min-h-screen relative pt-[80px] lg:pt-[10%]">
+			{/* Hero Banner - Centered */}
+			<div className="flex items-center justify-center w-full h-[200px] sm:h-[300px] md:h-[400px] lg:h-[600px]">
+				<Image
+					src="/images/promotions/hero-promotion.jpg"
+					alt="BYD Charge Your Life"
+					width={1024}
+					height={576}
+					className="w-full h-full max-w-7xl rounded-xl object-cover"
+					priority
+				/>
+			</div>
 
+			<div className="container mx-auto px-4 py-8 md:py-16 relative z-10">
 				<div className="relative max-w-6xl mx-auto">
 					<HeroContent />
 				</div>
 
 				<div className="mt-16 relative">
-					<div className="absolute -top-10 left-0 right-0 h-10 bg-gradient-to-b from-transparent to-blue-900/50"></div>
+					<div className="absolute -top-10 left-0 right-0 h-10"></div>
 					<PromotionSection />
 				</div>
 			</div>

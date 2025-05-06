@@ -535,13 +535,13 @@ export const defaultModels: CarModel[] = [
     name: "NEW BYD DOLPHIN",
     slug: "byd-dolphin",
     description: "แฮทช์แบคไฟฟ้า ประหยัดพลังงาน คล่องตัวสำหรับการใช้งานในเมือง",
-    price: 569900,
+    price: 499900,
     imageUrlPromo: "/images/promotions/dolphin.webp",
     imageUrlModel: "/images/models/dolphin/byd-dolphin-card.webp",
     imageUrlHero: "/images/models/dolphin/dolphin-hero.jpg",
     imageUrlReal: "/images/models/dolphin/dolphin-real.jpg",
-    imageUrlDataLeft:" /images/models/dolphin/dolphin-data-left.jpg",
-    imageUrlDataRight: "/images/models/dolphin/dolphin-data-right.jpg",
+    imageUrlDataLeft:"/images/models/dolphin/dolphin-data-left.webp",
+    imageUrlDataRight: "/images/models/dolphin/dolphin-data-right.webp",
     imageWidth: 1200,
     imageHeight: 800,
     featuresTitle: "",
@@ -559,16 +559,16 @@ export const defaultModels: CarModel[] = [
     },    
     variants: [
       {
-        id: "dolphin-standard",
+        id: "Standard Range",
         name: "STANDARD RANGE 435KM",
-        price: 569900,
+        price: 499900,
         range: "435 KM",
 
       },
       {
-        id: "dolphin-extended",
+        id: "Extended Range",
         name: "EXTENDED RANGE 490KM",
-        price: 709900,
+        price: 599900,
         range: "490 KM",
 
       },

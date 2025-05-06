@@ -1,20 +1,19 @@
-// app/promotions/layout.tsx
+import BackgroundEffects from "@/components/BackgroundEffects";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-	title:
-		"โปรโมชั่นสงกรานต์ BIG SPLASH BIG DEAL | รถยนต์ไฟฟ้า BYD | Metromobile",
+	title: "โปรโมชั่นพฤษภาคม 2025 | รถยนต์ไฟฟ้า BYD | Metromobile",
 	description:
-		"โปรโมชั่นสงกรานต์ BIG SPLASH BIG DEAL กับรถยนต์ไฟฟ้า BYD ผ่อนเริ่มต้นเบาๆ แค่ 5,213 บาท ราคาเริ่มต้นเพียง 499,900 บาท พร้อมข้อเสนอพิเศษรับหน้าร้อน ถึง 30 เมษายน 2568",
+		"เปลี่ยนเพื่อชีวิตที่ดีกว่า CHARGE YOUR LIFE ⚡ ไม่มีอะไรยั่งยืน...เท่ากับการ “เปลี่ยน” เลือก BYD แล้วชีวิตจะไม่เหมือนเดิมอีกต่อไป โปรโมชั่นพิเศษประจำเดือนพฤษภาคม 2025 ที่ BYD Metromobile ดีลเลอร์ยอดขายกว่า 5,000 คัน พร้อมศูนย์บริการครบวงจร",
 	keywords:
-		"โปรโมชั่นสงกรานต์ BYD, BIG SPLASH BIG DEAL, รถยนต์ไฟฟ้าราคาพิเศษ, BYD DOLPHIN โปรโมชั่น, BYD ATTO 3 ผ่อนถูก, รถไฟฟ้าสงกรานต์, รถไฟฟ้าหน้าร้อน, รถไฟฟ้าราคาพิเศษ",
+		"โปรโมชั่น BYD พฤษภาคม 2025, รถยนต์ไฟฟ้า BYD, ดีลพิเศษ BYD, เปลี่ยนเพื่อชีวิตที่ดีกว่า, ตารางผ่อน BYD, BYD Metromobile, ดีลเลอร์ BYD, ศูนย์บริการ BYD",
 	alternates: {
 		canonical: "https://bydmetromobile.com/promotions",
 	},
 	openGraph: {
-		title: "โปรโมชั่นสงกรานต์ BIG SPLASH BIG DEAL | รถยนต์ไฟฟ้า BYD",
+		title: "โปรโมชั่น BYD พฤษภาคม 2025 | เปลี่ยนเพื่อชีวิตที่ดีกว่า",
 		description:
-			"ดีลร้อนแรงที่สุดของปี! ผ่อนเริ่มต้นเบาๆ แค่ 5,213 บาท ราคาเริ่มต้นเพียง 499,900 บาท",
+			"CHARGE YOUR LIFE ⚡ ไม่มีอะไรยั่งยืน...เท่ากับการ “เปลี่ยน” เลือก BYD แล้วชีวิตจะไม่เหมือนเดิมอีกต่อไป โปรโมชั่นใหม่ประจำเดือนพฤษภาคม 2025 ที่ BYD Metromobile ดีลเลอร์ยอดขายกว่า 5,000 คัน",
 		images: ["/images/songkran-promotion-og.jpg"],
 		type: "website",
 		locale: "th_TH",
@@ -26,5 +25,10 @@ export default function PromotionsLayout({
 }: {
 	children: React.ReactNode;
 }) {
-	return <main>{children}</main>;
+	return (
+		<section>
+			<BackgroundEffects />
+			{children}
+		</section>
+	);
 }
