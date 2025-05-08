@@ -12,7 +12,7 @@ export default function HeroContent() {
 				animate={{ opacity: 1, y: 0 }}
 				transition={{ duration: 0.5 }}
 			>
-				{/* Content - Centered for better focus */}
+				{/* สำหรับ Mobile - แสดงเฉพาะส่วนที่สำคัญ */}
 				<div className="w-full text-center">
 					<motion.div
 						initial={{ opacity: 0, y: -20 }}
@@ -21,11 +21,12 @@ export default function HeroContent() {
 					>
 						<p className="text-xl text-cyan-100 mb-4">
 							ชีวิตไม่ควรต้องหยุดชาร์จแค่ที่ปลั๊ก
-							<br />
+							<br className="hidden md:block" />
 							เมื่อรถไฟฟ้า BYD พร้อมพาคุณขับสู่จังหวะชีวิตที่ "ใช่" กว่าเคย
 						</p>
 
-						<div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+						{/* ซ่อนกริดบน mobile แต่แสดงบน desktop */}
+						<div className="hidden md:grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
 							<div className="flex flex-col items-center p-4 bg-green-900/30 rounded-lg">
 								<span className="text-2xl mb-2">🚗</span>
 								<p className="text-white text-center">
@@ -55,8 +56,26 @@ export default function HeroContent() {
 							</div>
 						</div>
 
+						{/* แสดง minimalist version บน mobile */}
+						<div className="flex md:hidden justify-center gap-6 mb-4">
+							<div className="text-center">
+								<span className="text-2xl">🚗</span>
+								<p className="text-yellow-300 text-sm font-bold">ประหยัด</p>
+							</div>
+							<div className="text-center">
+								<span className="text-2xl">🚙</span>
+								<p className="text-yellow-300 text-sm font-bold">วิ่งไกล</p>
+							</div>
+							<div className="text-center">
+								<span className="text-2xl">✨</span>
+								<p className="text-yellow-300 text-sm font-bold">
+									ใช้ชีวิตมากขึ้น
+								</p>
+							</div>
+						</div>
+
 						<p className="text-sm text-blue-200 mb-4">
-							ชีวิตดี รถก็ต้องดีด้วย! พร้อมโปรสุดพิเศษ ผ่อนเริ่มเบาๆ
+							พร้อมโปรสุดพิเศษ ผ่อนเริ่มเบาๆ!
 						</p>
 					</motion.div>
 

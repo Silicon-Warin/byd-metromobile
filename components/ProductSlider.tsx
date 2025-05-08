@@ -28,7 +28,7 @@ export function ProductSlider({ items = [], buttonText }: ProductSliderProps) {
 	return (
 		<>
 			<div className="relative w-[90%] md:w-[80%] lg:w-[70%] mx-auto h-full">
-				<div className="swiper-container-wrapper">
+				<div className="swiper-container-wrapper overflow-visible">
 					<Swiper
 						modules={[FreeMode]}
 						freeMode={{

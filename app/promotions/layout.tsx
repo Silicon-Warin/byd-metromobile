@@ -26,7 +26,7 @@ export default function PromotionsLayout({
 	children: React.ReactNode;
 }) {
 	return (
-		<section>
+		<section className="overflow-visible">
 			<BackgroundEffects />
 			{children}
 		</section>

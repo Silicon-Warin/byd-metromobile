@@ -1,269 +1,234 @@
 "use client";
 
-import { useState, useRef, useEffect, createContext, useContext } from "react";
+import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import {
-	X,
-	MessageCircle,
-	ArrowRight,
-	ChevronLeft,
-	ChevronRight,
-} from "lucide-react";
+import { X, MessageCircle, ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { defaultModels } from "@/data/carModel";
-import { useOutsideClick } from "@/hooks/useOutsideClick";
-
-// Create context for carousel
-const CarouselContext = createContext({
-	onCardClose: () => {},
-	currentId: null,
-});
+import { Swiper, SwiperSlide } from "swiper/react";
+import { FreeMode } from "swiper/modules";
+import ReactDOM from "react-dom";
+import "swiper/css";
+import "swiper/css/free-mode";
 
 export default function PromotionSection() {
-	const carouselRef = useRef(null);
-	const [canScrollLeft, setCanScrollLeft] = useState(false);
-	const [canScrollRight, setCanScrollRight] = useState(true);
-	const [currentId, setCurrentId] = useState(null);
+	const [swiper, setSwiper] = useState(null);
+	const [selectedVehicle, setSelectedVehicle] = useState(null);
+	const modalRef = useRef(null);
 
 	// Format price with commas
 	const formatPrice = (price) => {
 		return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 	};
 
+	// จัดการคลิกนอก modal
 	useEffect(() => {
-		checkScrollability();
-	}, []);
-
-	const checkScrollability = () => {
-		if (carouselRef.current) {
-			const { scrollLeft, scrollWidth, clientWidth } = carouselRef.current;
-			setCanScrollLeft(scrollLeft > 0);
-			setCanScrollRight(scrollLeft < scrollWidth - clientWidth);
-		}
-	};
-
-	const scrollLeft = () => {
-		if (carouselRef.current) {
-			carouselRef.current.scrollBy({ left: -300, behavior: "smooth" });
-		}
-	};
-
-	const scrollRight = () => {
-		if (carouselRef.current) {
-			carouselRef.current.scrollBy({ left: 300, behavior: "smooth" });
-		}
-	};
-
-	const handleCardClose = (id) => {
-		if (carouselRef.current) {
-			const cardWidth = window.innerWidth < 768 ? 280 : 400; // Adjusted for square aspect
-			const gap = window.innerWidth < 768 ? 16 : 24;
-			const index = defaultModels.findIndex((model) => model.id === id);
-			const scrollPosition = (cardWidth + gap) * (index + 1);
-			carouselRef.current.scrollTo({
-				left: scrollPosition,
-				behavior: "smooth",
-			});
-			setCurrentId(id);
-		}
-	};
-
-	return (
-		<CarouselContext.Provider
-			value={{ onCardClose: handleCardClose, currentId }}
-		>
-			<section className="py-16 md:py-24 relative">
-				<div className="relative w-full overflow-visible">
-					<div
-						className="flex w-full overflow-x-auto overflow-y-hidden py-10 md:py-20"
-						ref={carouselRef}
-						onScroll={checkScrollability}
-					>
-						<div className="flex flex-row justify-start gap-6 pl-4">
-							{defaultModels.map((vehicle, index) => (
-								<VehicleCard
-									key={vehicle.id}
-									vehicle={vehicle}
-									index={index}
-									formatPrice={formatPrice}
-								/>
-							))}
-						</div>
-					</div>
-
-					<div className="mr-10 flex justify-end gap-2">
-						<button
-							className="relative z-40 flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 disabled:opacity-50"
-							onClick={scrollLeft}
-							disabled={!canScrollLeft}
-						>
-							<ChevronLeft className="h-6 w-6 text-gray-500" />
-						</button>
-						<button
-							className="relative z-40 flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 disabled:opacity-50"
-							onClick={scrollRight}
-							disabled={!canScrollRight}
-						>
-							<ChevronRight className="h-6 w-6 text-gray-500" />
-						</button>
-					</div>
-				</div>
-			</section>
-		</CarouselContext.Provider>
-	);
-}
-
-const VehicleCard = ({ vehicle, index, formatPrice }) => {
-	const [open, setOpen] = useState(false);
-	const containerRef = useRef(null);
-	const { onCardClose } = useContext(CarouselContext);
-
-	useEffect(() => {
-		function onKeyDown(event) {
-			if (event.key === "Escape") {
-				handleClose();
-			}
-		}
-
-		if (open) {
+		if (selectedVehicle) {
 			document.body.style.overflow = "hidden";
+
+			const handleOutsideClick = (event) => {
+				if (modalRef.current && !modalRef.current.contains(event.target)) {
+					setSelectedVehicle(null);
+				}
+			};
+
+			const handleEsc = (event) => {
+				if (event.key === "Escape") {
+					setSelectedVehicle(null);
+				}
+			};
+
+			document.addEventListener("mousedown", handleOutsideClick);
+			document.addEventListener("touchstart", handleOutsideClick);
+			window.addEventListener("keydown", handleEsc);
+
+			return () => {
+				document.removeEventListener("mousedown", handleOutsideClick);
+				document.removeEventListener("touchstart", handleOutsideClick);
+				window.removeEventListener("keydown", handleEsc);
+				document.body.style.overflow = "auto";
+			};
 		} else {
 			document.body.style.overflow = "auto";
 		}
-
-		window.addEventListener("keydown", onKeyDown);
-		return () => window.removeEventListener("keydown", onKeyDown);
-	}, [open]);
-
-	useOutsideClick(containerRef, () => handleClose());
-
-	const handleOpen = () => {
-		setOpen(true);
-	};
-
-	const handleClose = () => {
-		setOpen(false);
-		onCardClose(vehicle.id);
-	};
+	}, [selectedVehicle]);
 
 	return (
 		<>
-			<AnimatePresence>
-				{open && (
-					<div className="fixed inset-0 z-50 h-screen overflow-auto">
-						<motion.div
-							initial={{ opacity: 0 }}
-							animate={{ opacity: 1 }}
-							exit={{ opacity: 0 }}
-							className="fixed inset-0 h-full w-full bg-black/80 backdrop-blur-lg"
-						/>
-						<motion.div
-							initial={{ opacity: 0 }}
-							animate={{ opacity: 1 }}
-							exit={{ opacity: 0 }}
-							ref={containerRef}
-							layoutId={`card-${vehicle.id}`}
-							className="relative z-[60] mx-auto my-10 h-fit max-w-5xl rounded-3xl bg-white p-4 font-sans md:p-10 dark:bg-neutral-900"
-						>
-							<button
-								className="sticky top-4 right-0 ml-auto flex h-8 w-8 items-center justify-center rounded-full bg-black dark:bg-white"
-								onClick={handleClose}
+			<section className="relative w-[90%] md:w-[80%] lg:w-[70%] mx-auto h-full">
+				<div className="swiper-container-wrapper overflow-visible">
+					<Swiper
+						modules={[FreeMode]}
+						freeMode={{
+							enabled: true,
+							sticky: false,
+							momentumRatio: 0.5,
+						}}
+						spaceBetween={24}
+						slidesPerView={1.4}
+						centeredSlides={false}
+						breakpoints={{
+							0: { slidesPerView: 1.1, spaceBetween: 16 },
+							480: { slidesPerView: 1.3, spaceBetween: 20 },
+							640: { slidesPerView: 1.4, spaceBetween: 20 },
+							768: { slidesPerView: 1.5, spaceBetween: 24 },
+							1024: { slidesPerView: 2.2, spaceBetween: 24 },
+						}}
+						watchOverflow={true}
+						loopAdditionalSlides={1}
+						onSwiper={(swiperInstance) => setSwiper(swiperInstance)}
+						className="!overflow-visible pl-3"
+						edgeSwipeDetection="prevent"
+					>
+						{defaultModels.map((vehicle, index) => (
+							<SwiperSlide
+								key={vehicle.id}
+								className="pt-4 pb-10 overflow-visible"
 							>
-								<X className="h-6 w-6 text-neutral-100 dark:text-neutral-900" />
-							</button>
+								<VehicleCard
+									vehicle={vehicle}
+									index={index}
+									onClick={() => setSelectedVehicle(vehicle)}
+								/>
+							</SwiperSlide>
+						))}
+					</Swiper>
+				</div>
 
-							<div className="flex items-center justify-between mb-4">
-								<div className="relative aspect-square md:w-[600] md:h-[600px] mb-6 rounded-xl overflow-hidden">
-									<Image
-										src={vehicle.imageUrlPromo || "/placeholder.svg"}
-										alt={vehicle.name}
-										fill
-										className="object-cover"
-									/>
-								</div>
+				<div className="mr-10 flex justify-end gap-2">
+					<button
+						className="relative z-40 flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 disabled:opacity-50"
+						onClick={() => swiper && swiper.slidePrev()}
+					>
+						<ChevronLeft className="h-6 w-6 text-gray-500" />
+					</button>
+					<button
+						className="relative z-40 flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 disabled:opacity-50"
+						onClick={() => swiper && swiper.slideNext()}
+					>
+						<ChevronRight className="h-6 w-6 text-gray-500" />
+					</button>
+				</div>
+			</section>
 
-								{/* <motion.p
-								layoutId={`category-${vehicle.id}`}
-								className="text-base font-medium text-emerald-600 dark:text-emerald-400"
-							>
-								BYD {vehicle.category || "Electric Vehicle"}
-							</motion.p> */}
-								<div className="flex flex-col items-center justify-center gap-2">
-									<motion.p
-										layoutId={`title-${vehicle.id}`}
-										className="mt-4 text-2xl font-semibold text-neutral-700 md:text-4xl dark:text-white"
+			{/* ย้าย Modal ออกมาอยู่นอก Swiper โดยใช้ createPortal */}
+			{typeof window !== "undefined" &&
+				ReactDOM.createPortal(
+					<AnimatePresence>
+						{selectedVehicle && (
+							<div className="fixed inset-0 z-[9999] h-screen w-screen overflow-auto">
+								{/* พื้นหลัง Overlay */}
+								<motion.div
+									initial={{ opacity: 0 }}
+									animate={{ opacity: 1 }}
+									exit={{ opacity: 0 }}
+									transition={{ duration: 0.3 }}
+									className="fixed inset-0 h-full w-full bg-black/80 backdrop-blur-lg"
+									onClick={() => setSelectedVehicle(null)}
+								/>
+
+								{/* Modal Content */}
+								<motion.div
+									ref={modalRef}
+									initial={{ opacity: 0, scale: 0.9, y: 20 }}
+									animate={{ opacity: 1, scale: 1, y: 0 }}
+									exit={{ opacity: 0, scale: 0.9, y: 20 }}
+									transition={{ duration: 0.4, ease: "easeOut" }}
+									className="fixed left-1/2 top-1/2 z-[10000] h-fit w-[90%] max-w-5xl -translate-x-1/2 -translate-y-1/2 rounded-3xl bg-white p-6 font-sans md:p-8 dark:bg-neutral-900"
+									onClick={(e) => e.stopPropagation()}
+								>
+									<button
+										className="absolute top-4 right-4 z-[10001] flex h-10 w-10 items-center justify-center rounded-full bg-black dark:bg-white"
+										onClick={() => setSelectedVehicle(null)}
 									>
-										{vehicle.name}
-									</motion.p>
+										<X className="h-6 w-6 text-neutral-100 dark:text-neutral-900" />
+									</button>
 
-									<p className="text-xl text-emerald-600 dark:text-emerald-400 font-medium mt-2">
-										เริ่มต้น{formatPrice(vehicle.price)} บาท*
-									</p>
+									<div className="flex flex-col md:flex-row md:items-start md:gap-10">
+										<div className="flex-shrink-0 md:w-3/5">
+											<div className="relative w-full aspect-video md:aspect-square md:h-auto overflow-hidden rounded-xl">
+												<Image
+													src={
+														selectedVehicle.imageUrlPromo || "/placeholder.svg"
+													}
+													alt={selectedVehicle.name}
+													fill
+													className="object-contain"
+													priority
+												/>
+											</div>
+										</div>
 
-									{/* <p className="mt-4 text-neutral-600 dark:text-neutral-300">
-										{vehicle.description ||
-											"รถยนต์ไฟฟ้าที่ผสมผสานเทคโนโลยีล้ำสมัยและการออกแบบที่โดดเด่น เพื่อประสบการณ์การขับขี่ที่เหนือระดับ"}
-									</p> */}
+										<div className="flex flex-col items-center md:items-start text-center md:text-left md:w-2/5 md:pt-6">
+											<h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-neutral-800 dark:text-white">
+												BYD {selectedVehicle.name}
+											</h2>
 
-									<div className="flex flex-col sm:flex-row gap-4 mt-8">
-										<Button
-											className="bg-emerald-500 hover:bg-emerald-600 text-white font-medium"
-											asChild
-										>
-											<Link
-												href="https://line.me/R/ti/p/%40bydmetromobile"
-												target="_blank"
-												rel="noopener noreferrer"
-											>
-												<MessageCircle className="mr-2 h-4 w-4" />
-												ติดต่อผ่าน LINE
-											</Link>
-										</Button>
-										{/* <Button variant="outline" asChild>
-									<Link href={`/models/${vehicle.slug}`}>
-										ดูรายละเอียดเพิ่มเติม
-										<ArrowRight className="ml-2 h-4 w-4" />
-									</Link>
-								</Button> */}
+											<p className="text-xl text-emerald-600 dark:text-emerald-400 font-medium mt-4">
+												เริ่มต้น{formatPrice(selectedVehicle.price)} บาท*
+											</p>
+
+											<p className="text-sm text-gray-600 dark:text-gray-300 mt-4 max-w-sm">
+												รถยนต์ไฟฟ้าคุณภาพสูง ประหยัดพลังงาน
+												เป็นมิตรกับสิ่งแวดล้อม
+												ด้วยเทคโนโลยีล้ำสมัยที่ให้การขับขี่เหนือระดับ
+											</p>
+
+											<div className="w-full max-w-xs mx-auto md:mx-0 mt-8">
+												<Button
+													className="w-full bg-emerald-500 hover:bg-emerald-600 text-white font-medium py-6"
+													asChild
+												>
+													<Link
+														href="https://line.me/R/ti/p/%40bydmetromobile"
+														target="_blank"
+														rel="noopener noreferrer"
+													>
+														<MessageCircle className="mr-2 h-5 w-5" />
+														ติดต่อผ่าน LINE
+													</Link>
+												</Button>
+
+												<p className="text-xs text-gray-500 mt-3 text-center md:text-left">
+													*ราคาอาจเปลี่ยนแปลงได้
+													กรุณาติดต่อทีมขายเพื่อรับข้อเสนอล่าสุด
+												</p>
+											</div>
+										</div>
 									</div>
-								</div>
+								</motion.div>
 							</div>
-						</motion.div>
-					</div>
+						)}
+					</AnimatePresence>,
+					document.body
 				)}
-			</AnimatePresence>
-
-			{/* Changed to square aspect ratio */}
-			<motion.button
-				layoutId={`card-${vehicle.id}`}
-				onClick={handleOpen}
-				initial={{
-					opacity: 0,
-					y: 20,
-				}}
-				animate={{
-					opacity: 1,
-					y: 0,
-					transition: {
-						duration: 0.5,
-						delay: 0.2 * index,
-						ease: "easeOut",
-					},
-				}}
-				className="relative z-10 flex aspect-square w-[336px] flex-col items-start justify-between overflow-hidden rounded-3xl bg-gray-100 md:w-[480px] dark:bg-neutral-900"
-				whileHover={{ scale: 1.02 }}
-				whileTap={{ scale: 0.98 }}
-			>
-				{/* Background image */}
-				<Image
-					src={vehicle.imageUrlPromo || "/placeholder.svg"}
-					alt={vehicle.name}
-					fill
-					className="absolute inset-0 z-10 object-cover transition-transform duration-300"
-				/>
-			</motion.button>
 		</>
+	);
+}
+
+// แยก VehicleCard ให้เรียบง่ายขึ้น
+const VehicleCard = ({ vehicle, index, onClick }) => {
+	return (
+		<motion.button
+			onClick={onClick}
+			initial={{ opacity: 0, y: 20 }}
+			animate={{
+				opacity: 1,
+				y: 0,
+				transition: { duration: 0.5, delay: 0.1 * index },
+			}}
+			className="relative z-10 flex aspect-square w-full flex-col items-start justify-between overflow-hidden rounded-3xl bg-gray-100 dark:bg-neutral-900"
+			whileHover={{ scale: 1.02 }}
+			whileTap={{ scale: 0.98 }}
+		>
+			<Image
+				src={vehicle.imageUrlPromo || "/placeholder.svg"}
+				alt={vehicle.name}
+				fill
+				className="absolute inset-0 z-10 object-cover transition-transform duration-300"
+			/>
+		</motion.button>
 	);
 };
