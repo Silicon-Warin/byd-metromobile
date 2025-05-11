@@ -1,4 +1,6 @@
 // data/carModel.ts
+
+
 export interface CarModel {  
   id: number | string;
   name: string;
@@ -31,7 +33,10 @@ export interface CarModel {
   variants: CarVariant[];
   specialOffers: string[];  
   features: string[] | CarFeature[];
-  gallery?: string[];
+  gallery?: {
+    exterior?: string[]; // รูปภาพภายนอก
+    interior?: string[]; // รูปภาพภายใน
+  };
   techHighlight?: hightlightSpec[];
   techSpec?: TechSpec;
   promotion?: any; // เพิ่ม property promotion
@@ -79,6 +84,7 @@ export function findModelBySlug(slug: string): CarModel | undefined {
   let model = defaultModels.find(model => 
     model.slug === slug || model.id.toString() === slug
   );
+
   
   if (!model) {
     console.log(`No model found with slug: ${slug}`);
@@ -357,15 +363,27 @@ export const defaultModels: CarModel[] = [
         name: "Velocity blue",
         code: "#7AA5CD",
         gradient: "linear-gradient(145deg, #7AA5CD, #5585B5)",
-        shadow: "inset 2px 2px 5px rgba(255, 255, 255, 0.3), inset -2px -2px 5px rgba(0, 0, 0, 0.2)",
-        image: "/images/models/seal/seal-velocity-blue.png",
-      },
-    ],
-    gallery: [
-      "/images/seal-gallery-1.png",
-      "/images/seal-gallery-2.png",
-      "/images/seal-gallery-3.png",
-    ],
+        shadow: "inset 2px 2px 5px rgba(255, 255, 255, 0.3), inset -2px -2px 5px rgba(0, 0, 0, 0.2)",        image: "/images/models/seal/seal-velocity-blue.png",
+      },    ],
+    gallery: {
+      exterior: [
+        "/images/models/seal/exterior/seal-ext1.webp",
+        "/images/models/seal/exterior/seal-ext2.webp",
+        "/images/models/seal/exterior/seal-ext3.webp",
+        "/images/models/seal/exterior/seal-ext4.webp",
+        "/images/models/seal/exterior/seal-ext5.webp"
+      ],
+      interior: [
+        "/images/models/seal/interior/seal-int1.webp",
+        "/images/models/seal/interior/seal-int2.webp",
+        "/images/models/seal/interior/seal-int3.webp",
+        "/images/models/seal/interior/seal-int4.webp",
+        "/images/models/seal/interior/seal-int5.webp",
+        "/images/models/seal/interior/seal-int6.webp",
+        "/images/models/seal/interior/seal-int7.webp",
+        "/images/models/seal/interior/seal-int8.webp"
+      ],
+    },
     features: [
       {        
         title: "ระบบกันสะเทือนอัจฉริยะ",
@@ -518,7 +536,23 @@ export const defaultModels: CarModel[] = [
       },
     ],
     features: [
-      
+      {        
+        title: "แบตเตอรี่ที่มีความปลอดภัยสูง",
+        description: "เทคโนโลยีล้ำสมัย ความปลอดภัยเหนือระดับ",
+        image: "/images/models/sealion7/sealion7-design-card1.jpg",
+      },
+      {
+        
+        title: "ความหรูหราเหนือระดับ",
+        description: "เทคโนโลยี NFC สำหรับการเข้าถึงรถ",
+        image: "/images/models/sealion7/sealion7-design-card2.jpg",
+      },
+      {
+        
+        title: "ทุกโค้งสมบูรณ์แบบ",
+        description: "ควบคุมแม่นยำ ตอบสนองได้ทุกสถานการณ์",
+        image: "/images/models/sealion7/sealion7-design-card3.jpg",
+      },
     ],
     specialOffers: ["ประกันภัยชั้น 1 พร้อม พรบ. ระยะเวลา 1 ปี",
       "บริการช่วยเหลือฉุกเฉิน ตลอด 24 ชั่วโมง 8 ปีเต็ม",
@@ -538,16 +572,27 @@ export const defaultModels: CarModel[] = [
     price: 499900,
     imageUrlPromo: "/images/promotions/dolphin.webp",
     imageUrlModel: "/images/models/dolphin/byd-dolphin-card.webp",
-    imageUrlHero: "/images/models/dolphin/dolphin-hero.jpg",
-    imageUrlReal: "/images/models/dolphin/dolphin-real.jpg",
+    imageUrlHero: "/images/models/dolphin/dolphin-hero.jpg",    imageUrlReal: "/images/models/dolphin/dolphin-real.webp",
     imageUrlDataLeft:"/images/models/dolphin/dolphin-data-left.webp",
-    imageUrlDataRight: "/images/models/dolphin/dolphin-data-right.webp",
+    gallery: {
+      exterior: [
+        "/images/models/dolphin/exterior/dolphin-ext1.jpg",
+        "/images/models/dolphin/exterior/dolphin-ext2.jpg",
+        "/images/models/dolphin/exterior/dolphin-ext3.jpg",
+      ],
+      interior: [
+        "/images/models/dolphin/interior/dolphin-int1.jpg",
+        "/images/models/dolphin/interior/dolphin-int2.jpg",
+        "/images/models/dolphin/interior/dolphin-int3.jpg",
+        "/images/models/dolphin/interior/dolphin-int4.jpg",
+      ],
+    },
     imageWidth: 1200,
     imageHeight: 800,
-    featuresTitle: "",
-    specialFeature: "",
-    specialFeatureDescription: "",
-    specialFeatureImage: "",
+    featuresTitle: "Dynamic Design",
+    specialFeature: "VtoL (VEHICLE TO LOAD)",
+    specialFeatureDescription: "รองรับทุกการเดินทางให้สะดวกสบายยิ่งขึ้น ด้วยระบบ VtoL การต่อไฟจากแบตเตอรี่รถยนต์กับเครื่องใช้ไฟฟ้า",
+    specialFeatureImage: "/images/models/dolphin/special-feature.webp",
     specs: {
       acceleration: "7 วินาที",
       range: "490 กิโลเมตร",
@@ -556,7 +601,37 @@ export const defaultModels: CarModel[] = [
       battery: "60.48 กิโลวัตต์-ชั่วโมง",
       charging: "AC type 2 / DC CCS 2 (80 กิโลวัตต์)",
       annotate: "*Extended range performance and battery specifications",
-    },    
+    },
+    colors:[      
+      {
+        name: "Coral Pink",
+        code: "#EDC2CB",  
+        gradient: "linear-gradient(145deg, #F5D7DE, #E5A9B5)",
+        shadow: "inset 2px 2px 5px rgba(255, 230, 237, 0.5), inset -2px -2px 5px rgba(180, 130, 140, 0.2)",
+        image: "/images/models/dolphin/dolphin-coral-pink.png",
+      },
+      {
+        name: "Coastal Cream",
+        code: "#E8E3D9",  
+        gradient: "linear-gradient(145deg, #F2EEE6, #DDD8CE)",
+        shadow: "inset 2px 2px 5px rgba(255, 255, 255, 0.5), inset -2px -2px 5px rgba(180, 170, 150, 0.2)",
+        image: "/images/models/dolphin/dolphin-coastal-cream.png",
+      },
+      {
+        name: "Graphite Grey",
+        code: "#7C7C7C",  
+        gradient: "linear-gradient(145deg, #8A8A8A, #696969)",
+        shadow: "inset 2px 2px 5px rgba(180, 180, 180, 0.3), inset -2px -2px 5px rgba(60, 60, 60, 0.3)",
+        image: "/images/models/dolphin/dolphin-graphite-grey.png",
+      },
+      {
+        name: "Frost White",
+        code: "#FFFFFF",  
+        gradient: "linear-gradient(145deg, #FFFFFF, #F0F0F0)",
+        shadow: "inset 2px 2px 5px rgba(255, 255, 255, 0.8), inset -2px -2px 5px rgba(200, 200, 200, 0.3)",
+        image: "/images/models/dolphin/dolphin-frost-white.png",
+      },    
+    ],
     variants: [
       {
         id: "Standard Range",
@@ -574,7 +649,23 @@ export const defaultModels: CarModel[] = [
       },
     ],
     features: [
-      
+      {        
+        title: "แบตเตอรี่ที่มีความปลอดภัยสูง",
+        description: "เทคโนโลยีล้ำสมัย ความปลอดภัยเหนือระดับ",
+        image: "/images/models/dolphin/dolphin-design-card1.jpg",
+      },
+      {
+        
+        title: "ความบันเทิงไร้ขีดจำกัด",
+        description: "จอทัชสกรีนหมุนได้ขนาด 12.8 นิ้ว รองรับ Apple CarPlay และ Android Auto พร้อมที่ชาร์จไร้สาย",
+        image: "/images/models/dolphin/dolphin-design-card2.jpg",
+      },
+      {
+        
+        title: "ความคล่องตัวและอเนกประสงค์",
+        description: "ที่เก็บสัมภาระขยายได้ เมื่อพับเบาะหลัง",
+        image: "/images/models/dolphin/dolphin-design-card3.jpg",
+      },
     ],
     specialOffers: ["ประกันภัยชั้น 1 พร้อม พรบ. ระยะเวลา 1 ปี",
       "บริการช่วยเหลือฉุกเฉิน ตลอด 24 ชั่วโมง 8 ปีเต็ม",
