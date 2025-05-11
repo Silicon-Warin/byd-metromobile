@@ -270,7 +270,7 @@ export const defaultModels: CarModel[] = [
     imageUrlReal: "/images/models/sealion6dmi/sealion6dmi-real.jpg",
     imageWidth: 1200,
     imageHeight: 800,
-    featuresTitle: "",
+    featuresTitle: "DM-i Hybrid System",
     specialFeature: "",
     specialFeatureDescription: "",
     specialFeatureImage: "",
@@ -299,8 +299,50 @@ export const defaultModels: CarModel[] = [
 
       },
     ],
-    features: [      
+    features: [
+      {        
+        title: "Electric Hybrid DM-i",
+        description: "ยนตรกรรม DM-i Hybrid บ่มเพาะความเป็นเลิศด้านการประหยัดพลังงาน",
+        image: "/images/models/sealion6dmi/features/dmi-hybrid.jpg",
+      },
+      {
+        title: "BYD Blade Battery",
+        description: "เทคโนโลยีแบตเตอรี่ประสิทธิภาพสูง ปลอดภัยเหนือระดับ",
+        image: "/images/models/sealion6dmi/features/blade-battery.jpg",
+      },
+      {
+        title: "1,092 กม. ระยะทางขับขี่",
+        description: "ระยะทางขับขี่รวม 1,092 กิโลเมตร ครอบคลุมทุกการเดินทาง",
+        image: "/images/models/sealion6dmi/features/range.jpg",
+      },
+      {
+        title: "Direct Engine Drive",
+        description: "ระบบขับเคลื่อนด้วยเครื่องยนต์โดยตรง เพื่อประสิทธิภาพสูงสุด",
+        image: "/images/models/sealion6dmi/features/direct-drive.jpg",
+      },
+      {
+        title: "EV & DM-i Mode",
+        description: "เลือกโหมดการขับขี่ได้ทั้งแบบไฟฟ้า 100% และแบบ DM-i Hybrid",
+        image: "/images/models/sealion6dmi/features/drive-modes.jpg",
+      }
     ],
+    gallery: {
+      exterior: [
+        "/images/models/sealion6dmi/exterior/m6-ext1.jpg",
+        "/images/models/sealion6dmi/exterior/m6-ext2.jpg",
+        "/images/models/sealion6dmi/exterior/m6-ext3.jpg",
+        "/images/models/sealion6dmi/exterior/m6-ext4.jpg",
+        "/images/models/sealion6dmi/exterior/m6-ext5.jpg"
+      ],
+      interior: [
+        "/images/models/sealion6dmi/interior/m6-int1.jpg",
+        "/images/models/sealion6dmi/interior/m6-int2.jpg",
+        "/images/models/sealion6dmi/interior/m6-int3.jpg",
+        "/images/models/sealion6dmi/interior/m6-int4.jpg",
+        "/images/models/sealion6dmi/interior/m6-int5.jpg",
+        "/images/models/sealion6dmi/interior/m6-int6.jpg"
+      ],
+    },
     specialOffers: ["ประกันภัยชั้น 1 พร้อม พรบ. ระยะเวลา 1 ปี",
       "รับประกันตัวรถ (WARRANTY) 6 ปี หรือ 150,000 กม.",
       "รับประกันแบตเตอรี่ 8 ปี หรือ 160,000 กม.",
@@ -509,7 +551,7 @@ export const defaultModels: CarModel[] = [
     price: 899900,
     imageUrlPromo: "/images/promotions/atto3.webp",
     imageUrlModel: "/images/models/atto3/byd-atto3-card.webp",
-    imageUrlHero: "/images/models/atto3/atto3-hero.jpg",
+    imageUrlHero: "/images/models/atto3/atto3-hero.webp",
     imageUrlReal: "/images/models/atto3/atto3-real.jpg",
     imageWidth: 1200,
     imageHeight: 800,
