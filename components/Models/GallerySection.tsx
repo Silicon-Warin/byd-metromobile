@@ -184,6 +184,8 @@ export function GallerySection({ carModel }: GallerySectionProps) {
 											fill
 											className="object-cover"
 											priority
+											sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 60vw"
+											quality={85}
 										/>
 										<div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-6" />
 									</div>
@@ -197,6 +199,9 @@ export function GallerySection({ carModel }: GallerySectionProps) {
 												alt={`${carModel.name} Exterior View ${index + 1}`}
 												fill
 												className="object-cover"
+												loading="lazy"
+												sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 60vw"
+												quality={85}
 											/>
 											<div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-6" />
 										</div>
@@ -220,6 +225,9 @@ export function GallerySection({ carModel }: GallerySectionProps) {
 													alt={`${carModel.name} Interior View ${index + 1}`}
 													fill
 													className="object-cover"
+													loading="lazy"
+													sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 60vw"
+													quality={85}
 												/>
 												<div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-6" />
 											</div>

@@ -9,6 +9,7 @@ import type { Swiper as SwiperType } from "swiper";
 import "swiper/css";
 import "swiper/css/free-mode";
 import Link from "next/link";
+import Image from "next/image";
 
 interface ProductItem {
 	id: string;
@@ -57,16 +58,18 @@ export function ProductSlider({ items = [], buttonText }: ProductSliderProps) {
 						{items.map((item) => (
 							<SwiperSlide
 								key={item.id}
-								className="my-1 model-card mr-4"
-								style={{
-									backgroundImage: `url("${
-										item.imageUrl || "/placeholder.svg"
-									}")`,
-									backgroundSize: "cover",
-									backgroundPosition: "center",
-								}}
+								className="my-1 model-card mr-4 relative aspect-[16/9]"
 							>
-								<div className="slider-card-bg flex flex-col h-full">
+								<Image
+									src={item.imageUrl || "/placeholder.svg"}
+									alt={item.name}
+									fill
+									className="object-cover transform transition-transform duration-500 hover:scale-105"
+									sizes="(max-width: 640px) 90vw, (max-width: 1024px) 45vw, 30vw"
+									loading="lazy"
+									quality={80}
+								/>
+								<div className="slider-card-bg flex flex-col h-full absolute inset-0">
 									<div className="slider-card-top text-white">
 										<div className="p-4 md:p-8">
 											<h3 className="text-md md:text-2xl font-semibold">
