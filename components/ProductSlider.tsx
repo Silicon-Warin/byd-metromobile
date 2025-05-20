@@ -58,7 +58,7 @@ export function ProductSlider({ items = [], buttonText }: ProductSliderProps) {
 						{items.map((item) => (
 							<SwiperSlide
 								key={item.id}
-								className="my-1 model-card mr-4 relative aspect-[16/9]"
+								className="my-1 model-card mr-4 relative aspect-[16/9] rounded-xl overflow-hidden"
 							>
 								<Image
 									src={item.imageUrl || "/placeholder.svg"}
@@ -69,7 +69,7 @@ export function ProductSlider({ items = [], buttonText }: ProductSliderProps) {
 									loading="lazy"
 									quality={80}
 								/>
-								<div className="slider-card-bg flex flex-col h-full absolute inset-0">
+								<div className="slider-card-bg flex flex-col h-full absolute inset-0 rounded-xl">
 									<div className="slider-card-top text-white">
 										<div className="p-4 md:p-8">
 											<h3 className="text-md md:text-2xl font-semibold">

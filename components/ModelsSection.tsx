@@ -1,4 +1,3 @@
-import { Suspense } from "react";
 import ProductSlider from "@/components/ProductSlider";
 import { defaultModels } from "@/data/carModel";
 
