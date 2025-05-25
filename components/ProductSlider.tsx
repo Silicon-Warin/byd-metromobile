@@ -5,6 +5,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { FreeMode } from "swiper/modules";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import TestDriveButton from "@/components/TestDriveButton";
 import type { Swiper as SwiperType } from "swiper";
 import "swiper/css";
 import "swiper/css/free-mode";
@@ -83,20 +84,13 @@ export function ProductSlider({ items = [], buttonText }: ProductSliderProps) {
 													Learn more &gt;
 												</a>
 											</div>
-											<Button
-												className="w-[calc(66%-2rem)] mt-4"
-												variant="modern-dark"
-												size="modern-md"
-												asChild
+											<TestDriveButton
+												variant="outline"
+												className="w-[calc(66%-2rem)] mt-4 border-white text-white hover:bg-white hover:text-black transition-colors"
+												defaultModel={item.name}
 											>
-												<Link
-													href="https://line.me/R/ti/p/%40bydmetromobile"
-													target="_blank"
-													rel="noopener noreferrer"
-												>
-													{buttonText}
-												</Link>
-											</Button>
+												{buttonText || "จองทดลองขับ"}
+											</TestDriveButton>
 										</div>
 									</div>
 									<div className="p-4 mt-auto flex justify-center"></div>

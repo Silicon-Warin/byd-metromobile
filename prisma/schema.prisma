@@ -356,11 +356,30 @@ model ComfortFeatures {
   cn95AirFilter          Boolean // กรองอากาศ PM2.5 แบบประสิทธิภาพสูง (CN95)
   airIonizer             Boolean // ระบบกรองอากาศแบบ Ionizer
   dualZoneClimateControl Boolean // ระบบปรับอากาศแบบ 2 โซน พร้อมระบบทำความร้อน
-  rearAirVents           Boolean // ช่องระบายอากาศตรงกลางด้านหลัง
-  firstAidKit            Boolean // ชุดประจุฉุกเฉิน
+  rearAirVents           Boolean // ช่องระบายอากาศตรงกลางด้านหลัง  firstAidKit            Boolean // ชุดประจุฉุกเฉิน
   emergencyKit           Boolean // ชุดอุปกรณ์ฉุกเฉิน
   variantId              Int        @unique
   variant                CarVariant @relation(fields: [variantId], references: [id], onDelete: Cascade)
   createdAt              DateTime   @default(now())
   updatedAt              DateTime   @updatedAt
+}
+
+model TestDriveRequest {
+  id            Int      @id @default(autoincrement())
+  name          String
+  phone         String
+  email         String?
+  model         String
+  preferredDate String
+  preferredTime String?
+  location      String?
+  notes         String?
+  status        String   @default("pending") // pending, confirmed, completed, cancelled
+  source        String   @default("website") // website, line, phone, etc.
+  ipAddress     String?
+  userAgent     String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@map("test_drive_requests")
 }

@@ -6,12 +6,30 @@
         { "key": "X-Robots-Tag", "value": "index, follow" },
         { "key": "Content-Type", "value": "application/xml" }
       ]
+    },
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Robots-Tag", "value": "index, follow" }
+      ]
     }
   ],
   "redirects": [
-    { "source": "/byd-sealion-6-dm-i-ตารางผ่อน-อัพเดทใหม่ล/", "destination": "/blog/byd-sealion-6-dm-i-ตารางผ่อน/", "statusCode": 301 },
+    { "source": "/byd-sealion-6-dm-i-ตารางผ่อน-อัพเดทใหม่ล/", "destination": "/model/byd-sealion6dmi/", "statusCode": 301 },
     { "source": "/byd-explorer-no-1/", "destination": "/", "statusCode": 301 },
-    { "source": "/model/new-byd-atto3/", "destination": "/model/byd-atto3/", "statusCode": 301 }
+    { "source": "/model/new-byd-atto3/", "destination": "/model/byd-atto3/", "statusCode": 301 },
+    {
+      "source": "/",
+      "has": [
+        {
+          "type": "query",
+          "key": ".*",
+          "value": ".*"
+        }
+      ],
+      "destination": "/",
+      "statusCode": 301
+    }
   ]
 }
   

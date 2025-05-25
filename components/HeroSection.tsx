@@ -3,6 +3,7 @@ import { ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { Suspense } from "react";
 import HeroBannerCarousel from "@/components/HeroBannerCarousel";
+import TestDriveButton from "@/components/TestDriveButton"; // ✅ เพิ่ม import
 
 export default function HeroSection() {
 	return (
@@ -56,16 +57,16 @@ export default function HeroSection() {
 									<ChevronRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
 								</Link>
 							</Button>
-							<Button
+							{/* ✅ แทนที่ปุ่มเดิมด้วย TestDriveButton */}
+							<TestDriveButton
 								size="lg"
 								className="bg-red-500 hover:bg-red-600 text-white group px-6 py-6 text-base"
-								asChild
 							>
-								<Link href="/test-drive" className="flex items-center">
+								<span className="flex items-center">
 									จองทดลองขับ
 									<ChevronRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
-								</Link>
-							</Button>
+								</span>
+							</TestDriveButton>
 						</div>
 					</div>
 				</div>
@@ -92,15 +93,13 @@ export default function HeroSection() {
 									<ChevronRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
 								</Link>
 							</Button>
-							<Button
-								className="bg-red-500 hover:bg-red-600 text-white group text-sm"
-								asChild
-							>
-								<Link href="/test-drive">
+							{/* ✅ แทนที่ปุ่มเดิมด้วย TestDriveButton สำหรับ Mobile */}
+							<TestDriveButton className="bg-red-500 hover:bg-red-600 text-white group text-sm">
+								<span className="flex items-center">
 									จองทดลองขับ
 									<ChevronRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-								</Link>
-							</Button>
+								</span>
+							</TestDriveButton>
 						</div>
 					</div>
 				</div>

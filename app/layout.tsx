@@ -5,6 +5,8 @@ import { MainHeader } from "@/components/Header/main-header";
 import { Footer } from "@/components/Footer";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Viewport } from "next";
+import { Toaster } from "sonner";
+import URLParameterCleanup from "@/components/URLParameterCleanup";
 
 import "./globals.css";
 
@@ -40,11 +42,16 @@ export const metadata: Metadata = {
 		"Metromobile",
 		"ศูนย์บริการ BYD",
 	],
+	// Canonical URL to prevent duplicate content from URL parameters
+	alternates: {
+		canonical: "https://bydmetromobile.com",
+	},
 	openGraph: {
 		title: "BYD Metromobile | เมโทรโมบิล ผู้นำด้านรถยนต์ไฟฟ้า BYD ในประเทศไทย",
 		description:
 			"ศูนย์รถยนต์ไฟฟ้า BYD อย่างเป็นทางการ ครอบคลุมทั้งการขาย บริการ และศูนย์บริการหลังการขาย",
 		images: ["/images/og-image.jpg"],
+		url: "https://bydmetromobile.com",
 	},
 };
 
@@ -71,11 +78,13 @@ export default function RootLayout({
 				<meta name="format-detection" content="telephone=no" />
 				<meta name="image-rendering" content="optimizeQuality" />
 				<meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
-			</head>
+			</head>{" "}
 			<body className="font-prompt bg-background text-foreground antialiased">
+				<URLParameterCleanup />
 				<SpeedInsights />
 				<MainHeader />
 				<main className="max-w-[100vw] overflow-x-hidden">{children}</main>
+				<Toaster />
 				<Footer />
 				<Analytics />
 			</body>
