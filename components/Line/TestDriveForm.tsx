@@ -60,10 +60,11 @@ const timeSlots = [
 ];
 
 const locations = [
-	"BYD Metromobile สาขาหลัก",
-	"BYD Metromobile สีลม",
-	"BYD Metromobile สุขุมวิท",
-	"BYD Metromobile รามอินทรา",
+	"ตลิ่งชัน",
+	"พระราม 3",
+	"อ่อนนุช",
+	"รามอินทรา",
+	"RCA-พระราม 9",
 	"อื่นๆ (ระบุในหมายเหตุ)",
 ];
 
@@ -115,9 +116,10 @@ export default function TestDriveForm({
 
 		try {
 			// ตรวจสอบว่าอยู่ใน LINE app หรือไม่
-			const isInLineApp = typeof window !== 'undefined' && 
-				window.navigator.userAgent.includes('Line');
-			
+			const isInLineApp =
+				typeof window !== "undefined" &&
+				window.navigator.userAgent.includes("Line");
+
 			if (isInLineApp) {
 				// ถ้าอยู่ใน LINE app ให้ใช้ LIFF
 				try {
@@ -131,7 +133,7 @@ export default function TestDriveForm({
 								description: "ทีมงานจะติดต่อกลับภายใน 24 ชั่วโมง",
 								duration: 4000,
 							});
-							
+
 							// รีเซ็ตฟอร์ม
 							setFormData({
 								name: "",
@@ -143,7 +145,7 @@ export default function TestDriveForm({
 								location: "",
 								notes: "",
 							});
-							
+
 							setOpen(false);
 							return;
 						}
@@ -152,10 +154,9 @@ export default function TestDriveForm({
 					console.log("LIFF failed, falling back to API:", liffError);
 				}
 			}
-			
+
 			// Fallback: ส่งผ่าน API (สำหรับ browser ปกติ)
 			await sendViaAPI(formData);
-			
 		} catch (error) {
 			console.error("Submit error:", error);
 			toast.error("เกิดข้อผิดพลาด", {
@@ -181,12 +182,12 @@ export default function TestDriveForm({
 		}
 
 		const result = await response.json();
-		
+
 		toast.success("ส่งคำขอสำเร็จ!", {
 			description: "ทีมงานจะติดต่อกลับภายใน 24 ชั่วโมง",
 			duration: 4000,
 		});
-		
+
 		// รีเซ็ตฟอร์ม
 		setFormData({
 			name: "",
@@ -198,7 +199,7 @@ export default function TestDriveForm({
 			location: "",
 			notes: "",
 		});
-		
+
 		setOpen(false);
 		return result;
 	};
@@ -300,7 +301,7 @@ export default function TestDriveForm({
 					<div className="grid grid-cols-2 gap-4">
 						<div className="space-y-2">
 							<Label htmlFor="date" className="flex items-center gap-2">
-								<Calendar className="h-4 w-4" />
+								<Calendar className="h-4 w-4 text-primary" />
 								วันที่ต้องการ *
 							</Label>
 							<Input
