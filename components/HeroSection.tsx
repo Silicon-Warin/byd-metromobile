@@ -28,7 +28,7 @@ export default function HeroSection() {
 			</div>
 
 			{/* Hero Content */}
-			<div className="absolute inset-0 z-20">
+			<div className="absolute inset-0 lg:z-20">
 				{/* Desktop Layout */}
 				<div className="hidden md:flex container mx-auto h-full items-end pb-20 lg:pb-32">
 					<div className="w-full lg:w-2/3 space-y-6 px-4">
@@ -49,7 +49,7 @@ export default function HeroSection() {
 						<div className="flex gap-4 animate-fade-in-up delay-200">
 							<Button
 								size="lg"
-								className="bg-white hover:bg-white/90 text-black group px-6 py-6 text-base"
+								className="bg-white hover:bg-white/90 text-black group px-6 py-6 text-base z-20"
 								asChild
 							>
 								<Link href="/promotions" className="flex items-center">
@@ -60,7 +60,7 @@ export default function HeroSection() {
 							{/* ✅ แทนที่ปุ่มเดิมด้วย TestDriveButton */}
 							<TestDriveButton
 								size="lg"
-								className="bg-red-500 hover:bg-red-600 text-white group px-6 py-6 text-base"
+								className="bg-red-500 hover:bg-red-600 text-white group px-6 py-6 text-base z-20"
 							>
 								<span className="flex items-center">
 									จองทดลองขับ

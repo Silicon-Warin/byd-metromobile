@@ -15,7 +15,7 @@ export default function ModelsSection() {
 			{/* Models Section Header */}
 			<div className="w-[90%] md:w-[66%] mx-auto mb-0 pt-6">
 				<h2 className="text-3xl md:text-4xl font-semibold text-start mb-4 pt-4">
-					Models{" "}
+					Models
 					<span className="text-gradient text-sm md:text-base">
 						Build your dreams.
 					</span>

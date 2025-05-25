@@ -78,7 +78,7 @@ export default function RootLayout({
 				<meta name="format-detection" content="telephone=no" />
 				<meta name="image-rendering" content="optimizeQuality" />
 				<meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
-			</head>{" "}
+			</head>
 			<body className="font-prompt bg-background text-foreground antialiased">
 				<URLParameterCleanup />
 				<SpeedInsights />

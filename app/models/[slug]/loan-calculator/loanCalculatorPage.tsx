@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/card";
 import { useLoanCalculator } from "@/hooks/useLoanCalculator";
 import { CarModel } from "@/data/carModel";
+import { CheckCircle } from "lucide-react";
 
 export default function LoanCalculatorPage({
 	initialCarModel,
@@ -52,7 +53,6 @@ export default function LoanCalculatorPage({
 					</motion.h1>
 					<p className="text-muted-foreground">{carModel.description}</p>
 				</div>
-
 				{/* Main Calculator Section */}
 				<div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
 					{/* Left Column - Car Image & Variants */}
@@ -207,7 +207,6 @@ export default function LoanCalculatorPage({
 						</Card>
 					</div>
 				</div>
-
 				{/* Features Section */}
 				<div className="mb-12">
 					<Card>
@@ -216,14 +215,14 @@ export default function LoanCalculatorPage({
 						</CardHeader>
 						<CardContent>
 							<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-								{carModel.promotion?.map((feature: string, index: number) => (
-									<div key={index} className="flex items-start space-x-2">
-										<div className="w-6 h-6 rounded-full bg-accent/10 flex items-center justify-center text-accent">
-											✓
+								{carModel.specialOffers?.map(
+									(feature: string, index: number) => (
+										<div key={index} className="flex items-start space-x-2">
+											<CheckCircle className="w-5 h-5 text-emerald-500 mt-0.5 flex-shrink-0" />
+											<span className="text-sm">{feature}</span>
 										</div>
-										<span>{feature}</span>
-									</div>
-								))}
+									)
+								)}
 							</div>
 						</CardContent>
 					</Card>

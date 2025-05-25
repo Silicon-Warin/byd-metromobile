@@ -171,12 +171,11 @@ export function GallerySection({ carModel }: GallerySectionProps) {
 					<TabsList className="grid w-full max-w-[400px] mx-auto grid-cols-2 mb-8">
 						<TabsTrigger value="exterior">ภายนอก</TabsTrigger>
 						<TabsTrigger value="interior">ภายใน</TabsTrigger>
-					</TabsList>{" "}
+					</TabsList>
 					<TabsContent value="exterior">
 						<div className="embla" ref={exteriorViewportRef}>
 							<div className="embla__container">
 								<ParallaxImage index={0}>
-									{" "}
 									<div className="relative aspect-[16/9] w-full h-auto min-h-[230px]">
 										<Image
 											src={carModel.imageUrlReal || "/placeholder.svg"}
@@ -218,7 +217,6 @@ export function GallerySection({ carModel }: GallerySectionProps) {
 
 									return (
 										<ParallaxImage key={index} index={index}>
-											{" "}
 											<div className="relative aspect-[16/9] w-full h-auto min-h-[230px]">
 												<Image
 													src={src}

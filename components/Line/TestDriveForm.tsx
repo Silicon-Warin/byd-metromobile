@@ -109,40 +109,53 @@ export default function TestDriveForm({
 ขอบคุณที่ให้ความสนใจ BYD Metromobile 
 ทีมงานจะติดต่อกลับเพื่อยืนยันการนัดหมายครับ`;
 	};
-
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
 		setLoading(true);
 
 		try {
-			const liffReady = await initializeLiff();
+			// ตรวจสอบว่าอยู่ใน LINE app หรือไม่
+			const isInLineApp = typeof window !== 'undefined' && 
+				window.navigator.userAgent.includes('Line');
+			
+			if (isInLineApp) {
+				// ถ้าอยู่ใน LINE app ให้ใช้ LIFF
+				try {
+					const liffReady = await initializeLiff();
+					if (liffReady) {
+						const message = formatMessageForLine(formData);
+						const sent = await sendMessageToLine(message);
 
-			if (liffReady) {
-				const message = formatMessageForLine(formData);
-				const sent = await sendMessageToLine(message);
-
-				if (sent) {
-					toast.success("ส่งคำขอสำเร็จ!", {
-						description: "ทีมงานจะติดต่อกลับภายใน 24 ชั่วโมง",
-						duration: 4000,
-					});
-					setOpen(false);
-					setFormData({
-						name: "",
-						phone: "",
-						email: "",
-						model: defaultModel || "",
-						preferredDate: "",
-						preferredTime: "",
-						location: "",
-						notes: "",
-					});
-				} else {
-					throw new Error("Failed to send via LINE");
+						if (sent) {
+							toast.success("ส่งคำขอสำเร็จ!", {
+								description: "ทีมงานจะติดต่อกลับภายใน 24 ชั่วโมง",
+								duration: 4000,
+							});
+							
+							// รีเซ็ตฟอร์ม
+							setFormData({
+								name: "",
+								phone: "",
+								email: "",
+								model: defaultModel || "",
+								preferredDate: "",
+								preferredTime: "",
+								location: "",
+								notes: "",
+							});
+							
+							setOpen(false);
+							return;
+						}
+					}
+				} catch (liffError) {
+					console.log("LIFF failed, falling back to API:", liffError);
 				}
-			} else {
-				await sendViaAPI(formData);
 			}
+			
+			// Fallback: ส่งผ่าน API (สำหรับ browser ปกติ)
+			await sendViaAPI(formData);
+			
 		} catch (error) {
 			console.error("Submit error:", error);
 			toast.error("เกิดข้อผิดพลาด", {
@@ -153,7 +166,6 @@ export default function TestDriveForm({
 			setLoading(false);
 		}
 	};
-
 	const sendViaAPI = async (data: TestDriveFormData) => {
 		const response = await fetch("/api/test-drive", {
 			method: "POST",
@@ -164,14 +176,31 @@ export default function TestDriveForm({
 		});
 
 		if (!response.ok) {
-			throw new Error("Failed to send via API");
+			const errorData = await response.json();
+			throw new Error(errorData.error || "Failed to send via API");
 		}
 
+		const result = await response.json();
+		
 		toast.success("ส่งคำขอสำเร็จ!", {
 			description: "ทีมงานจะติดต่อกลับภายใน 24 ชั่วโมง",
 			duration: 4000,
 		});
+		
+		// รีเซ็ตฟอร์ม
+		setFormData({
+			name: "",
+			phone: "",
+			email: "",
+			model: defaultModel || "",
+			preferredDate: "",
+			preferredTime: "",
+			location: "",
+			notes: "",
+		});
+		
 		setOpen(false);
+		return result;
 	};
 
 	const isFormValid =

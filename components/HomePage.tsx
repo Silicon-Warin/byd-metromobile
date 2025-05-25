@@ -89,7 +89,7 @@ export default function HomePage({ models }: HomePageProps) {
 						className="mb-0 pt-5"
 					>
 						<h2 className="text-3xl md:text-4xl font-semibold text-start mb-4 pt-4">
-							Models.{" "}
+							Models.
 							<span className="text-muted-foreground text-sm md:text-base">
 								Build your dreams.
 							</span>

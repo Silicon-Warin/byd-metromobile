@@ -14,6 +14,7 @@ import {
 import { Menu, ChevronDown, X } from "lucide-react";
 import { navItems } from "@/data/navigation";
 import { navCarModels } from "@/data/navCarModels";
+import TestDriveButton from "@/components/TestDriveButton";
 
 export function MainHeader() {
 	const pathname = usePathname();
@@ -127,13 +128,13 @@ export function MainHeader() {
 							</div>
 						))}
 
-						<Button
+						<TestDriveButton
 							variant="default"
 							size="sm"
 							className="bg-red-600 hover:bg-red-700 text-white ml-2"
 						>
 							ทดลองขับ
-						</Button>
+						</TestDriveButton>
 					</nav>
 				</div>
 
@@ -190,7 +191,6 @@ export function MainHeader() {
 										<span className="sr-only">ปิดเมนู</span>
 									</Button>
 								</div>
-
 								{/* Mobile Navigation */}
 								<nav className="flex-1 overflow-y-auto p-4">
 									<ul className="space-y-4">
@@ -242,15 +242,15 @@ export function MainHeader() {
 										))}
 									</ul>
 								</nav>
-
 								{/* Mobile Menu Footer */}
 								<div className="p-4 border-t">
-									<Button
+									<TestDriveButton
 										variant="default"
 										className="w-full bg-red-600 hover:bg-red-700 text-white"
+										fullWidth={true}
 									>
 										ทดลองขับ
-									</Button>
+									</TestDriveButton>
 								</div>
 							</div>
 						</SheetContent>
