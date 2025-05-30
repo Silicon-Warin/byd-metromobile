@@ -3,7 +3,9 @@ import ModelsSection from "@/components/ModelsSection";
 import ServicesSection from "@/components/ServiceSection";
 import Features from "@/components/Features";
 import ContactCTA from "@/components/ContactCTA";
+import ContactFAB from "@/components/contact-fab";
 import BackgroundEffects from "@/components/BackgroundEffects";
+
 
 export default function HomePage() {
 	return (
@@ -16,8 +18,9 @@ export default function HomePage() {
 					<ModelsSection />
 					<ServicesSection />
 					<Features />
-					<ContactCTA />
+					<ContactCTA />					
 				</div>
+				<ContactFAB />
 			</div>
 		</>
 	);

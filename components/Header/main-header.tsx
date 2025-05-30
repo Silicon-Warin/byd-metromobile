@@ -11,7 +11,7 @@ import {
 	SheetTrigger,
 	SheetTitle,
 } from "@/components/ui/sheet";
-import { Menu, ChevronDown, X } from "lucide-react";
+import { Menu, ChevronDown, X, Zap } from "lucide-react"; // Added Zap
 import { navItems } from "@/data/navigation";
 import { navCarModels } from "@/data/navCarModels";
 import TestDriveButton from "@/components/TestDriveButton";
@@ -52,39 +52,50 @@ export function MainHeader() {
 
 	return (
 		<header
-			className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-				isScrolled ? "bg-primary/50" : "bg-transparent"
+			className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+				isScrolled
+					? "bg-black/95 border-b border-white/10 shadow-2xl"
+					: "bg-gradient-to-b from-black/20 to-transparent backdrop-blur-sm"
 			}`}
 		>
 			<div className="container mx-auto px-4 lg:px-8 2xl:px-0">
 				{/* Desktop Header */}
-				<div className="hidden lg:flex justify-between items-center px-4 lg:px-8 2xl:px-0 max-w-[1150px] w-full lg:w-[90vw] mx-auto md:min-h-[105px] min-h-[70px] bg-dark-blue lg:bg-transparent transition-all duration-300 z-30 relative">
+				<div className="hidden md:flex justify-between items-center h-20">
 					{/* Logo */}
-					<Link href="/" className="block w-6/12 lg:w-4/12">
-						<Image
-							src="/images/metromobile-logo.png"
-							alt="BYD Metromobile"
-							width={200}
-							height={100}
-							priority
-						/>
+					<Link href="/" className="flex items-center group">
+						<div className="relative h-12 w-40 md:h-16 md:w-52">
+							<Image
+								src="/images/metromobile-logo.png"
+								alt="Metromobile Logo"
+								fill
+								className="object-contain"
+								sizes="(max-width: 768px) 10rem, 13rem"
+								priority
+							/>
+						</div>
 					</Link>
 
 					{/* Desktop Navigation */}
-					<nav className="flex items-center space-x-6">
+					<nav className="flex items-center space-x-8">
 						{navItems.map((item) => (
 							<div key={item.id} className="relative group">
 								{item.hasDropdown ? (
 									<>
 										<button
-											onClick={() => toggleDesktopDropdown(item.id)}
-											className={`flex items-center text-sm font-medium px-1 py-2 ${
-												isScrolled ? "text-gray-800" : "text-white"
-											} hover:text-primary-dark transition-colors`}
+											onClick={() => toggleDesktopDropdown(item.id)} // Corrected: removed 'e'
+											className={`flex items-center space-x-1 px-4 py-2 rounded-lg transition-all duration-300 font-medium ${
+												isScrolled
+													? "text-gray-300 hover:text-white hover:bg-white/10"
+													: "text-white/90 hover:text-white hover:bg-white/10"
+											} ${
+												activeDropdown === item.id
+													? "text-cyan-400 bg-white/10"
+													: ""
+											}`}
 										>
-											{item.label}
+											<span>{item.label}</span>
 											<ChevronDown
-												className={`ml-1 h-4 w-4 transition-transform ${
+												className={`h-4 w-4 transition-transform duration-300 ${
 													activeDropdown === item.id ? "rotate-180" : ""
 												}`}
 											/>
@@ -92,49 +103,42 @@ export function MainHeader() {
 
 										{/* Desktop Dropdown */}
 										{activeDropdown === item.id && (
-											<div className="absolute left-0 mt-2 w-64 bg-white rounded-md shadow-lg overflow-hidden z-20">
+											<div className="absolute top-full left-0 mt-2 w-64 bg-black/95 backdrop-blur-xl border border-white/10 rounded-xl shadow-2xl overflow-hidden z-50 animate-in slide-in-from-top-2 duration-200">
 												<div className="py-2">
 													{navCarModels.map((model) => (
-														<Link
+														<a
 															key={model.href}
 															href={model.href}
-															className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+															className="block px-4 py-3 text-sm text-gray-300 hover:text-white hover:bg-gradient-to-r hover:from-cyan-500/10 hover:to-blue-500/10 transition-all duration-200 border-l-2 border-transparent hover:border-cyan-400"
 															onClick={() => setActiveDropdown(null)}
 														>
 															{model.name}
-														</Link>
+														</a>
 													))}
 												</div>
 											</div>
 										)}
 									</>
 								) : (
-									<Link
+									<a
 										href={item.href}
-										className={`block text-sm font-medium px-1 py-2 ${
-											isScrolled ? "text-gray-800" : "text-white"
-										} hover:text-primary-dark transition-colors ${
-											pathname === item.href ? "font-bold" : ""
+										className={`px-4 py-2 rounded-lg transition-all duration-300 font-medium ${
+											isScrolled
+												? "text-gray-300 hover:text-white hover:bg-white/10"
+												: "text-white/90 hover:text-white hover:bg-white/10"
+										} ${
+											pathname === item.href ? "text-cyan-400 bg-white/10" : ""
 										}`}
 									>
 										{item.label}
-									</Link>
+									</a>
 								)}
-								<span
-									className={`absolute bottom-0 left-0 h-0.5 bg-primary-dark transition-all duration-300 ${
-										pathname === item.href ? "w-full" : "w-0 group-hover:w-full"
-									}`}
-								></span>
 							</div>
 						))}
 
-						<TestDriveButton
-							variant="default"
-							size="sm"
-							className="bg-red-600 hover:bg-red-700 text-white ml-2"
-						>
-							ทดลองขับ
-						</TestDriveButton>
+						<Button className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white font-medium px-6 py-2 rounded-lg shadow-lg shadow-cyan-500/25 transition-all duration-300 hover:shadow-cyan-500/40 hover:scale-105">
+							Get Started
+						</Button>
 					</nav>
 				</div>
 
