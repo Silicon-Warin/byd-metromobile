@@ -11,6 +11,6 @@ export const navItems: NavItem[] = [
 	{ id: "promotions", label: "โปรโมชั่น", href: "/promotions" },
 	{ id: "service", label: "SERVICE", href: "/service" },
 	{ id: "blog", label: "ข่าวสารและกิจกรรม", href: "/blog" },
-	{ id: "about", label: "เกี่ยวกับเรา", href: "/about-metromobile" },
-	{ id: "contact", label: "ติดต่อเรา", href: "/contact" },
+	{ id: "about", label: "เกี่ยวกับเรา", href: "/we-are-byd" },
+	{ id: "contact", label: "ติดต่อเรา", href: "/contact-us" },
 ];
