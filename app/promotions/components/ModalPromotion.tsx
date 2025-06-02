@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
-import { X, MessageCircle } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { X } from "lucide-react";	
+import LineOALinkButton from "@/components/Line/line-button";
 import { AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { carModels } from "./PromotionSection";
@@ -57,7 +57,7 @@ const ModalPromotion = ({
 									src={selectedCar.image}
 									alt={`BYD ${selectedCar.name}`}
 									fill
-									className="object-cover"
+									className="object-contain"
 									sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
 								/>
 							</div>
@@ -100,10 +100,9 @@ const ModalPromotion = ({
 								</div>
 
 								<div className="space-y-3">
-									<Button className="w-full bg-gradient-to-r from-red-600 to-blue-600 hover:from-red-700 hover:to-blue-700 text-white font-bold py-6 rounded-full">
-										<MessageCircle className="mr-2 h-5 w-5" />
+									<LineOALinkButton className="w-full bg-gradient-to-r from-red-600 to-blue-600 hover:from-red-700 hover:to-blue-700 text-white font-bold py-6 rounded-full">
 										ติดต่อผ่าน LINE
-									</Button>
+									</LineOALinkButton>
 
 									<p className="text-xs text-gray-300 text-center">
 										ตั้งแต่วันที่ 1 มิ.ย. 68 – 31 ก.ค. 68

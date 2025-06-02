@@ -107,7 +107,7 @@ export const carModels = [
 type CarModel = (typeof carModels)[0];
 
 const PromotionSection = () => {
-	/* const [selectedCar, setSelectedCar] = useState<CarModel | null>(null); */
+	const [selectedCar, setSelectedCar] = useState<CarModel | null>(null);
 
 	// Function สำหรับ format ตัวเลข
 	const formatPrice = (price: string) => {
@@ -147,7 +147,7 @@ const PromotionSection = () => {
 								stopOnMouseEnter: true,
 							}),
 						]}
-						className="w-full"
+						className="w-full hidden md:block"
 					>
 						<CarouselContent>
 							{carModels.map((car, index) => (
@@ -221,14 +221,14 @@ const PromotionSection = () => {
 					</Carousel>
 
 					{/* Mobile Grid View */}
-					<div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-16">
+					<div className="md:hidden grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-16">
 						{carModels.map((car) => (
 							<motion.div
 								key={car.id}
 								className="cursor-pointer"
 								whileHover={{ scale: 1.05 }}
 								whileTap={{ scale: 0.95 }}
-								/* onClick={() => setSelectedCar(car)} */
+								onClick={() => setSelectedCar(car)}
 							>
 								<Card className="bg-white/5 border-white/10 overflow-hidden">
 									<CardContent className="p-0">
@@ -258,10 +258,10 @@ const PromotionSection = () => {
 				</div>
 			</section>
 			{/* Render ModalPromotion when selectedCar is set */}
-			{/* <ModalPromotion
+			<ModalPromotion
 				selectedCar={selectedCar}
 				setSelectedCar={setSelectedCar}
-			/> */}
+			/>
 		</>
 	);
 };
