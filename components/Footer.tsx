@@ -7,7 +7,7 @@ import SocialIcons from "@/app/utils/SocialIcon";
 
 export function Footer() {
 	return (
-		<footer className="py-16 bg-gradient-to-b from-[#0a0d0f] to-grey-900 text-white">
+		<footer className="py-16 bg-gradient-to-b from-[#0a0d0f] to-grey-900 text-white z-10">
 			<div className="container mx-auto px-4 max-w-7xl">
 				{/* Main footer content */}
 				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 mb-12">
@@ -330,7 +330,7 @@ export function Footer() {
 			</div>
 
 			{/* Copyright */}
-			<div className="pt-8 border-t border-gray-800">
+			<div className="container mx-auto px-4 max-w-7xl pt-8 border-t border-gray-800">
 				<div className="flex flex-col md:flex-row justify-between items-center gap-4">
 					<p className="text-gray-400 text-center md:text-left">
 						&copy; {new Date().getFullYear()} BYD Metromobile. Copyright All

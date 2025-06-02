@@ -1,5 +1,4 @@
-import BackgroundEffects from "@/components/BackgroundEffects";
-import type { Metadata } from "next";
+import { Metadata } from "next";
 
 export const metadata: Metadata = {
 	title: "โปรโมชั่นพฤษภาคม 2025 | รถยนต์ไฟฟ้า BYD | Metromobile",
@@ -26,8 +25,7 @@ export default function PromotionsLayout({
 	children: React.ReactNode;
 }) {
 	return (
-		<section className="overflow-visible">
-			<BackgroundEffects />
+		<section className="min-h-screen bg-slate-900 relative overflow-hidden">
 			{children}
 		</section>
 	);

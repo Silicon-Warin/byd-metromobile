@@ -499,7 +499,7 @@ export default function AboutPage() {
 									ปัจจุบัน เมโทรโมบิลมีสาขาให้บริการในกรุงเทพฯ และปริมณฑล
 									สามารถดูรายละเอียดสาขาทั้งหมดได้ที่หน้า
 									<Link
-										href="/contact"
+										href="/contact-us"
 										className="text-primary hover:underline ml-1"
 									>
 										ติดต่อเรา

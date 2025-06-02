@@ -22,6 +22,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "components/ui/SocialIcon.jsx", "components/contact-fab.jsx", "components/ui/PromotionCarousel.jsx", "app/promotions/components/PromotionSection.jsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "components/ui/SocialIcon.jsx", "components/contact-fab.tsx", "components/ui/PromotionCarousel.jsx", "app/promotions/components/PromotionSection.tsx", "data/contactData.js"],
   "exclude": ["node_modules"]
 }

@@ -85,7 +85,7 @@ export default function RootLayout({
 				<MainHeader />
 				<main className="max-w-[100vw] overflow-x-hidden">{children}</main>
 				<Toaster />
-				<Footer />
+				<Footer />				
 				<Analytics />
 			</body>
 		</html>
