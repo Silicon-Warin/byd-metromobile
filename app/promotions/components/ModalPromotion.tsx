@@ -43,13 +43,7 @@ const ModalPromotion = ({
 						animate={{ scale: 1, opacity: 1 }}
 						exit={{ scale: 0.9, opacity: 0 }}
 						onClick={(e) => e.stopPropagation()}
-					>
-						<button
-							onClick={() => setSelectedCar(null)}
-							className="absolute top-4 right-4 w-10 h-10 bg-white/10 rounded-full flex items-center justify-center text-white hover:bg-white/20 transition-all"
-						>
-							<X className="w-5 h-5" />
-						</button>
+					>					
 
 						<div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
 							<div className="relative aspect-video lg:aspect-square overflow-hidden rounded-2xl">
