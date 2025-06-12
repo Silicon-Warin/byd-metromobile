@@ -92,71 +92,269 @@ export default function TestDriveForm({
 		}));
 	};
 
-	const formatMessageForLine = (data: TestDriveFormData): string => {
-		return `🚗 คำขอทดลองขับ BYD
-
-👤 ชื่อ-นามสกุล: ${data.name}
-📞 เบอร์โทร: ${data.phone}
-📧 อีเมล: ${data.email}
-
-🚙 รุ่นที่สนใจ: ${data.model}
-📅 วันที่ต้องการ: ${data.preferredDate}
-⏰ เวลาที่ต้องการ: ${data.preferredTime}
-📍 สถานที่: ${data.location}
-
-📝 หมายเหตุ: ${data.notes || "ไม่มี"}
-
----
-ขอบคุณที่ให้ความสนใจ BYD Metromobile 
-ทีมงานจะติดต่อกลับเพื่อยืนยันการนัดหมายครับ`;
+	const buildFlexMessage = (data: TestDriveFormData) => {
+		return {
+			type: "flex" as const,
+			altText: "คำขอทดลองขับ BYD ใหม่",
+			contents: {
+				type: "bubble",
+				header: {
+					type: "box",
+					layout: "vertical",
+					contents: [
+						{
+							type: "text",
+							text: "🚗 คำขอทดลองขับ BYD",
+							weight: "bold",
+							size: "xl",
+							color: "#1DB446",
+						},
+					],
+					backgroundColor: "#f8f9fa",
+				},
+				body: {
+					type: "box",
+					layout: "vertical",
+					contents: [
+						{
+							type: "box",
+							layout: "baseline",
+							contents: [
+								{
+									type: "text",
+									text: "👤 ชื่อ-นามสกุล:",
+									size: "sm",
+									color: "#666666",
+									flex: 2,
+								},
+								{
+									type: "text",
+									text: data.name,
+									size: "sm",
+									color: "#333333",
+									flex: 3,
+									wrap: true,
+								},
+							],
+							margin: "md",
+						},
+						{
+							type: "box",
+							layout: "baseline",
+							contents: [
+								{
+									type: "text",
+									text: "📞 เบอร์โทร:",
+									size: "sm",
+									color: "#666666",
+									flex: 2,
+								},
+								{
+									type: "text",
+									text: data.phone,
+									size: "sm",
+									color: "#333333",
+									flex: 3,
+								},
+							],
+							margin: "md",
+						},
+						{
+							type: "box",
+							layout: "baseline",
+							contents: [
+								{
+									type: "text",
+									text: "📧 อีเมล:",
+									size: "sm",
+									color: "#666666",
+									flex: 2,
+								},
+								{
+									type: "text",
+									text: data.email || "ไม่ระบุ",
+									size: "sm",
+									color: "#333333",
+									flex: 3,
+									wrap: true,
+								},
+							],
+							margin: "md",
+						},
+						{
+							type: "separator",
+							margin: "lg",
+						},
+						{
+							type: "box",
+							layout: "baseline",
+							contents: [
+								{
+									type: "text",
+									text: "🚙 รุ่นที่สนใจ:",
+									size: "sm",
+									color: "#666666",
+									flex: 2,
+								},
+								{
+									type: "text",
+									text: data.model,
+									size: "sm",
+									color: "#1DB446",
+									flex: 3,
+									weight: "bold",
+								},
+							],
+							margin: "lg",
+						},
+						{
+							type: "box",
+							layout: "baseline",
+							contents: [
+								{
+									type: "text",
+									text: "📅 วันที่ต้องการ:",
+									size: "sm",
+									color: "#666666",
+									flex: 2,
+								},
+								{
+									type: "text",
+									text: data.preferredDate,
+									size: "sm",
+									color: "#333333",
+									flex: 3,
+								},
+							],
+							margin: "md",
+						},
+						{
+							type: "box",
+							layout: "baseline",
+							contents: [
+								{
+									type: "text",
+									text: "⏰ เวลาที่ต้องการ:",
+									size: "sm",
+									color: "#666666",
+									flex: 2,
+								},
+								{
+									type: "text",
+									text: data.preferredTime || "ไม่ระบุ",
+									size: "sm",
+									color: "#333333",
+									flex: 3,
+								},
+							],
+							margin: "md",
+						},
+						{
+							type: "box",
+							layout: "baseline",
+							contents: [
+								{
+									type: "text",
+									text: "📍 สถานที่:",
+									size: "sm",
+									color: "#666666",
+									flex: 2,
+								},
+								{
+									type: "text",
+									text: data.location || "ไม่ระบุ",
+									size: "sm",
+									color: "#333333",
+									flex: 3,
+									wrap: true,
+								},
+							],
+							margin: "md",
+						},
+					],
+				},
+				footer: {
+					type: "box",
+					layout: "vertical",
+					contents: [
+						{
+							type: "separator",
+							margin: "md",
+						},
+						{
+							type: "text",
+							text: `📝 หมายเหตุ: ${data.notes || "ไม่มี"}`,
+							size: "xs",
+							color: "#666666",
+							wrap: true,
+							margin: "md",
+						},
+						{
+							type: "text",
+							text: `⏰ เวลาส่ง: ${new Date().toLocaleString("th-TH", {
+								timeZone: "Asia/Bangkok",
+							})}`,
+							size: "xs",
+							color: "#999999",
+							margin: "sm",
+						},
+						{
+							type: "text",
+							text: "ส่งผ่าน: Website LIFF Form",
+							size: "xs",
+							color: "#999999",
+						},
+					],
+				},
+			},
+		};
 	};
+
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
 		setLoading(true);
 
 		try {
-			// ตรวจสอบว่าอยู่ใน LINE app หรือไม่
 			const isInLineApp =
 				typeof window !== "undefined" &&
 				window.navigator.userAgent.includes("Line");
 
-			if (isInLineApp) {
-				// ถ้าอยู่ใน LINE app ให้ใช้ LIFF
-				try {
-					const liffReady = await initializeLiff();
-					if (liffReady) {
-						const message = formatMessageForLine(formData);
-						const sent = await sendMessageToLine(message);
+			const liffReady = await initializeLiff();
 
-						if (sent) {
-							toast.success("ส่งคำขอสำเร็จ!", {
-								description: "ทีมงานจะติดต่อกลับภายใน 24 ชั่วโมง",
-								duration: 4000,
-							});
+			if (isInLineApp && liffReady) {
+				const flexMessage = buildFlexMessage(formData);
+				const sent = await sendMessageToLine(flexMessage as any);
 
-							// รีเซ็ตฟอร์ม
-							setFormData({
-								name: "",
-								phone: "",
-								email: "",
-								model: defaultModel || "",
-								preferredDate: "",
-								preferredTime: "",
-								location: "",
-								notes: "",
-							});
+				if (sent) {
+					toast.success("ส่งคำขอสำเร็จ!", {
+						description: "ทีมงานจะติดต่อกลับภายใน 24 ชั่วโมง",
+						duration: 4000,
+					});
 
-							setOpen(false);
-							return;
-						}
-					}
-				} catch (liffError) {
-					console.log("LIFF failed, falling back to API:", liffError);
+					// รีเซ็ตฟอร์ม
+					setFormData({
+						name: "",
+						phone: "",
+						email: "",
+						model: defaultModel || "",
+						preferredDate: "",
+						preferredTime: "",
+						location: "",
+						notes: "",
+					});
+
+					setOpen(false);
+					// Optionally save to DB
+					await sendViaAPI(formData);
+					return;
 				}
 			}
 
-			// Fallback: ส่งผ่าน API (สำหรับ browser ปกติ)
-			await sendViaAPI(formData);
+			// If not in LINE client, prompt user to open in LINE OA
+			toast.error("กรุณาเปิดฟอร์มนี้ภายใน LINE เพื่อส่งคำขอ", {
+				description: "คลิกปุ่มอีกครั้งหลังจากเปิดใน LINE OA",
+				duration: 6000,
+			});
 		} catch (error) {
 			console.error("Submit error:", error);
 			toast.error("เกิดข้อผิดพลาด", {
@@ -167,6 +365,7 @@ export default function TestDriveForm({
 			setLoading(false);
 		}
 	};
+
 	const sendViaAPI = async (data: TestDriveFormData) => {
 		const response = await fetch("/api/test-drive", {
 			method: "POST",
