@@ -101,7 +101,7 @@ const nextConfig = {
 					{
 						key: "X-Security-Alert",
 						value:
-							"This is the official BYD Metromobile website. Report suspicious activity to security@bydmetromobile.com",
+							"This is the official BYD Metromobile website. Report suspicious activity to siliconwarin@gmail.com",
 					},
 				],
 			},
