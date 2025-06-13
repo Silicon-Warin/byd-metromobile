@@ -3,15 +3,18 @@ import ServiceGrid from "@/components/ServiceGrid";
 
 export default function ServicesSection() {
 	return (
-		<div className="w-full">
-			<div className="w-[90%] md:w-[66%] mx-auto mb-3">
-				<h2 className="text-3xl md:text-4xl font-semibold text-start mb-4 pt-4">
-					Services.
+		<div className="w-full flex flex-col">
+			<div className="page-container mb-8 md:mb-12">
+				<h2 className="text-4xl md:text-5xl font-bold mb-2 text-gradient">
+					Our Services
 				</h2>
+				<p className="text-lg md:text-xl text-muted-foreground">
+					Comprehensive care for your peace of mind.
+				</p>
 			</div>
 			<Suspense
 				fallback={
-					<div className="w-full h-[300px] bg-gray-800/30 rounded-xl animate-pulse" />
+					<div className="w-full h-[300px] bg-secondary/30 rounded-xl animate-pulse" />
 				}
 			>
 				<ServiceGrid />

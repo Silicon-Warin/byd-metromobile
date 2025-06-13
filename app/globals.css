@@ -145,6 +145,85 @@
   .p-responsive {
     padding: clamp(0.5rem, 3vw, 2rem);
   }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+  
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-white via-gray-300 to-white;
+  }
+  
+  /* -- Animation Utilities -- */
+
+  /* For on-load animations (like Hero section) */
+  .animate-in-fade-in {
+    animation: fade-in 0.8s ease-out forwards;
+  }
+  .animate-in-fade-in-up {
+    animation: fade-in-up 0.6s ease-out forwards;
+  }
+  .animate-in-fade-in-left {
+    animation: fade-in-left 0.6s ease-out forwards;
+  }
+
+  /* For on-scroll animations (using new CSS animation-timeline) */
+  @supports (animation-timeline: view()) {
+    .animate-on-scroll {
+      animation: linear fade-in-up both;
+      animation-timeline: view();
+      animation-range: entry 20% cover 40%;
+    }
+  }
+
+  /* Keyframes */
+  @keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes fade-in-up {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  @keyframes fade-in-left {
+    from { opacity: 0; transform: translateX(-24px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  /* Background Orbs Animation */
+  @keyframes move-orb-1 {
+    0% { transform: translate(0, 0) scale(1) rotate(0deg); }
+    50% { transform: translate(100px, 50px) scale(1.1) rotate(45deg); }
+    100% { transform: translate(0, 0) scale(1) rotate(0deg); }
+  }
+  @keyframes move-orb-2 {
+    0% { transform: translate(0, 0) scale(1) rotate(0deg); }
+    50% { transform: translate(-100px, -50px) scale(1.05) rotate(0deg); }
+    100% { transform: translate(0, 0) scale(1) rotate(0deg); }
+  }
+  @keyframes move-orb-3 {
+    0% { transform: rotate(0deg) scale(1); }
+    50% { transform: rotate(90deg) scale(1.2); }
+    100% { transform: rotate(0deg) scale(1); }
+  }
+
+  .animate-orb-1 {
+    animation: move-orb-1 35s ease-in-out infinite alternate;
+  }
+  .animate-orb-2 {
+    animation: move-orb-2 40s ease-in-out infinite alternate 7s;
+  }
+  .animate-orb-3 {
+    animation: move-orb-3 45s ease-in-out infinite alternate 14s;
+  }
+
+  /* Animation Delays */
+  .animation-delay-200 { animation-delay: 200ms; }
+  .animation-delay-400 { animation-delay: 400ms; }
+  .animation-delay-600 { animation-delay: 600ms; }
+  .animation-delay-800 { animation-delay: 800ms; }
 }
 
 @keyframes fade-in-up {
@@ -226,10 +305,6 @@
 
   .card-hover {
     @apply transition-all duration-300 hover:bg-secondary/80 hover:shadow-lg hover:shadow-black/20;
-  }
-
-  .text-gradient {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400;
   }
 
   .nav-button {

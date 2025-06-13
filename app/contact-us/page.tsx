@@ -1,4 +1,3 @@
-
 "use client";
 
 import { motion } from "framer-motion";
@@ -97,8 +96,9 @@ export default function ContactUs() {
 			address: "889 ถนน จตุรทิศ บางกะปิ เขตห้วยขวาง กรุงเทพมหานคร 10310",
 			phone: "082-340-7888",
 			hours: "เปิดทำการ: วันจันทร์-อาทิตย์ 08.30-17.30 น.",
-			mapUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3875.423008129821!2d100.57356757509028!3d13.753345386638662!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30e29faec6f4bce3%3A0xb3058b676241e1b7!2sBYD%20Metromobile%20RCA!5e0!3m2!1sth!2sth!4v1748629213320!5m2!1sth!2sth",
-		}
+			mapUrl:
+				"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3875.423008129821!2d100.57356757509028!3d13.753345386638662!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30e29faec6f4bce3%3A0xb3058b676241e1b7!2sBYD%20Metromobile%20RCA!5e0!3m2!1sth!2sth!4v1748629213320!5m2!1sth!2sth",
+		},
 	];
 
 	// ข้อมูลการติดต่อทั่วไป
@@ -112,7 +112,8 @@ export default function ContactUs() {
 		businessHours: "เปิดทำการทุกวัน: 08.30-17.30 น.",
 	};
 
-	const currentBranch = branches.find(branch => branch.id === selectedBranch) || branches[0];
+	const currentBranch =
+		branches.find((branch) => branch.id === selectedBranch) || branches[0];
 
 	return (
 		<main className="min-h-screen bg-black text-white pt-24">
@@ -171,15 +172,19 @@ export default function ContactUs() {
 						whileInView="visible"
 						viewport={{ once: true }}
 						variants={fadeIn}
-						className="mb-12"
+						className="mb-16"
 					>
-						<Tabs value={selectedBranch} onValueChange={setSelectedBranch} className="w-full">
-							<TabsList className="grid w-full grid-cols-2 md:grid-cols-5 bg-gray-800/50 backdrop-blur-sm border border-gray-700 mb-8">
+						<Tabs
+							value={selectedBranch}
+							onValueChange={setSelectedBranch}
+							className="w-full"
+						>
+							<TabsList className="grid w-full grid-cols-2 md:grid-cols-5 bg-gray-800/50 backdrop-blur-sm border border-gray-700 mb-12 h-auto p-1">
 								{branches.map((branch) => (
-									<TabsTrigger 
-										key={branch.id} 
+									<TabsTrigger
+										key={branch.id}
 										value={branch.id}
-										className="text-white data-[state=active]:bg-byd-blue data-[state=active]:text-white"
+										className="text-white data-[state=active]:bg-byd-blue data-[state=active]:text-white text-xs md:text-sm py-2 px-1 md:px-3 whitespace-nowrap"
 									>
 										{branch.name}
 									</TabsTrigger>
@@ -187,9 +192,9 @@ export default function ContactUs() {
 							</TabsList>
 
 							{branches.map((branch) => (
-								<TabsContent key={branch.id} value={branch.id}>
+								<TabsContent key={branch.id} value={branch.id} className="mt-8">
 									<motion.div
-										className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
+										className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6"
 										variants={staggerContainer}
 										initial="hidden"
 										animate="visible"
@@ -213,7 +218,9 @@ export default function ContactUs() {
 														<MapPin className="h-6 w-6 text-byd-blue" />
 													</div>
 													<h3 className="text-xl font-bold mb-2">ที่อยู่</h3>
-													<p className="text-gray-400 text-sm">{branch.address}</p>
+													<p className="text-gray-400 text-sm">
+														{branch.address}
+													</p>
 												</CardContent>
 											</Card>
 										</motion.div>
@@ -237,7 +244,9 @@ export default function ContactUs() {
 														<Clock className="h-6 w-6 text-byd-blue" />
 													</div>
 													<h3 className="text-xl font-bold mb-2">เวลาทำการ</h3>
-													<p className="text-gray-400 text-sm">{branch.hours}</p>
+													<p className="text-gray-400 text-sm">
+														{branch.hours}
+													</p>
 												</CardContent>
 											</Card>
 										</motion.div>

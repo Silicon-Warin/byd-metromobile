@@ -72,7 +72,7 @@ export default function RootLayout({
 	return (
 		<html
 			lang="th"
-			className={`${inter.variable} ${prompt.variable} ${ibmPlexThai.variable}`}
+			className={`dark ${inter.variable} ${prompt.variable} ${ibmPlexThai.variable}`}
 		>
 			<head>
 				<meta name="format-detection" content="telephone=no" />
@@ -85,7 +85,7 @@ export default function RootLayout({
 				<MainHeader />
 				<main className="max-w-[100vw] overflow-x-hidden">{children}</main>
 				<Toaster />
-				<Footer />				
+				<Footer />
 				<Analytics />
 			</body>
 		</html>

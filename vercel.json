@@ -30,6 +30,12 @@
       "destination": "/",
       "statusCode": 301
     }
-  ]
+  ],
+  "functions": {
+    "middleware.ts": {
+      "runtime": "nodejs18.x",
+      "maxDuration": 0
+    }
+  }
 }
   

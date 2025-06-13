@@ -1,16 +1,7 @@
 "use client";
 
-import { useState } from "react";
 import Image from "next/image";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { FreeMode } from "swiper/modules";
-import { Button } from "@/components/ui/button";
-import { ChevronLeft, ChevronRight } from "lucide-react";
-import type { Swiper as SwiperType } from "swiper";
-import "swiper/css";
-import "swiper/css/free-mode";
 
-// รายการบริการที่เราจะแสดงผล
 const services = [
 	{
 		id: "service-1",
@@ -21,80 +12,50 @@ const services = [
 	{
 		id: "service-2",
 		name: "สถานีชาร์จไฟฟ้า",
-		description: "เครือข่ายสถานีชาร์จที่ครอบคลุมทั่วประเทศ",
+		description: "เครือข่ายสถานีชาร์จที่ครอบคลุม",
 		imageUrl: "/images/services/service-2.jpg",
 	},
 	{
 		id: "service-3",
 		name: "ประกันภัยรถยนต์",
-		description: "แผนประกันภัยที่ครอบคลุมสำหรับรถยนต์ไฟฟ้า",
+		description: "แผนประกันภัยที่ครอบคลุมและคุ้มค่า",
 		imageUrl: "/images/services/service-3.jpg",
 	},
 	{
 		id: "service-4",
-		name: "บริการฉุกเฉิน",
+		name: "บริการฉุกเฉิน 24/7",
 		description: "ความช่วยเหลือฉุกเฉินตลอด 24 ชั่วโมง",
 		imageUrl: "/images/services/service-4.jpg",
 	},
 ];
 
-export default function ServiceSlider() {
-	const [swiper, setSwiper] = useState<SwiperType | null>(null);
-
-	const handleServiceClick = (service: {
-		id: string;
-		name: string;
-		description: string;
-		imageUrl: string;
-	}) => {
-		console.log("Service selected:", service.name);
-		// ทำอะไรก็ตามเมื่อคลิกที่บริการ เช่น นำทางไปยังหน้ารายละเอียด
-	};
-
+export default function ServiceGrid() {
 	return (
-		<div className="relative w-[90%] md:w-[80%] lg:w-[70%] mx-auto h-full">
-			<div className="swiper-container-wrapper">
-				<Swiper
-					modules={[FreeMode]}
-					freeMode={{
-						enabled: true,
-						sticky: false,
-						momentumRatio: 0.5,
-					}}
-					spaceBetween={15}
-					slidesPerView={1.4}
-					centeredSlides={false}
-					breakpoints={{
-						0: { slidesPerView: 1.2 },
-						480: { slidesPerView: 1.3 },
-						640: { slidesPerView: 1.4 },
-						768: { slidesPerView: 1.5 },
-						1024: { slidesPerView: 2.15 },
-						1280: { slidesPerView: 3.2 },
-					}}
-					watchOverflow={true}
-					loopAdditionalSlides={1}
-					onSwiper={setSwiper}
-					className="!overflow-visible pl-3"
-					edgeSwipeDetection="prevent"
-					preventInteractionOnTransition={true}
-				>
-					{services.map((service) => (
-						<SwiperSlide key={service.id} className="my-1 model-card mr-4">
-							<div className="glass-effect rounded-lg overflow-hidden h-auto flex flex-col">
-								<div className="relative aspect-square w-full ">
-									<Image
-										src={service.imageUrl || "/placeholder.svg"}
-										alt={service.name}
-										fill
-										priority={service.id === "service-1"}
-										className="object-contain transition-transform duration-500 hover:scale-105"
-									/>
-								</div>
-							</div>
-						</SwiperSlide>
-					))}
-				</Swiper>
+		<div className="page-container">
+			<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+				{services.map((service, i) => (
+					<div
+						key={service.id}
+						className="group relative aspect-square overflow-hidden rounded-2xl border border-white/10 bg-secondary shadow-lg transition-all duration-300 hover:border-white/20 hover:shadow-primary/20 hover:-translate-y-1 animate-on-scroll"
+						style={{ animationDelay: `${i * 100}ms` }}
+					>
+						<Image
+							src={service.imageUrl || "/placeholder.svg"}
+							alt={service.name}
+							fill
+							priority={i < 2} // Preload first two images
+							className="object-cover transition-transform duration-500 group-hover:scale-105"
+							sizes="(max-width: 640px) 90vw, (max-width: 1024px) 45vw, 22vw"
+						/>
+						<div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+						<div className="absolute bottom-0 left-0 right-0 p-4 md:p-6 text-white">
+							<h3 className="text-lg font-bold">{service.name}</h3>
+							<p className="mt-1 text-sm text-muted-foreground transition-colors duration-300 group-hover:text-white/90">
+								{service.description}
+							</p>
+						</div>
+					</div>
+				))}
 			</div>
 		</div>
 	);

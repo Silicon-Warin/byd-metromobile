@@ -6,19 +6,18 @@ import ContactCTA from "@/components/ContactCTA";
 import ContactFAB from "@/components/contact-fab";
 import BackgroundEffects from "@/components/BackgroundEffects";
 
-
 export default function HomePage() {
 	return (
 		<>
-			<HeroSection />
-			{/* Models & Services Section with Background */}
-			<div className="relative min-h-screen">
-				<BackgroundEffects />
-				<div className="relative z-10">
+			<BackgroundEffects />
+			<div className="relative z-10 flex flex-col">
+				<HeroSection />
+				{/* Sections Container */}
+				<div className="flex flex-col gap-16 sm:gap-24 md:gap-32 lg:gap-40">
 					<ModelsSection />
 					<ServicesSection />
 					<Features />
-					<ContactCTA />					
+					<ContactCTA />
 				</div>
 				<ContactFAB />
 			</div>
