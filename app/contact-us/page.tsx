@@ -1,4 +1,3 @@
-
 "use client";
 
 import { motion } from "framer-motion";
@@ -97,8 +96,9 @@ export default function ContactUs() {
 			address: "889 ถนน จตุรทิศ บางกะปิ เขตห้วยขวาง กรุงเทพมหานคร 10310",
 			phone: "082-340-7888",
 			hours: "เปิดทำการ: วันจันทร์-อาทิตย์ 08.30-17.30 น.",
-			mapUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3875.423008129821!2d100.57356757509028!3d13.753345386638662!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30e29faec6f4bce3%3A0xb3058b676241e1b7!2sBYD%20Metromobile%20RCA!5e0!3m2!1sth!2sth!4v1748629213320!5m2!1sth!2sth",
-		}
+			mapUrl:
+				"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3875.423008129821!2d100.57356757509028!3d13.753345386638662!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30e29faec6f4bce3%3A0xb3058b676241e1b7!2sBYD%20Metromobile%20RCA!5e0!3m2!1sth!2sth!4v1748629213320!5m2!1sth!2sth",
+		},
 	];
 
 	// ข้อมูลการติดต่อทั่วไป
@@ -112,7 +112,8 @@ export default function ContactUs() {
 		businessHours: "เปิดทำการทุกวัน: 08.30-17.30 น.",
 	};
 
-	const currentBranch = branches.find(branch => branch.id === selectedBranch) || branches[0];
+	const currentBranch =
+		branches.find((branch) => branch.id === selectedBranch) || branches[0];
 
 	return (
 		<main className="min-h-screen bg-black text-white pt-24">
@@ -171,15 +172,19 @@ export default function ContactUs() {
 						whileInView="visible"
 						viewport={{ once: true }}
 						variants={fadeIn}
-						className="mb-12"
+						className="mb-16"
 					>
-						<Tabs value={selectedBranch} onValueChange={setSelectedBranch} className="w-full">
-							<TabsList className="grid w-full grid-cols-2 md:grid-cols-5 bg-gray-800/50 backdrop-blur-sm border border-gray-700 mb-8">
+						<Tabs
+							value={selectedBranch}
+							onValueChange={setSelectedBranch}
+							className="w-full"
+						>
+							<TabsList className="grid w-full grid-cols-2 md:grid-cols-5 bg-gray-800/50 backdrop-blur-sm border border-gray-700 mb-12 h-auto p-1">
 								{branches.map((branch) => (
-									<TabsTrigger 
-										key={branch.id} 
+									<TabsTrigger
+										key={branch.id}
 										value={branch.id}
-										className="text-white data-[state=active]:bg-byd-blue data-[state=active]:text-white"
+										className="text-white data-[state=active]:bg-byd-blue data-[state=active]:text-white text-xs md:text-sm py-2 px-1 md:px-3 whitespace-nowrap"
 									>
 										{branch.name}
 									</TabsTrigger>
@@ -187,57 +192,73 @@ export default function ContactUs() {
 							</TabsList>
 
 							{branches.map((branch) => (
-								<TabsContent key={branch.id} value={branch.id}>
+								<TabsContent key={branch.id} value={branch.id} className="mt-8">
 									<motion.div
-										className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
+										className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6"
 										variants={staggerContainer}
 										initial="hidden"
 										animate="visible"
 									>
 										<motion.div variants={fadeIn}>
-											<Card className="bg-gray-800/50 backdrop-blur-sm border border-gray-700 hover:border-byd-blue/30 transition-all duration-300 h-full">
-												<CardContent className="p-6 flex flex-col items-center text-center">
-													<div className="w-12 h-12 rounded-full bg-byd-blue/10 flex items-center justify-center mb-4">
-														<Phone className="h-6 w-6 text-byd-blue" />
+											<Card className="bg-gray-800/50 backdrop-blur-sm border border-gray-700 hover:border-byd-blue/30 transition-all duration-300 h-full min-h-[180px]">
+												<CardContent className="p-4 md:p-6 flex flex-col items-center text-center h-full justify-center">
+													<div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-byd-blue/10 flex items-center justify-center mb-3 md:mb-4">
+														<Phone className="h-5 w-5 md:h-6 md:w-6 text-byd-blue" />
 													</div>
-													<h3 className="text-xl font-bold mb-2">โทรศัพท์</h3>
-													<p className="text-gray-400">{branch.phone}</p>
+													<h3 className="text-lg md:text-xl font-bold mb-2">
+														โทรศัพท์
+													</h3>
+													<p className="text-gray-400 text-sm md:text-base">
+														{branch.phone}
+													</p>
 												</CardContent>
 											</Card>
 										</motion.div>
 
 										<motion.div variants={fadeIn}>
-											<Card className="bg-gray-800/50 backdrop-blur-sm border border-gray-700 hover:border-byd-blue/30 transition-all duration-300 h-full">
-												<CardContent className="p-6 flex flex-col items-center text-center">
-													<div className="w-12 h-12 rounded-full bg-byd-blue/10 flex items-center justify-center mb-4">
-														<MapPin className="h-6 w-6 text-byd-blue" />
+											<Card className="bg-gray-800/50 backdrop-blur-sm border border-gray-700 hover:border-byd-blue/30 transition-all duration-300 h-full min-h-[180px]">
+												<CardContent className="p-4 md:p-6 flex flex-col items-center text-center h-full justify-center">
+													<div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-byd-blue/10 flex items-center justify-center mb-3 md:mb-4">
+														<MapPin className="h-5 w-5 md:h-6 md:w-6 text-byd-blue" />
 													</div>
-													<h3 className="text-xl font-bold mb-2">ที่อยู่</h3>
-													<p className="text-gray-400 text-sm">{branch.address}</p>
+													<h3 className="text-lg md:text-xl font-bold mb-2">
+														ที่อยู่
+													</h3>
+													<p className="text-gray-400 text-xs md:text-sm leading-relaxed">
+														{branch.address}
+													</p>
 												</CardContent>
 											</Card>
 										</motion.div>
 
 										<motion.div variants={fadeIn}>
-											<Card className="bg-gray-800/50 backdrop-blur-sm border border-gray-700 hover:border-byd-blue/30 transition-all duration-300 h-full">
-												<CardContent className="p-6 flex flex-col items-center text-center">
-													<div className="w-12 h-12 rounded-full bg-byd-blue/10 flex items-center justify-center mb-4">
-														<Mail className="h-6 w-6 text-byd-blue" />
+											<Card className="bg-gray-800/50 backdrop-blur-sm border border-gray-700 hover:border-byd-blue/30 transition-all duration-300 h-full min-h-[180px]">
+												<CardContent className="p-4 md:p-6 flex flex-col items-center text-center h-full justify-center">
+													<div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-byd-blue/10 flex items-center justify-center mb-3 md:mb-4">
+														<Mail className="h-5 w-5 md:h-6 md:w-6 text-byd-blue" />
 													</div>
-													<h3 className="text-xl font-bold mb-2">อีเมล</h3>
-													<p className="text-gray-400">{contactInfo.email}</p>
+													<h3 className="text-lg md:text-xl font-bold mb-2">
+														อีเมล
+													</h3>
+													<p className="text-gray-400 text-sm md:text-base">
+														{contactInfo.email}
+													</p>
 												</CardContent>
 											</Card>
 										</motion.div>
 
 										<motion.div variants={fadeIn}>
-											<Card className="bg-gray-800/50 backdrop-blur-sm border border-gray-700 hover:border-byd-blue/30 transition-all duration-300 h-full">
-												<CardContent className="p-6 flex flex-col items-center text-center">
-													<div className="w-12 h-12 rounded-full bg-byd-blue/10 flex items-center justify-center mb-4">
-														<Clock className="h-6 w-6 text-byd-blue" />
+											<Card className="bg-gray-800/50 backdrop-blur-sm border border-gray-700 hover:border-byd-blue/30 transition-all duration-300 h-full min-h-[180px]">
+												<CardContent className="p-4 md:p-6 flex flex-col items-center text-center h-full justify-center">
+													<div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-byd-blue/10 flex items-center justify-center mb-3 md:mb-4">
+														<Clock className="h-5 w-5 md:h-6 md:w-6 text-byd-blue" />
 													</div>
-													<h3 className="text-xl font-bold mb-2">เวลาทำการ</h3>
-													<p className="text-gray-400 text-sm">{branch.hours}</p>
+													<h3 className="text-lg md:text-xl font-bold mb-2">
+														เวลาทำการ
+													</h3>
+													<p className="text-gray-400 text-xs md:text-sm leading-relaxed text-center">
+														{branch.hours}
+													</p>
 												</CardContent>
 											</Card>
 										</motion.div>
@@ -253,29 +274,31 @@ export default function ContactUs() {
 						whileInView="visible"
 						viewport={{ once: true }}
 						variants={fadeIn}
-						className="text-center"
+						className="text-center mt-12"
 					>
-						<h3 className="text-2xl font-bold mb-6">ติดตามเราได้ที่</h3>
-						<div className="flex justify-center items-center gap-6">
+						<h3 className="text-xl md:text-2xl font-bold mb-6">
+							ติดตามเราได้ที่
+						</h3>
+						<div className="flex justify-center items-center gap-4 md:gap-6 flex-wrap">
 							<SocialIcon
 								type="line"
 								url="https://line.me/R/ti/p/%40bydmetromobile"
-								size={50}
+								size={40}
 							/>
 							<SocialIcon
 								type="facebook"
 								url="https://www.facebook.com/bydbangkok"
-								size={50}
+								size={40}
 							/>
 							<SocialIcon
 								type="instagram"
 								url="https://www.instagram.com/byd.metromobile"
-								size={50}
+								size={40}
 							/>
 							<SocialIcon
 								type="tiktok"
 								url="https://www.tiktok.com/@byd_metromobile"
-								size={50}
+								size={40}
 							/>
 						</div>
 					</motion.div>
@@ -285,7 +308,7 @@ export default function ContactUs() {
 			{/* Contact Form and Map Section */}
 			<section className="py-16 md:py-24 bg-gray-900">
 				<div className="container mx-auto px-4">
-					<div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12">
+					<div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
 						<motion.div
 							initial="hidden"
 							whileInView="visible"

@@ -1,9 +1,11 @@
+"use client";
 import { Button } from "@/components/ui/button";
 import { ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { Suspense } from "react";
 import HeroBannerCarousel from "@/components/HeroBannerCarousel";
 import TestDriveButton from "@/components/TestDriveButton"; // ✅ เพิ่ม import
+import { motion } from "framer-motion";
 
 export default function HeroSection() {
 	return (
@@ -29,24 +31,47 @@ export default function HeroSection() {
 
 			{/* Hero Content */}
 			<div className="absolute inset-0 lg:z-20">
-				{/* Desktop Layout */}
 				<div className="hidden md:flex container mx-auto h-full items-end pb-20 lg:pb-32">
 					<div className="w-full lg:w-2/3 space-y-6 px-4">
-						<h1
-							className="text-5xl lg:text-7xl font-bold bg-clip-text text-transparent 
-                    bg-gradient-to-r from-white via-blue-100 to-white animate-fade-in"
-						>
-							BYD Metromobile
-						</h1>
+						{/* เส้นขีด + Heading */}
+						<div className="flex items-center gap-3">
+							{/* ขีดแนวตั้ง สีฟ้า */}
+							<motion.div
+								initial={{ opacity: 0, scaleY: 0 }}
+								animate={{ opacity: 1, scaleY: 1 }}
+								transition={{ duration: 0.6, ease: "easeOut" }}
+								className="h-10 lg:h-16 w-1 bg-blue-400 origin-top rounded-full"
+							/>
+							{/* Heading */}
+							<motion.h1
+								initial={{ opacity: 0, x: -20 }}
+								animate={{ opacity: 1, x: 0 }}
+								transition={{ duration: 0.8, ease: "easeOut", delay: 0.4 }}
+								className="text-5xl lg:text-7xl font-bold bg-clip-text text-transparent 
+				bg-gradient-to-r from-white via-blue-100 to-white"
+							>
+								BYD Metromobile
+							</motion.h1>
+						</div>
 
-						{/* Description with better width control */}
-						<p className="text-lg lg:text-xl text-gray-200 max-w-2xl animate-fade-in-up delay-100">
+						{/* Description */}
+						<motion.p
+							initial={{ opacity: 0, y: 20 }}
+							animate={{ opacity: 1, y: 0 }}
+							transition={{ duration: 0.8, ease: "easeOut", delay: 0.4 }}
+							className="text-lg lg:text-xl text-gray-200 max-w-2xl"
+						>
 							สัมผัสประสบการณ์การขับขี่ที่เหนือระดับด้วยรถยนต์ไฟฟ้าจาก BYD
 							ที่มาพร้อมเทคโนโลยีและการออกแบบที่ล้ำสมัย
-						</p>
+						</motion.p>
 
-						{/* CTA Buttons with hover effects */}
-						<div className="flex gap-4 animate-fade-in-up delay-200">
+						{/* CTA Buttons */}
+						<motion.div
+							initial={{ opacity: 0, y: 20 }}
+							animate={{ opacity: 1, y: 0 }}
+							transition={{ duration: 0.8, ease: "easeOut", delay: 0.6 }}
+							className="flex gap-4"
+						>
 							<Button
 								size="lg"
 								className="bg-white hover:bg-white/90 text-black group px-6 py-6 text-base z-20"
@@ -57,7 +82,7 @@ export default function HeroSection() {
 									<ChevronRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
 								</Link>
 							</Button>
-							{/* ✅ แทนที่ปุ่มเดิมด้วย TestDriveButton */}
+
 							<TestDriveButton
 								size="lg"
 								className="bg-red-500 hover:bg-red-600 text-white group px-6 py-6 text-base z-20"
@@ -67,40 +92,7 @@ export default function HeroSection() {
 									<ChevronRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
 								</span>
 							</TestDriveButton>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			{/* Mobile Layout */}
-			<div className="md:hidden flex h-full items-end">
-				<div className="container-hero flex justify-center items-center w-full">
-					<div className="rounded-xl px-6 py-6 max-w-2xl w-full mx-auto text-left">
-						<h1 className="text-2xl sm:text-3xl font-bold text-white mb-2 drop-shadow-lg">
-							BYD Metromobile
-						</h1>
-						<p className="text-sm sm:text-lg text-gray-200 max-w-xl mb-4 drop-shadow-lg">
-							สัมผัสประสบการณ์การขับขี่ที่เหนือระดับด้วยรถยนต์ไฟฟ้าจาก BYD
-							ที่มาพร้อมเทคโนโลยีและการออกแบบที่ล้ำสมัย
-						</p>
-						<div className="flex gap-3 mt-2">
-							<Button
-								className="bg-white hover:bg-white/90 text-black group text-sm"
-								asChild
-							>
-								<Link href="/promotions">
-									ดูโปรโมชั่น
-									<ChevronRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-								</Link>
-							</Button>
-							{/* ✅ แทนที่ปุ่มเดิมด้วย TestDriveButton สำหรับ Mobile */}
-							<TestDriveButton className="bg-red-500 hover:bg-red-600 text-white group text-sm">
-								<span className="flex items-center">
-									จองทดลองขับ
-									<ChevronRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-								</span>
-							</TestDriveButton>
-						</div>
+						</motion.div>
 					</div>
 				</div>
 			</div>
