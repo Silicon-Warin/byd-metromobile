@@ -7,6 +7,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Viewport } from "next";
 import { Toaster } from "sonner";
 import URLParameterCleanup from "@/components/URLParameterCleanup";
+import ScrollAnimations from "@/components/ScrollAnimations";
 
 import "./globals.css";
 
@@ -81,6 +82,7 @@ export default function RootLayout({
 			</head>
 			<body className="font-prompt bg-background text-foreground antialiased">
 				<URLParameterCleanup />
+				<ScrollAnimations />
 				<SpeedInsights />
 				<MainHeader />
 				<main className="max-w-[100vw] overflow-x-hidden">{children}</main>

@@ -10,11 +10,11 @@ export default function HeroSection() {
 		<section className="relative w-screen flex flex-col">
 			{/* Mobile View */}
 			<div className="md:hidden">
-				<div className="h-[50vh] max-h-[500px]">
+				<div className="h-[55vh] min-h-[350px] max-h-[500px]">
 					<HeroBanner />
 				</div>
 				{/* Mobile Content Overlay - Now a part of the flow */}
-				<div className="relative -mt-16 z-10 px-4">
+				<div className="relative -mt-12 z-10 px-4">
 					<div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20 shadow-2xl animate-in-fade-in-up animation-delay-200">
 						<div className="space-y-4 text-center">
 							<div className="flex items-center justify-center gap-3 animate-in-fade-in-up animation-delay-400">
@@ -65,7 +65,7 @@ export default function HeroSection() {
 			<div className="hidden md:flex h-[90svh] min-h-screen w-full justify-center items-center">
 				<div className="container mx-auto flex flex-col items-center gap-12 px-6 lg:px-10 relative z-10">
 					{/* Headline & CTA */}
-					<div className="max-w-3xl text-center space-y-6">
+					<div className="max-w-3xl text-center space-y-6 mt-12">
 						<div className="flex items-center justify-center gap-4 animate-in-fade-in-left animation-delay-200">
 							<div className="h-16 w-1.5 bg-gradient-to-b from-blue-400 to-cyan-300 rounded-full shadow-lg shadow-blue-400/50" />
 							<h1 className="text-7xl font-bold text-gradient">
@@ -103,7 +103,7 @@ export default function HeroSection() {
 					</div>
 
 					{/* Image Card */}
-					<div className="w-full max-w-5xl aspect-video relative rounded-3xl overflow-hidden shadow-2xl shadow-black/40 animate-in-fade-in-up animation-delay-200">
+					<div className="w-full max-w-7xl aspect-video relative rounded-3xl overflow-hidden shadow-2xl shadow-black/40 animate-in-fade-in-up animation-delay-200">
 						<HeroBanner />
 					</div>
 				</div>
