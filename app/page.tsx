@@ -15,8 +15,8 @@ export default function HomePage() {
 					<HeroSection />
 					<ModelsSection />
 					<ServicesSection />
-					<Features />
-					<ContactCTA />
+					{/* <Features /> */}
+					{/* <ContactCTA /> */}
 				</div>
 				<ContactFAB />
 			</div>
