@@ -200,25 +200,31 @@ export default function ContactUs() {
 										animate="visible"
 									>
 										<motion.div variants={fadeIn}>
-											<Card className="bg-gray-800/50 backdrop-blur-sm border border-gray-700 hover:border-byd-blue/30 transition-all duration-300 h-full">
-												<CardContent className="p-6 flex flex-col items-center text-center">
-													<div className="w-12 h-12 rounded-full bg-byd-blue/10 flex items-center justify-center mb-4">
-														<Phone className="h-6 w-6 text-byd-blue" />
+											<Card className="bg-gray-800/50 backdrop-blur-sm border border-gray-700 hover:border-byd-blue/30 transition-all duration-300 h-full min-h-[180px]">
+												<CardContent className="p-4 md:p-6 flex flex-col items-center text-center h-full justify-center">
+													<div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-byd-blue/10 flex items-center justify-center mb-3 md:mb-4">
+														<Phone className="h-5 w-5 md:h-6 md:w-6 text-byd-blue" />
 													</div>
-													<h3 className="text-xl font-bold mb-2">โทรศัพท์</h3>
-													<p className="text-gray-400">{branch.phone}</p>
+													<h3 className="text-lg md:text-xl font-bold mb-2">
+														โทรศัพท์
+													</h3>
+													<p className="text-gray-400 text-sm md:text-base">
+														{branch.phone}
+													</p>
 												</CardContent>
 											</Card>
 										</motion.div>
 
 										<motion.div variants={fadeIn}>
-											<Card className="bg-gray-800/50 backdrop-blur-sm border border-gray-700 hover:border-byd-blue/30 transition-all duration-300 h-full">
-												<CardContent className="p-6 flex flex-col items-center text-center">
-													<div className="w-12 h-12 rounded-full bg-byd-blue/10 flex items-center justify-center mb-4">
-														<MapPin className="h-6 w-6 text-byd-blue" />
+											<Card className="bg-gray-800/50 backdrop-blur-sm border border-gray-700 hover:border-byd-blue/30 transition-all duration-300 h-full min-h-[180px]">
+												<CardContent className="p-4 md:p-6 flex flex-col items-center text-center h-full justify-center">
+													<div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-byd-blue/10 flex items-center justify-center mb-3 md:mb-4">
+														<MapPin className="h-5 w-5 md:h-6 md:w-6 text-byd-blue" />
 													</div>
-													<h3 className="text-xl font-bold mb-2">ที่อยู่</h3>
-													<p className="text-gray-400 text-sm">
+													<h3 className="text-lg md:text-xl font-bold mb-2">
+														ที่อยู่
+													</h3>
+													<p className="text-gray-400 text-xs md:text-sm leading-relaxed">
 														{branch.address}
 													</p>
 												</CardContent>
@@ -226,25 +232,31 @@ export default function ContactUs() {
 										</motion.div>
 
 										<motion.div variants={fadeIn}>
-											<Card className="bg-gray-800/50 backdrop-blur-sm border border-gray-700 hover:border-byd-blue/30 transition-all duration-300 h-full">
-												<CardContent className="p-6 flex flex-col items-center text-center">
-													<div className="w-12 h-12 rounded-full bg-byd-blue/10 flex items-center justify-center mb-4">
-														<Mail className="h-6 w-6 text-byd-blue" />
+											<Card className="bg-gray-800/50 backdrop-blur-sm border border-gray-700 hover:border-byd-blue/30 transition-all duration-300 h-full min-h-[180px]">
+												<CardContent className="p-4 md:p-6 flex flex-col items-center text-center h-full justify-center">
+													<div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-byd-blue/10 flex items-center justify-center mb-3 md:mb-4">
+														<Mail className="h-5 w-5 md:h-6 md:w-6 text-byd-blue" />
 													</div>
-													<h3 className="text-xl font-bold mb-2">อีเมล</h3>
-													<p className="text-gray-400">{contactInfo.email}</p>
+													<h3 className="text-lg md:text-xl font-bold mb-2">
+														อีเมล
+													</h3>
+													<p className="text-gray-400 text-sm md:text-base">
+														{contactInfo.email}
+													</p>
 												</CardContent>
 											</Card>
 										</motion.div>
 
 										<motion.div variants={fadeIn}>
-											<Card className="bg-gray-800/50 backdrop-blur-sm border border-gray-700 hover:border-byd-blue/30 transition-all duration-300 h-full">
-												<CardContent className="p-6 flex flex-col items-center text-center">
-													<div className="w-12 h-12 rounded-full bg-byd-blue/10 flex items-center justify-center mb-4">
-														<Clock className="h-6 w-6 text-byd-blue" />
+											<Card className="bg-gray-800/50 backdrop-blur-sm border border-gray-700 hover:border-byd-blue/30 transition-all duration-300 h-full min-h-[180px]">
+												<CardContent className="p-4 md:p-6 flex flex-col items-center text-center h-full justify-center">
+													<div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-byd-blue/10 flex items-center justify-center mb-3 md:mb-4">
+														<Clock className="h-5 w-5 md:h-6 md:w-6 text-byd-blue" />
 													</div>
-													<h3 className="text-xl font-bold mb-2">เวลาทำการ</h3>
-													<p className="text-gray-400 text-sm">
+													<h3 className="text-lg md:text-xl font-bold mb-2">
+														เวลาทำการ
+													</h3>
+													<p className="text-gray-400 text-xs md:text-sm leading-relaxed text-center">
 														{branch.hours}
 													</p>
 												</CardContent>
@@ -262,29 +274,31 @@ export default function ContactUs() {
 						whileInView="visible"
 						viewport={{ once: true }}
 						variants={fadeIn}
-						className="text-center"
+						className="text-center mt-12"
 					>
-						<h3 className="text-2xl font-bold mb-6">ติดตามเราได้ที่</h3>
-						<div className="flex justify-center items-center gap-6">
+						<h3 className="text-xl md:text-2xl font-bold mb-6">
+							ติดตามเราได้ที่
+						</h3>
+						<div className="flex justify-center items-center gap-4 md:gap-6 flex-wrap">
 							<SocialIcon
 								type="line"
 								url="https://line.me/R/ti/p/%40bydmetromobile"
-								size={50}
+								size={40}
 							/>
 							<SocialIcon
 								type="facebook"
 								url="https://www.facebook.com/bydbangkok"
-								size={50}
+								size={40}
 							/>
 							<SocialIcon
 								type="instagram"
 								url="https://www.instagram.com/byd.metromobile"
-								size={50}
+								size={40}
 							/>
 							<SocialIcon
 								type="tiktok"
 								url="https://www.tiktok.com/@byd_metromobile"
-								size={50}
+								size={40}
 							/>
 						</div>
 					</motion.div>
@@ -294,7 +308,7 @@ export default function ContactUs() {
 			{/* Contact Form and Map Section */}
 			<section className="py-16 md:py-24 bg-gray-900">
 				<div className="container mx-auto px-4">
-					<div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12">
+					<div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
 						<motion.div
 							initial="hidden"
 							whileInView="visible"
