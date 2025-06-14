@@ -2,8 +2,10 @@
 import { Button } from "@/components/ui/button";
 import { ChevronRight } from "lucide-react";
 import Link from "next/link";
+import { Suspense } from "react";
+import HeroBannerCarousel from "@/components/HeroBannerCarousel";
 import TestDriveButton from "@/components/TestDriveButton";
-import { HeroBanner } from "@/components/HeroBanner";
+import { motion } from "framer-motion";
 
 export default function HeroSection() {
 	return (
@@ -11,28 +13,31 @@ export default function HeroSection() {
 			{/* Mobile View */}
 			<div className="md:hidden">
 				<div className="h-[55vh] min-h-[350px] max-h-[500px]">
-					<HeroBanner />
+					<Suspense
+						fallback={
+							<div className="w-full h-full bg-gray-900 animate-pulse" />
+						}
+					>
+						<HeroBannerCarousel />
+					</Suspense>
 				</div>
-				{/* Mobile Content Overlay - Now a part of the flow */}
+				{/* Overlay */}
 				<div className="relative -mt-12 z-10 px-4">
-					<div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20 shadow-2xl animate-in-fade-in-up animation-delay-200">
+					<div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20 shadow-2xl">
 						<div className="space-y-4 text-center">
-							<div className="flex items-center justify-center gap-3 animate-in-fade-in-up animation-delay-400">
-								<div className="h-8 w-1 bg-gradient-to-b from-blue-400 to-cyan-300 rounded-full shadow-lg shadow-blue-400/30" />
+							<div className="flex items-center justify-center gap-3">
+								<div className="h-8 w-1 bg-gradient-to-b from-blue-400 to-cyan-300 rounded-full" />
 								<h1 className="text-3xl font-bold text-gradient">
 									BYD Metromobile
 								</h1>
 							</div>
-
-							<p className="text-sm text-gray-200 leading-relaxed font-medium animate-in-fade-in-up animation-delay-600">
-								สัมผัสประสบการณ์การขับขี่ที่เหนือระดับด้วยรถยนต์ไฟฟ้าจาก BYD
+							<p className="text-sm text-gray-200">
+								สัมผัสประสบการณ์ไฟฟ้าเหนือระดับ
 							</p>
-
-							<div className="flex flex-col sm:flex-row gap-3 pt-2 animate-in-fade-in-up animation-delay-800">
+							<div className="flex flex-col sm:flex-row gap-3 pt-2">
 								<Button
 									size="lg"
-									className="w-full bg-white hover:bg-white/90 text-black group py-3 text-base font-semibold 
-										shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
+									className="w-full bg-white text-black"
 									asChild
 								>
 									<Link
@@ -40,19 +45,16 @@ export default function HeroSection() {
 										className="flex items-center justify-center"
 									>
 										ดูโปรโมชั่น
-										<ChevronRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" />
+										<ChevronRight className="ml-1 h-4 w-4" />
 									</Link>
 								</Button>
-
 								<TestDriveButton
 									size="lg"
-									className="w-full bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 
-										text-white group py-3 text-base font-semibold shadow-lg hover:shadow-xl 
-										transition-all duration-300 hover:scale-105"
+									className="w-full bg-gradient-to-r from-red-500 to-red-600 text-white"
 								>
 									<span className="flex items-center justify-center">
 										จองทดลองขับ
-										<ChevronRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" />
+										<ChevronRight className="ml-1 h-4 w-4" />
 									</span>
 								</TestDriveButton>
 							</div>
@@ -61,50 +63,68 @@ export default function HeroSection() {
 				</div>
 			</div>
 
-			{/* Desktop View – centred layout */}
-			<div className="hidden md:flex h-[90svh] min-h-screen w-full justify-center items-center">
-				<div className="container mx-auto flex flex-col items-center gap-12 px-6 lg:px-10 relative z-10">
-					{/* Headline & CTA */}
-					<div className="max-w-3xl text-center space-y-6 mt-12">
-						<div className="flex items-center justify-center gap-4 animate-in-fade-in-left animation-delay-200">
-							<div className="h-16 w-1.5 bg-gradient-to-b from-blue-400 to-cyan-300 rounded-full shadow-lg shadow-blue-400/50" />
-							<h1 className="text-7xl font-bold text-gradient">
-								BYD Metromobile
-							</h1>
-						</div>
-
-						<p className="text-lg lg:text-xl text-gray-200/90 max-w-2xl leading-relaxed animate-in-fade-in-up animation-delay-400">
-							สัมผัสประสบการณ์การขับขี่ที่เหนือระดับด้วยรถยนต์ไฟฟ้าจาก BYD
-							ที่มาพร้อมเทคโนโลยีและการออกแบบที่ล้ำสมัย
-						</p>
-
-						<div className="flex justify-center gap-4 pt-4 animate-in-fade-in-up animation-delay-600">
-							<Button
-								size="lg"
-								className="bg-white hover:bg-white/90 text-black group px-8 py-7 text-lg font-semibold shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105"
-								asChild
+			{/* Desktop View */}
+			<div className="hidden md:block relative h-screen w-full overflow-hidden">
+				{/* Background */}
+				<div className="absolute inset-0">
+					<Suspense
+						fallback={
+							<div className="w-full h-full bg-gray-900 animate-pulse" />
+						}
+					>
+						<HeroBannerCarousel />
+					</Suspense>
+				</div>
+				{/* Content */}
+				<div className="absolute inset-0 lg:z-20 flex items-end pb-20 lg:pb-32">
+					<div className="container mx-auto w-full lg:w-2/3 space-y-6 px-4">
+						<div className="flex items-center gap-3">
+							<motion.div
+								initial={{ scaleY: 0 }}
+								animate={{ scaleY: 1 }}
+								transition={{ duration: 0.6 }}
+								className="h-10 lg:h-16 w-1 bg-blue-400 origin-top rounded-full"
+							/>
+							<motion.h1
+								initial={{ x: -20, opacity: 0 }}
+								animate={{ x: 0, opacity: 1 }}
+								transition={{ duration: 0.8, delay: 0.4 }}
+								className="text-5xl lg:text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white via-blue-100 to-white"
 							>
+								BYD Metromobile
+							</motion.h1>
+						</div>
+						<motion.p
+							initial={{ y: 20, opacity: 0 }}
+							animate={{ y: 0, opacity: 1 }}
+							transition={{ duration: 0.8, delay: 0.4 }}
+							className="text-lg lg:text-xl text-gray-200 max-w-2xl"
+						>
+							สัมผัสประสบการณ์การขับขี่ที่เหนือระดับด้วยรถยนต์ไฟฟ้าจาก BYD
+							ที่มาพร้อมเทคโนโลยีล้ำสมัย
+						</motion.p>
+						<motion.div
+							initial={{ y: 20, opacity: 0 }}
+							animate={{ y: 0, opacity: 1 }}
+							transition={{ duration: 0.8, delay: 0.6 }}
+							className="flex gap-4"
+						>
+							<Button size="lg" className="bg-white text-black" asChild>
 								<Link href="/promotions" className="flex items-center">
 									ดูโปรโมชั่น
-									<ChevronRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
+									<ChevronRight className="ml-2 h-5 w-5" />
 								</Link>
 							</Button>
-
 							<TestDriveButton
 								size="lg"
-								className="bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white group px-8 py-7 text-lg font-semibold shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105"
+								className="bg-gradient-to-r from-red-500 to-red-600 text-white"
 							>
 								<span className="flex items-center">
 									จองทดลองขับ
-									<ChevronRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
+									<ChevronRight className="ml-2 h-5 w-5" />
 								</span>
 							</TestDriveButton>
-						</div>
-					</div>
-
-					{/* Image Card */}
-					<div className="w-full max-w-7xl aspect-video relative rounded-3xl overflow-hidden shadow-2xl shadow-black/40 animate-in-fade-in-up animation-delay-200">
-						<HeroBanner />
+						</motion.div>
 					</div>
 				</div>
 			</div>

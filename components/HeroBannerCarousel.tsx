@@ -1,10 +1,8 @@
 "use client";
 
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronLeft, ChevronRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
 
 const slides = [
 	{
@@ -30,49 +28,16 @@ const placeholderBlurData =
 
 const HeroBannerCarousel = () => {
 	const [currentSlide, setCurrentSlide] = useState(0);
-	const [isAutoplay, setIsAutoplay] = useState(true);
-	const [isMobile, setIsMobile] = useState(false);
 	const carouselRef = useRef<HTMLDivElement>(null);
 	const slideCount = slides.length;
 
-	// Check if we're on mobile
 	useEffect(() => {
-		const checkMobile = () => {
-			setIsMobile(window.innerWidth < 768);
-		};
-
-		// Initial check
-		checkMobile();
-
-		// Add resize listener
-		window.addEventListener("resize", checkMobile);
-		return () => window.removeEventListener("resize", checkMobile);
-	}, []);
-
-	const nextSlide = useCallback(() => {
-		setCurrentSlide((prev) => (prev === slideCount - 1 ? 0 : prev + 1));
-	}, [slideCount]);
-
-	const prevSlide = useCallback(() => {
-		setCurrentSlide((prev) => (prev === 0 ? slideCount - 1 : prev - 1));
-	}, [slideCount]);
-
-	useEffect(() => {
-		if (!isAutoplay) return;
-
 		const interval = setInterval(() => {
-			nextSlide();
+			setCurrentSlide((prev) => (prev === slideCount - 1 ? 0 : prev + 1));
 		}, 5000);
 
 		return () => clearInterval(interval);
-	}, [isAutoplay, nextSlide]);
-
-	// Pause autoplay when user interacts with carousel
-	const handleInteraction = () => {
-		setIsAutoplay(false);
-		const timer = setTimeout(() => setIsAutoplay(true), 10000);
-		return () => clearTimeout(timer);
-	};
+	}, [slideCount]);
 
 	return (
 		<div ref={carouselRef} className="relative w-full h-screen overflow-hidden">
@@ -91,45 +56,14 @@ const HeroBannerCarousel = () => {
 							alt="bydmetromobile banner"
 							fill
 							priority={currentSlide === 0}
-							className="object-cover object-center"
-							sizes="100vw"
+							className="object-contain object-center"
+							sizes="100dvh"
 							placeholder="blur"
 							blurDataURL={placeholderBlurData}
 						/>
 					</div>
 				</motion.div>
 			</AnimatePresence>
-
-			{/* Navigation arrows */}
-			<div className="absolute left-4 top-1/2 transform -translate-y-1/2 z-10">
-				<Button
-					variant="outline"
-					size="icon"
-					className="bg-black/30 text-white rounded-full hover:bg-black/50 border-0"
-					onClick={() => {
-						prevSlide();
-						handleInteraction();
-					}}
-					aria-label="Previous slide"
-				>
-					<ChevronLeft className="h-6 w-6" />
-				</Button>
-			</div>
-
-			<div className="absolute right-4 top-1/2 transform -translate-y-1/2 z-10">
-				<Button
-					variant="outline"
-					size="icon"
-					className="bg-black/30 text-white rounded-full hover:bg-black/50 border-0"
-					onClick={() => {
-						nextSlide();
-						handleInteraction();
-					}}
-					aria-label="Next slide"
-				>
-					<ChevronRight className="h-6 w-6" />
-				</Button>
-			</div>
 		</div>
 	);
 };
