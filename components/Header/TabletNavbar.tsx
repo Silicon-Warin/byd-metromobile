@@ -14,7 +14,7 @@ import {
 import { Menu, ChevronDown, X } from "lucide-react";
 import { navItems } from "@/data/navigation";
 import { navCarModels } from "@/data/navCarModels";
-import TestDriveButton from "@/components/TestDriveButton";
+import TestDriveButton from "../TestDriveButton";
 
 interface TabletNavbarProps {
 	isScrolled: boolean;

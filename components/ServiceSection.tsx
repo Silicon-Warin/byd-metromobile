@@ -5,7 +5,7 @@ import Link from "next/link";
 
 export default function ServicesSection() {
 	return (
-		<section className="relative w-full h-[70vh] min-h-[500px] flex items-end overflow-hidden animate-on-scroll">
+		<section className="relative w-full h-[70vh] min-h-[500px] flex items-end overflow-hidden animate-on-scroll -mt-32">
 			{/* Background Image */}
 			<Image
 				src="/images/showroom/byd-showroom-1.webp"

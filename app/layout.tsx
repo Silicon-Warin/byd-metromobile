@@ -3,10 +3,8 @@ import { Inter, Prompt, IBM_Plex_Sans_Thai } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import { MainHeader } from "@/components/Header/main-header";
 import { Footer } from "@/components/Footer";
-import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Viewport } from "next";
 import { Toaster } from "sonner";
-import URLParameterCleanup from "@/components/URLParameterCleanup";
 import ScrollAnimations from "@/components/ScrollAnimations";
 
 import "./globals.css";
@@ -81,9 +79,7 @@ export default function RootLayout({
 				<meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
 			</head>
 			<body className="font-prompt bg-background text-foreground antialiased">
-				<URLParameterCleanup />
 				<ScrollAnimations />
-				<SpeedInsights />
 				<MainHeader />
 				<main className="max-w-[100vw] overflow-x-hidden">{children}</main>
 				<Toaster />

@@ -1,14 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
-import {
-	Phone,
-	MapPin,
-	Heart,
-	MessageCircle,
-	Link,
-	Calendar,
-} from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Phone, MapPin, Heart, MessageCircle } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import TestDriveButton from "@/components/TestDriveButton";
 import BranchMapButton from "@/components/BranchMapButton";
@@ -138,10 +130,7 @@ const PromotionContactSection = () => {
 							className="bg-slate-800/50 border-blue-400/50 text-blue-300 hover:bg-blue-400 hover:text-white transition-all"
 						/>
 
-						<TestDriveButton className="bg-gradient-to-r from-red-700 to-blue-700 hover:from-red-800 hover:to-blue-800 text-white">
-							<Calendar className="mr-2 h-4 w-4" />
-							จองทดลองขับ
-						</TestDriveButton>
+						<TestDriveButton size="lg" />
 					</div>
 				</motion.div>
 			</div>

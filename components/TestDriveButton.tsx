@@ -1,45 +1,42 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Car } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { ComponentPropsWithoutRef, ReactNode } from "react";
+import { Calendar } from "lucide-react";
 import TestDriveForm from "@/components/Line/TestDriveForm";
 
-interface TestDriveButtonProps {
-	variant?:
-		| "default"
-		| "outline"
-		| "destructive"
-		| "secondary"
-		| "ghost"
-		| "link";
+interface TestDriveButtonProps extends ComponentPropsWithoutRef<typeof Button> {
+	children?: ReactNode;
 	size?: "default" | "sm" | "lg" | "icon";
-	className?: string;
-	children?: React.ReactNode;
 	fullWidth?: boolean;
 	defaultModel?: string;
 }
 
 export default function TestDriveButton({
-	variant = "default",
-	size = "default",
-	className = "",
 	children,
+	className,
+	size = "default",
 	fullWidth = false,
 	defaultModel,
+	...props
 }: TestDriveButtonProps) {
 	return (
 		<TestDriveForm defaultModel={defaultModel}>
 			<Button
-				variant={variant}
 				size={size}
-				className={`${fullWidth ? "w-full" : ""} ${className}`}
-			>
-				{children || (
-					<>
-						<Car className="mr-2 h-4 w-4" />
-						ทดลองขับ
-					</>
+				className={cn(
+					"relative overflow-hidden group transition-all duration-300",
+					"hover:shadow-lg hover:shadow-purple-500/25",
+					"before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/10 before:to-transparent",
+					"before:translate-x-[-100%] hover:before:translate-x-[100%] before:transition-transform before:duration-700",
+					fullWidth ? "w-full" : "",
+					className
 				)}
+				{...props}
+			>
+				<Calendar className="mr-2 h-5 w-5" />
+				{children || "จองทดลองขับ"}
 			</Button>
 		</TestDriveForm>
 	);

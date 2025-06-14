@@ -1,130 +1,123 @@
-"use client";
-import { Button } from "@/components/ui/button";
-import { ChevronRight } from "lucide-react";
-import Link from "next/link";
 import { Suspense } from "react";
-import HeroBannerCarousel from "@/components/HeroBannerCarousel";
-import TestDriveButton from "@/components/TestDriveButton";
-import { motion } from "framer-motion";
+import { Button } from "@/components/ui/button";
+import { Calendar, Play } from "lucide-react";
+import TestDriveButton from "./TestDriveButton";
+import { HeroBanner } from "@/components/HeroBanner";
 
 export default function HeroSection() {
 	return (
-		<section className="relative w-screen flex flex-col">
-			{/* Mobile View */}
-			<div className="md:hidden">
-				<div className="h-[55vh] min-h-[350px] max-h-[500px]">
-					<Suspense
-						fallback={
-							<div className="w-full h-full bg-gray-900 animate-pulse" />
-						}
-					>
-						<HeroBannerCarousel />
-					</Suspense>
-				</div>
-				{/* Overlay */}
-				<div className="relative -mt-12 z-10 px-4">
-					<div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20 shadow-2xl">
-						<div className="space-y-4 text-center">
-							<div className="flex items-center justify-center gap-3">
-								<div className="h-8 w-1 bg-gradient-to-b from-blue-400 to-cyan-300 rounded-full" />
-								<h1 className="text-3xl font-bold text-gradient">
-									BYD Metromobile
+		<section className="relative w-full overflow-hidden bg-gradient-to-br from-slate-900 via-purple-900/20 to-slate-900">
+			{/* ---------- Desktop (md+) ---------- */}
+			<div className="hidden md:block">
+				<div className="container mx-auto px-4 py-20 relative z-10">
+					<div className="max-w-7xl mx-auto">
+						{/* Top Content */}
+						<div className="text-center space-y-8 pt-8 pb-4">
+							{/* Main Heading */}
+							<div className="space-y-6">
+								<h1 className="text-4xl lg:text-5xl font-bold leading-tight">
+									<span className="bg-gradient-to-r from-white via-blue-100 to-purple-100 bg-clip-text text-transparent">
+										BYD
+									</span>{" "}
+									<span className="bg-gradient-to-r from-blue-500 to-cyan-300 bg-clip-text text-transparent">
+										Metromobile
+									</span>
 								</h1>
+
+								<p className="text-lg text-gray-300 max-w-4xl mx-auto leading-relaxed">
+									ขับเคลื่อนอนาคตกับรถยนต์ไฟฟ้า BYD ที่ล้ำสมัย
+									พร้อมบริการทดลองขับ โปรโมชั่นพิเศษ
+									และศูนย์บริการมาตรฐานทั่วไทย
+								</p>
 							</div>
-							<p className="text-sm text-gray-200">
-								สัมผัสประสบการณ์ไฟฟ้าเหนือระดับ
-							</p>
-							<div className="flex flex-col sm:flex-row gap-3 pt-2">
+
+							{/* CTA Buttons */}
+							<div className="flex flex-col sm:flex-row gap-6 pt-8 justify-center">
 								<Button
 									size="lg"
-									className="w-full bg-white text-black"
-									asChild
+									className="bg-slate-800 hover:bg-slate-700 text-white border border-slate-600 hover:border-slate-500 transition-all duration-300 group px-8 py-6 text-lg"
 								>
-									<Link
-										href="/promotions"
-										className="flex items-center justify-center"
-									>
-										ดูโปรโมชั่น
-										<ChevronRight className="ml-1 h-4 w-4" />
-									</Link>
+									<Play className="mr-3 h-6 w-6 group-hover:scale-110 transition-transform" />
+									ดูโปรโมชั่น
 								</Button>
+
 								<TestDriveButton
 									size="lg"
-									className="w-full bg-gradient-to-r from-red-500 to-red-600 text-white"
+									className="bg-transparent hover:bg-white/5 text-white border border-white/20 hover:border-white/40 transition-all duration-300 px-8 py-6 text-lg"
 								>
-									<span className="flex items-center justify-center">
+									<span className="flex items-center">
 										จองทดลองขับ
-										<ChevronRight className="ml-1 h-4 w-4" />
+										<Calendar className="ml-3 h-6 w-6" />
 									</span>
 								</TestDriveButton>
 							</div>
+						</div>
+
+						{/* Banner */}
+						<div className="relative px-8 lg:px-16">
+							<div className="relative h-[600px] lg:h-[700px] rounded-3xl overflow-hidden border border-white/10 bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-sm transform transition-transform duration-700 ease-out">
+								<Suspense
+									fallback={
+										<div className="w-full h-full bg-slate-800 animate-pulse rounded-3xl" />
+									}
+								>
+									<HeroBanner />
+								</Suspense>
+							</div>
+
+							{/* Floating glow effects */}
+							<div className="absolute -top-6 -right-6 w-32 h-32 bg-blue-500/20 rounded-full blur-xl animate-pulse" />
+							<div className="absolute -bottom-8 -left-8 w-40 h-40 bg-purple-500/20 rounded-full blur-xl animate-pulse delay-1000" />
+							<div className="absolute top-1/2 -right-12 w-24 h-24 bg-cyan-500/15 rounded-full blur-xl animate-pulse delay-2000" />
 						</div>
 					</div>
 				</div>
 			</div>
 
-			{/* Desktop View */}
-			<div className="hidden md:block relative h-screen w-full overflow-hidden">
-				{/* Background */}
-				<div className="absolute inset-0">
-					<Suspense
-						fallback={
-							<div className="w-full h-full bg-gray-900 animate-pulse" />
-						}
-					>
-						<HeroBannerCarousel />
-					</Suspense>
-				</div>
-				{/* Content */}
-				<div className="absolute inset-0 lg:z-20 flex items-end pb-20 lg:pb-32">
-					<div className="container mx-auto w-full lg:w-2/3 space-y-6 px-4">
-						<div className="flex items-center gap-3">
-							<motion.div
-								initial={{ scaleY: 0 }}
-								animate={{ scaleY: 1 }}
-								transition={{ duration: 0.6 }}
-								className="h-10 lg:h-16 w-1 bg-blue-400 origin-top rounded-full"
-							/>
-							<motion.h1
-								initial={{ x: -20, opacity: 0 }}
-								animate={{ x: 0, opacity: 1 }}
-								transition={{ duration: 0.8, delay: 0.4 }}
-								className="text-5xl lg:text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white via-blue-100 to-white"
-							>
-								BYD Metromobile
-							</motion.h1>
-						</div>
-						<motion.p
-							initial={{ y: 20, opacity: 0 }}
-							animate={{ y: 0, opacity: 1 }}
-							transition={{ duration: 0.8, delay: 0.4 }}
-							className="text-lg lg:text-xl text-gray-200 max-w-2xl"
+			{/* ---------- Mobile (< md) ---------- */}
+			<div className="md:hidden relative w-full h-screen flex flex-col justify-end overflow-hidden">
+				<HeroBanner />
+				{/* ส่วนเนื้อหา Hero สำหรับ Mobile ปรับเป็นภาษาไทยและใช้ gradient เหมือน Desktop ค่ะ */}
+				<div className="relative z-20 px-4 pb-16 mb-16 ">
+					{/* Top Label */}
+					<div className="text-[0.7rem] font-semibold uppercase tracking-widest text-white border-l-2 border-blue-500 pl-2.5 leading-4 mb-3">
+						Official dealer of BYD Thailand
+					</div>
+
+					{/* Heading */}
+					<h1 className="text-[2.2rem] font-bold leading-tight mb-4">
+						<span className="bg-gradient-to-r from-white via-blue-100 to-purple-100 bg-clip-text text-transparent">
+							BYD
+						</span>{" "}
+						<span className="bg-gradient-to-r from-blue-500 to-cyan-300 bg-clip-text text-transparent">
+							Metromobile
+						</span>
+					</h1>
+
+					<p className="text-white font-medium mb-6 leading-relaxed">
+						ขับเคลื่อนอนาคตกับรถยนต์ไฟฟ้า BYD ที่ล้ำสมัย พร้อมบริการทดลองขับ
+						โปรโมชั่นพิเศษ
+					</p>
+
+					{/* CTA */}
+					<div className="flex flex-col gap-3">
+						<Button
+							size="lg"
+							className="bg-slate-800 hover:bg-slate-700 text-white border border-slate-600 hover:border-slate-500 transition-all duration-300 group px-6 py-4 text-base"
 						>
-							สัมผัสประสบการณ์การขับขี่ที่เหนือระดับด้วยรถยนต์ไฟฟ้าจาก BYD
-							ที่มาพร้อมเทคโนโลยีล้ำสมัย
-						</motion.p>
-						<motion.div
-							initial={{ y: 20, opacity: 0 }}
-							animate={{ y: 0, opacity: 1 }}
-							transition={{ duration: 0.8, delay: 0.6 }}
-							className="flex gap-4"
+							<Play className="mr-2 h-5 w-5 group-hover:scale-110 transition-transform" />
+							ดูโปรโมชั่น
+						</Button>
+
+						<TestDriveButton
+							size="lg"
+							className="bg-transparent hover:bg-white/5 text-white border border-white/20 hover:border-white/40 transition-all duration-300 px-6 py-4 text-base"
 						>
-							<Button size="lg" className="bg-white text-black" asChild>
-								<Link href="/promotions" className="flex items-center">
-									ดูโปรโมชั่น
-									<ChevronRight className="ml-2 h-5 w-5" />
-								</Link>
-							</Button>
-							<TestDriveButton
-								size="lg"
-								className="bg-gradient-to-r from-red-500 to-red-600 text-white"
-							>
-								<span className="flex items-center">
-									จองทดลองขับ
-									<ChevronRight className="ml-2 h-5 w-5" />
-								</span>
-							</TestDriveButton>
-						</motion.div>
+							<span className="flex items-center">
+								จองทดลองขับ
+								<Calendar className="ml-2 h-5 w-5" />
+							</span>
+						</TestDriveButton>
 					</div>
 				</div>
 			</div>

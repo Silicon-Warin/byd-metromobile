@@ -4,7 +4,6 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
 import { ChevronDown } from "lucide-react";
 import { navItems } from "@/data/navigation";
 import { navCarModels } from "@/data/navCarModels";
@@ -111,9 +110,7 @@ export default function DesktopNavbar({
 					</div>
 				))}
 
-				<TestDriveButton className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white font-medium px-6 py-2 rounded-lg shadow-lg shadow-cyan-500/25 transition-all duration-300 hover:shadow-cyan-500/40 hover:scale-105">
-					ทดลองขับ
-				</TestDriveButton>
+				<TestDriveButton />
 			</nav>
 		</div>
 	);

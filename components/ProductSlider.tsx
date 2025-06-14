@@ -5,7 +5,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { FreeMode } from "swiper/modules";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import TestDriveButton from "@/components/TestDriveButton";
+import TestDriveButton from "./TestDriveButton";
 import type { Swiper as SwiperType } from "swiper";
 import "swiper/css";
 import "swiper/css/free-mode";
@@ -29,7 +29,7 @@ export function ProductSlider({ items = [], buttonText }: ProductSliderProps) {
 
 	return (
 		<>
-			<div className="relative w-[90%] md:w-[80%] lg:w-[70%] mx-auto h-full">
+			<div className="relative w-[90%] md:w-[80%] lg:w-[70%] mx-auto h-auto ">
 				<div className="swiper-container-wrapper overflow-visible">
 					<Swiper
 						modules={[FreeMode]}
@@ -64,13 +64,11 @@ export function ProductSlider({ items = [], buttonText }: ProductSliderProps) {
 								<Image
 									src={item.imageUrl || "/placeholder.svg"}
 									alt={item.name}
-									fill
-									className="object-cover transform transition-transform duration-500 hover:scale-105"
-									sizes="(max-width: 640px) 90vw, (max-width: 1024px) 45vw, 30vw"
+									className="w-full h-full object-cover transform transition-transform duration-500 hover:scale-105"
 									loading="lazy"
-									quality={80}
+									fill
 								/>
-								<div className="slider-card-bg flex flex-col h-full absolute inset-0 rounded-xl">
+								<div className="slider-card-bg flex flex-col h-full absolute inset-0 rounded-xl bg-gradient-to-t from-black/60 via-transparent to-transparent">
 									<div className="slider-card-top text-white">
 										<div className="p-4 md:p-8">
 											<h3 className="text-md md:text-2xl font-semibold">
@@ -84,11 +82,7 @@ export function ProductSlider({ items = [], buttonText }: ProductSliderProps) {
 													Learn more &gt;
 												</a>
 											</div>
-											<TestDriveButton
-												variant="outline"
-												className="w-[calc(66%-2rem)] mt-4 border-white text-white hover:bg-white hover:text-black transition-colors"
-												defaultModel={item.name}
-											>
+											<TestDriveButton className="w-[calc(66%-2rem)] mt-4 border-white text-white hover:bg-white hover:text-black transition-colors bg-transparent border">
 												{buttonText || "จองทดลองขับ"}
 											</TestDriveButton>
 										</div>

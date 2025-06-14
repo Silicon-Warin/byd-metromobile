@@ -14,7 +14,7 @@ import {
 import { Menu, ChevronDown, X } from "lucide-react";
 import { navItems } from "@/data/navigation";
 import { navCarModels } from "@/data/navCarModels";
-import TestDriveButton from "@/components/TestDriveButton";
+import TestDriveButton from "../TestDriveButton";
 
 interface MobileNavbarProps {
 	isScrolled: boolean;
@@ -137,13 +137,7 @@ export default function MobileNavbar({
 						</nav>
 						{/* Mobile Menu Footer */}
 						<div className="p-4 border-t">
-							<TestDriveButton
-								variant="default"
-								className="w-full bg-red-600 hover:bg-red-700 text-white"
-								fullWidth={true}
-							>
-								ทดลองขับ
-							</TestDriveButton>
+							<TestDriveButton />
 						</div>
 					</div>
 				</SheetContent>

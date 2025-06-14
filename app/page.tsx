@@ -9,11 +9,10 @@ import BackgroundEffects from "@/components/BackgroundEffects";
 export default function HomePage() {
 	return (
 		<>
-			<BackgroundEffects />
-			<div className="relative z-10 flex flex-col">
-				<HeroSection />
-				{/* Sections Container */}
-				<div className="flex flex-col gap-16 sm:gap-24 md:gap-32 lg:gap-40">
+			<div className="relative min-h-screen overflow-x-hidden">
+				<BackgroundEffects />
+				<div className="relative z-10">
+					<HeroSection />
 					<ModelsSection />
 					<ServicesSection />
 					<Features />
