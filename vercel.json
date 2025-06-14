@@ -34,7 +34,7 @@
   "functions": {
     "middleware.ts": {
       "runtime": "nodejs18.x",
-      "maxDuration": 0
+      "maxDuration": 10
     }
   }
 }
