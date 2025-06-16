@@ -23,6 +23,7 @@ import {
 import { Car, Calendar, MapPin, Phone, User } from "lucide-react";
 import { initializeLiff, sendMessageToLine } from "@/lib/liff";
 import { toast } from "sonner";
+import TestDriveButton from "../TestDriveButton";
 
 interface TestDriveFormProps {
 	children?: React.ReactNode;
@@ -410,10 +411,12 @@ export default function TestDriveForm({
 		<Dialog open={open} onOpenChange={setOpen}>
 			<DialogTrigger asChild>
 				{children || (
-					<Button size="lg" className="rounded-full font-medium">
-						<Car className="mr-2 h-4 w-4" />
-						จองทดลองขับ
-					</Button>
+					<TestDriveButton
+						size="lg"
+						className="bg-transparent hover:bg-white/5 text-white border border-white/20 hover:border-white/40 transition-all duration-300 px-8 py-6 text-lg"
+					>
+						<span className="flex items-center">จองทดลองขับ</span>
+					</TestDriveButton>
 				)}
 			</DialogTrigger>
 			<DialogContent className="sm:max-w-[500px] max-h-[90vh] overflow-y-auto">

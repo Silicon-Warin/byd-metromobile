@@ -1,8 +1,8 @@
 import { Suspense } from "react";
 import { Button } from "@/components/ui/button";
 import { Calendar, Play } from "lucide-react";
-import TestDriveButton from "./TestDriveButton";
-import { HeroBanner } from "@/components/HeroBanner";
+import TestDriveButton from "../TestDriveButton";
+import { HeroBanner } from "@/components/Homepage/HeroBanner";
 
 export default function HeroSection() {
 	return (
@@ -45,10 +45,7 @@ export default function HeroSection() {
 									size="lg"
 									className="bg-transparent hover:bg-white/5 text-white border border-white/20 hover:border-white/40 transition-all duration-300 px-8 py-6 text-lg"
 								>
-									<span className="flex items-center">
-										จองทดลองขับ
-										<Calendar className="ml-3 h-6 w-6" />
-									</span>
+									<span className="flex items-center">จองทดลองขับ</span>
 								</TestDriveButton>
 							</div>
 						</div>
@@ -64,14 +61,11 @@ export default function HeroSection() {
 									<HeroBanner />
 								</Suspense>
 							</div>
-
-							{/* Floating glow effects */}
-							<div className="absolute -top-6 -right-6 w-32 h-32 bg-blue-500/20 rounded-full blur-xl animate-pulse" />
-							<div className="absolute -bottom-8 -left-8 w-40 h-40 bg-purple-500/20 rounded-full blur-xl animate-pulse delay-1000" />
-							<div className="absolute top-1/2 -right-12 w-24 h-24 bg-cyan-500/15 rounded-full blur-xl animate-pulse delay-2000" />
 						</div>
 					</div>
 				</div>
+				{/* Fade to next section */}
+				<div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-b from-transparent to-gray-900 z-20"></div>
 			</div>
 
 			{/* ---------- Mobile (< md) ---------- */}
@@ -88,7 +82,7 @@ export default function HeroSection() {
 					<h1 className="text-[2.2rem] font-bold leading-tight mb-4">
 						<span className="bg-gradient-to-r from-white via-blue-100 to-purple-100 bg-clip-text text-transparent">
 							BYD
-						</span>{" "}
+						</span>
 						<span className="bg-gradient-to-r from-blue-500 to-cyan-300 bg-clip-text text-transparent">
 							Metromobile
 						</span>

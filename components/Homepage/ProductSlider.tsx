@@ -5,7 +5,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { FreeMode } from "swiper/modules";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import TestDriveButton from "./TestDriveButton";
+import TestDriveButton from "../TestDriveButton";
 import type { Swiper as SwiperType } from "swiper";
 import "swiper/css";
 import "swiper/css/free-mode";
@@ -82,8 +82,11 @@ export function ProductSlider({ items = [], buttonText }: ProductSliderProps) {
 													Learn more &gt;
 												</a>
 											</div>
-											<TestDriveButton className="w-[calc(66%-2rem)] mt-4 border-white text-white hover:bg-white hover:text-black transition-colors bg-transparent border">
-												{buttonText || "จองทดลองขับ"}
+											<TestDriveButton
+												size="lg"
+												className="bg-transparent hover:bg-white/5 text-white border border-white/20 hover:border-white/40 transition-all duration-300 px-8 py-6 text-lg"
+											>
+												<span className="flex items-center">จองทดลองขับ</span>
 											</TestDriveButton>
 										</div>
 									</div>

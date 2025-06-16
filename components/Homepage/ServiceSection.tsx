@@ -2,15 +2,15 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
 import { MapPin, Calendar, Wrench, Phone, Clock } from "lucide-react";
-import LineOALinkButton from "./Line/line-button";
+import LineOALinkButton from "../Line/line-button";
 import ServiceInfoCards from "./ServiceInfoCards";
 
 export default function ServiceSection() {
 	return (
-		<section
-			id="service-section"
-			className={`relative w-full h-[calc(100vh-100px)] flex items-end overflow-hidden pt-8`}
-		>
+		<section className="relative py-20 overflow-hidden bg-gray-800">
+			{/* Fade from previous section */}
+			<div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-gray-800 to-transparent z-10"></div>
+
 			{/* Background Images Carousel */}
 			<div className="absolute inset-0 animate-fade-in-up">
 				{/* Desktop Image */}
@@ -96,6 +96,8 @@ export default function ServiceSection() {
 					</div>
 				</div>
 			</div>
+			{/* Fade to next section */}
+			<div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-b from-transparent to-gray-900 z-10"></div>
 		</section>
 	);
 }
