@@ -11,6 +11,7 @@ import {
 	AccordionContent,
 } from "@/components/ui/accordion";
 import Image from "next/image";
+import Link from "next/link";
 
 // Animation variants for Framer Motion
 const fadeInUp = {
@@ -233,8 +234,8 @@ export default function AboutPage() {
 							เกี่ยวกับ <span className="text-gradient-metro">เมโทรโมบิล</span>
 						</h2>
 						<div className="flex justify-center mb-8">
-							<img
-								src="/images/metromobile-logo.png" // Placeholder for Metromobile Logo
+							<Image
+								src="/images/metromobile-logo.png"
 								alt="เมโทรโมบิล โลโก้ - ผู้จำหน่ายรถยนต์ BYD อย่างเป็นทางการ"
 								width={300}
 								height={100}
@@ -255,10 +256,12 @@ export default function AboutPage() {
 						variants={fadeInUp}
 						className="relative w-full h-[300px] sm:h-[400px] lg:h-[500px] rounded-2xl overflow-hidden shadow-xl shadow-blue-500/20 mb-16"
 					>
-						<img
-							src="https://placehold.co/1200x500/303030/ffffff?text=Metromobile+Team" // Placeholder for a cool group photo
+						<Image
+							src="https://placehold.co/1200x500/303030/ffffff?text=Metromobile+Team"
 							alt="ทีมงานเมโทรโมบิล"
-							style={{ objectFit: "cover", width: "100%", height: "100%" }}
+							fill
+							style={{ objectFit: "cover" }}
+							className="w-full h-full"
 						/>
 						<div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end">
 							<div className="p-6 md:p-10 w-full text-center">
@@ -415,14 +418,12 @@ export default function AboutPage() {
 						>
 							<div className="flex justify-center mb-6">
 								<div className="relative w-32 h-32 rounded-full overflow-hidden border-4 border-blue-600 shadow-md">
-									<img
+									<Image
 										src="https://placehold.co/128x128/60A5FA/ffffff?text=Dr+Pat" // Placeholder for Dr Pat Photo - changed to a more professional avatar style
 										alt="ดร. ภัทร จึงกานต์กุล - พันธมิตรของ เมโทรโมบิล"
-										style={{
-											objectFit: "cover",
-											width: "100%",
-											height: "100%",
-										}}
+										fill
+										style={{ objectFit: "cover" }}
+										className="w-full h-full"
 									/>
 								</div>
 							</div>
@@ -473,10 +474,12 @@ export default function AboutPage() {
 							<div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent z-10"></div>
 							{/* Image with hover effect */}
 							<div className="relative h-[400px] w-full overflow-hidden">
-								<img
-									src="https://placehold.co/800x400/303030/ffffff?text=Trade-in+Service" // Placeholder for Trade-in service image
+								<Image
+									src="https://placehold.co/800x400/303030/ffffff?text=Trade-in+Service"
 									alt="บริการรถเก่าแลกใหม่ โดย เมโทรโมบิล"
-									style={{ objectFit: "cover", width: "100%", height: "100%" }}
+									fill
+									style={{ objectFit: "cover" }}
+									className="w-full h-full"
 								/>
 							</div>
 							{/* Content Overlay */}
@@ -491,7 +494,6 @@ export default function AboutPage() {
 								</p>
 								<a
 									href="/services/trade-in"
-									// Adjusted button styles for dark theme contrast
 									className="inline-flex items-center gap-2 text-blue-600 bg-white px-4 py-2 rounded-full font-medium hover:bg-white/90 transition-colors shadow-md hover:shadow-lg"
 								>
 									<span>ดูรายละเอียดเพิ่มเติม</span>
@@ -509,10 +511,12 @@ export default function AboutPage() {
 							<div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent z-10"></div>
 							{/* Image with hover effect */}
 							<div className="relative h-[400px] w-full overflow-hidden">
-								<img
-									src="https://placehold.co/800x400/303030/ffffff?text=After-Sales+Service" // Placeholder for After-Sales service image
+								<Image
+									src="https://placehold.co/800x400/303030/ffffff?text=After-Sales+Service"
 									alt="บริการหลังการขายและซ่อมบำรุง โดย เมโทรโมบิล"
-									style={{ objectFit: "cover", width: "100%", height: "100%" }}
+									fill
+									style={{ objectFit: "cover" }}
+									className="w-full h-full"
 								/>
 							</div>
 							{/* Content Overlay */}
@@ -526,7 +530,6 @@ export default function AboutPage() {
 								</p>
 								<a
 									href="/services/after-sales"
-									// Adjusted button styles for dark theme contrast
 									className="inline-flex items-center gap-2 text-blue-600 bg-white px-4 py-2 rounded-full font-medium hover:bg-white/90 transition-colors shadow-md hover:shadow-lg"
 								>
 									<span>ดูรายละเอียดเพิ่มเติม</span>
@@ -558,12 +561,12 @@ export default function AboutPage() {
 								<AccordionContent className="text-base pb-4 text-gray-300">
 									ปัจจุบัน เมโทรโมบิลมีสาขาให้บริการในกรุงเทพฯ และปริมณฑล
 									สามารถดูรายละเอียดสาขาทั้งหมดได้ที่หน้า
-									<a
+									<Link
 										href="/contact-us"
 										className="text-blue-400 hover:underline ml-1 transition-colors duration-300"
 									>
 										ติดต่อเรา
-									</a>
+									</Link>
 								</AccordionContent>
 							</AccordionItem>
 
@@ -578,12 +581,12 @@ export default function AboutPage() {
 								<AccordionContent className="text-base pb-4 text-gray-300">
 									BYD มีรถยนต์หลากหลายรุ่นในประเทศไทย ทั้ง ATTO 3, DOLPHIN, SEAL
 									และอื่นๆ สามารถดูรายละเอียดทั้งหมดได้ที่หน้า
-									<a
+									<Link
 										href="/models"
 										className="text-blue-400 hover:underline ml-1 transition-colors duration-300"
 									>
 										รุ่นรถยนต์
-									</a>
+									</Link>
 								</AccordionContent>
 							</AccordionItem>
 
