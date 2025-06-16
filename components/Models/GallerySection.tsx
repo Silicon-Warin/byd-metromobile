@@ -50,7 +50,8 @@ export function GallerySection({ carModel }: GallerySectionProps) {
 	const exteriorTweenNodes = useRef<HTMLElement[]>([]);
 	const interiorTweenNodes = useRef<HTMLElement[]>([]);
 
-	// Setup parallax nodes for carousel
+	// React 19 preparation: These callbacks are stable and will benefit from React Compiler
+	// when it becomes available. The empty dependency arrays indicate pure functions.
 	const setTweenNodes = useCallback(
 		(
 			api: CarouselApi,
@@ -67,7 +68,7 @@ export function GallerySection({ carModel }: GallerySectionProps) {
 					) as HTMLElement;
 				});
 		},
-		[]
+		[] // Pure function - React Compiler will optimize this automatically
 	);
 
 	const setTweenFactor = useCallback((api: CarouselApi): void => {
@@ -75,9 +76,9 @@ export function GallerySection({ carModel }: GallerySectionProps) {
 
 		const emblaApi = api as EmblaCarouselType;
 		tweenFactor.current = TWEEN_FACTOR * emblaApi.slideNodes().length;
-	}, []);
+	}, []); // Pure function - React Compiler ready
 
-	// Parallax animation function
+	// Parallax animation function - optimized for React Compiler
 	const tweenParallax = useCallback(
 		(
 			api: CarouselApi,

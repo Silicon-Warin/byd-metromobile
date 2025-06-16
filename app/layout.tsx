@@ -7,6 +7,7 @@ import type { Viewport } from "next";
 import { Toaster } from "sonner";
 import ScrollAnimations from "@/components/ScrollAnimations";
 
+
 import "./globals.css";
 
 const inter = Inter({
@@ -79,11 +80,13 @@ export default function RootLayout({
 				<meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
 			</head>
 			<body className="font-prompt bg-background text-foreground antialiased">
+				
 				<ScrollAnimations />
 				<MainHeader />
 				<main className="max-w-[100vw] overflow-x-hidden">{children}</main>
 				<Toaster />
 				<Footer />
+
 				<Analytics />
 			</body>
 		</html>

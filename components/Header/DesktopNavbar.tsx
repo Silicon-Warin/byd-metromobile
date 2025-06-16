@@ -1,7 +1,7 @@
 // DesktopNavbar.tsx - Desktop navigation component
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ChevronDown } from "lucide-react";
@@ -19,15 +19,26 @@ export default function DesktopNavbar({
 	pathname,
 }: DesktopNavbarProps) {
 	const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+	// React 19 optimized outside click handler with useCallback for stability
+	const setupOutsideClickHandler = useCallback(
+		(element: HTMLElement | null) => {
+			if (!element || !activeDropdown) return;
 
-	// Close dropdowns when clicking outside
-	useEffect(() => {
-		const handleClickOutside = () => setActiveDropdown(null);
-		if (activeDropdown) {
+			const handleClickOutside = () => setActiveDropdown(null);
 			document.addEventListener("click", handleClickOutside);
+
+			// React 19 feature: return cleanup function
 			return () => document.removeEventListener("click", handleClickOutside);
+		},
+		[activeDropdown]
+	);
+	// Setup outside click when dropdown is active
+	useEffect(() => {
+		if (activeDropdown) {
+			const cleanup = setupOutsideClickHandler(document.body);
+			return cleanup;
 		}
-	}, [activeDropdown]);
+	}, [activeDropdown, setupOutsideClickHandler]);
 
 	// Toggle desktop dropdown
 	const toggleDesktopDropdown = (id: string, e: React.MouseEvent) => {

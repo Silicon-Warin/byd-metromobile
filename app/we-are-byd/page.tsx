@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, forwardRef } from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { ChevronRight, ExternalLink, MapPin, Mail } from "lucide-react"; // Keeping Lucide icons
 import { Button } from "@/components/ui/button";
@@ -257,7 +257,7 @@ export default function AboutPage() {
 						className="relative w-full h-[300px] sm:h-[400px] lg:h-[500px] rounded-2xl overflow-hidden shadow-xl shadow-blue-500/20 mb-16"
 					>
 						<Image
-							src="https://placehold.co/1200x500/303030/ffffff?text=Metromobile+Team"
+							src="/images/about/metromobile-team-lineup.jpg"
 							alt="ทีมงานเมโทรโมบิล"
 							fill
 							style={{ objectFit: "cover" }}
@@ -321,19 +321,16 @@ export default function AboutPage() {
 						className="space-y-6 text-lg max-w-3xl mx-auto text-gray-300"
 					>
 						<p>
-							บริษัท{" "}
-							<span className="text-gradient-metro-slow">เมโทรโมบิล</span> จำกัด
-							(<span className="text-gradient-wave">Metromobile</span>)
-							ผู้จำหน่ายรถยนต์ BYD อย่างเป็นทางการ ในนาม BYD{" "}
-							<span className="text-gradient-metro">Metromobile</span>
+							บริษัท เมโทรโมบิล จำกัด (
+							<span className="text-gradient-wave">Metromobile</span>)
+							ผู้จำหน่ายรถยนต์ BYD อย่างเป็นทางการ ในนาม BYD Metromobile
 							พร้อมยืนหนึ่งในด้านประสบการณ์ และความชำนาญ
 							ตั้งแต่นวัตกรรมเครื่องยนต์ สมรรถนะการซ่อมแซม และบำรุงรักษา
 							ที่สามารถตอบโจทย์ให้แก่ผู้ใช้บริการมาหลายยุคหลายสมัย
 						</p>
 						<p>
 							ภายใต้ "ความเชื่อมั่นและไว้วางใจ"
-							ที่ลูกค้าทุกท่านมีให้แก่เราทีมงาน{" "}
-							<span className="text-gradient-metro">Metromobile</span>
+							ที่ลูกค้าทุกท่านมีให้แก่เราทีมงาน Metromobile
 							ขอให้คำมั่นสัญญาที่จะดูแล ให้คำแนะนำ และส่งมอบรถยนต์ BYD
 							พร้อมกับการบริการหลังการขายที่จะสร้างรอยยิ้มและความประทับใจ
 							ให้แก่ลูกค้าทุกท่านตลอดไป

@@ -4,6 +4,10 @@
 .git
 .git*
 
+# PageTransition components (experimental)
+/components/PageTransition/
+/app/demo/page-transition/
+
 # dependencies
 /node_modules
 /.pnp

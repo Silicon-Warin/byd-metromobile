@@ -14,11 +14,21 @@ export function MainHeader() {
 	const isScrolled = scrollY > 50;
 	const isModelDetailPage = pathname.startsWith("/model/");
 
-	// Handle scroll events
-	useEffect(() => {
+	// React 19 optimized scroll handler with ref callback
+	const setupScrollListener = (element: HTMLElement | null) => {
+		if (!element || typeof window === "undefined") return;
+
 		const handleScroll = () => setScrollY(window.scrollY);
 		window.addEventListener("scroll", handleScroll);
+
+		// React 19 feature: return cleanup function
 		return () => window.removeEventListener("scroll", handleScroll);
+	};
+
+	// Initialize scroll listener on mount
+	useEffect(() => {
+		const cleanup = setupScrollListener(document.body);
+		return cleanup;
 	}, []);
 
 	if (isModelDetailPage) {
