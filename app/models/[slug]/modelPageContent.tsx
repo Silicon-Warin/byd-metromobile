@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/card";
 import ShowcaseSection from "./ShowcaseSection";
 import { Button } from "@/components/ui/button";
+import TestDriveButton from "@/components/TestDriveButton";
 import ModelOverview from "./modelOverview";
 import ColorSelectorSection from "./color-selector-section";
 import BYDSection from "./byd-section";
@@ -136,10 +137,14 @@ export default function ModelPageContent({
 							</CardDescription>
 						</CardHeader>
 						<CardFooter className="mt-auto">
-							<Button className="bg-bydblue hover:bg-bydblue/80 text-white font-medium px-6 py-3 rounded-lg shadow-lg flex items-center gap-2 transition-all">
+							<TestDriveButton
+								variant="outline"
+								defaultModel={carModel.slug}
+								className="bg-bydblue hover:bg-bydblue/80 text-white border-bydblue hover:border-bydblue/80 font-medium px-6 py-3 rounded-lg shadow-lg flex items-center gap-2 transition-all"
+							>
 								<span>ลงทะเบียนทดลองขับ</span>
 								<ArrowRight className="h-4 w-4" />
-							</Button>
+							</TestDriveButton>
 						</CardFooter>
 					</Card>
 
@@ -206,9 +211,12 @@ export default function ModelPageContent({
 			<section className="py-12 bg-richblack">
 				<div className="container mx-auto px-4">
 					<div className="flex flex-wrap justify-center gap-4">
-						<Button className="bg-bydblue hover:bg-bydblue/80 min-w-[150px]">
+						<TestDriveButton
+							defaultModel={carModel.slug}
+							className="bg-bydblue hover:bg-bydblue/80 min-w-[150px]"
+						>
 							จองทดลองขับ
-						</Button>
+						</TestDriveButton>
 
 						<Button
 							variant="outline"

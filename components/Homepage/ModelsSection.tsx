@@ -7,6 +7,7 @@ const productSliderModels = defaultModels.map((model) => ({
 	name: model.name,
 	imageUrl: model.imageUrlModel || model.imageUrlPromo || "/placeholder.svg",
 	description: model.description,
+	slug: model.slug || "",
 }));
 
 export default function ModelsSection() {
@@ -25,7 +26,7 @@ export default function ModelsSection() {
 				</h2>
 			</div>
 
-			<ProductSlider items={productSliderModels} buttonText="ทดลองขับ" />
+			<ProductSlider items={productSliderModels} />
 			{/* Fade to next section */}
 			<div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-b from-transparent to-gray-800 z-10"></div>
 		</section>

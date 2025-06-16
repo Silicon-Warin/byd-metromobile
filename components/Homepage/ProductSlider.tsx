@@ -17,6 +17,7 @@ interface ProductItem {
 	name: string;
 	imageUrl: string;
 	description?: string;
+	slug: string;
 }
 
 interface ProductSliderProps {
@@ -24,7 +25,7 @@ interface ProductSliderProps {
 	buttonText?: string;
 }
 
-export function ProductSlider({ items = [], buttonText }: ProductSliderProps) {
+export function ProductSlider({ items = [] }: ProductSliderProps) {
 	const [swiper, setSwiper] = useState<SwiperType | null>(null);
 
 	return (
@@ -75,15 +76,22 @@ export function ProductSlider({ items = [], buttonText }: ProductSliderProps) {
 												{item.name}
 											</h3>
 											<div className="mt-2">
-												<a
-													href="#"
+												<Link
+													href={`/models/${item.slug}`}
 													className="text-white text-sm hover:underline"
 												>
 													Learn more &gt;
-												</a>
+												</Link>
 											</div>
+											{/* ถ้า id เป็น 1 หรือ 2 ให้ใช้ outline variant ค่ะ */}
 											<TestDriveButton
 												size="lg"
+												defaultModel={item.id}
+												variant={
+													item.id === "2" || item.id === "3"
+														? "outline"
+														: undefined
+												}
 												className="bg-transparent hover:bg-white/5 text-white border border-white/20 hover:border-white/40 transition-all duration-300 px-8 py-6 text-lg"
 											>
 												<span className="flex items-center">จองทดลองขับ</span>

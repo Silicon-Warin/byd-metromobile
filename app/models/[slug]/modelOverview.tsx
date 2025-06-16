@@ -13,6 +13,7 @@ import {
 	Zap,
 } from "lucide-react";
 import { CarVariant } from "@/data/carModel";
+import TestDriveButton from "@/components/TestDriveButton";
 
 interface ModelOverviewProps {
 	carModel: CarModel;
@@ -288,14 +289,20 @@ export default function ModelOverview({
 
 				{/* ปุ่มจองทดลองขับ */}
 				<div className="my-4 md:mt-12 text-center">
-					<motion.button
-						className="bg-red-600 hover:bg-red-700 text-white px-10 py-3 rounded-full font-medium"
+					<motion.div
 						initial={{ opacity: 0, y: 20 }}
 						animate={{ opacity: 1, y: 0 }}
 						transition={{ duration: 0.5, delay: 0.6 }}
 					>
-						ทดลองขับ
-					</motion.button>
+						<TestDriveButton
+							variant="outline"
+							size="lg"
+							defaultModel={carModel.slug}
+							className="bg-red-600 hover:bg-red-700 text-white border-red-600 hover:border-red-700 px-10 py-3 rounded-full font-medium"
+						>
+							ทดลองขับ {carModel.name}
+						</TestDriveButton>
+					</motion.div>
 				</div>
 			</div>
 		</section>

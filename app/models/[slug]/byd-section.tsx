@@ -5,6 +5,7 @@ import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import BatteryChargingAnimation from "@/components/Models/BatteryChargingAnimation";
+import TestDriveButton from "@/components/TestDriveButton";
 import { CarModel } from "@/data/carModel";
 
 const fadeIn = {
@@ -142,9 +143,14 @@ export default function BYDSection({ carModel }: BYDSectionProps) {
 
 				{/* Test Drive Button */}
 				<div className="text-center mt-16">
-					<Button className="bg-red-600 hover:bg-red-700 text-white px-10 py-3 rounded-full font-medium">
+					<TestDriveButton
+						variant="outline"
+						size="lg"
+						defaultModel={carModel.slug}
+						className="bg-red-600 hover:bg-red-700 text-white border-red-600 hover:border-red-700 px-10 py-3 rounded-full font-medium"
+					>
 						ทดลองขับ {carModel.name}
-					</Button>
+					</TestDriveButton>
 				</div>
 			</div>
 		</section>
