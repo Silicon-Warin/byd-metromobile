@@ -50,7 +50,7 @@ export function Footer() {
 				<div className="lg:col-span-6">
 					<h4 className="text-lg font-semibold mb-5 text-white">สาขาของเรา</h4>
 
-					<div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+					<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
 						{/* Rama 3 */}
 						<div className="bg-gray-800/70 backdrop-blur-sm rounded-xl p-5 hover:bg-gray-700/70 transition-colors duration-300 border border-gray-700 hover:border-primary/30">
 							<h5 className="font-medium text-base mb-3 text-white">
@@ -195,12 +195,50 @@ export function Footer() {
 										/>
 									</svg>
 								</a>
-							</div>
+							</div>{" "}
 							<a
 								href="tel:0816656888"
 								className="text-sm text-gray-300 hover:text-primary transition-colors duration-200 flex items-center"
 							>
 								โทร: 081-665-6888
+							</a>
+						</div>
+
+						{/* RCA-Rama9 */}
+						<div className="bg-gray-800/70 backdrop-blur-sm rounded-xl p-5 hover:bg-gray-700/70 transition-colors duration-300 border border-gray-700 hover:border-primary/30">
+							<h5 className="font-medium text-base mb-3 text-white">
+								สาขา RCA-พระราม9
+							</h5>
+							<div className="space-y-2 mb-3">
+								<p className="text-sm text-gray-300">
+									889 ถนน จตุรทิศ บางกะปิ เขตห้วยขวาง กรุงเทพมหานคร 10310
+								</p>
+								<a
+									href="#"
+									target="_blank"
+									rel="noopener noreferrer"
+									className="inline-flex items-center text-sm text-primary hover:text-primary/80 transition-colors duration-200"
+								>
+									<span>ดูแผนที่</span>
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										className="h-4 w-4 ml-1"
+										viewBox="0 0 20 20"
+										fill="currentColor"
+									>
+										<path
+											fillRule="evenodd"
+											d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z"
+											clipRule="evenodd"
+										/>
+									</svg>
+								</a>
+							</div>
+							<a
+								href="tel:0823407888"
+								className="text-sm text-gray-300 hover:text-primary transition-colors duration-200 flex items-center"
+							>
+								โทร: 082-340-7888
 							</a>
 						</div>
 					</div>
