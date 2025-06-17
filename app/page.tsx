@@ -1,9 +1,7 @@
 import HeroSection from "@/components/Homepage/HeroSection";
 import ModelsSection from "@/components/Homepage/ModelsSection";
 import ServicesSection from "@/components/Homepage/ServiceSection";
-import Features from "@/components/Homepage/Features";
-import ContactCTA from "@/components/Homepage/ContactCTA";
-import ContactFAB from "@/components/contact-fab";
+import CustomerShowcaseSection from "@/components/Homepage/CustomerShowcaseSection";
 
 export default function HomePage() {
 	return (
@@ -12,9 +10,9 @@ export default function HomePage() {
 				<HeroSection />
 				<ModelsSection />
 				<ServicesSection />
+				<CustomerShowcaseSection />
 				{/* <Features /> */}
 				{/* <ContactCTA /> */}
-				<ContactFAB />
 			</div>
 		</>
 	);

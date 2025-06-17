@@ -5,7 +5,7 @@ import { defaultModels } from "@/data/carModel";
 const productSliderModels = defaultModels.map((model) => ({
 	id: model.id.toString(),
 	name: model.name,
-	imageUrl: model.imageUrlModel || model.imageUrlPromo || "/placeholder.svg",
+	imageUrl: model.imageUrlModel,
 	description: model.description,
 	slug: model.slug || "",
 }));

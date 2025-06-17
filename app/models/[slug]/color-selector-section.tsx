@@ -49,9 +49,10 @@ export default function ColorSelectorSection({
 		}, 1300); // match animation duration
 	};
 
+	// Fixed transition object with proper Framer Motion easing
 	const imageTransition = {
 		duration: 1.2,
-		ease: [0.22, 1, 0.36, 1],
+		ease: "easeInOut" as const,
 	};
 
 	return (
@@ -102,7 +103,7 @@ export default function ColorSelectorSection({
 							key={colorTransition.to.name}
 							initial={{ opacity: 0 }}
 							animate={{ opacity: 1 }}
-							transition={{ ...imageTransition }}
+							transition={imageTransition}
 							className="absolute inset-0 w-full h-full z-20"
 						>
 							<Image

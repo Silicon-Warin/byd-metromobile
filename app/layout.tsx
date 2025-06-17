@@ -6,7 +6,7 @@ import { Footer } from "@/components/Footer";
 import type { Viewport } from "next";
 import { Toaster } from "sonner";
 import ScrollAnimations from "@/components/ScrollAnimations";
-
+import ContactFAB from "@/components/ContactFAB";
 
 import "./globals.css";
 
@@ -80,11 +80,11 @@ export default function RootLayout({
 				<meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
 			</head>
 			<body className="font-prompt bg-background text-foreground antialiased">
-				
 				<ScrollAnimations />
 				<MainHeader />
 				<main className="max-w-[100vw] overflow-x-hidden">{children}</main>
 				<Toaster />
+				<ContactFAB />
 				<Footer />
 
 				<Analytics />
