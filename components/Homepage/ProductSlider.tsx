@@ -62,14 +62,17 @@ export function ProductSlider({ items = [] }: ProductSliderProps) {
 								key={item.id}
 								className="my-1 model-card mr-4 relative aspect-[16/9] rounded-xl overflow-hidden"
 							>
-								<img
-									src={item.imageUrl || "/placeholder.svg"}
+								<Image
+									src={item.imageUrl}
 									alt={item.name}
-									className="w-full h-full object-cover transform transition-transform duration-500 hover:scale-105"
-									loading="lazy"
-									width={1000}
-									height={1000}
+									className="w-full h-full object-cover"
+									fill
+									quality={75}
+									priority
+									unoptimized={false}
+									loading="eager"
 								/>
+
 								<div className="slider-card-bg flex flex-col h-full absolute inset-0 rounded-xl bg-gradient-to-t from-black/60 via-transparent to-transparent">
 									<div className="slider-card-top text-white">
 										<div className="p-4 md:p-8">

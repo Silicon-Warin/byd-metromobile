@@ -7,14 +7,7 @@ const nextConfig = {
 		minimumCacheTTL: 31536000,
 		dangerouslyAllowSVG: true,
 		unoptimized: false,
-		loader: "default",
 		path: "/_next/image",
-		remotePatterns: [
-			{
-				protocol: "https",
-				hostname: "**",
-			},
-		],
 	},
 	async headers() {
 		return [

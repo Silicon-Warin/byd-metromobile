@@ -4,11 +4,23 @@ import type { NextRequest } from "next/server";
 export function middleware(request: NextRequest) {
 	const { pathname } = request.nextUrl;
 
+	// --- **เพิ่มส่วนนี้เข้ามาเป็นอันดับแรกสุด** ---
+	// 0. ยกเว้น Static Assets และ Next.js internal paths จาก Middleware
+	//    matcher ใน config ควรจะจัดการแล้ว แต่เราเพิ่มตรงนี้เพื่อความมั่นใจอีกชั้น
+	if (
+		pathname.startsWith("/_next/static/") ||
+		pathname.startsWith("/_next/image/") ||
+		pathname.startsWith("/api/") ||
+		pathname.includes(".") // ยกเว้นไฟล์ที่มีนามสกุล (เช่น .webp, .jpg, .css, .js)
+	) {
+		return NextResponse.next();
+	}
+	// --- สิ้นสุดการเพิ่ม ---
+
 	// ตรวจสอบ URL patterns ที่ซับซ้อน
 
 	// 1. ถ้า path มี "byd" แต่ไม่ถูกต้อง
 	if (pathname.includes("byd") && !pathname.startsWith("/models/byd-")) {
-		// /byd-atto3 -> /models/byd-atto3
 		const modelName = pathname.replace(/^\/byd[-_]?/, "").toLowerCase();
 		const validModels = [
 			"atto3",
@@ -30,7 +42,6 @@ export function middleware(request: NextRequest) {
 
 	// 2. ถ้า path มี "calculator" หรือ "loan"
 	if (pathname.includes("calculator") || pathname.includes("loan")) {
-		// ถ้ามี model name ใน path
 		const modelMatch = pathname.match(
 			/(atto3|dolphin|seal|sealion6|sealion7|m6)/i
 		);
@@ -42,7 +53,6 @@ export function middleware(request: NextRequest) {
 				new URL(`/models/${fullModel}/loan-calculator`, request.url)
 			);
 		}
-		// ถ้าไม่มี model ไปหน้า models
 		return NextResponse.redirect(new URL("/models", request.url));
 	}
 
@@ -51,12 +61,14 @@ export function middleware(request: NextRequest) {
 		return NextResponse.redirect(new URL("/models/compare", request.url));
 	}
 
-	// 4. ถ้า path เป็น API เก่า
+	// 4. ถ้า path เป็น API เก่า (จริงๆ ควรถูก exclude ด้วย matcher แล้ว)
 	if (pathname.startsWith("/api/v1/") || pathname.startsWith("/api/old/")) {
 		return NextResponse.redirect(new URL("/api/test-drive", request.url));
 	}
 
 	// 5. ถ้า path มี file extension เก่า (.html, .php, .asp)
+	//    Rule นี้อาจจะซ้ำซ้อนกับ .includes(".") ที่เพิ่มไปในข้อ 0
+	//    แต่ก็ไม่ได้เสียหายอะไรที่จะเก็บไว้ถ้าต้องการจัดการเฉพาะ extension เหล่านี้
 	if (pathname.match(/\.(html|htm|php|asp|jsp)$/)) {
 		const cleanPath = pathname.replace(/\.(html|htm|php|asp|jsp)$/, "");
 		return NextResponse.redirect(new URL(cleanPath || "/", request.url));
@@ -146,7 +158,8 @@ export const config = {
 		 * - _next/static (static files)
 		 * - _next/image (image optimization files)
 		 * - favicon.ico (favicon file)
+		 * - Images in public/images/ (explicitly exclude for safety, though .includes('.') should cover)
 		 */
-		"/((?!api|_next/static|_next/image|favicon.ico).*)",
+		"/((?!api|_next/static|_next/image|favicon.ico|images/).*)", // เพิ่ม |images/ เข้าไปใน matcher ด้วยเผื่อกรณีพิเศษ
 	],
 };
