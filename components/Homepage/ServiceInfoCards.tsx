@@ -2,7 +2,7 @@ import { Clock, Wrench, Phone } from "lucide-react";
 
 export default function ServiceInfoCards() {
 	return (
-		<div className="bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 p-4 sm:p-6 lg:p-8 shadow-2xl">
+		<div className="bg-blue-900/10 backdrop-blur-sm rounded-2xl border border-white/20 p-4 sm:p-6 lg:p-8 shadow-2xl">
 			<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
 				{/* Operating Hours */}
 				<div className="flex items-start space-x-3 sm:space-x-4">

@@ -8,6 +8,7 @@ import { Toaster } from "sonner";
 import ScrollAnimations from "@/components/ScrollAnimations";
 import ContactFAB from "@/components/ContactFAB";
 
+
 import "./globals.css";
 
 const inter = Inter({

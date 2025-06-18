@@ -14,7 +14,10 @@ export default function LineOALinkButton({
 }) {
 	return (
 		<Link href={href} passHref legacyBehavior>
-			<Button asChild className={className}>
+			<Button
+				asChild
+				className={`bg-[#06C755] hover:bg-[#05b94c] text-white font-bold px-6 py-3 rounded-lg shadow-lg flex items-center gap-2 transition-all duration-200 ${className}`}
+			>
 				<a target="_blank" rel="noopener noreferrer">
 					<MessageCircle className="mr-2 h-5 w-5" />
 					{children}

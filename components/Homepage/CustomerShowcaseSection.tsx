@@ -5,9 +5,10 @@ import {
 	Carousel,
 	CarouselContent,
 	CarouselItem,
-	CarouselApi,
 } from "@/components/ui/carousel";
+import type { CarouselApi } from "@/components/ui/carousel";
 import Image from "next/image";
+import { Users, Star } from "lucide-react";
 
 interface CustomerPhoto {
 	id: string;
@@ -52,9 +53,10 @@ const CustomerShowcaseSection = () => {
 		{ id: "1", imageUrl: "/images/customers/customer1.webp" },
 		{ id: "2", imageUrl: "/images/customers/customer2.webp" },
 		{ id: "3", imageUrl: "/images/customers/customer3.webp" },
-		/* 	{ id: "4", imageUrl: "/images/customers/customer4.webp" },
-		{ id: "5", imageUrl: "/images/customers/customer5.webp" }, */
+		/* { id: "4", imageUrl: "/images/customers/customer4.webp" },
+    { id: "5", imageUrl: "/images/customers/customer5.webp" }, */
 	];
+
 	// Create duplicated array for seamless infinite scroll
 	const duplicatedPhotos = [
 		...customerPhotos,
@@ -65,42 +67,45 @@ const CustomerShowcaseSection = () => {
 	useEffect(() => {
 		// Generate random rotations only on the client-side after mount
 		// to prevent hydration mismatch.
-		setRotations(duplicatedPhotos.map(() => Math.random() * 8 - 4));
+		setRotations(duplicatedPhotos.map(() => Math.random() * 6 - 3));
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []); // Empty dependency array ensures this runs only once on the client
 
 	return (
 		<section
 			ref={sectionRef}
-			className="w-full py-16 bg-gradient-to-br from-gray-900 via-black to-gray-900 relative overflow-hidden"
+			className="w-full py-20 bg-gradient-to-b from-gray-800 to-gray-900 relative overflow-hidden"
 		>
 			{/* Section Header */}
-			<div className="container mx-auto px-4 mb-12 text-center relative z-10">
+			<div className="container mx-auto px-4 mb-16 text-center relative z-10">
 				<motion.div
 					initial={{ opacity: 0, y: 20 }}
 					whileInView={{ opacity: 1, y: 0 }}
 					transition={{ duration: 0.6 }}
+					className="flex flex-col items-center"
 				>
-					{/* 
-						เปลี่ยนธีมให้เข้ากับเว็บ BYD: ใช้โทนฟ้า-กรม-เทา (corporate/modern) 
-						และปรับให้ดูสะอาดตาแบบโปรเกรสซีฟค่ะ
-					*/}
-					<div className="inline-flex flex-col md:flex-row items-center gap-3 bg-gradient-to-r from-blue-900/70 via-blue-700/60 to-gray-800/60 backdrop-blur-md rounded-2xl px-8 py-4 mb-6 border border-blue-700/30 shadow-lg">
-						<h2 className="text-4xl md:text-5xl font-bold text-blue-100 mb-1 md:mb-0 drop-shadow-sm">
+					<div className="inline-flex items-center gap-2 mb-3">
+						<div className="h-px w-8 bg-gradient-to-r from-transparent to-blue-500"></div>
+						<h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-gray-100 via-blue-100 to-gray-100 bg-clip-text text-transparent mb-4">
 							ลูกค้าของเรา
 						</h2>
-						<p className="text-blue-200 text-lg max-w-2xl mx-auto flex items-center gap-2">
-							<span className="text-xl">🚗</span>
+						<div className="h-px w-8 bg-gradient-to-r from-blue-500 to-transparent"></div>
+					</div>
+
+					<div className="flex items-center justify-center gap-2 mb-6">
+						<Users className="h-5 w-5 text-blue-400" />
+						<p className="text-gray-400 text-lg max-w-2xl">
 							ขอบคุณลูกค้าทุกท่านที่เลือกเป็นส่วนหนึ่งของครอบครัว{" "}
-							<span className="font-semibold text-blue-400">BYD</span>
-							<span className="text-xl">💙</span>
+							<span className="font-semibold text-blue-400">เมโทรโมบิล</span>
 						</p>
 					</div>
+
+					<div className="w-16 h-1 bg-gradient-to-r from-blue-600 to-blue-400 rounded-full"></div>
 				</motion.div>
 			</div>
 
 			{/* Infinite Carousel */}
-			<div className="relative w-full overflow-visible">
+			<div className="relative w-full">
 				<Carousel
 					setApi={setApi}
 					opts={{
@@ -109,9 +114,9 @@ const CustomerShowcaseSection = () => {
 						skipSnaps: false,
 						dragFree: true,
 					}}
-					className="w-full"
+					className="w-full overflow-visible"
 				>
-					<CarouselContent className="-ml-3 md:-ml-4">
+					<CarouselContent className="-ml-3 md:-ml-4 overflow-visible z-10">
 						{duplicatedPhotos.map((photo, idx) => (
 							<CarouselItem
 								key={`${photo.id}-${idx}`}
@@ -121,37 +126,31 @@ const CustomerShowcaseSection = () => {
 									style={{
 										rotate: rotations[idx] || 0, // Use client-side rotation
 									}}
+									whileHover={{
+										scale: 1.05,
+										rotate: 0,
+										transition: { duration: 0.3 },
+									}}
 									className="relative group cursor-pointer"
 								>
-									{/* Cute polaroid-style frame */}
-									<div className="bg-white p-3 rounded-2xl shadow-2xl transform transition-all duration-500 group-hover:shadow-pink-500/25 overflow-visible">
+									{/* Modern dark frame */}
+									<div className="bg-gradient-to-br from-gray-800 to-gray-900 p-3 rounded-xl shadow-[0_8px_30px_rgb(0,0,0,0.5)] border border-gray-700/50 backdrop-blur-sm transform transition-all duration-300 group-hover:shadow-blue-900/20 group-hover:border-blue-700/30 overflow-visible">
 										{/* Photo */}
-										<div className="aspect-[4/3] rounded-xl overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200">
+										<div className="aspect-[4/3] rounded-lg overflow-hidden relative">
+											<div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent "></div>
 											<Image
 												loading="lazy"
-												src={photo.imageUrl}
+												src={photo.imageUrl || "/placeholder.svg"}
 												alt="Happy BYD Customer"
-												fill // ทำให้รูปภาพเต็มขนาดของ parent element
-												style={{ objectFit: "cover" }} // จัดการสัดส่วนรูปภาพ
+												fill
+												style={{ objectFit: "cover" }}
 												sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+												className="transition-transform duration-700 group-hover:scale-110"
 											/>
 										</div>
 
-										{/* Floating heart decoration */}
-										<motion.div
-											className="absolute -top-2 -right-2 text-2xl"
-											animate={{
-												y: [0, -5, 0],
-												rotate: [0, 10, -10, 0],
-											}}
-											transition={{
-												duration: 2,
-												repeat: Infinity,
-												repeatType: "reverse",
-											}}
-										>
-											💖
-										</motion.div>
+										{/* Glow effect on hover */}
+										<div className="absolute -inset-0.5 bg-gradient-to-r from-blue-600 to-blue-400 rounded-xl opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-300"></div>
 									</div>
 								</motion.div>
 							</CarouselItem>
