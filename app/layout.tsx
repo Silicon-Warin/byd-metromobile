@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
 import { Inter, Prompt, IBM_Plex_Sans_Thai } from "next/font/google";
-import { Analytics } from "@vercel/analytics/react";
 import { MainHeader } from "@/components/Header/main-header";
 import { Footer } from "@/components/Footer";
+import { Analytics } from "@vercel/analytics/react";
 import type { Viewport } from "next";
 import { Toaster } from "sonner";
 import ScrollAnimations from "@/components/ScrollAnimations";
 import ContactFAB from "@/components/ContactFAB";
-
+import { WebVitalReporter } from "@/components/WebVitalReporter";
 
 import "./globals.css";
 
@@ -81,13 +81,13 @@ export default function RootLayout({
 				<meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
 			</head>
 			<body className="font-prompt bg-background text-foreground antialiased">
+				<WebVitalReporter />
 				<ScrollAnimations />
 				<MainHeader />
 				<main className="max-w-[100vw] overflow-x-hidden">{children}</main>
 				<Toaster />
 				<ContactFAB />
 				<Footer />
-
 				<Analytics />
 			</body>
 		</html>

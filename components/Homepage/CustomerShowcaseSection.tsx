@@ -53,8 +53,13 @@ const CustomerShowcaseSection = () => {
 		{ id: "1", imageUrl: "/images/customers/customer1.webp" },
 		{ id: "2", imageUrl: "/images/customers/customer2.webp" },
 		{ id: "3", imageUrl: "/images/customers/customer3.webp" },
-		/* { id: "4", imageUrl: "/images/customers/customer4.webp" },
-    { id: "5", imageUrl: "/images/customers/customer5.webp" }, */
+		{ id: "4", imageUrl: "/images/customers/customer4.webp" },
+		{ id: "5", imageUrl: "/images/customers/customer5.webp" },
+		{ id: "6", imageUrl: "/images/customers/customer6.webp" },
+		{ id: "7", imageUrl: "/images/customers/customer7.webp" },
+		{ id: "8", imageUrl: "/images/customers/customer8.webp" },
+		{ id: "9", imageUrl: "/images/customers/customer9.webp" },
+		{ id: "10", imageUrl: "/images/customers/customer10.webp" },
 	];
 
 	// Create duplicated array for seamless infinite scroll

@@ -41,7 +41,12 @@ export default function BYDSection({ carModel }: BYDSectionProps) {
 					variants={fadeIn}
 				>
 					<BatteryChargingAnimation />
-					<h1 className="mb-4 text-center">รับประกันแบตเตอรี่นาน</h1>
+					<h2 className="text-lg uppercase text-primary mb-2 tracking-widest">
+						การรับประกันคุณภาพ
+					</h2>
+					<h1 className="mb-4 text-center text-3xl md:text-5xl font-bold">
+						รับประกันแบตเตอรี่นาน
+					</h1>
 					<h2 className="text-5xl font-bold mb-4 text-center text-balance">
 						8 ปี หรือ 160,000 กม.
 					</h2>

@@ -69,8 +69,7 @@ export function ProductSlider({ items = [] }: ProductSliderProps) {
 									fill
 									quality={75}
 									priority
-									unoptimized={false}
-									loading="eager"
+									sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
 								/>
 
 								<div className="slider-card-bg flex flex-col h-full absolute inset-0 rounded-xl bg-gradient-to-t from-black/60 via-transparent to-transparent">
