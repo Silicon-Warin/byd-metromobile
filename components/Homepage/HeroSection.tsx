@@ -6,7 +6,7 @@ import { HeroBanner } from "@/components/Homepage/HeroBanner";
 
 export default function HeroSection() {
 	return (
-		<section className="relative w-full overflow-hidden bg-gradient-to-br from-slate-900 via-purple-900/20 to-slate-900">
+		<section className="relative w-full overflow-hidden min-h-screen bg-gradient-to-br from-slate-950 via-blue-950 to-slate-950">
 			{/* ---------- Desktop (md+) ---------- */}
 			<div className="hidden md:block">
 				<div className="container mx-auto px-4 py-20 relative z-10">
@@ -18,7 +18,9 @@ export default function HeroSection() {
 								<h1 className="text-4xl lg:text-5xl font-bold leading-tight">
 									<span className="bg-gradient-to-r from-white via-blue-100 to-purple-100 bg-clip-text text-transparent">
 										BYD
-									</span>{" "}
+									</span>
+									<span className="mx-2" />{" "}
+									{/* เพิ่มเว้นวรรคระหว่าง BYD กับ Metromobile ค่ะ */}
 									<span className="bg-gradient-to-r from-blue-500 to-cyan-300 bg-clip-text text-transparent">
 										Metromobile
 									</span>
@@ -114,6 +116,8 @@ export default function HeroSection() {
 						</TestDriveButton>
 					</div>
 				</div>
+				{/* Fade to next section - Reduced height (h-16) */}
+				<div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-b from-transparent to-gray-900 z-20"></div>
 			</div>
 		</section>
 	);

@@ -189,8 +189,7 @@ export default function ModelPageContent({
 				</div>
 			</section>
 
-			{/* Compare Link Section */}
-			<section className="py-10 bg-gradient-to-b from-background to-card">
+			{/* 			<section className="py-10 bg-gradient-to-b from-background to-card">
 				<div className="container mx-auto px-4 text-center">
 					<h3 className="text-2xl font-bold mb-4">
 						ต้องการเปรียบเทียบกับรุ่นอื่นหรือไม่?
@@ -205,7 +204,7 @@ export default function ModelPageContent({
 						</Button>
 					</Link>
 				</div>
-			</section>
+			</section> */}
 
 			{/* Action Buttons Section */}
 			<section className="py-12 bg-richblack">

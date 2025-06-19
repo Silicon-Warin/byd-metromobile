@@ -766,10 +766,10 @@ export const defaultModels: CarModel[] = [
 		imageUrlReal: "/images/models/byd-atto3/atto3-real.jpg",
 		imageWidth: 1200,
 		imageHeight: 800,
-		featuresTitle: "ที่สุดแห่งสมรรถนะ",
-		specialFeature: "Smart Connectivity & Safety",
+		featuresTitle: "ความหรูหราที่มาพร้อมนวัตกรรม",
+		specialFeature: "INFOTAINMENT & LIFESTYLE",
 		specialFeatureDescription:
-			"SUV ไฟฟ้ากะทัดรัด ที่รวมเทคโนโลยีความปลอดภัยและระบบเชื่อมต่ออัจฉริยะ เหมาะสำหรับการใช้งานในเมืองและการเดินทางไกล",
+			"ปลุกทุกความตื่นเต้นเร้าใจ ด้วยสุนทรียภาพของการขับขี่ เหนือระดับตลอดการเดินทางด้วยฟังก์ชันการใช้งานที่ล้ำสมัย ตอบโจทย์ไลฟ์สไตล์คนเมืองอย่างแท้จริง",
 		specialFeatureImage: "/images/models/byd-atto3/special-feature.webp",
 		specs: {
 			acceleration: "7.3 วินาที",
@@ -782,35 +782,27 @@ export const defaultModels: CarModel[] = [
 		},
 		colors: [
 			{
-				name: "Horizon white",
+				name: "Frost White",
 				code: "#F5F5F5",
 				gradient: "linear-gradient(145deg, #FFFFFF, #E6E6E6)",
 				shadow:
 					"inset 2px 2px 5px rgba(255, 255, 255, 0.5), inset -2px -2px 5px rgba(0, 0, 0, 0.1)",
-				image: "/images/models/byd-atto3/byd-atto3-horizon-white.png",
+				image: "/images/models/byd-atto3/atto3-frost-white.webp",
 			},
 			{
 				name: "Quantum Black",
 				code: "#121212",
 				gradient: "linear-gradient(145deg, #222222, #000000)",
 				border: "1px solid rgba(255, 255, 255, 0.7)",
-				image: "/images/models/byd-atto3/byd-atto3-quantum-black.png",
+				image: "/images/models/byd-atto3/atto3-quantum-black.webp",
 			},
 			{
-				name: "Forest Green",
-				code: "#2E5C3E",
-				gradient: "linear-gradient(145deg, #2E5C3E, #1D3D2A)",
+				name: "Graphite Grey",
+				code: "#7C7C7C",
+				gradient: "linear-gradient(145deg, #8A8A8A, #696969)",
 				shadow:
-					"inset 2px 2px 5px rgba(255, 255, 255, 0.2), inset -2px -2px 5px rgba(0, 0, 0, 0.3)",
-				image: "/images/models/byd-atto3/byd-atto3-forest-green.png",
-			},
-			{
-				name: "Electric Blue",
-				code: "#4A90E2",
-				gradient: "linear-gradient(145deg, #4A90E2, #357ABD)",
-				shadow:
-					"inset 2px 2px 5px rgba(255, 255, 255, 0.3), inset -2px -2px 5px rgba(0, 0, 0, 0.2)",
-				image: "/images/models/byd-atto3/byd-atto3-electric-blue.png",
+					"inset 2px 2px 5px rgba(180, 180, 180, 0.3), inset -2px -2px 5px rgba(60, 60, 60, 0.3)",
+				image: "/images/models/byd-atto3/atto3-graphite-grey.webp",
 			},
 		],
 		gallery: {
@@ -820,14 +812,15 @@ export const defaultModels: CarModel[] = [
 				"/images/models/byd-atto3/exterior/exterior-img-03.jpg",
 				"/images/models/byd-atto3/exterior/exterior-img-04.jpg",
 				"/images/models/byd-atto3/exterior/exterior-img-05.jpg",
+				"/images/models/byd-atto3/exterior/exterior-img-06.jpg",
 			],
 			interior: [
-				"/images/models/byd-atto3/interior/interior-img-01.jpg",
-				"/images/models/byd-atto3/interior/interior-img-02.jpg",
-				"/images/models/byd-atto3/interior/interior-img-03.jpg",
-				"/images/models/byd-atto3/interior/interior-img-04.jpg",
-				"/images/models/byd-atto3/interior/interior-img-05.jpg",
-				"/images/models/byd-atto3/interior/interior-img-06.jpg",
+				"/images/models/byd-atto3/interior/interior-img-01.png",
+				"/images/models/byd-atto3/interior/interior-img-02.png",
+				"/images/models/byd-atto3/interior/interior-img-03.png",
+				"/images/models/byd-atto3/interior/interior-img-04.png",
+				"/images/models/byd-atto3/interior/interior-img-05.png",
+				"/images/models/byd-atto3/interior/interior-img-06.png",
 			],
 		},
 		variants: [
@@ -847,8 +840,8 @@ export const defaultModels: CarModel[] = [
 		],
 		features: [
 			{
-				title: "ระบบกันสะเทือนอัจฉริยะ",
-				description: "นุ่มนวลเหนือระดับ มั่นใจทุกโค้ง",
+				title: "ฝาท้ายไฟฟ้าอัจฉริยะ",
+				description: "ปลดล็อกความสะดวกสบายสูงสุดให้ทุกการบรรทุกสัมภาระ",
 				image: "/images/models/byd-atto3/atto3-design-card1.jpg",
 			},
 			{
@@ -857,8 +850,8 @@ export const defaultModels: CarModel[] = [
 				image: "/images/models/byd-atto3/atto3-design-card2.jpg",
 			},
 			{
-				title: "โครงสร้างแบตเตอรี่แนบสนิท",
-				description: "แข็งแกร่ง ปลอดภัย มั่นใจทุกเส้นทาง",
+				title: "สุนทรียภาพแห่งการเดินทาง",
+				description: "มอบบรรยากาศให้ทุกการเดินทางคือช่วงเวลาแห่งความสุข",
 				image: "/images/models/byd-atto3/atto3-design-card3.jpg",
 			},
 		],
