@@ -845,8 +845,9 @@ export const defaultModels: CarModel[] = [
 				image: "/images/models/byd-atto3/atto3-design-card1.jpg",
 			},
 			{
-				title: "ระบบกระจายแรงบิดอัจฉริยะ",
-				description: "ควบคุมแม่นยำ ตอบสนองฉับไว",
+				title:
+					"จอ 15.6 นิ้ว รองรับ Apple Carplay® และ Android Auto™ อย่างอิสระ",
+				description: "รองรับทุกแอปพลิเคชันโปรด กับความบันเทิงไร้ขีดจำกัด",
 				image: "/images/models/byd-atto3/atto3-design-card2.jpg",
 			},
 			{
