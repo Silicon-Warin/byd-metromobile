@@ -56,8 +56,8 @@ export function InquiryForm({ model }: InquiryFormProps) {
 				modelName: model.name,
 			});
 
-			// ส่งข้อมูลไปยังเซิร์ฟเวอร์
-			const response = await fetch("/api/inquiries", {
+			// ส่งข้อมูลไปยังเซิร์ฟเวอร์ (แก้ endpoint ให้ส่งไป /api/test-drive เพื่อให้ส่ง LINE OA สำเร็จ)
+			const response = await fetch("/api/test-drive", {
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
 				body: JSON.stringify({

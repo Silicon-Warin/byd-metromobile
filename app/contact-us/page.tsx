@@ -6,10 +6,14 @@ import { Phone, Mail, MapPin, Clock, Send } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { SocialIcon } from "@/app/utils/SocialIcon";
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 export default function ContactUs() {
 	const [selectedBranch, setSelectedBranch] = useState("rama3");
+	const formRef = useRef<HTMLFormElement>(null);
+	const [isSending, setIsSending] = useState(false);
+	const [sendSuccess, setSendSuccess] = useState(false);
+	const [sendError, setSendError] = useState<string | null>(null);
 
 	// Animation variants
 	const fadeIn = {
@@ -323,7 +327,44 @@ export default function ContactUs() {
 								เราจะตอบกลับโดยเร็วที่สุด
 							</p>
 
-							<form className="space-y-6">
+							<form
+								ref={formRef}
+								className="space-y-6"
+								onSubmit={async (e) => {
+									e.preventDefault();
+									setIsSending(true);
+									setSendSuccess(false);
+									setSendError(null);
+									const form = formRef.current;
+									if (!form) return;
+									const formData = new FormData(form);
+									const name = formData.get("name") as string;
+									const email = formData.get("email") as string;
+									const phone = formData.get("phone") as string;
+									const subject = formData.get("subject") as string;
+									const message = formData.get("message") as string;
+									try {
+										const res = await fetch("/api/contact-message", {
+											method: "POST",
+											headers: { "Content-Type": "application/json" },
+											body: JSON.stringify({
+												name,
+												email,
+												phone,
+												subject,
+												message,
+											}),
+										});
+										if (!res.ok) throw new Error("ส่งไป LINE OA ไม่สำเร็จ");
+										setSendSuccess(true);
+										form.reset();
+									} catch (err: any) {
+										setSendError(err.message || "เกิดข้อผิดพลาด");
+									} finally {
+										setIsSending(false);
+									}
+								}}
+							>
 								<div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 									<div>
 										<label htmlFor="name" className="block text-white mb-2">
@@ -385,10 +426,19 @@ export default function ContactUs() {
 									></textarea>
 								</div>
 
-								<Button className="bg-gradient-to-r from-byd-electric to-byd-green hover:from-byd-electric/80 hover:to-byd-green/80 text-white px-8 py-6">
+								<Button
+									className="bg-gradient-to-r from-byd-electric to-byd-green hover:from-byd-electric/80 hover:to-byd-green/80 text-white px-8 py-6"
+									disabled={isSending}
+								>
 									<Send className="h-5 w-5 mr-2" />
-									ส่งข้อความ
+									{isSending ? "กำลังส่ง..." : "ส่งข้อความ"}
 								</Button>
+								{sendSuccess && (
+									<p className="text-green-400 mt-2">
+										ส่งข้อความสำเร็จ! ขอบคุณที่ติดต่อเรา
+									</p>
+								)}
+								{sendError && <p className="text-red-400 mt-2">{sendError}</p>}
 							</form>
 						</motion.div>
 

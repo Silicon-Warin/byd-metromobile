@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { cn } from "@/lib/utils";
+import Image from "next/image";
 
 export default function SimpleCarousel({
 	images,
@@ -90,11 +91,12 @@ export default function SimpleCarousel({
 										imageClassName
 									)}
 								>
-									<img
+									<Image
 										src={image.src}
 										alt={image.alt}
-										className="rounded-md h-24 w-24 md:h-32 md:w-32 object-cover"
-										loading="lazy"
+										sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+										fill
+										className="object-cover"
 									/>
 								</motion.div>
 							)}

@@ -21,7 +21,6 @@ import {
 	SelectValue,
 } from "@/components/ui/select";
 import { Car, Calendar, MapPin, Phone, User } from "lucide-react";
-import { initializeLiff, sendMessageToLine } from "@/lib/liff";
 import { toast } from "sonner";
 import TestDriveButton from "../TestDriveButton";
 
@@ -314,48 +313,8 @@ export default function TestDriveForm({
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
 		setLoading(true);
-
 		try {
-			const isInLineApp =
-				typeof window !== "undefined" &&
-				window.navigator.userAgent.includes("Line");
-
-			const liffReady = await initializeLiff();
-
-			if (isInLineApp && liffReady) {
-				const flexMessage = buildFlexMessage(formData);
-				const sent = await sendMessageToLine(flexMessage as any);
-
-				if (sent) {
-					toast.success("ส่งคำขอสำเร็จ!", {
-						description: "ทีมงานจะติดต่อกลับภายใน 24 ชั่วโมง",
-						duration: 4000,
-					});
-
-					// รีเซ็ตฟอร์ม
-					setFormData({
-						name: "",
-						phone: "",
-						email: "",
-						model: defaultModel || "",
-						preferredDate: "",
-						preferredTime: "",
-						location: "",
-						notes: "",
-					});
-
-					setOpen(false);
-					// Optionally save to DB
-					await sendViaAPI(formData);
-					return;
-				}
-			}
-
-			// If not in LINE client, prompt user to open in LINE OA
-			toast.error("กรุณาเปิดฟอร์มนี้ภายใน LINE เพื่อส่งคำขอ", {
-				description: "คลิกปุ่มอีกครั้งหลังจากเปิดใน LINE OA",
-				duration: 6000,
-			});
+			await sendViaAPI(formData);
 		} catch (error) {
 			console.error("Submit error:", error);
 			toast.error("เกิดข้อผิดพลาด", {
@@ -388,7 +347,6 @@ export default function TestDriveForm({
 			duration: 4000,
 		});
 
-		// รีเซ็ตฟอร์ม
 		setFormData({
 			name: "",
 			phone: "",
@@ -420,7 +378,6 @@ export default function TestDriveForm({
 				)}
 			</DialogTrigger>
 			<DialogContent className="sm:max-w-[500px] max-h-[90vh] overflow-y-auto">
-				{/* เนื้อหา form เหมือนเดิม */}
 				<DialogHeader>
 					<DialogTitle className="flex items-center gap-2">
 						<Car className="h-5 w-5 text-primary" />
@@ -431,9 +388,7 @@ export default function TestDriveForm({
 					</DialogDescription>
 				</DialogHeader>
 
-				{/* ส่วน form ที่เหลือเหมือนเดิม */}
 				<form onSubmit={handleSubmit} className="space-y-4">
-					{/* Personal Information */}
 					<div className="space-y-4">
 						<div className="space-y-2">
 							<Label htmlFor="name" className="flex items-center gap-2">
@@ -476,7 +431,6 @@ export default function TestDriveForm({
 						</div>
 					</div>
 
-					{/* Car Selection */}
 					<div className="space-y-2">
 						<Label className="flex items-center gap-2">
 							<Car className="h-4 w-4" />
@@ -499,7 +453,6 @@ export default function TestDriveForm({
 						</Select>
 					</div>
 
-					{/* Date & Time */}
 					<div className="grid grid-cols-2 gap-4">
 						<div className="space-y-2">
 							<Label htmlFor="date" className="flex items-center gap-2">
@@ -540,7 +493,6 @@ export default function TestDriveForm({
 						</div>
 					</div>
 
-					{/* Location */}
 					<div className="space-y-2">
 						<Label className="flex items-center gap-2">
 							<MapPin className="h-4 w-4" />
@@ -563,7 +515,6 @@ export default function TestDriveForm({
 						</Select>
 					</div>
 
-					{/* Notes */}
 					<div className="space-y-2">
 						<Label htmlFor="notes">หมายเหตุ</Label>
 						<Textarea
@@ -575,7 +526,6 @@ export default function TestDriveForm({
 						/>
 					</div>
 
-					{/* Submit Button */}
 					<div className="flex gap-2 pt-4">
 						<Button
 							type="button"

@@ -22,7 +22,7 @@ export default function ServiceSection() {
 					alt="โชว์รูม BYD"
 					fill
 					className="object-cover w-full h-full hidden sm:block"
-					quality={90}
+					sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
 					priority
 				/>
 				{/* Mobile Image */}
@@ -33,6 +33,7 @@ export default function ServiceSection() {
 					// classNames สำหรับ Mobile: h-[500px] เป็นความสูงที่กำหนดเอง, pt-8 เป็น padding-top เพื่อเลื่อนรูปภาพลง
 					// block sm:hidden: แสดงบนหน้าจอขนาดเล็กกว่า sm, ซ่อนบน sm ขึ้นไป
 					className="object-cover w-full h-[500px] pt-8 block sm:hidden"
+					sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
 					quality={80}
 				/>
 			</div>

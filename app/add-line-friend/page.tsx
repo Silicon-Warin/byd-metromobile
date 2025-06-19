@@ -22,7 +22,7 @@ export default function AddLineFriendPage() {
 
 	useEffect(() => {
 		// ดึงข้อมูลฟอร์มจาก sessionStorage
-		const savedData = sessionStorage.getItem("testDriveFormData");
+		const savedData = sessionStorage.getItem("Data");
 		if (savedData) {
 			try {
 				setFormData(JSON.parse(savedData));
