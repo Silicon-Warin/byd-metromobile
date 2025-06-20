@@ -2,11 +2,12 @@
 
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Phone, Mail, MapPin, Clock, Send } from "lucide-react";
+import { Phone, Mail, MapPin, Clock, Send, MessageCircle } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { SocialIcon } from "@/app/utils/SocialIcon";
 import { useState, useRef } from "react";
+import Image from "next/image";
 
 export default function ContactUs() {
 	const [selectedBranch, setSelectedBranch] = useState("rama3");
@@ -120,40 +121,78 @@ export default function ContactUs() {
 		branches.find((branch) => branch.id === selectedBranch) || branches[0];
 
 	return (
-		<main className="min-h-screen bg-black text-white pt-24">
-			{/* Hero Section */}
-			<section className="relative h-[40vh] md:h-[50vh] bg-gradient-to-b from-gray-900 to-black overflow-hidden">
-				{/* Overlay gradient */}
-				<div className="absolute inset-0 bg-gradient-to-r from-black via-black/80 to-black"></div>
+		<div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-800">
+			{/* Hero Section with Enhanced Animations */}
+			<section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+				{/* Enhanced Background with Parallax Effect (responsive) */}
+				<div className="absolute inset-0 bg-gradient-to-br from-blue-900/20 via-black/60 to-cyan-900/20"></div>
+				<Image
+					src="/contact/header-contact.jpg"
+					alt="Contact Us"
+					fill
+					priority
+					sizes="(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 50vw"
+					className="absolute inset-0 object-cover object-center opacity-10"
+					// ใช้ object-cover + object-center เพื่อให้ภาพเต็มพื้นที่และโฟกัสกลาง รองรับทุกขนาดหน้าจอค่ะ
+				/>
 
-				{/* Content */}
-				<div className="container mx-auto px-4 h-full flex items-center justify-center text-white relative z-10">
-					<div className="text-center max-w-4xl">
-						<motion.h1
-							className="text-4xl md:text-6xl font-bold mb-6"
-							initial={{ opacity: 0, y: 30 }}
-							animate={{ opacity: 1, y: 0 }}
-							transition={{ duration: 0.6, delay: 0.3 }}
-						>
-							<span className="bg-clip-text text-transparent bg-gradient-to-r from-byd-blue to-byd-green">
-								ติดต่อเรา
+				{/* Enhanced Content with Stagger Animation */}
+				<div className="container mx-auto px-4 relative z-10 text-center">
+					<div className="max-w-4xl mx-auto">
+						{/* SEO-optimized H1 with Enhanced Typography Animation */}
+						<h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-white via-blue-200 to-cyan-200 bg-clip-text text-transparent animate-fade-in">
+							ติดต่อเรา
+						</h1>
+
+						{/* Enhanced Subtitle with Delayed Animation */}
+						<div className="text-xl md:text-2xl font-semibold mb-6 animate-fade-in delay-300">
+							<span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
+								BYD Metromobile
 							</span>
-						</motion.h1>
+						</div>
 
-						<motion.p
-							className="text-xl md:text-2xl text-gray-300 mb-8"
-							initial={{ opacity: 0, y: 30 }}
-							animate={{ opacity: 1, y: 0 }}
-							transition={{ duration: 0.6, delay: 0.4 }}
-						>
-							{contactInfo.description}
-						</motion.p>
+						{/* Enhanced Description with Slide-in Effect */}
+						<p className="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto mb-12 leading-relaxed animate-fade-in delay-500">
+							ศูนย์รถยนต์ไฟฟ้า BYD อย่างเป็นทางการ
+							<br />
+							พร้อมให้บริการด้วยทีมงานมืออาชีพ
+						</p>
+
+						{/* Enhanced Button Group with Hover Animations */}
+						<div className="flex flex-col sm:flex-row gap-4 justify-center items-center animate-fade-in delay-700">
+							<Button
+								className="bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white px-10 py-4 text-lg font-semibold rounded-full shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 hover-scale"
+								onClick={() =>
+									document
+										.getElementById("contact-form")
+										?.scrollIntoView({ behavior: "smooth" })
+								}
+							>
+								<MessageCircle className="w-5 h-5 mr-2" />
+								ส่งข้อความ
+							</Button>
+							<Button
+								variant="outline"
+								className="border-2 border-white/30 text-white hover:bg-white/10 px-10 py-4 text-lg font-semibold rounded-full backdrop-blur-sm hover:scale-105 transition-all duration-300 hover-scale"
+								onClick={() =>
+									document
+										.getElementById("branches")
+										?.scrollIntoView({ behavior: "smooth" })
+								}
+							>
+								<MapPin className="w-5 h-5 mr-2" />
+								ดูสาขา
+							</Button>
+						</div>
 					</div>
 				</div>
 			</section>
 
 			{/* Contact Info Section with Tabs */}
-			<section className="py-16 md:py-24 bg-gradient-to-b from-black to-gray-900">
+			<section
+				id="branches"
+				className="py-16 md:py-24 bg-gradient-to-b from-black to-gray-900"
+			>
 				<div className="container mx-auto px-4">
 					<motion.div
 						initial="hidden"
@@ -188,7 +227,7 @@ export default function ContactUs() {
 									<TabsTrigger
 										key={branch.id}
 										value={branch.id}
-										className="text-white data-[state=active]:bg-byd-blue data-[state=active]:text-white text-xs md:text-sm py-2 px-1 md:px-3 whitespace-nowrap"
+										className="text-white data-[state=active]:bg-blue-600 data-[state=active]:text-white text-xs md:text-sm py-2 px-1 md:px-3 whitespace-nowrap"
 									>
 										{branch.name}
 									</TabsTrigger>
@@ -204,10 +243,10 @@ export default function ContactUs() {
 										animate="visible"
 									>
 										<motion.div variants={fadeIn}>
-											<Card className="bg-gray-800/50 backdrop-blur-sm border border-gray-700 hover:border-byd-blue/30 transition-all duration-300 h-full min-h-[180px]">
+											<Card className="bg-gray-800/50 backdrop-blur-sm border border-gray-700 hover:border-blue-500/30 transition-all duration-300 h-full min-h-[180px]">
 												<CardContent className="p-4 md:p-6 flex flex-col items-center text-center h-full justify-center">
-													<div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-byd-blue/10 flex items-center justify-center mb-3 md:mb-4">
-														<Phone className="h-5 w-5 md:h-6 md:w-6 text-byd-blue" />
+													<div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-blue-500/10 flex items-center justify-center mb-3 md:mb-4">
+														<Phone className="h-5 w-5 md:h-6 md:w-6 text-blue-500" />
 													</div>
 													<h3 className="text-lg md:text-xl font-bold mb-2">
 														โทรศัพท์
@@ -220,10 +259,10 @@ export default function ContactUs() {
 										</motion.div>
 
 										<motion.div variants={fadeIn}>
-											<Card className="bg-gray-800/50 backdrop-blur-sm border border-gray-700 hover:border-byd-blue/30 transition-all duration-300 h-full min-h-[180px]">
+											<Card className="bg-gray-800/50 backdrop-blur-sm border border-gray-700 hover:border-blue-500/30 transition-all duration-300 h-full min-h-[180px]">
 												<CardContent className="p-4 md:p-6 flex flex-col items-center text-center h-full justify-center">
-													<div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-byd-blue/10 flex items-center justify-center mb-3 md:mb-4">
-														<MapPin className="h-5 w-5 md:h-6 md:w-6 text-byd-blue" />
+													<div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-blue-500/10 flex items-center justify-center mb-3 md:mb-4">
+														<MapPin className="h-5 w-5 md:h-6 md:w-6 text-blue-500" />
 													</div>
 													<h3 className="text-lg md:text-xl font-bold mb-2">
 														ที่อยู่
@@ -236,10 +275,10 @@ export default function ContactUs() {
 										</motion.div>
 
 										<motion.div variants={fadeIn}>
-											<Card className="bg-gray-800/50 backdrop-blur-sm border border-gray-700 hover:border-byd-blue/30 transition-all duration-300 h-full min-h-[180px]">
+											<Card className="bg-gray-800/50 backdrop-blur-sm border border-gray-700 hover:border-blue-500/30 transition-all duration-300 h-full min-h-[180px]">
 												<CardContent className="p-4 md:p-6 flex flex-col items-center text-center h-full justify-center">
-													<div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-byd-blue/10 flex items-center justify-center mb-3 md:mb-4">
-														<Mail className="h-5 w-5 md:h-6 md:w-6 text-byd-blue" />
+													<div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-blue-500/10 flex items-center justify-center mb-3 md:mb-4">
+														<Mail className="h-5 w-5 md:h-6 md:w-6 text-blue-500" />
 													</div>
 													<h3 className="text-lg md:text-xl font-bold mb-2">
 														อีเมล
@@ -252,10 +291,10 @@ export default function ContactUs() {
 										</motion.div>
 
 										<motion.div variants={fadeIn}>
-											<Card className="bg-gray-800/50 backdrop-blur-sm border border-gray-700 hover:border-byd-blue/30 transition-all duration-300 h-full min-h-[180px]">
+											<Card className="bg-gray-800/50 backdrop-blur-sm border border-gray-700 hover:border-blue-500/30 transition-all duration-300 h-full min-h-[180px]">
 												<CardContent className="p-4 md:p-6 flex flex-col items-center text-center h-full justify-center">
-													<div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-byd-blue/10 flex items-center justify-center mb-3 md:mb-4">
-														<Clock className="h-5 w-5 md:h-6 md:w-6 text-byd-blue" />
+													<div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-blue-500/10 flex items-center justify-center mb-3 md:mb-4">
+														<Clock className="h-5 w-5 md:h-6 md:w-6 text-blue-500" />
 													</div>
 													<h3 className="text-lg md:text-xl font-bold mb-2">
 														เวลาทำการ
@@ -310,7 +349,7 @@ export default function ContactUs() {
 			</section>
 
 			{/* Contact Form and Map Section */}
-			<section className="py-16 md:py-24 bg-gray-900">
+			<section id="contact-form" className="py-16 md:py-24 bg-gray-900">
 				<div className="container mx-auto px-4">
 					<div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
 						<motion.div
@@ -373,7 +412,8 @@ export default function ContactUs() {
 										<input
 											type="text"
 											id="name"
-											className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-byd-electric"
+											name="name"
+											className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
 											placeholder="กรอกชื่อ-นามสกุล"
 										/>
 									</div>
@@ -384,7 +424,8 @@ export default function ContactUs() {
 										<input
 											type="email"
 											id="email"
-											className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-byd-electric"
+											name="email"
+											className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
 											placeholder="กรอกอีเมล"
 										/>
 									</div>
@@ -397,7 +438,8 @@ export default function ContactUs() {
 									<input
 										type="tel"
 										id="phone"
-										className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-byd-electric"
+										name="phone"
+										className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
 										placeholder="กรอกเบอร์โทรศัพท์"
 									/>
 								</div>
@@ -409,7 +451,8 @@ export default function ContactUs() {
 									<input
 										type="text"
 										id="subject"
-										className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-byd-electric"
+										name="subject"
+										className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
 										placeholder="กรอกหัวข้อ"
 									/>
 								</div>
@@ -420,14 +463,15 @@ export default function ContactUs() {
 									</label>
 									<textarea
 										id="message"
+										name="message"
 										rows={5}
-										className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-byd-electric"
+										className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
 										placeholder="กรอกข้อความ"
 									></textarea>
 								</div>
 
 								<Button
-									className="bg-gradient-to-r from-byd-electric to-byd-green hover:from-byd-electric/80 hover:to-byd-green/80 text-white px-8 py-6"
+									className="bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white px-8 py-6"
 									disabled={isSending}
 								>
 									<Send className="h-5 w-5 mr-2" />
@@ -465,6 +509,6 @@ export default function ContactUs() {
 					</div>
 				</div>
 			</section>
-		</main>
+		</div>
 	);
 }

@@ -87,6 +87,8 @@
   --sidebar-ring: oklch(0.552 0.016 285.938);
   --bydblue: oklch(0.55 0.18 245);
   --bydblue-foreground: oklch(0.985 0 0);
+  --byd-electric: oklch(0.6 0.2 220);
+  --byd-green: oklch(0.65 0.15 145);
   
   /* Gradient Text Variables */
   --gradient-blue-cyan: linear-gradient(to right, #3b82f6, #22d3ee);
