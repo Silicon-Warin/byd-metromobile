@@ -69,6 +69,15 @@ export interface CarVariant {
 		description: string;
 	};
 	techSpec?: TechSpec;
+	loanTiers?: LoanTier[];
+}
+
+export interface LoanTier {
+	downPaymentPercentage: number;
+	terms: {
+		months: number;
+		interestRate: number; // e.g., 1.98 for 1.98%
+	}[];
 }
 
 export interface hightlightSpec {
@@ -175,26 +184,138 @@ export const defaultModels: CarModel[] = [
 				name: "RWD PREMIUM",
 				power: "230kW",
 				acceleration: "6.7 Sec",
-				price: 1249900,
+				price: 1149900,
 				range: "567 km",
 				accelerationData: {
 					value: "6.7",
 					unit: "Sec",
 					description: "0-100 km/h",
 				},
+				loanTiers: [
+					{
+						downPaymentPercentage: 30,
+						terms: [
+							{ months: 48, interestRate: 1.98 },
+							{ months: 60, interestRate: 2.45 },
+							{ months: 72, interestRate: 2.89 },
+							{ months: 84, interestRate: 3.59 },
+						],
+					},
+					{
+						downPaymentPercentage: 25,
+						terms: [
+							{ months: 48, interestRate: 1.98 },
+							{ months: 60, interestRate: 2.69 },
+							{ months: 72, interestRate: 2.99 },
+							{ months: 84, interestRate: 3.69 },
+						],
+					},
+					{
+						downPaymentPercentage: 20,
+						terms: [
+							{ months: 48, interestRate: 2.69 },
+							{ months: 60, interestRate: 2.89 },
+							{ months: 72, interestRate: 3.19 },
+							{ months: 84, interestRate: 3.79 },
+						],
+					},
+					{
+						downPaymentPercentage: 15,
+						terms: [
+							{ months: 48, interestRate: 3.09 },
+							{ months: 60, interestRate: 3.39 },
+							{ months: 72, interestRate: 3.59 },
+							{ months: 84, interestRate: 4.29 },
+						],
+					},
+					{
+						downPaymentPercentage: 10,
+						terms: [
+							{ months: 48, interestRate: 3.69 },
+							{ months: 60, interestRate: 3.99 },
+							{ months: 72, interestRate: 4.29 },
+							{ months: 84, interestRate: 4.59 },
+						],
+					},
+					{
+						downPaymentPercentage: 5,
+						terms: [
+							{ months: 48, interestRate: 4.09 },
+							{ months: 60, interestRate: 4.39 },
+							{ months: 72, interestRate: 4.69 },
+							{ months: 84, interestRate: 4.99 },
+						],
+					},
+				],
 			},
 			{
 				id: "awd-performance",
 				name: "AWD PERFORMANCE",
 				power: "380kW",
 				acceleration: "5.4 Sec",
-				price: 1399900,
+				price: 1249900,
 				range: "542 km",
 				accelerationData: {
 					value: "5.4",
 					unit: "Sec",
 					description: "0-100 km/h",
 				},
+				loanTiers: [
+					{
+						downPaymentPercentage: 30,
+						terms: [
+							{ months: 48, interestRate: 1.98 },
+							{ months: 60, interestRate: 2.45 },
+							{ months: 72, interestRate: 2.89 },
+							{ months: 84, interestRate: 3.59 },
+						],
+					},
+					{
+						downPaymentPercentage: 25,
+						terms: [
+							{ months: 48, interestRate: 1.98 },
+							{ months: 60, interestRate: 2.69 },
+							{ months: 72, interestRate: 2.99 },
+							{ months: 84, interestRate: 3.69 },
+						],
+					},
+					{
+						downPaymentPercentage: 20,
+						terms: [
+							{ months: 48, interestRate: 2.69 },
+							{ months: 60, interestRate: 2.89 },
+							{ months: 72, interestRate: 3.19 },
+							{ months: 84, interestRate: 3.79 },
+						],
+					},
+					{
+						downPaymentPercentage: 15,
+						terms: [
+							{ months: 48, interestRate: 3.09 },
+							{ months: 60, interestRate: 3.39 },
+							{ months: 72, interestRate: 3.59 },
+							{ months: 84, interestRate: 4.29 },
+						],
+					},
+					{
+						downPaymentPercentage: 10,
+						terms: [
+							{ months: 48, interestRate: 3.69 },
+							{ months: 60, interestRate: 3.99 },
+							{ months: 72, interestRate: 4.29 },
+							{ months: 84, interestRate: 4.59 },
+						],
+					},
+					{
+						downPaymentPercentage: 5,
+						terms: [
+							{ months: 48, interestRate: 4.09 },
+							{ months: 60, interestRate: 4.39 },
+							{ months: 72, interestRate: 4.69 },
+							{ months: 84, interestRate: 4.99 },
+						],
+					},
+				],
 			},
 		],
 		features: [

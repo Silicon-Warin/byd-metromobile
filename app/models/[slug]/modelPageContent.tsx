@@ -212,17 +212,20 @@ export default function ModelPageContent({
 					<div className="flex flex-wrap justify-center gap-4">
 						<TestDriveButton
 							defaultModel={carModel.slug}
-							className="bg-bydblue hover:bg-bydblue/80 min-w-[150px]"
+							size="lg"
+							className="bg-bydblue hover:bg-bydblue/80 min-w-[200px]"
 						>
 							จองทดลองขับ
 						</TestDriveButton>
-
-						<Button
-							variant="outline"
-							className="border-bydblue text-bydblue hover:bg-bydblue hover:text-white min-w-[150px]"
-						>
-							ติดต่อเรา
-						</Button>
+						<Link href="/contact-us">
+							<Button
+								variant="outline"
+								size="lg"
+								className="border-bydblue text-bydblue hover:bg-bydblue hover:text-white min-w-[200px]"
+							>
+								ติดต่อเรา
+							</Button>
+						</Link>
 					</div>
 				</div>
 			</section>

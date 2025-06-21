@@ -107,25 +107,32 @@ export default function LoanCalculatorPage({
 							</CardHeader>
 							<CardContent>
 								<div className="grid grid-cols-3 gap-2">
-									{selectedVariant?.downPaymentOptions?.map((option: any) => (
-										<Button
-											key={option.percentage}
-											variant={
-												selectedDownPayment === option.percentage
-													? "default"
-													: "outline"
-											}
-											onClick={() => handleDownPaymentChange(option.percentage)}
-											className="flex flex-col p-4 h-auto"
-										>
-											<span className="text-lg font-bold">
-												{option.percentage}%
-											</span>
-											<span className="text-sm">
-												฿{option.amount.toLocaleString()}
-											</span>
-										</Button>
-									))}
+									{selectedVariant?.loanTiers?.map((tier: any) => {
+										const downPaymentAmount =
+											(selectedVariant.price * tier.downPaymentPercentage) /
+											100;
+										return (
+											<Button
+												key={tier.downPaymentPercentage}
+												variant={
+													selectedDownPayment === tier.downPaymentPercentage
+														? "default"
+														: "outline"
+												}
+												onClick={() =>
+													handleDownPaymentChange(tier.downPaymentPercentage)
+												}
+												className="flex flex-col p-4 h-auto"
+											>
+												<span className="text-lg font-bold">
+													{tier.downPaymentPercentage}%
+												</span>
+												<span className="text-sm">
+													฿{downPaymentAmount.toLocaleString()}
+												</span>
+											</Button>
+										);
+									})}
 								</div>
 							</CardContent>
 						</Card>
@@ -140,18 +147,16 @@ export default function LoanCalculatorPage({
 							</CardHeader>
 							<CardContent>
 								<div className="grid grid-cols-2 md:grid-cols-4 gap-2">
-									{downPaymentOption?.monthlyPayments?.map((payment: any) => (
+									{downPaymentOption?.terms?.map((term: any) => (
 										<Button
-											key={payment.months}
+											key={term.months}
 											variant={
-												selectedTerm === payment.months ? "default" : "outline"
+												selectedTerm === term.months ? "default" : "outline"
 											}
-											onClick={() => handleTermChange(payment.months)}
+											onClick={() => handleTermChange(term.months)}
 											className="flex flex-col p-4 h-auto"
 										>
-											<span className="text-lg font-bold">
-												{payment.months}
-											</span>
+											<span className="text-lg font-bold">{term.months}</span>
 											<span className="text-sm">เดือน</span>
 										</Button>
 									))}
@@ -175,13 +180,16 @@ export default function LoanCalculatorPage({
 									<div>
 										<div className="text-sm opacity-80">เงินดาวน์</div>
 										<div className="text-2xl font-bold">
-											฿{(downPaymentOption?.amount || 0).toLocaleString()}
+											฿{(downPaymentOption?.amount || 0).toLocaleString()}{" "}
+											<span className="text-lg">
+												({downPaymentOption?.downPaymentPercentage || 0}%)
+											</span>
 										</div>
 									</div>
 									<div>
 										<div className="text-sm opacity-80">ดอกเบี้ย</div>
 										<div className="text-2xl font-bold">
-											{monthlyPayment?.interestRate}
+											{monthlyPayment?.interestRate}%
 										</div>
 									</div>
 									<div>

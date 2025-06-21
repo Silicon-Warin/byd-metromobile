@@ -1,109 +1,113 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useMemo } from "react";
+import type { CarVariant, LoanTier } from "@/data/carModel";
 
-interface DownPaymentOption {
-  percentage: number
-  amount: number
-  monthlyPayments: {
-    months: number
-    amount: number
-    interestRate: string
-  }[]
-}
+// สูตรคำนวณค่างวด (PMT formula)
+function calculateMonthlyPayment(
+	price: number,
+	downPaymentPercentage: number,
+	interestRate: number,
+	termMonths: number
+) {
+	if (termMonths === 0) return 0;
+	const principal = price * (1 - downPaymentPercentage / 100);
+	const monthlyInterestRate = interestRate / 100 / 12;
 
-interface CarVariant {
-  id: string
-  name: string
-  price: number
-  downPaymentOptions?: DownPaymentOption[]
+	if (monthlyInterestRate === 0) {
+		return principal / termMonths;
+	}
+
+	const payment =
+		(principal *
+			(monthlyInterestRate * Math.pow(1 + monthlyInterestRate, termMonths))) /
+		(Math.pow(1 + monthlyInterestRate, termMonths) - 1);
+
+	return payment;
 }
 
 export function useLoanCalculator(selectedVariant: CarVariant | null) {
-  const [selectedDownPayment, setSelectedDownPayment] = useState<number>(20) // Default to 20%
-  const [selectedTerm, setSelectedTerm] = useState<number>(48) // Default to 48 months
+	const [selectedDownPayment, setSelectedDownPayment] = useState<number>(0);
+	const [selectedTerm, setSelectedTerm] = useState<number>(0);
 
-  // Set default down payment when variant changes
-  useEffect(() => {
-    if (selectedVariant?.downPaymentOptions?.length) {
-      setSelectedDownPayment(selectedVariant.downPaymentOptions[0].percentage)
-    }
-  }, [selectedVariant])
+	// ตั้งค่าเริ่มต้นเมื่อ variant เปลี่ยน
+	useEffect(() => {
+		if (selectedVariant?.loanTiers && selectedVariant.loanTiers.length > 0) {
+			const defaultTier = selectedVariant.loanTiers[0];
+			setSelectedDownPayment(defaultTier.downPaymentPercentage);
+			if (defaultTier.terms.length > 0) {
+				setSelectedTerm(defaultTier.terms[0].months);
+			}
+		} else {
+			setSelectedDownPayment(0);
+			setSelectedTerm(0);
+		}
+	}, [selectedVariant]);
 
-  // Set default term when down payment changes
-  useEffect(() => {
-    const downPaymentOption = getDownPaymentOption()
-    if (downPaymentOption?.monthlyPayments?.length) {
-      setSelectedTerm(downPaymentOption.monthlyPayments[0].months)
-    }
-  }, [selectedDownPayment])
+	const handleDownPaymentChange = (percentage: number) => {
+		setSelectedDownPayment(percentage);
+		// เมื่อเงินดาวน์เปลี่ยน ให้ตั้งค่างวดเริ่มต้นใหม่
+		const newTier = selectedVariant?.loanTiers?.find(
+			(t) => t.downPaymentPercentage === percentage
+		);
+		if (newTier?.terms && newTier.terms.length > 0) {
+			setSelectedTerm(newTier.terms[0].months);
+		}
+	};
 
-  const handleDownPaymentChange = (percentage: number) => {
-    setSelectedDownPayment(percentage)
-  }
+	const handleTermChange = (months: number) => {
+		setSelectedTerm(months);
+	};
 
-  const handleTermChange = (months: number) => {
-    setSelectedTerm(months)
-  }
+	const currentTier = useMemo(
+		() =>
+			selectedVariant?.loanTiers?.find(
+				(tier) => tier.downPaymentPercentage === selectedDownPayment
+			) || null,
+		[selectedVariant, selectedDownPayment]
+	);
 
-  const getDownPaymentOption = (): DownPaymentOption | null => {
-    if (!selectedVariant?.downPaymentOptions) {
-      // If no down payment options are available, create a default one
-      const defaultPrice = selectedVariant?.price || 1000000
-      const defaultPercentage = 20
-      const defaultAmount = Math.round((defaultPrice * defaultPercentage) / 100)
+	const downPaymentDetails = useMemo(() => {
+		if (!selectedVariant || !currentTier) return null;
 
-      return {
-        percentage: defaultPercentage,
-        amount: defaultAmount,
-        monthlyPayments: [
-          {
-            months: 48,
-            amount: Math.round((defaultPrice - defaultAmount) / 48),
-            interestRate: "2.99%",
-          },
-          {
-            months: 60,
-            amount: Math.round((defaultPrice - defaultAmount) / 60),
-            interestRate: "3.49%",
-          },
-          {
-            months: 72,
-            amount: Math.round((defaultPrice - defaultAmount) / 72),
-            interestRate: "3.99%",
-          },
-          {
-            months: 84,
-            amount: Math.round((defaultPrice - defaultAmount) / 84),
-            interestRate: "4.49%",
-          },
-        ],
-      }
-    }
+		const amount =
+			(selectedVariant.price * currentTier.downPaymentPercentage) / 100;
 
-    return (
-      selectedVariant.downPaymentOptions.find((option) => option.percentage === selectedDownPayment) ||
-      selectedVariant.downPaymentOptions[0]
-    )
-  }
+		return {
+			downPaymentPercentage: currentTier.downPaymentPercentage,
+			amount: amount,
+			terms: currentTier.terms,
+		};
+	}, [selectedVariant, currentTier]);
 
-  const getMonthlyPayment = () => {
-    const downPaymentOption = getDownPaymentOption()
-    if (!downPaymentOption?.monthlyPayments) return null
+	const monthlyPaymentDetails = useMemo(() => {
+		if (!selectedVariant || !downPaymentDetails) return null;
 
-    return (
-      downPaymentOption.monthlyPayments.find((payment) => payment.months === selectedTerm) ||
-      downPaymentOption.monthlyPayments[0]
-    )
-  }
+		const termInfo = downPaymentDetails.terms.find(
+			(t) => t.months === selectedTerm
+		);
+		if (!termInfo) return null;
 
-  return {
-    selectedDownPayment,
-    selectedTerm,
-    handleDownPaymentChange,
-    handleTermChange,
-    getDownPaymentOption,
-    getMonthlyPayment,
-  }
+		const monthlyAmount = calculateMonthlyPayment(
+			selectedVariant.price,
+			downPaymentDetails.downPaymentPercentage,
+			termInfo.interestRate,
+			termInfo.months
+		);
+
+		return {
+			months: termInfo.months,
+			amount: monthlyAmount,
+			interestRate: termInfo.interestRate,
+		};
+	}, [selectedVariant, downPaymentDetails, selectedTerm]);
+
+	return {
+		selectedDownPayment,
+		selectedTerm,
+		handleDownPaymentChange,
+		handleTermChange,
+		getDownPaymentOption: () => downPaymentDetails, // เปลี่ยนชื่อให้สอดคล้อง
+		getMonthlyPayment: () => monthlyPaymentDetails, // เปลี่ยนชื่อให้สอดคล้อง
+	};
 }
-
