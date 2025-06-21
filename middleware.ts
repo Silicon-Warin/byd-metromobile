@@ -4,20 +4,82 @@ import type { NextRequest } from "next/server";
 export function middleware(request: NextRequest) {
 	const { pathname } = request.nextUrl;
 
-	// --- **เพิ่มส่วนนี้เข้ามาเป็นอันดับแรกสุด** ---
-	// 0. ยกเว้น Static Assets และ Next.js internal paths จาก Middleware
-	//    matcher ใน config ควรจะจัดการแล้ว แต่เราเพิ่มตรงนี้เพื่อความมั่นใจอีกชั้น
+	// 0. ยกเว้น Static Assets และ Next.js internal paths
 	if (
 		pathname.startsWith("/_next/static/") ||
 		pathname.startsWith("/_next/image/") ||
 		pathname.startsWith("/api/") ||
-		pathname.includes(".") // ยกเว้นไฟล์ที่มีนามสกุล (เช่น .webp, .jpg, .css, .js)
+		pathname.includes(".") // ยกเว้นไฟล์ที่มีนามสกุล
 	) {
 		return NextResponse.next();
 	}
-	// --- สิ้นสุดการเพิ่ม ---
 
-	// ตรวจสอบ URL patterns ที่ซับซ้อน
+	// **FIX 1: เพิ่มการตรวจสอบ exact routes ก่อน**
+	// ถ้าเป็น route ที่ถูกต้องแล้ว ให้ผ่านไปเลย
+	const validRoutes = [
+		"/models/byd-atto3",
+		"/models/byd-dolphin",
+		"/models/byd-seal",
+		"/models/byd-sealion6dmi",
+		"/models/byd-sealion7",
+		"/models/byd-m6",
+		"/models/byd-atto3/loan-calculator",
+		"/models/byd-dolphin/loan-calculator",
+		"/models/byd-seal/loan-calculator",
+		"/models/byd-sealion6dmi/loan-calculator",
+		"/models/byd-sealion7/loan-calculator",
+		"/models/byd-m6/loan-calculator",
+		"/models/compare",
+	];
+
+	if (validRoutes.includes(pathname)) {
+		return NextResponse.next();
+	}
+
+	// **FIX 2: แก้ไข logic สำหรับ calculator/loan ให้ตรงกับ [slug] structure**
+	if (pathname.includes("calculator") || pathname.includes("loan")) {
+		// แยกการจับคำที่ชัดเจนขึ้น
+		const modelMatch = pathname.match(
+			/(atto3|dolphin|seal(?!ion)|sealion6|sealion7|m6)/i
+		);
+
+		if (modelMatch) {
+			const model = modelMatch[1].toLowerCase();
+
+			// **FIX 3: แก้ไขการ map model name ให้ตรงกับ [slug]**
+			let slug;
+			switch (model) {
+				case "sealion6":
+					slug = "byd-sealion6dmi";
+					break;
+				case "sealion7":
+					slug = "byd-sealion7";
+					break;
+				case "seal":
+					// ตรวจสอบให้แน่ใจว่าไม่ใช่ sealion
+					if (!pathname.includes("sealion")) {
+						slug = "byd-seal";
+					} else {
+						// ถ้าเป็น sealion แต่ไม่มีเลข ให้ไปหน้า models
+						return NextResponse.redirect(new URL("/models", request.url));
+					}
+					break;
+				default:
+					slug = `byd-${model}`;
+			}
+
+			// **FIX 4: ใช้ [slug] structure**
+			const targetUrl = `/models/${slug}/loan-calculator`;
+
+			// ถ้า URL ปัจจุบันไม่ตรงกับ target แล้วค่อย redirect
+			if (pathname !== targetUrl) {
+				return NextResponse.redirect(new URL(targetUrl, request.url));
+			}
+		}
+
+		// ถ้าไม่เจอ model ให้ไปหน้า models
+		return NextResponse.redirect(new URL("/models", request.url));
+	}
 
 	// 1. ถ้า path มี "byd" แต่ไม่ถูกต้อง
 	if (pathname.includes("byd") && !pathname.startsWith("/models/byd-")) {
@@ -33,27 +95,12 @@ export function middleware(request: NextRequest) {
 
 		for (const model of validModels) {
 			if (modelName.includes(model.replace("dmi", ""))) {
+				const targetModel = model === "sealion6" ? "sealion6dmi" : model;
 				return NextResponse.redirect(
-					new URL(`/models/byd-${model}`, request.url)
+					new URL(`/models/byd-${targetModel}`, request.url)
 				);
 			}
 		}
-	}
-
-	// 2. ถ้า path มี "calculator" หรือ "loan"
-	if (pathname.includes("calculator") || pathname.includes("loan")) {
-		const modelMatch = pathname.match(
-			/(atto3|dolphin|seal|sealion6|sealion7|m6)/i
-		);
-		if (modelMatch) {
-			const model = modelMatch[1].toLowerCase();
-			const fullModel =
-				model === "sealion6" ? "byd-sealion6dmi" : `byd-${model}`;
-			return NextResponse.redirect(
-				new URL(`/models/${fullModel}/loan-calculator`, request.url)
-			);
-		}
-		return NextResponse.redirect(new URL("/models", request.url));
 	}
 
 	// 3. ถ้า path มี "compare" หรือ "comparison"
@@ -61,14 +108,12 @@ export function middleware(request: NextRequest) {
 		return NextResponse.redirect(new URL("/models/compare", request.url));
 	}
 
-	// 4. ถ้า path เป็น API เก่า (จริงๆ ควรถูก exclude ด้วย matcher แล้ว)
+	// 4. ถ้า path เป็น API เก่า
 	if (pathname.startsWith("/api/v1/") || pathname.startsWith("/api/old/")) {
 		return NextResponse.redirect(new URL("/api/test-drive", request.url));
 	}
 
-	// 5. ถ้า path มี file extension เก่า (.html, .php, .asp)
-	//    Rule นี้อาจจะซ้ำซ้อนกับ .includes(".") ที่เพิ่มไปในข้อ 0
-	//    แต่ก็ไม่ได้เสียหายอะไรที่จะเก็บไว้ถ้าต้องการจัดการเฉพาะ extension เหล่านี้
+	// 5. ถ้า path มี file extension เก่า
 	if (pathname.match(/\.(html|htm|php|asp|jsp)$/)) {
 		const cleanPath = pathname.replace(/\.(html|htm|php|asp|jsp)$/, "");
 		return NextResponse.redirect(new URL(cleanPath || "/", request.url));
@@ -79,6 +124,7 @@ export function middleware(request: NextRequest) {
 		const newPath = pathname.replace(/^\/(th|en)/, "") || "/";
 		return NextResponse.redirect(new URL(newPath, request.url));
 	}
+
 	// 7. ถ้า path มี www subdomain
 	if (request.nextUrl.hostname.startsWith("www.")) {
 		const newUrl = new URL(request.url);
@@ -86,12 +132,11 @@ export function middleware(request: NextRequest) {
 		return NextResponse.redirect(newUrl);
 	}
 
-	// 8. จัดการ URL encoded Thai characters (URL เก่าจาก Google/Facebook)
+	// 8. จัดการ URL encoded Thai characters
 	if (pathname.includes("%E0%B8%")) {
 		try {
 			const decodedPath = decodeURIComponent(pathname);
 
-			// ถ้าเป็นเนื้อหาเกี่ยวกับรถยนต์
 			if (decodedPath.includes("dolphin") || decodedPath.includes("ดอลฟิน")) {
 				return NextResponse.redirect(
 					new URL("/models/byd-dolphin", request.url)
@@ -114,12 +159,10 @@ export function middleware(request: NextRequest) {
 				);
 			}
 
-			// ถ้าเป็นเนื้อหาเกี่ยวกับบริษัท BYD
 			if (decodedPath.includes("byd") || decodedPath.includes("บีวายดี")) {
 				return NextResponse.redirect(new URL("/we-are-byd", request.url));
 			}
 
-			// ถ้าเป็นเนื้อหาเกี่ยวกับแบตเตอรี่
 			if (
 				decodedPath.includes("แบตเตอรี่") ||
 				decodedPath.includes("battery")
@@ -127,15 +170,13 @@ export function middleware(request: NextRequest) {
 				return NextResponse.redirect(new URL("/blog", request.url));
 			}
 
-			// เนื้อหาทั่วไป
 			return NextResponse.redirect(new URL("/blog", request.url));
 		} catch (error) {
-			// ถ้า decode ไม่ได้ ไปหน้าแรก
 			return NextResponse.redirect(new URL("/", request.url));
 		}
 	}
 
-	// 9. จัดการ paths ที่มี special characters หรือ symbols
+	// 9. จัดการ paths ที่มี special characters
 	if (
 		pathname.includes("?") ||
 		pathname.includes("#") ||
