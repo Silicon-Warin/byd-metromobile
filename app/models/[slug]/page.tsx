@@ -4,16 +4,11 @@ import { notFound } from "next/navigation";
 import ModelPageContent from "./modelPageContent";
 import type { Metadata, ResolvingMetadata } from "next";
 
-type Props = {
-	params: { slug: string };
-	searchParams: { [key: string]: string | string[] | undefined };
-};
-
 export async function generateMetadata(
-	{ params }: Pick<Props, "params">, // Use Pick to select only params
+	{ params }: { params: Promise<{ slug: string }> },
 	parent: ResolvingMetadata
 ): Promise<Metadata> {
-	const slug = params.slug;
+	const { slug } = await params;
 	const carModel = findModelBySlug(slug);
 
 	if (!carModel) {
