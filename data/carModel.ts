@@ -433,6 +433,62 @@ export const defaultModels: CarModel[] = [
 					unit: "Sec",
 					description: "0-100 km/h",
 				},
+				loanTiers: [
+					{
+						downPaymentPercentage: 30,
+						terms: [
+							{ months: 48, interestRate: 1.98 },
+							{ months: 60, interestRate: 2.45 },
+							{ months: 72, interestRate: 2.89 },
+							{ months: 84, interestRate: 3.59 },
+						],
+					},
+					{
+						downPaymentPercentage: 25,
+						terms: [
+							{ months: 48, interestRate: 1.98 },
+							{ months: 60, interestRate: 2.69 },
+							{ months: 72, interestRate: 2.99 },
+							{ months: 84, interestRate: 3.69 },
+						],
+					},
+					{
+						downPaymentPercentage: 20,
+						terms: [
+							{ months: 48, interestRate: 2.69 },
+							{ months: 60, interestRate: 2.89 },
+							{ months: 72, interestRate: 3.19 },
+							{ months: 84, interestRate: 3.79 },
+						],
+					},
+					{
+						downPaymentPercentage: 15,
+						terms: [
+							{ months: 48, interestRate: 3.09 },
+							{ months: 60, interestRate: 3.39 },
+							{ months: 72, interestRate: 3.59 },
+							{ months: 84, interestRate: 4.29 },
+						],
+					},
+					{
+						downPaymentPercentage: 10,
+						terms: [
+							{ months: 48, interestRate: 3.69 },
+							{ months: 60, interestRate: 3.99 },
+							{ months: 72, interestRate: 4.29 },
+							{ months: 84, interestRate: 4.59 },
+						],
+					},
+					{
+						downPaymentPercentage: 5,
+						terms: [
+							{ months: 48, interestRate: 4.09 },
+							{ months: 60, interestRate: 4.39 },
+							{ months: 72, interestRate: 4.69 },
+							{ months: 84, interestRate: 4.99 },
+						],
+					},
+				],
 			},
 			{
 				id: "extended",
@@ -446,6 +502,62 @@ export const defaultModels: CarModel[] = [
 					unit: "Sec",
 					description: "0-100 km/h",
 				},
+				loanTiers: [
+					{
+						downPaymentPercentage: 30,
+						terms: [
+							{ months: 48, interestRate: 1.98 },
+							{ months: 60, interestRate: 2.45 },
+							{ months: 72, interestRate: 2.89 },
+							{ months: 84, interestRate: 3.59 },
+						],
+					},
+					{
+						downPaymentPercentage: 25,
+						terms: [
+							{ months: 48, interestRate: 1.98 },
+							{ months: 60, interestRate: 2.69 },
+							{ months: 72, interestRate: 2.99 },
+							{ months: 84, interestRate: 3.69 },
+						],
+					},
+					{
+						downPaymentPercentage: 20,
+						terms: [
+							{ months: 48, interestRate: 2.69 },
+							{ months: 60, interestRate: 2.89 },
+							{ months: 72, interestRate: 3.19 },
+							{ months: 84, interestRate: 3.79 },
+						],
+					},
+					{
+						downPaymentPercentage: 15,
+						terms: [
+							{ months: 48, interestRate: 3.09 },
+							{ months: 60, interestRate: 3.39 },
+							{ months: 72, interestRate: 3.59 },
+							{ months: 84, interestRate: 4.29 },
+						],
+					},
+					{
+						downPaymentPercentage: 10,
+						terms: [
+							{ months: 48, interestRate: 3.69 },
+							{ months: 60, interestRate: 3.99 },
+							{ months: 72, interestRate: 4.29 },
+							{ months: 84, interestRate: 4.59 },
+						],
+					},
+					{
+						downPaymentPercentage: 5,
+						terms: [
+							{ months: 48, interestRate: 4.09 },
+							{ months: 60, interestRate: 4.39 },
+							{ months: 72, interestRate: 4.69 },
+							{ months: 84, interestRate: 4.99 },
+						],
+					},
+				],
 			},
 			{
 				id: "7seat",
@@ -459,6 +571,62 @@ export const defaultModels: CarModel[] = [
 					unit: "Sec",
 					description: "0-100 km/h",
 				},
+				loanTiers: [
+					{
+						downPaymentPercentage: 30,
+						terms: [
+							{ months: 48, interestRate: 1.98 },
+							{ months: 60, interestRate: 2.45 },
+							{ months: 72, interestRate: 2.89 },
+							{ months: 84, interestRate: 3.59 },
+						],
+					},
+					{
+						downPaymentPercentage: 25,
+						terms: [
+							{ months: 48, interestRate: 1.98 },
+							{ months: 60, interestRate: 2.69 },
+							{ months: 72, interestRate: 2.99 },
+							{ months: 84, interestRate: 3.69 },
+						],
+					},
+					{
+						downPaymentPercentage: 20,
+						terms: [
+							{ months: 48, interestRate: 2.69 },
+							{ months: 60, interestRate: 2.89 },
+							{ months: 72, interestRate: 3.19 },
+							{ months: 84, interestRate: 3.79 },
+						],
+					},
+					{
+						downPaymentPercentage: 15,
+						terms: [
+							{ months: 48, interestRate: 3.09 },
+							{ months: 60, interestRate: 3.39 },
+							{ months: 72, interestRate: 3.59 },
+							{ months: 84, interestRate: 4.29 },
+						],
+					},
+					{
+						downPaymentPercentage: 10,
+						terms: [
+							{ months: 48, interestRate: 3.69 },
+							{ months: 60, interestRate: 3.99 },
+							{ months: 72, interestRate: 4.29 },
+							{ months: 84, interestRate: 4.59 },
+						],
+					},
+					{
+						downPaymentPercentage: 5,
+						terms: [
+							{ months: 48, interestRate: 4.09 },
+							{ months: 60, interestRate: 4.39 },
+							{ months: 72, interestRate: 4.69 },
+							{ months: 84, interestRate: 4.99 },
+						],
+					},
+				],
 			},
 		],
 		features: [
@@ -592,6 +760,62 @@ export const defaultModels: CarModel[] = [
 					unit: "Sec",
 					description: "0-100 km/h",
 				},
+				loanTiers: [
+					{
+						downPaymentPercentage: 30,
+						terms: [
+							{ months: 48, interestRate: 1.98 },
+							{ months: 60, interestRate: 2.45 },
+							{ months: 72, interestRate: 2.89 },
+							{ months: 84, interestRate: 3.59 },
+						],
+					},
+					{
+						downPaymentPercentage: 25,
+						terms: [
+							{ months: 48, interestRate: 1.98 },
+							{ months: 60, interestRate: 2.69 },
+							{ months: 72, interestRate: 2.99 },
+							{ months: 84, interestRate: 3.69 },
+						],
+					},
+					{
+						downPaymentPercentage: 20,
+						terms: [
+							{ months: 48, interestRate: 2.69 },
+							{ months: 60, interestRate: 2.89 },
+							{ months: 72, interestRate: 3.19 },
+							{ months: 84, interestRate: 3.79 },
+						],
+					},
+					{
+						downPaymentPercentage: 15,
+						terms: [
+							{ months: 48, interestRate: 3.09 },
+							{ months: 60, interestRate: 3.39 },
+							{ months: 72, interestRate: 3.59 },
+							{ months: 84, interestRate: 4.29 },
+						],
+					},
+					{
+						downPaymentPercentage: 10,
+						terms: [
+							{ months: 48, interestRate: 3.69 },
+							{ months: 60, interestRate: 3.99 },
+							{ months: 72, interestRate: 4.29 },
+							{ months: 84, interestRate: 4.59 },
+						],
+					},
+					{
+						downPaymentPercentage: 5,
+						terms: [
+							{ months: 48, interestRate: 4.09 },
+							{ months: 60, interestRate: 4.39 },
+							{ months: 72, interestRate: 4.69 },
+							{ months: 84, interestRate: 4.99 },
+						],
+					},
+				],
 			},
 			{
 				id: "premium",
@@ -605,6 +829,62 @@ export const defaultModels: CarModel[] = [
 					unit: "Sec",
 					description: "0-100 km/h",
 				},
+				loanTiers: [
+					{
+						downPaymentPercentage: 30,
+						terms: [
+							{ months: 48, interestRate: 1.98 },
+							{ months: 60, interestRate: 2.45 },
+							{ months: 72, interestRate: 2.89 },
+							{ months: 84, interestRate: 3.59 },
+						],
+					},
+					{
+						downPaymentPercentage: 25,
+						terms: [
+							{ months: 48, interestRate: 1.98 },
+							{ months: 60, interestRate: 2.69 },
+							{ months: 72, interestRate: 2.99 },
+							{ months: 84, interestRate: 3.69 },
+						],
+					},
+					{
+						downPaymentPercentage: 20,
+						terms: [
+							{ months: 48, interestRate: 2.69 },
+							{ months: 60, interestRate: 2.89 },
+							{ months: 72, interestRate: 3.19 },
+							{ months: 84, interestRate: 3.79 },
+						],
+					},
+					{
+						downPaymentPercentage: 15,
+						terms: [
+							{ months: 48, interestRate: 3.09 },
+							{ months: 60, interestRate: 3.39 },
+							{ months: 72, interestRate: 3.59 },
+							{ months: 84, interestRate: 4.29 },
+						],
+					},
+					{
+						downPaymentPercentage: 10,
+						terms: [
+							{ months: 48, interestRate: 3.69 },
+							{ months: 60, interestRate: 3.99 },
+							{ months: 72, interestRate: 4.29 },
+							{ months: 84, interestRate: 4.59 },
+						],
+					},
+					{
+						downPaymentPercentage: 5,
+						terms: [
+							{ months: 48, interestRate: 4.09 },
+							{ months: 60, interestRate: 4.39 },
+							{ months: 72, interestRate: 4.69 },
+							{ months: 84, interestRate: 4.99 },
+						],
+					},
+				],
 			},
 		],
 		features: [
@@ -790,6 +1070,62 @@ export const defaultModels: CarModel[] = [
 					unit: "Sec",
 					description: "0-100 km/h",
 				},
+				loanTiers: [
+					{
+						downPaymentPercentage: 30,
+						terms: [
+							{ months: 48, interestRate: 1.98 },
+							{ months: 60, interestRate: 2.45 },
+							{ months: 72, interestRate: 2.89 },
+							{ months: 84, interestRate: 3.59 },
+						],
+					},
+					{
+						downPaymentPercentage: 25,
+						terms: [
+							{ months: 48, interestRate: 1.98 },
+							{ months: 60, interestRate: 2.69 },
+							{ months: 72, interestRate: 2.99 },
+							{ months: 84, interestRate: 3.69 },
+						],
+					},
+					{
+						downPaymentPercentage: 20,
+						terms: [
+							{ months: 48, interestRate: 2.69 },
+							{ months: 60, interestRate: 2.89 },
+							{ months: 72, interestRate: 3.19 },
+							{ months: 84, interestRate: 3.79 },
+						],
+					},
+					{
+						downPaymentPercentage: 15,
+						terms: [
+							{ months: 48, interestRate: 3.09 },
+							{ months: 60, interestRate: 3.39 },
+							{ months: 72, interestRate: 3.59 },
+							{ months: 84, interestRate: 4.29 },
+						],
+					},
+					{
+						downPaymentPercentage: 10,
+						terms: [
+							{ months: 48, interestRate: 3.69 },
+							{ months: 60, interestRate: 3.99 },
+							{ months: 72, interestRate: 4.29 },
+							{ months: 84, interestRate: 4.59 },
+						],
+					},
+					{
+						downPaymentPercentage: 5,
+						terms: [
+							{ months: 48, interestRate: 4.09 },
+							{ months: 60, interestRate: 4.39 },
+							{ months: 72, interestRate: 4.69 },
+							{ months: 84, interestRate: 4.99 },
+						],
+					},
+				],
 			},
 			{
 				id: "premium",
@@ -803,6 +1139,62 @@ export const defaultModels: CarModel[] = [
 					unit: "Sec",
 					description: "0-100 km/h",
 				},
+				loanTiers: [
+					{
+						downPaymentPercentage: 30,
+						terms: [
+							{ months: 48, interestRate: 1.98 },
+							{ months: 60, interestRate: 2.45 },
+							{ months: 72, interestRate: 2.89 },
+							{ months: 84, interestRate: 3.59 },
+						],
+					},
+					{
+						downPaymentPercentage: 25,
+						terms: [
+							{ months: 48, interestRate: 1.98 },
+							{ months: 60, interestRate: 2.69 },
+							{ months: 72, interestRate: 2.99 },
+							{ months: 84, interestRate: 3.69 },
+						],
+					},
+					{
+						downPaymentPercentage: 20,
+						terms: [
+							{ months: 48, interestRate: 2.69 },
+							{ months: 60, interestRate: 2.89 },
+							{ months: 72, interestRate: 3.19 },
+							{ months: 84, interestRate: 3.79 },
+						],
+					},
+					{
+						downPaymentPercentage: 15,
+						terms: [
+							{ months: 48, interestRate: 3.09 },
+							{ months: 60, interestRate: 3.39 },
+							{ months: 72, interestRate: 3.59 },
+							{ months: 84, interestRate: 4.29 },
+						],
+					},
+					{
+						downPaymentPercentage: 10,
+						terms: [
+							{ months: 48, interestRate: 3.69 },
+							{ months: 60, interestRate: 3.99 },
+							{ months: 72, interestRate: 4.29 },
+							{ months: 84, interestRate: 4.59 },
+						],
+					},
+					{
+						downPaymentPercentage: 5,
+						terms: [
+							{ months: 48, interestRate: 4.09 },
+							{ months: 60, interestRate: 4.39 },
+							{ months: 72, interestRate: 4.69 },
+							{ months: 84, interestRate: 4.99 },
+						],
+					},
+				],
 			},
 			{
 				id: "performance",
@@ -816,6 +1208,62 @@ export const defaultModels: CarModel[] = [
 					unit: "Sec",
 					description: "0-100 km/h",
 				},
+				loanTiers: [
+					{
+						downPaymentPercentage: 30,
+						terms: [
+							{ months: 48, interestRate: 1.98 },
+							{ months: 60, interestRate: 2.45 },
+							{ months: 72, interestRate: 2.89 },
+							{ months: 84, interestRate: 3.59 },
+						],
+					},
+					{
+						downPaymentPercentage: 25,
+						terms: [
+							{ months: 48, interestRate: 1.98 },
+							{ months: 60, interestRate: 2.69 },
+							{ months: 72, interestRate: 2.99 },
+							{ months: 84, interestRate: 3.69 },
+						],
+					},
+					{
+						downPaymentPercentage: 20,
+						terms: [
+							{ months: 48, interestRate: 2.69 },
+							{ months: 60, interestRate: 2.89 },
+							{ months: 72, interestRate: 3.19 },
+							{ months: 84, interestRate: 3.79 },
+						],
+					},
+					{
+						downPaymentPercentage: 15,
+						terms: [
+							{ months: 48, interestRate: 3.09 },
+							{ months: 60, interestRate: 3.39 },
+							{ months: 72, interestRate: 3.59 },
+							{ months: 84, interestRate: 4.29 },
+						],
+					},
+					{
+						downPaymentPercentage: 10,
+						terms: [
+							{ months: 48, interestRate: 3.69 },
+							{ months: 60, interestRate: 3.99 },
+							{ months: 72, interestRate: 4.29 },
+							{ months: 84, interestRate: 4.59 },
+						],
+					},
+					{
+						downPaymentPercentage: 5,
+						terms: [
+							{ months: 48, interestRate: 4.09 },
+							{ months: 60, interestRate: 4.39 },
+							{ months: 72, interestRate: 4.69 },
+							{ months: 84, interestRate: 4.99 },
+						],
+					},
+				],
 				techSpec: {
 					dimensions: {
 						length: "4,800 มม.",
@@ -956,6 +1404,62 @@ export const defaultModels: CarModel[] = [
 					unit: "Sec",
 					description: "0-100 km/h",
 				},
+				loanTiers: [
+					{
+						downPaymentPercentage: 30,
+						terms: [
+							{ months: 48, interestRate: 1.98 },
+							{ months: 60, interestRate: 2.45 },
+							{ months: 72, interestRate: 2.89 },
+							{ months: 84, interestRate: 3.59 },
+						],
+					},
+					{
+						downPaymentPercentage: 25,
+						terms: [
+							{ months: 48, interestRate: 1.98 },
+							{ months: 60, interestRate: 2.69 },
+							{ months: 72, interestRate: 2.99 },
+							{ months: 84, interestRate: 3.69 },
+						],
+					},
+					{
+						downPaymentPercentage: 20,
+						terms: [
+							{ months: 48, interestRate: 2.69 },
+							{ months: 60, interestRate: 2.89 },
+							{ months: 72, interestRate: 3.19 },
+							{ months: 84, interestRate: 3.79 },
+						],
+					},
+					{
+						downPaymentPercentage: 15,
+						terms: [
+							{ months: 48, interestRate: 3.09 },
+							{ months: 60, interestRate: 3.39 },
+							{ months: 72, interestRate: 3.59 },
+							{ months: 84, interestRate: 4.29 },
+						],
+					},
+					{
+						downPaymentPercentage: 10,
+						terms: [
+							{ months: 48, interestRate: 3.69 },
+							{ months: 60, interestRate: 3.99 },
+							{ months: 72, interestRate: 4.29 },
+							{ months: 84, interestRate: 4.59 },
+						],
+					},
+					{
+						downPaymentPercentage: 5,
+						terms: [
+							{ months: 48, interestRate: 4.09 },
+							{ months: 60, interestRate: 4.39 },
+							{ months: 72, interestRate: 4.69 },
+							{ months: 84, interestRate: 4.99 },
+						],
+					},
+				],
 			},
 		],
 		features: [
@@ -1091,6 +1595,62 @@ export const defaultModels: CarModel[] = [
 					unit: "Sec",
 					description: "0-100 km/h",
 				},
+				loanTiers: [
+					{
+						downPaymentPercentage: 30,
+						terms: [
+							{ months: 48, interestRate: 1.98 },
+							{ months: 60, interestRate: 2.45 },
+							{ months: 72, interestRate: 2.89 },
+							{ months: 84, interestRate: 3.59 },
+						],
+					},
+					{
+						downPaymentPercentage: 25,
+						terms: [
+							{ months: 48, interestRate: 1.98 },
+							{ months: 60, interestRate: 2.69 },
+							{ months: 72, interestRate: 2.99 },
+							{ months: 84, interestRate: 3.69 },
+						],
+					},
+					{
+						downPaymentPercentage: 20,
+						terms: [
+							{ months: 48, interestRate: 2.69 },
+							{ months: 60, interestRate: 2.89 },
+							{ months: 72, interestRate: 3.19 },
+							{ months: 84, interestRate: 3.79 },
+						],
+					},
+					{
+						downPaymentPercentage: 15,
+						terms: [
+							{ months: 48, interestRate: 3.09 },
+							{ months: 60, interestRate: 3.39 },
+							{ months: 72, interestRate: 3.59 },
+							{ months: 84, interestRate: 4.29 },
+						],
+					},
+					{
+						downPaymentPercentage: 10,
+						terms: [
+							{ months: 48, interestRate: 3.69 },
+							{ months: 60, interestRate: 3.99 },
+							{ months: 72, interestRate: 4.29 },
+							{ months: 84, interestRate: 4.59 },
+						],
+					},
+					{
+						downPaymentPercentage: 5,
+						terms: [
+							{ months: 48, interestRate: 4.09 },
+							{ months: 60, interestRate: 4.39 },
+							{ months: 72, interestRate: 4.69 },
+							{ months: 84, interestRate: 4.99 },
+						],
+					},
+				],
 			},
 			{
 				id: "extended-range",
@@ -1104,6 +1664,62 @@ export const defaultModels: CarModel[] = [
 					unit: "Sec",
 					description: "0-100 km/h",
 				},
+				loanTiers: [
+					{
+						downPaymentPercentage: 30,
+						terms: [
+							{ months: 48, interestRate: 1.98 },
+							{ months: 60, interestRate: 2.45 },
+							{ months: 72, interestRate: 2.89 },
+							{ months: 84, interestRate: 3.59 },
+						],
+					},
+					{
+						downPaymentPercentage: 25,
+						terms: [
+							{ months: 48, interestRate: 1.98 },
+							{ months: 60, interestRate: 2.69 },
+							{ months: 72, interestRate: 2.99 },
+							{ months: 84, interestRate: 3.69 },
+						],
+					},
+					{
+						downPaymentPercentage: 20,
+						terms: [
+							{ months: 48, interestRate: 2.69 },
+							{ months: 60, interestRate: 2.89 },
+							{ months: 72, interestRate: 3.19 },
+							{ months: 84, interestRate: 3.79 },
+						],
+					},
+					{
+						downPaymentPercentage: 15,
+						terms: [
+							{ months: 48, interestRate: 3.09 },
+							{ months: 60, interestRate: 3.39 },
+							{ months: 72, interestRate: 3.59 },
+							{ months: 84, interestRate: 4.29 },
+						],
+					},
+					{
+						downPaymentPercentage: 10,
+						terms: [
+							{ months: 48, interestRate: 3.69 },
+							{ months: 60, interestRate: 3.99 },
+							{ months: 72, interestRate: 4.29 },
+							{ months: 84, interestRate: 4.59 },
+						],
+					},
+					{
+						downPaymentPercentage: 5,
+						terms: [
+							{ months: 48, interestRate: 4.09 },
+							{ months: 60, interestRate: 4.39 },
+							{ months: 72, interestRate: 4.69 },
+							{ months: 84, interestRate: 4.99 },
+						],
+					},
+				],
 			},
 		],
 		features: [
