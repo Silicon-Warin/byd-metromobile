@@ -138,12 +138,12 @@ export default function ModelPageContent({
 						</CardHeader>
 						<CardFooter className="mt-auto">
 							<TestDriveButton
-								variant="outline"
+								variant="default"
+								size="lg"
 								defaultModel={carModel.slug}
-								className="bg-bydblue hover:bg-bydblue/80 text-white border-bydblue hover:border-bydblue/80 font-medium px-6 py-3 rounded-lg shadow-lg flex items-center gap-2 transition-all"
+								className="w-full"
 							>
 								<span>ลงทะเบียนทดลองขับ</span>
-								<ArrowRight className="h-4 w-4" />
 							</TestDriveButton>
 						</CardFooter>
 					</Card>
@@ -213,7 +213,7 @@ export default function ModelPageContent({
 						<TestDriveButton
 							defaultModel={carModel.slug}
 							size="lg"
-							className="bg-bydblue hover:bg-bydblue/80 min-w-[200px]"
+							variant="default"
 						>
 							จองทดลองขับ
 						</TestDriveButton>

@@ -1,54 +1,114 @@
 "use client";
+import { motion } from "framer-motion";
+import { ReactNode } from "react";
 
-import { useEffect } from "react";
+// Animation Variants
+const fadeInVariants = {
+	hidden: { opacity: 0, y: 20 },
+	visible: { opacity: 1, y: 0 },
+};
 
-export default function ScrollAnimations() {
-	useEffect(() => {
-		// Check if browser supports CSS animation-timeline
-		const supportsAnimationTimeline = CSS.supports(
-			"animation-timeline",
-			"view()"
-		);
+const heroEntranceVariants = {
+	hidden: { opacity: 0, y: 30, scale: 0.95 },
+	visible: { opacity: 1, y: 0, scale: 1 },
+};
 
-		if (!supportsAnimationTimeline) {
-			// Fallback: Use Intersection Observer
-			const observer = new IntersectionObserver(
-				(entries) => {
-					entries.forEach((entry) => {
-						if (entry.isIntersecting) {
-							entry.target.classList.add("in-view");
-						}
-					});
-				},
-				{
-					threshold: 0.1,
-					rootMargin: "0px 0px -50px 0px",
-				}
-			);
+const imageScaleVariants = {
+	hidden: { opacity: 0, scale: 0.9 },
+	visible: { opacity: 1, scale: 1 },
+};
 
-			// Observe all scroll animation elements
-			const elements = document.querySelectorAll(
-				[
-					".animate-on-scroll",
-					".animate-on-scroll-delay-1",
-					".animate-on-scroll-delay-2",
-					".animate-on-scroll-slide-left",
-					".animate-on-scroll-scale",
-				].join(",")
-			);
+const sectionFadeVariants = {
+	hidden: { opacity: 0 },
+	visible: { opacity: 1 },
+};
 
-			elements.forEach((el) => observer.observe(el));
+// Reusable Components
+export const FadeIn = ({
+	children,
+	delay = 0,
+	className = "",
+}: {
+	children: ReactNode;
+	delay?: number;
+	className?: string;
+}) => (
+	<motion.div
+		initial="hidden"
+		whileInView="visible"
+		viewport={{ once: true, margin: "-50px" }}
+		variants={fadeInVariants}
+		transition={{ duration: 0.6, delay, ease: "easeOut" }}
+		className={className}
+	>
+		{children}
+	</motion.div>
+);
 
-			return () => {
-				elements.forEach((el) => observer.unobserve(el));
-			};
-		}
-	}, []);
+export const HeroEntrance = ({
+	children,
+	className = "",
+}: {
+	children: ReactNode;
+	className?: string;
+}) => (
+	<motion.div
+		initial="hidden"
+		animate="visible"
+		variants={heroEntranceVariants}
+		transition={{ duration: 0.8, ease: "easeOut" }}
+		className={className}
+	>
+		{children}
+	</motion.div>
+);
 
-	return null;
-}
+export const ImageScale = ({
+	children,
+	delay = 0,
+	className = "",
+}: {
+	children: ReactNode;
+	delay?: number;
+	className?: string;
+}) => (
+	<motion.div
+		initial="hidden"
+		whileInView="visible"
+		viewport={{ once: true, margin: "-100px" }}
+		variants={imageScaleVariants}
+		transition={{ duration: 0.8, delay, ease: "easeOut" }}
+		className={className}
+	>
+		{children}
+	</motion.div>
+);
 
-// Hook สำหรับใช้ใน component อื่นๆ
-export function useScrollAnimation(className = "animate-on-scroll") {
-	return className;
-}
+export const SectionFade = ({
+	children,
+	className = "",
+}: {
+	children: ReactNode;
+	className?: string;
+}) => (
+	<motion.div
+		initial="hidden"
+		whileInView="visible"
+		viewport={{ once: true, margin: "-100px" }}
+		variants={sectionFadeVariants}
+		transition={{ duration: 0.6, ease: "easeOut" }}
+		className={className}
+	>
+		{children}
+	</motion.div>
+);
+
+// Stagger delays
+export const staggerDelays = {
+	stagger1: 0.1,
+	stagger2: 0.2,
+	stagger3: 0.3,
+	stagger4: 0.4,
+	stagger5: 0.5,
+	stagger6: 0.6,
+};

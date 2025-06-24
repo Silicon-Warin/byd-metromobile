@@ -149,10 +149,9 @@ export default function BYDSection({ carModel }: BYDSectionProps) {
 				{/* Test Drive Button */}
 				<div className="text-center mt-16">
 					<TestDriveButton
-						variant="outline"
+						variant="default"
 						size="lg"
 						defaultModel={carModel.slug}
-						className="bg-red-600 hover:bg-red-700 text-white border-red-600 hover:border-red-700 px-10 py-3 rounded-full font-medium"
 					>
 						ทดลองขับ {carModel.name}
 					</TestDriveButton>

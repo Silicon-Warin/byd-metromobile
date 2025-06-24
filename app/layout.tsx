@@ -5,7 +5,6 @@ import { Footer } from "@/components/Footer";
 import { Analytics } from "@vercel/analytics/react";
 import type { Viewport } from "next";
 import { Toaster } from "sonner";
-import ScrollAnimations from "@/components/ScrollAnimations";
 import ContactFAB from "@/components/ContactFAB";
 import { WebVitalReporter } from "@/components/WebVitalReporter";
 
@@ -79,10 +78,21 @@ export default function RootLayout({
 				<meta name="format-detection" content="telephone=no" />
 				<meta name="image-rendering" content="optimizeQuality" />
 				<meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
+				<link
+					rel="preload"
+					as="image"
+					href="/images/banners/byd-banner-1.webp"
+					fetchPriority="high"
+				/>
+				<link rel="dns-prefetch" href="//fonts.googleapis.com" />
+				<link
+					rel="preconnect"
+					href="https://fonts.gstatic.com"
+					crossOrigin=""
+				/>
 			</head>
 			<body className="font-prompt bg-background text-foreground antialiased">
 				<WebVitalReporter />
-				<ScrollAnimations />
 				<MainHeader />
 				<main className="max-w-[100vw] overflow-x-hidden">{children}</main>
 				<Toaster />

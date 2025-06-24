@@ -1,4 +1,3 @@
-import { Suspense } from "react";
 import { Button } from "@/components/ui/button";
 import { Calendar, Play } from "lucide-react";
 import TestDriveButton from "../TestDriveButton";
@@ -14,7 +13,7 @@ export default function HeroSection() {
 						{/* Top Content */}
 						<div className="text-center space-y-8 pt-8 pb-4">
 							{/* Main Heading */}
-							<div className="space-y-6">
+							<div className="space-y-6 hero-entrance">
 								<h1 className="text-4xl lg:text-5xl font-bold leading-tight">
 									<span className="bg-gradient-to-r from-white via-blue-100 to-purple-100 bg-clip-text text-transparent">
 										BYD
@@ -29,12 +28,12 @@ export default function HeroSection() {
 								<p className="text-lg text-gray-300 max-w-4xl mx-auto leading-relaxed">
 									ขับเคลื่อนอนาคตกับรถยนต์ไฟฟ้า BYD ที่ล้ำสมัย
 									พร้อมบริการทดลองขับ โปรโมชั่นพิเศษ
-									และศูนย์บริการมาตรฐานทั่วไทย
+									และศูนย์บริการมาตรฐานทั่วกรุงเทพ
 								</p>
 							</div>
 
 							{/* CTA Buttons */}
-							<div className="flex flex-col sm:flex-row gap-6 pt-8 justify-center">
+							<div className="flex flex-col sm:flex-row gap-6 pt-8 justify-center fadeIn stagger-2">
 								<Button
 									size="lg"
 									className="bg-slate-800 hover:bg-slate-700 text-white border border-slate-600 hover:border-slate-500 transition-all duration-300 group px-8 py-6 text-lg"
@@ -54,14 +53,8 @@ export default function HeroSection() {
 
 						{/* Banner */}
 						<div className="relative px-8 lg:px-16">
-							<div className="relative h-[600px] lg:h-[700px] rounded-3xl overflow-hidden border border-white/10 bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-sm transform transition-transform duration-700 ease-out">
-								<Suspense
-									fallback={
-										<div className="w-full h-full bg-slate-800 animate-pulse rounded-3xl" />
-									}
-								>
-									<HeroBanner />
-								</Suspense>
+							<div className="relative h-[600px] lg:h-[700px] rounded-3xl overflow-hidden border border-white/10 bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-sm">
+								<HeroBanner />
 							</div>
 						</div>
 					</div>
@@ -73,15 +66,16 @@ export default function HeroSection() {
 			{/* ---------- Mobile (< md) ---------- */}
 			<div className="md:hidden relative w-full h-screen flex flex-col justify-end overflow-hidden">
 				<HeroBanner />
+
 				{/* ส่วนเนื้อหา Hero สำหรับ Mobile ปรับเป็นภาษาไทยและใช้ gradient เหมือน Desktop ค่ะ */}
-				<div className="relative z-20 px-4 pb-16 mb-16 ">
+				<div className="relative z-20 px-4 pb-16 mb-16">
 					{/* Top Label */}
-					<div className="text-[0.7rem] font-semibold uppercase tracking-widest text-white border-l-2 border-blue-500 pl-2.5 leading-4 mb-3">
+					<div className="text-[0.7rem] font-semibold uppercase tracking-widest text-white border-l-2 border-blue-500 pl-2.5 leading-4 mb-3 fadeIn stagger-1">
 						Official dealer of BYD Thailand
 					</div>
 
 					{/* Heading */}
-					<h1 className="text-[2.2rem] font-bold leading-tight mb-4">
+					<h1 className="text-[2.2rem] font-bold leading-tight mb-4 hero-entrance">
 						<span className="bg-gradient-to-r from-white via-blue-100 to-purple-100 bg-clip-text text-transparent">
 							BYD
 						</span>
@@ -90,13 +84,13 @@ export default function HeroSection() {
 						</span>
 					</h1>
 
-					<p className="text-white font-medium mb-6 leading-relaxed">
+					<p className="text-white font-medium mb-6 leading-relaxed fadeIn stagger-2">
 						ขับเคลื่อนอนาคตกับรถยนต์ไฟฟ้า BYD ที่ล้ำสมัย พร้อมบริการทดลองขับ
 						โปรโมชั่นพิเศษ
 					</p>
 
 					{/* CTA */}
-					<div className="flex flex-col gap-3">
+					<div className="flex flex-col gap-3 fadeIn stagger-3">
 						<Button
 							size="lg"
 							className="bg-slate-800 hover:bg-slate-700 text-white border border-slate-600 hover:border-slate-500 transition-all duration-300 group px-6 py-4 text-base"
