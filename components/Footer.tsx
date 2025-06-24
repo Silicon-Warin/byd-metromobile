@@ -62,9 +62,7 @@ export function Footer() {
 									10120
 								</p>
 								<a
-									href="https://maps.app.goo.gl/XwUZTfTeDM7b6SJ67"
-									target="_blank"
-									rel="noopener noreferrer"
+									href="/contact-us"
 									className="inline-flex items-center text-sm text-primary hover:text-primary/80 transition-colors duration-200"
 								>
 									<span>ดูแผนที่</span>
@@ -100,9 +98,7 @@ export function Footer() {
 									64,1 ถ.กาญจนาภิเษก บางระมาด ตลิ่งชัน กรุงเทพฯ 10170
 								</p>
 								<a
-									href="https://maps.app.goo.gl/kbCCdjg27oYPT3tn8"
-									target="_blank"
-									rel="noopener noreferrer"
+									href="/contact-us"
 									className="inline-flex items-center text-sm text-primary hover:text-primary/80 transition-colors duration-200"
 								>
 									<span>ดูแผนที่</span>
@@ -176,9 +172,7 @@ export function Footer() {
 									591 ถ. รามอินทรา แขวงรามอินทรา เขตคันนายาว กรุงเทพมหานคร 10230
 								</p>
 								<a
-									href="https://maps.app.goo.gl/bLQ16KsJcoFk5BjJ6"
-									target="_blank"
-									rel="noopener noreferrer"
+									href="/contact-us"
 									className="inline-flex items-center text-sm text-primary hover:text-primary/80 transition-colors duration-200"
 								>
 									<span>ดูแผนที่</span>
@@ -211,12 +205,10 @@ export function Footer() {
 							</h5>
 							<div className="space-y-2 mb-3">
 								<p className="text-sm text-gray-300">
-									889 ถนน จตุรทิศ บางกะปิ เขตห้วยขวาง กรุงเทพมหานคร 10310
+									789 ถนน จตุรทิศ บางกะปิ เขตห้วยขวาง กรุงเทพมหานคร 10310
 								</p>
 								<a
-									href="#"
-									target="_blank"
-									rel="noopener noreferrer"
+									href="/contact-us"
 									className="inline-flex items-center text-sm text-primary hover:text-primary/80 transition-colors duration-200"
 								>
 									<span>ดูแผนที่</span>

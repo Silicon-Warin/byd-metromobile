@@ -121,11 +121,11 @@ export default function ContactUs() {
 		branches.find((branch) => branch.id === selectedBranch) || branches[0];
 
 	return (
-		<div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-800">
-			{/* Hero Section with Enhanced Animations */}
-			<section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+		<div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-800 top-shadow-showroom">
+			{/* Compact Hero Section - ลดความสูงใน mobile */}
+			<section className="relative min-h-[60vh] md:min-h-screen flex items-center justify-center overflow-hidden">
 				{/* Enhanced Background with Parallax Effect (responsive) */}
-				<div className="absolute inset-0 bg-gradient-to-br from-blue-900/20 via-black/60 to-cyan-900/20"></div>
+				<div className="absolute w-full h-full top-0 left-0 z-10 bg-dark-blue opacity-60 "></div>
 				<Image
 					src="/contact/header-contact.jpg"
 					alt="Contact Us"
@@ -133,54 +133,54 @@ export default function ContactUs() {
 					priority
 					sizes="(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 50vw"
 					className="absolute inset-0 object-cover object-center opacity-10"
-					// ใช้ object-cover + object-center เพื่อให้ภาพเต็มพื้นที่และโฟกัสกลาง รองรับทุกขนาดหน้าจอค่ะ
 				/>
 
-				{/* Enhanced Content with Stagger Animation */}
+				{/* Compact Content */}
 				<div className="container mx-auto px-4 relative z-10 text-center">
 					<div className="max-w-4xl mx-auto">
-						{/* SEO-optimized H1 with Enhanced Typography Animation */}
-						<h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-white via-blue-200 to-cyan-200 bg-clip-text text-transparent animate-fade-in">
+						{/* Responsive H1 */}
+						<h1 className="text-4xl md:text-7xl font-bold mb-4 md:mb-6 bg-gradient-to-r from-white via-blue-200 to-cyan-200 bg-clip-text text-transparent animate-fade-in">
 							ติดต่อเรา
 						</h1>
 
-						{/* Enhanced Subtitle with Delayed Animation */}
-						<div className="text-xl md:text-2xl font-semibold mb-6 animate-fade-in delay-300">
+						{/* Compact Subtitle */}
+						<div className="text-lg md:text-2xl font-semibold mb-4 md:mb-6 animate-fade-in delay-300">
 							<span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
 								BYD Metromobile
 							</span>
 						</div>
 
-						{/* Enhanced Description with Slide-in Effect */}
-						<p className="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto mb-12 leading-relaxed animate-fade-in delay-500">
+						{/* Shorter Description */}
+						<p className="text-base md:text-xl text-gray-300 max-w-2xl mx-auto mb-8 md:mb-12 leading-relaxed animate-fade-in delay-500">
 							ศูนย์รถยนต์ไฟฟ้า BYD อย่างเป็นทางการ
-							<br />
+							<br className="hidden md:block" />
+							<span className="md:hidden"> </span>
 							พร้อมให้บริการด้วยทีมงานมืออาชีพ
 						</p>
 
-						{/* Enhanced Button Group with Hover Animations */}
-						<div className="flex flex-col sm:flex-row gap-4 justify-center items-center animate-fade-in delay-700">
+						{/* Compact Button Group */}
+						<div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center items-center animate-fade-in delay-700">
 							<Button
-								className="bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white px-10 py-4 text-lg font-semibold rounded-full shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 hover-scale"
+								className="bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white px-8 md:px-10 py-3 md:py-4 text-base md:text-lg font-semibold rounded-full shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 hover-scale w-full sm:w-auto"
 								onClick={() =>
 									document
 										.getElementById("contact-form")
 										?.scrollIntoView({ behavior: "smooth" })
 								}
 							>
-								<MessageCircle className="w-5 h-5 mr-2" />
+								<MessageCircle className="w-4 h-4 md:w-5 md:h-5 mr-2" />
 								ส่งข้อความ
 							</Button>
 							<Button
 								variant="outline"
-								className="border-2 border-white/30 text-white hover:bg-white/10 px-10 py-4 text-lg font-semibold rounded-full backdrop-blur-sm hover:scale-105 transition-all duration-300 hover-scale"
+								className="border-2 border-white/30 text-white hover:bg-white/10 px-8 md:px-10 py-3 md:py-4 text-base md:text-lg font-semibold rounded-full backdrop-blur-sm hover:scale-105 transition-all duration-300 hover-scale w-full sm:w-auto"
 								onClick={() =>
 									document
 										.getElementById("branches")
 										?.scrollIntoView({ behavior: "smooth" })
 								}
 							>
-								<MapPin className="w-5 h-5 mr-2" />
+								<MapPin className="w-4 h-4 md:w-5 md:h-5 mr-2" />
 								ดูสาขา
 							</Button>
 						</div>
@@ -188,10 +188,10 @@ export default function ContactUs() {
 				</div>
 			</section>
 
-			{/* Contact Info Section with Tabs */}
+			{/* Compact Contact Info Section */}
 			<section
 				id="branches"
-				className="py-16 md:py-24 bg-gradient-to-b from-black to-gray-900"
+				className="py-8 md:py-16 bg-gradient-to-b from-black to-gray-900"
 			>
 				<div className="container mx-auto px-4">
 					<motion.div
@@ -199,30 +199,30 @@ export default function ContactUs() {
 						whileInView="visible"
 						viewport={{ once: true }}
 						variants={fadeIn}
-						className="text-center mb-12"
+						className="text-center mb-8 md:mb-12"
 					>
-						<h2 className="text-3xl md:text-4xl font-bold mb-4">
+						<h2 className="text-2xl md:text-4xl font-bold mb-2 md:mb-4">
 							ข้อมูลการติดต่อ
 						</h2>
-						<p className="text-gray-400 max-w-2xl mx-auto">
+						<p className="text-gray-400 max-w-2xl mx-auto text-sm md:text-base">
 							หลายช่องทางในการติดต่อเรา เลือกช่องทางที่สะดวกสำหรับคุณ
 						</p>
 					</motion.div>
 
-					{/* Tabs for Branches */}
+					{/* Compact Tabs for Branches */}
 					<motion.div
 						initial="hidden"
 						whileInView="visible"
 						viewport={{ once: true }}
 						variants={fadeIn}
-						className="mb-16"
+						className="mb-8 md:mb-16"
 					>
 						<Tabs
 							value={selectedBranch}
 							onValueChange={setSelectedBranch}
 							className="w-full"
 						>
-							<TabsList className="grid w-full grid-cols-2 md:grid-cols-5 bg-gray-800/50 backdrop-blur-sm border border-gray-700 mb-12 h-auto p-1">
+							<TabsList className="grid w-full grid-cols-2 md:grid-cols-5 bg-gray-800/50 backdrop-blur-sm border border-gray-700 mb-6 md:mb-12 h-auto p-1">
 								{branches.map((branch) => (
 									<TabsTrigger
 										key={branch.id}
@@ -235,23 +235,27 @@ export default function ContactUs() {
 							</TabsList>
 
 							{branches.map((branch) => (
-								<TabsContent key={branch.id} value={branch.id} className="mt-8">
+								<TabsContent
+									key={branch.id}
+									value={branch.id}
+									className="mt-4 md:mt-8"
+								>
 									<motion.div
-										className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6"
+										className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6"
 										variants={staggerContainer}
 										initial="hidden"
 										animate="visible"
 									>
 										<motion.div variants={fadeIn}>
-											<Card className="bg-gray-800/50 backdrop-blur-sm border border-gray-700 hover:border-blue-500/30 transition-all duration-300 h-full min-h-[180px]">
-												<CardContent className="p-4 md:p-6 flex flex-col items-center text-center h-full justify-center">
-													<div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-blue-500/10 flex items-center justify-center mb-3 md:mb-4">
-														<Phone className="h-5 w-5 md:h-6 md:w-6 text-blue-500" />
+											<Card className="bg-gray-800/50 backdrop-blur-sm border border-gray-700 hover:border-blue-500/30 transition-all duration-300 h-full min-h-[140px] md:min-h-[180px]">
+												<CardContent className="p-3 md:p-6 flex flex-col items-center text-center h-full justify-center">
+													<div className="w-8 h-8 md:w-12 md:h-12 rounded-full bg-blue-500/10 flex items-center justify-center mb-2 md:mb-4">
+														<Phone className="h-4 w-4 md:h-6 md:w-6 text-blue-500" />
 													</div>
-													<h3 className="text-lg md:text-xl font-bold mb-2">
+													<h3 className="text-base md:text-xl font-bold mb-1 md:mb-2">
 														โทรศัพท์
 													</h3>
-													<p className="text-gray-400 text-sm md:text-base">
+													<p className="text-gray-400 text-xs md:text-base">
 														{branch.phone}
 													</p>
 												</CardContent>
@@ -259,12 +263,12 @@ export default function ContactUs() {
 										</motion.div>
 
 										<motion.div variants={fadeIn}>
-											<Card className="bg-gray-800/50 backdrop-blur-sm border border-gray-700 hover:border-blue-500/30 transition-all duration-300 h-full min-h-[180px]">
-												<CardContent className="p-4 md:p-6 flex flex-col items-center text-center h-full justify-center">
-													<div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-blue-500/10 flex items-center justify-center mb-3 md:mb-4">
-														<MapPin className="h-5 w-5 md:h-6 md:w-6 text-blue-500" />
+											<Card className="bg-gray-800/50 backdrop-blur-sm border border-gray-700 hover:border-blue-500/30 transition-all duration-300 h-full min-h-[140px] md:min-h-[180px]">
+												<CardContent className="p-3 md:p-6 flex flex-col items-center text-center h-full justify-center">
+													<div className="w-8 h-8 md:w-12 md:h-12 rounded-full bg-blue-500/10 flex items-center justify-center mb-2 md:mb-4">
+														<MapPin className="h-4 w-4 md:h-6 md:w-6 text-blue-500" />
 													</div>
-													<h3 className="text-lg md:text-xl font-bold mb-2">
+													<h3 className="text-base md:text-xl font-bold mb-1 md:mb-2">
 														ที่อยู่
 													</h3>
 													<p className="text-gray-400 text-xs md:text-sm leading-relaxed">
@@ -275,15 +279,15 @@ export default function ContactUs() {
 										</motion.div>
 
 										<motion.div variants={fadeIn}>
-											<Card className="bg-gray-800/50 backdrop-blur-sm border border-gray-700 hover:border-blue-500/30 transition-all duration-300 h-full min-h-[180px]">
-												<CardContent className="p-4 md:p-6 flex flex-col items-center text-center h-full justify-center">
-													<div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-blue-500/10 flex items-center justify-center mb-3 md:mb-4">
-														<Mail className="h-5 w-5 md:h-6 md:w-6 text-blue-500" />
+											<Card className="bg-gray-800/50 backdrop-blur-sm border border-gray-700 hover:border-blue-500/30 transition-all duration-300 h-full min-h-[140px] md:min-h-[180px]">
+												<CardContent className="p-3 md:p-6 flex flex-col items-center text-center h-full justify-center">
+													<div className="w-8 h-8 md:w-12 md:h-12 rounded-full bg-blue-500/10 flex items-center justify-center mb-2 md:mb-4">
+														<Mail className="h-4 w-4 md:h-6 md:w-6 text-blue-500" />
 													</div>
-													<h3 className="text-lg md:text-xl font-bold mb-2">
+													<h3 className="text-base md:text-xl font-bold mb-1 md:mb-2">
 														อีเมล
 													</h3>
-													<p className="text-gray-400 text-sm md:text-base">
+													<p className="text-gray-400 text-xs md:text-base">
 														{contactInfo.email}
 													</p>
 												</CardContent>
@@ -291,12 +295,12 @@ export default function ContactUs() {
 										</motion.div>
 
 										<motion.div variants={fadeIn}>
-											<Card className="bg-gray-800/50 backdrop-blur-sm border border-gray-700 hover:border-blue-500/30 transition-all duration-300 h-full min-h-[180px]">
-												<CardContent className="p-4 md:p-6 flex flex-col items-center text-center h-full justify-center">
-													<div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-blue-500/10 flex items-center justify-center mb-3 md:mb-4">
-														<Clock className="h-5 w-5 md:h-6 md:w-6 text-blue-500" />
+											<Card className="bg-gray-800/50 backdrop-blur-sm border border-gray-700 hover:border-blue-500/30 transition-all duration-300 h-full min-h-[140px] md:min-h-[180px]">
+												<CardContent className="p-3 md:p-6 flex flex-col items-center text-center h-full justify-center">
+													<div className="w-8 h-8 md:w-12 md:h-12 rounded-full bg-blue-500/10 flex items-center justify-center mb-2 md:mb-4">
+														<Clock className="h-4 w-4 md:h-6 md:w-6 text-blue-500" />
 													</div>
-													<h3 className="text-lg md:text-xl font-bold mb-2">
+													<h3 className="text-base md:text-xl font-bold mb-1 md:mb-2">
 														เวลาทำการ
 													</h3>
 													<p className="text-gray-400 text-xs md:text-sm leading-relaxed text-center">
@@ -311,64 +315,64 @@ export default function ContactUs() {
 						</Tabs>
 					</motion.div>
 
-					{/* Social Media Section */}
+					{/* Compact Social Media Section */}
 					<motion.div
 						initial="hidden"
 						whileInView="visible"
 						viewport={{ once: true }}
 						variants={fadeIn}
-						className="text-center mt-12"
+						className="text-center mt-8 md:mt-12"
 					>
-						<h3 className="text-xl md:text-2xl font-bold mb-6">
+						<h3 className="text-lg md:text-2xl font-bold mb-4 md:mb-6">
 							ติดตามเราได้ที่
 						</h3>
-						<div className="flex justify-center items-center gap-4 md:gap-6 flex-wrap">
+						<div className="flex justify-center items-center gap-3 md:gap-6 flex-wrap">
 							<SocialIcon
 								type="line"
 								url="https://line.me/R/ti/p/%40bydmetromobile"
-								size={40}
+								size={32}
 							/>
 							<SocialIcon
 								type="facebook"
 								url="https://www.facebook.com/bydbangkok"
-								size={40}
+								size={32}
 							/>
 							<SocialIcon
 								type="instagram"
 								url="https://www.instagram.com/byd.metromobile"
-								size={40}
+								size={32}
 							/>
 							<SocialIcon
 								type="tiktok"
 								url="https://www.tiktok.com/@byd_metromobile"
-								size={40}
+								size={32}
 							/>
 						</div>
 					</motion.div>
 				</div>
 			</section>
 
-			{/* Contact Form and Map Section */}
-			<section id="contact-form" className="py-16 md:py-24 bg-gray-900">
+			{/* Compact Contact Form and Map Section */}
+			<section id="contact-form" className="py-8 md:py-16 bg-gray-900">
 				<div className="container mx-auto px-4">
-					<div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
+					<div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-12">
 						<motion.div
 							initial="hidden"
 							whileInView="visible"
 							viewport={{ once: true }}
 							variants={fadeIn}
 						>
-							<h2 className="text-3xl md:text-4xl font-bold mb-6">
+							<h2 className="text-2xl md:text-4xl font-bold mb-4 md:mb-6">
 								ส่งข้อความถึงเรา
 							</h2>
-							<p className="text-gray-400 mb-8">
+							<p className="text-gray-400 mb-6 md:mb-8 text-sm md:text-base">
 								กรอกแบบฟอร์มด้านล่างเพื่อส่งข้อความถึงเรา
 								เราจะตอบกลับโดยเร็วที่สุด
 							</p>
 
 							<form
 								ref={formRef}
-								className="space-y-6"
+								className="space-y-4 md:space-y-6"
 								onSubmit={async (e) => {
 									e.preventDefault();
 									setIsSending(true);
@@ -404,85 +408,104 @@ export default function ContactUs() {
 									}
 								}}
 							>
-								<div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+								<div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
 									<div>
-										<label htmlFor="name" className="block text-white mb-2">
+										<label
+											htmlFor="name"
+											className="block text-white mb-2 text-sm md:text-base"
+										>
 											ชื่อ-นามสกุล
 										</label>
 										<input
 											type="text"
 											id="name"
 											name="name"
-											className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+											className="w-full px-3 md:px-4 py-2 md:py-3 bg-gray-800 border border-gray-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm md:text-base"
 											placeholder="กรอกชื่อ-นามสกุล"
 										/>
 									</div>
 									<div>
-										<label htmlFor="email" className="block text-white mb-2">
+										<label
+											htmlFor="email"
+											className="block text-white mb-2 text-sm md:text-base"
+										>
 											อีเมล
 										</label>
 										<input
 											type="email"
 											id="email"
 											name="email"
-											className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+											className="w-full px-3 md:px-4 py-2 md:py-3 bg-gray-800 border border-gray-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm md:text-base"
 											placeholder="กรอกอีเมล"
 										/>
 									</div>
 								</div>
 
 								<div>
-									<label htmlFor="phone" className="block text-white mb-2">
+									<label
+										htmlFor="phone"
+										className="block text-white mb-2 text-sm md:text-base"
+									>
 										เบอร์โทรศัพท์
 									</label>
 									<input
 										type="tel"
 										id="phone"
 										name="phone"
-										className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+										className="w-full px-3 md:px-4 py-2 md:py-3 bg-gray-800 border border-gray-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm md:text-base"
 										placeholder="กรอกเบอร์โทรศัพท์"
 									/>
 								</div>
 
 								<div>
-									<label htmlFor="subject" className="block text-white mb-2">
+									<label
+										htmlFor="subject"
+										className="block text-white mb-2 text-sm md:text-base"
+									>
 										หัวข้อ
 									</label>
 									<input
 										type="text"
 										id="subject"
 										name="subject"
-										className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+										className="w-full px-3 md:px-4 py-2 md:py-3 bg-gray-800 border border-gray-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm md:text-base"
 										placeholder="กรอกหัวข้อ"
 									/>
 								</div>
 
 								<div>
-									<label htmlFor="message" className="block text-white mb-2">
+									<label
+										htmlFor="message"
+										className="block text-white mb-2 text-sm md:text-base"
+									>
 										ข้อความ
 									</label>
 									<textarea
 										id="message"
 										name="message"
-										rows={5}
-										className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+										rows={4}
+										className="w-full px-3 md:px-4 py-2 md:py-3 bg-gray-800 border border-gray-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm md:text-base"
 										placeholder="กรอกข้อความ"
 									></textarea>
 								</div>
 
 								<Button
-									className="bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white px-8 py-6"
+									className="bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white px-6 md:px-8 py-3 md:py-6 w-full md:w-auto"
 									disabled={isSending}
 								>
-									<Send className="h-5 w-5 mr-2" />
+									<Send className="h-4 w-4 md:h-5 md:w-5 mr-2" />
 									{isSending ? "กำลังส่ง..." : "ส่งข้อความ"}
 								</Button>
 								{sendSuccess && (
-									<p className="text-green-400 mt-2">
+									<p className="text-green-400 mt-2 text-sm md:text-base">
 										ส่งข้อความสำเร็จ! ขอบคุณที่ติดต่อเรา
 									</p>
 								)}
-								{sendError && <p className="text-red-400 mt-2">{sendError}</p>}
+								{sendError && (
+									<p className="text-red-400 mt-2 text-sm md:text-base">
+										{sendError}
+									</p>
+								)}
 							</form>
 						</motion.div>
 
@@ -494,7 +517,7 @@ export default function ContactUs() {
 								hidden: { opacity: 0, x: 50 },
 								visible: { opacity: 1, x: 0, transition: { duration: 0.8 } },
 							}}
-							className="relative h-[400px] lg:h-full min-h-[400px] rounded-xl overflow-hidden"
+							className="relative h-[300px] md:h-[400px] lg:h-full min-h-[300px] md:min-h-[400px] rounded-xl overflow-hidden"
 						>
 							<div className="absolute inset-0">
 								<iframe

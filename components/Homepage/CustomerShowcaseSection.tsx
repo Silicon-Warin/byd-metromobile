@@ -189,7 +189,7 @@ const CustomerShowcaseSection = () => {
 	return (
 		<section
 			ref={sectionRef}
-			className="w-full py-20 bg-gradient-to-b from-gray-800 to-gray-900 relative overflow-hidden section-fade-in"
+			className="w-full py-20 bg-gradient-to-b from-gray-800 to-gray-900 relative overflow-hidden"
 		>
 			{/* Section Header */}
 			<div className="container mx-auto px-4 mb-16 text-center relative z-10">

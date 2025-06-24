@@ -121,11 +121,38 @@
     padding: 0;
     overflow-x: hidden;
     line-height: 1.5;
-    -webkit-text-size-adjust: 100%;    
+    -webkit-text-size-adjust: 100%;
+    /* Performance optimizations */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
   }
+  
+  /* Image optimization */
   img {
     max-width: 100%;
     height: auto;
+    /* Performance optimizations for images */
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: optimizeQuality;
+    will-change: transform;
+  }
+  
+  /* Critical above-the-fold optimizations */
+  .hero-banner-container {
+    content-visibility: auto;
+    contain-intrinsic-size: 1px 600px;
+    transform: translateZ(0); /* Hardware acceleration */
+    will-change: transform;
+  }
+  
+  /* Optimize expensive animations */
+  .animate-orb-1,
+  .animate-orb-2,
+  .animate-orb-3 {
+    transform: translateZ(0); /* Hardware acceleration */
+    will-change: transform;
+    contain: layout style paint;
   }
 
   h1 {
@@ -661,7 +688,7 @@
     top: 0;
     right: 0;
     left: 0;
-    height: 60%;
+    height: 40%;
     z-index: 10;
     pointer-events: none;
   }

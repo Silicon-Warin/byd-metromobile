@@ -78,12 +78,40 @@ export default function RootLayout({
 				<meta name="format-detection" content="telephone=no" />
 				<meta name="image-rendering" content="optimizeQuality" />
 				<meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
+
+				{/* Critical Image Preloads for LCP Optimization */}
 				<link
 					rel="preload"
 					as="image"
 					href="/images/banners/byd-banner-1.webp"
 					fetchPriority="high"
+					type="image/webp"
 				/>
+
+				{/* Responsive preloads for different screen sizes */}
+				<link
+					rel="preload"
+					as="image"
+					href="/_next/image?url=/images/banners/byd-banner-1.webp&w=768&q=75"
+					media="(max-width: 768px)"
+					type="image/webp"
+				/>
+				<link
+					rel="preload"
+					as="image"
+					href="/_next/image?url=/images/banners/byd-banner-1.webp&w=1200&q=85"
+					media="(min-width: 769px) and (max-width: 1200px)"
+					type="image/webp"
+				/>
+				<link
+					rel="preload"
+					as="image"
+					href="/_next/image?url=/images/banners/byd-banner-1.webp&w=1920&q=85"
+					media="(min-width: 1201px)"
+					type="image/webp"
+				/>
+
+				{/* DNS prefetch for external resources */}
 				<link rel="dns-prefetch" href="//fonts.googleapis.com" />
 				<link
 					rel="preconnect"

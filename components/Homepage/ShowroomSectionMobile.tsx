@@ -5,7 +5,7 @@ import LineOALinkButton from "../Line/line-button";
 
 export default function ShowroomSectionMobile() {
 	return (
-		<section className="relative h-screen w-full overflow-hidden section-fade-in seamless-transition">
+		<section className="relative h-screen w-full overflow-hidden seamless-transition">
 			<div className="top-shadow-showroom z-10 "></div>
 
 			{/* Static Background Image for Mobile */}

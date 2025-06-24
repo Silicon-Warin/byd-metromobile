@@ -92,7 +92,6 @@ export const SectionFade = ({
 	className?: string;
 }) => (
 	<motion.div
-		initial="hidden"
 		whileInView="visible"
 		viewport={{ once: true, margin: "-100px" }}
 		variants={sectionFadeVariants}

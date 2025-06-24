@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import { Calendar, Play } from "lucide-react";
 import TestDriveButton from "../TestDriveButton";

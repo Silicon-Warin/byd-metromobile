@@ -32,27 +32,26 @@ export default function ShowroomSection() {
 	useEffect(() => {
 		const timer = setInterval(() => {
 			setCurrentIndex((prevIndex) => (prevIndex + 1) % showroomImages.length);
-		}, 4000);
+		}, 5000);
 
 		return () => clearInterval(timer);
 	}, []);
 
 	return (
-		<section className="relative min-h-screen h-dvh w-full overflow-hidden section-fade-in seamless-transition">
-			<div className="top-shadow-showroom z-10 -mt-2"></div>
+		<section className="relative min-h-screen h-dvh w-full overflow-hidden seamless-transition">
+			<div className="top-shadow-showroom z-20 -mt-2"></div>
 			{/* Background Images with Simple CrossFade */}
-			<div className="absolute inset-0">
-				<AnimatePresence mode="wait">
+			<div className="absolute w-full h-full top-0 left-0 z-10 bg-dark-blue opacity-60">
+				{showroomImages.map((image, index) => (
 					<motion.div
-						key={currentIndex}
-						initial={{ opacity: 0 }}
-						animate={{ opacity: 1 }}
-						exit={{ opacity: 0 }}
-						transition={{ duration: 1, ease: "easeInOut" }}
+						key={index}
+						initial={{ opacity: index === 0 ? 1 : 0 }}
+						animate={{ opacity: currentIndex === index ? 1 : 0 }}
+						transition={{ duration: 3, ease: "easeInOut" }}
 						className="absolute inset-0"
 					>
 						<Image
-							src={showroomImages[currentIndex].desktop}
+							src={image.desktop}
 							alt="โชว์รูม BYD"
 							fill
 							className="object-cover w-full h-full"
@@ -61,10 +60,9 @@ export default function ShowroomSection() {
 							quality={90}
 						/>
 					</motion.div>
-				</AnimatePresence>
+				))}
 			</div>
-			{/* Dark overlay for text readability */}
-			<div className="absolute w-full h-full top-0 left-0 z-10 bg-gray-900 opacity-60"></div>
+
 			{/* Content Section - positioned like reference */}
 			<div className="absolute top-14 lg:top-44 2xl:top-72 z-20 px-5 md:px-16 mt-10 md:pb-10 md:-mt-20 md:min-w-[1000px] md:left-1/2 md:-translate-x-1/2">
 				<div className="max-w-4xl">
