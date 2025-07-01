@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useState } from "react";
-import { motion } from "framer-motion";
-import { ChevronRight, ExternalLink, MapPin, Mail } from "lucide-react"; // Keeping Lucide icons
+import React from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { ChevronRight, ExternalLink, MapPin, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
 	Accordion,
@@ -12,63 +12,91 @@ import {
 } from "@/components/ui/accordion";
 import Image from "next/image";
 import Link from "next/link";
+import {
+	Popover,
+	PopoverTrigger,
+	PopoverContent,
+} from "@/components/ui/popover";
 
 // Animation variants for Framer Motion
 const fadeInUp = {
-	initial: { opacity: 0, y: 30 },
+	initial: { opacity: 0, y: 60 },
 	animate: { opacity: 1, y: 0 },
-	transition: { duration: 0.6, ease: "easeOut" },
+	transition: { duration: 0.8, ease: [0.6, -0.05, 0.01, 0.99] },
 };
 
 const fadeIn = {
 	initial: { opacity: 0 },
 	animate: { opacity: 1 },
-	transition: { duration: 0.8, ease: "easeOut" },
+	transition: { duration: 1, ease: "easeOut" },
 };
 
 const staggerContainer = {
 	animate: {
 		transition: {
-			staggerChildren: 0.1,
+			staggerChildren: 0.3,
 		},
 	},
 };
 
 export default function AboutPage() {
+	const { scrollYProgress } = useScroll();
+	const y = useTransform(scrollYProgress, [0, 1], [0, -50]);
+
 	return (
-		// Main container for dark theme background and text
-		<main className="min-h-screen bg-gradient-to-b from-gray-900 to-black text-gray-100 font-inter">
-			{/* Hero Section */}
-			<section className="relative h-[60vh] min-h-[500px] flex items-center justify-center overflow-hidden">
-				<div className="absolute inset-0 z-0 w-full h-full">
+		// Main container with scroll snap
+		<main className="min-h-screen bg-gradient-to-b from-gray-900 to-black text-gray-100 font-inter scroll-smooth">
+			{/* HERO SECTION */}
+			<section className="relative min-h-screen flex items-center justify-center overflow-hidden scroll-snap-align-start">
+				<motion.div
+					className="absolute inset-0 z-0 w-full h-full"
+					style={{ y }}
+				>
 					<Image
 						src="/images/about/Showroom-1024x618.jpg"
 						alt="BYD Metromobile - Official Dealer"
 						fill
 						priority
-						sizes="100vw" //TODO: reponsive image optimization
-						className="object-cover w-full h-full brightness-50"
+						sizes="100vw"
+						className="object-cover w-full h-full brightness-40"
 					/>
-				</div>
-				{/* Overlay for gradient fade at the bottom of hero section, adjusted for dark theme */}
+				</motion.div>
+
 				<div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-gray-900 to-transparent"></div>
 
 				<div className="container relative z-10 px-4 mx-auto text-center">
 					<motion.div
-						initial={{ opacity: 0, y: 30 }}
+						initial={{ opacity: 0, y: 50 }}
 						animate={{ opacity: 1, y: 0 }}
-						transition={{ duration: 0.8, delay: 0.2 }}
-						// Adjusted background opacity and shadow for dark theme
-						className="max-w-3xl mx-auto p-6 bg-white/5 backdrop-blur-sm rounded-3xl shadow-2xl shadow-blue-500/30 border border-white/10"
+						transition={{ duration: 1, delay: 0.2 }}
+						className="max-w-4xl mx-auto card-padding bg-black/20 backdrop-blur-md rounded-3xl shadow-2xl border border-white/10"
 					>
-						<h1 className="text-5xl md:text-7xl font-prompt font-bold mb-6 text-white text-shadow-lg">
+						<motion.h1
+							className="hero-title text-shadow-byd"
+							initial={{ opacity: 0, y: 30 }}
+							animate={{ opacity: 1, y: 0 }}
+							transition={{ duration: 0.8, delay: 0.4 }}
+						>
 							เกี่ยวกับเรา
-						</h1>
-						<p className="text-xl md:text-2xl text-white/90 mb-8 max-w-2xl mx-auto text-shadow-md">
-							ศูนย์รวมนวัตกรรมยานยนต์แห่งโลกอนาคต ที่พร้อมจะพาคุณขับเคลื่อน
-							สู่โลกและสิ่งแวดล้อมในฝันที่ดีขึ้น
-						</p>
-						<div className="flex flex-wrap justify-center gap-4">
+						</motion.h1>
+						<motion.p
+							className="hero-subtitle content-spacing text-shadow-md"
+							initial={{ opacity: 0, y: 30 }}
+							animate={{ opacity: 1, y: 0 }}
+							transition={{ duration: 0.8, delay: 0.6 }}
+						>
+							<span className="text-gradient-electric font-bold">
+								BYD Metromobile
+							</span>
+							<br />
+							สัมผัสประสบการณ์การเป็นเจ้าของ BYD ที่เหนือกว่าและอุ่นใจกว่า
+						</motion.p>
+						<motion.div
+							className="flex flex-wrap justify-center gap-4"
+							initial={{ opacity: 0, y: 30 }}
+							animate={{ opacity: 1, y: 0 }}
+							transition={{ duration: 0.8, delay: 0.8 }}
+						>
 							<Button
 								size="lg"
 								className="rounded-full font-medium bg-blue-600 hover:bg-blue-700 text-white shadow-lg hover:shadow-xl transition-all duration-300"
@@ -79,282 +107,81 @@ export default function AboutPage() {
 							<Button
 								size="lg"
 								variant="outline"
-								// Adjusted button styles for dark theme contrast
-								className="rounded-full font-medium bg-transparent text-white border-white hover:bg-white/10 hover:text-white hover:border-white shadow-lg hover:shadow-xl transition-all duration-300"
+								className="rounded-full font-medium bg-transparent text-white border-white hover:bg-white/10 hover:text-white shadow-lg hover:shadow-xl transition-all duration-300"
 							>
 								ติดต่อเรา
 								<ChevronRight className="ml-1 h-4 w-4" />
 							</Button>
-						</div>
+						</motion.div>
 					</motion.div>
 				</div>
 			</section>
 
-			{/* BYD Section */}
+			{/* INTRODUCTION SECTION: BYD METROMOBILE */}
 			<motion.section
-				id="about-byd"
-				className="py-16 md:py-24 bg-gradient-to-b from-gray-900 to-gray-800"
+				className="section-padding bg-gradient-to-b from-gray-900 to-gray-800 relative scroll-snap-align-start"
 				initial="initial"
 				whileInView="animate"
 				viewport={{ once: true, amount: 0.2 }}
 				variants={staggerContainer}
 			>
 				<div className="container mx-auto px-4">
-					<div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+					<div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
 						<motion.div variants={fadeInUp} className="order-2 lg:order-1">
-							<div className="space-y-6">
-								<h2 className="text-3xl md:text-4xl font-prompt font-bold mb-6 text-gray-100">
-									เกี่ยวกับ BYD
-								</h2>
-								<div className="space-y-6 text-lg prose prose-invert max-w-none">
-									{/* prose-invert for dark mode typography */}
-									<p>
-										<span className="font-bold">Build Your Dreams</span> หรือ
-										<span className="font-bold"> BYD </span>
-										เป็นบริษัทเทคโนโลยีชั้นนำจากประเทศจีนที่มุ่งมั่นในการพัฒนานวัตกรรมเพื่อชีวิตที่ดีกว่า
-										ด้วยความเชี่ยวชาญมากกว่า 30 ปี
+							<div className="space-y-8">
+								<motion.h2
+									className="section-title text-gradient-electric"
+									variants={fadeInUp}
+								>
+									BYD Metromobile
+								</motion.h2>
+								<motion.div className="space-y-6" variants={fadeInUp}>
+									<p className="body-text-large">
+										<strong className="text-blue-400">
+											บริษัท เมโทรโมบิล จำกัด (BYD Metromobile)
+										</strong>
+										คือผู้จำหน่ายและศูนย์บริการรถยนต์ไฟฟ้า BYD อย่างเป็นทางการ
+										ที่ถือกำเนิดจากการผนึกกำลังของ{" "}
+										<strong className="text-purple-400">
+											3 เสาหลักแห่งวงการยานยนต์ไทย
+										</strong>
+										เพื่อสร้างสรรค์ประสบการณ์การเป็นเจ้าของรถยนต์ไฟฟ้าที่สมบูรณ์แบบและน่าเชื่อถือที่สุด
 									</p>
-									<p>
-										BYD เป็นผู้นำในอุตสาหกรรมต่าง ๆ ไม่ว่าจะเป็นรถยนต์
-										พลังงานสะอาด ชิ้นส่วนและอุปกรณ์อิเล็กทรอนิกส์
-										และการขนส่งทางรถไฟ และมีสำนักงานทั่วโลกกว่า 70+ ประเทศ
+									<p className="body-text">
+										เราไม่ได้เป็นเพียงผู้จำหน่ายรถยนต์ แต่เราคือ
+										<strong className="text-green-400">เพื่อนร่วมทาง</strong>
+										ที่พร้อมมอบความมั่นใจและบริการที่เป็นเลิศให้แก่ลูกค้าทุกท่าน
+										ด้วยโชว์รูมและศูนย์บริการครบวงจรที่สาขาพระราม 3 และลำลูกกา
+										พร้อมทีมงานที่ผ่านการอบรมโดยตรงจาก BYD
+										เพื่อดูแลรถยนต์ของคุณด้วยมาตรฐานสูงสุด
 									</p>
-									<p>
-										ในบริบทของประเทศไทย บริษัท
-										<span className="font-bold"> RÊVER AUTOMOTIVE </span>
-										เป็นผู้นำเข้ารถยนต์ BYD อย่างเป็นทางการแต่เพียงผู้เดียว
-									</p>
-								</div>
-								<div className="flex flex-wrap gap-4 mt-8">
-									<a
-										href="https://www.byd.com/en/blade-battery"
-										target="_blank"
-										rel="noopener noreferrer"
-										className="inline-flex items-center gap-2 text-blue-400 hover:text-blue-300 hover:underline transition-colors duration-300"
-									>
-										<span>เทคโนโลยี Blade Battery</span>
-										<ExternalLink className="h-4 w-4" />
-									</a>
-									<a
-										href="https://www.byd.com/en-th"
-										target="_blank"
-										rel="noopener noreferrer"
-										className="inline-flex items-center gap-2 text-blue-400 hover:text-blue-300 hover:underline transition-colors duration-300"
-									>
-										<span>เว็บไซต์ BYD ประเทศไทย</span>
-										<ExternalLink className="h-4 w-4" />
-									</a>
-								</div>
+								</motion.div>
 							</div>
 						</motion.div>
 						<motion.div
 							variants={fadeIn}
 							className="order-1 lg:order-2 flex justify-center"
 						>
-							<div className="relative overflow-hidden w-full max-w-md aspect-square">
-								<Image
-									src="/images/about/BYD-Logo.jpg"
-									alt="BYD โลโก้ - บริษัทรถยนต์ไฟฟ้าชั้นนำ"
-									fill
-									priority
-									sizes="100vw" //TODO: reponsive image optimization
-									className="object-contain w-full h-full"
-								/>
-							</div>
-						</motion.div>
-					</div>
-				</div>
-			</motion.section>
-
-			{/* Brand Showcase */}
-			<motion.section
-				className="py-8 md:py-16 bg-gradient-to-b from-gray-800 to-gray-900 "
-				initial="initial"
-				whileInView="animate"
-				viewport={{ once: true, amount: 0.2 }}
-			>
-				<div className="container mx-auto px-4">
-					<motion.div
-						initial={{
-							clipPath: "inset(10% 10% 10% 10%)",
-							opacity: 0,
-						}}
-						whileInView={{
-							clipPath: "inset(0% 0% 0% 0%)",
-							opacity: 1,
-						}}
-						transition={{
-							duration: 1.2,
-							ease: [0.8, 0.9, 1.0, 1.1],
-							clipPath: { duration: 1.2, delay: 0.2 },
-							opacity: { duration: 0.8 },
-						}}
-						viewport={{ once: true, amount: 0.3 }}
-						className="relative w-full h-[400px] sm:h-[400px] md:h-[500px] lg:h-[600px] overflow-hidden shadow-xl shadow-blue-500/20 group transform hover:scale-[1.01] transition-transform duration-500"
-					>
-						<Image
-							src="/images/about/byd-showcase.jpg"
-							alt="รถยนต์ไฟฟ้า BYD โดย เมโทรโมบิล - ผู้จำหน่ายอย่างเป็นทางการ"
-							fill
-							priority
-							sizes="100vw" //TODO: reponsive image optimization
-							className="object-contain w-full h-full"
-						/>
-						<div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end">
-							<div className="p-6 md:p-10 w-full rounded-2xl">
-								<h3 className="text-2xl md:text-3xl font-bold text-white mb-2 text-shadow-md">
-									รถยนต์ไฟฟ้าแห่งอนาคต
-								</h3>
-								<p className="text-white/80 max-w-xl text-shadow-sm">
-									ด้วยเทคโนโลยีล้ำสมัย BYD
-									นำเสนอประสบการณ์การขับขี่ที่เหนือระดับ ปลอดภัย
-									และเป็นมิตรกับสิ่งแวดล้อม
-								</p>
-							</div>
-						</div>
-					</motion.div>
-				</div>
-			</motion.section>
-
-			{/* Metromobile Section */}
-			<motion.section
-				id="about-metromobile"
-				className="py-16 md:py-24 bg-gradient-to-b from-gray-900 to-gray-800"
-				initial="initial"
-				whileInView="animate"
-				viewport={{ once: true, amount: 0.2 }}
-				variants={staggerContainer}
-			>
-				<div className="container mx-auto px-4">
-					<motion.div
-						variants={fadeInUp}
-						className="text-center max-w-3xl mx-auto mb-16"
-					>
-						<h2 className="text-3xl md:text-5xl font-prompt font-bold mb-6 text-gray-100">
-							เกี่ยวกับ <span className="text-gradient-metro">เมโทรโมบิล</span>
-						</h2>
-						<div className="flex justify-center mb-8">
-							<Image
-								src="/images/metromobile-logo.png"
-								alt="เมโทรโมบิล โลโก้ - ผู้จำหน่ายรถยนต์ BYD อย่างเป็นทางการ"
-								width={300}
-								height={100}
-								className="h-auto"
-							/>
-						</div>
-						<p className="text-xl text-gray-300">
-							บริษัท{" "}
-							<span className="text-gradient-metro-slow">เมโทรโมบิล</span> จำกัด
-							(<span className="text-gradient-wave">Metromobile</span>)
-							เป็นผู้จำหน่ายรถยนต์ BYD อย่างเป็นทางการ ภายใต้แบรนด์ BYD{" "}
-							<span className="text-gradient-metro-slow">Metromobile</span>
-						</p>
-					</motion.div>
-
-					{/* New Section for Team Photo / Group Photo */}
-					<motion.div
-						variants={fadeInUp}
-						className="relative w-full h-[300px] sm:h-[400px] lg:h-[500px] rounded-2xl overflow-hidden shadow-xl shadow-blue-500/20 mb-16"
-					>
-						<Image
-							src="/images/about/metromobile-team-lineup.jpg"
-							alt="ทีมงานเมโทรโมบิล"
-							fill
-							style={{ objectFit: "cover" }}
-							className="w-full h-full"
-						/>
-						<div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end">
-							<div className="p-6 md:p-10 w-full text-center">
-								<h3 className="text-2xl md:text-3xl font-bold text-white mb-2 text-shadow-md">
-									ทีมงานผู้เชี่ยวชาญของเรา
-								</h3>
-								<p className="text-white/80 max-w-2xl mx-auto text-shadow-sm">
-									ร่วมขับเคลื่อนอนาคตยานยนต์ไฟฟ้าไปกับทีมงาน Metromobile
-									ผู้พร้อมให้บริการด้วยความเชี่ยวชาญและหัวใจ
-								</p>
-							</div>
-						</div>
-					</motion.div>
-
-					<div className="grid grid-cols-1 gap-6 sm:gap-8 mb-8 sm:mb-12 md:mb-16">
-						<motion.div
-							variants={fadeInUp}
-							// Adjusted card background and border for dark theme
-							className="bg-gray-800 p-6 sm:p-8 md:p-10 rounded-2xl border border-gray-700 shadow-xl hover:shadow-2xl transition-shadow duration-300"
-						>
-							<h3 className="text-xl sm:text-2xl font-prompt font-bold mb-3 sm:mb-4 text-blue-400">
-								วิสัยทัศน์ของเรา
-							</h3>
-							<p className="text-base sm:text-lg mb-3 sm:mb-4 text-gray-300">
-								<span className="text-gradient-metro">Metromobile</span> คือ
-								ศูนย์รวมนวัตกรรมยานยนต์แห่งโลกอนาคต ที่พร้อมจะพาคุณขับเคลื่อน
-								สู่โลกเเละสิ่งเเวดล้อมในฝันที่ดีขึ้น
-								ผ่านเทคโนโลยีและยานยนต์พลังงานรูปแบบใหม่ที่นอกจากจะเป็นมิตรกับสิ่งเเวดล้อมเเล้ว
-							</p>
-							<p className="text-base sm:text-lg text-gray-300">
-								<span className="text-gradient-metro">Metromobile</span>
-								ยังพร้อมให้บริการดูเเลรักษาให้คําปรึกษาทุกเรื่องที่เกี่ยวกับรถยนต์
-								ผ่านบริการหลังการขาย
-								ที่ครบวงจรโดยผู้เชี่ยวชาญเพื่อให้ทุกการเดินทางของคุณอบอุ่น
-								ปลอดภัย ในทุกเส้นทาง
-							</p>
-						</motion.div>
-					</div>
-
-					<motion.div
-						variants={fadeInUp}
-						// Adjusted background and text colors for dark theme
-						className="bg-blue-600/20 p-8 md:p-12 rounded-2xl border border-blue-600/30 mb-16 text-center shadow-xl shadow-blue-500/15"
-					>
-						<h3 className="text-2xl md:text-3xl font-prompt font-bold mb-4 text-blue-300">
-							"เพราะเราเชื่อว่า รถ ไม่ใช่เเค่ยานพาหนะ"
-						</h3>
-						<p className="text-xl max-w-2xl mx-auto text-blue-200">
-							แต่มันคือจุดเชื่อมต่อของ Lifestyle ที่บ่งบอกถึงคุณค่า
-							ความภาคภูมิใจ ประสบการณ์ และความทรงจำ
-							ตลอดระยะเวลาการเดินทางของชีวิต
-						</p>
-					</motion.div>
-
-					<motion.div
-						variants={fadeInUp}
-						className="space-y-6 text-lg max-w-3xl mx-auto text-gray-300"
-					>
-						<p>
-							บริษัท เมโทรโมบิล จำกัด (
-							<span className="text-gradient-wave">Metromobile</span>)
-							ผู้จำหน่ายรถยนต์ BYD อย่างเป็นทางการ ในนาม BYD Metromobile
-							พร้อมยืนหนึ่งในด้านประสบการณ์ และความชำนาญ
-							ตั้งแต่นวัตกรรมเครื่องยนต์ สมรรถนะการซ่อมแซม และบำรุงรักษา
-							ที่สามารถตอบโจทย์ให้แก่ผู้ใช้บริการมาหลายยุคหลายสมัย
-						</p>
-						<p>
-							ภายใต้ "ความเชื่อมั่นและไว้วางใจ"
-							ที่ลูกค้าทุกท่านมีให้แก่เราทีมงาน Metromobile
-							ขอให้คำมั่นสัญญาที่จะดูแล ให้คำแนะนำ และส่งมอบรถยนต์ BYD
-							พร้อมกับการบริการหลังการขายที่จะสร้างรอยยิ้มและความประทับใจ
-							ให้แก่ลูกค้าทุกท่านตลอดไป
-						</p>
-						<p className="flex items-center gap-2">
-							<span>เรียนรู้เพิ่มเติมเกี่ยวกับเทคโนโลยีรถยนต์ไฟฟ้าได้ที่</span>
-							<a
-								href="https://www.evat.or.th"
-								target="_blank"
-								rel="noopener noreferrer"
-								className="text-blue-400 inline-flex items-center gap-1 hover:underline transition-colors duration-300"
+							<motion.div
+								className="relative w-full max-w-md aspect-video rounded-2xl overflow-hidden shadow-2xl"
+								whileHover={{ scale: 1.05 }}
+								transition={{ duration: 0.3 }}
 							>
-								สมาคมยานยนต์ไฟฟ้าไทย
-								<ExternalLink className="h-4 w-4" />
-							</a>
-						</p>
-					</motion.div>
+								<Image
+									src="/images/about/metromobile-team-lineup.jpg"
+									alt="ทีมงาน BYD Metromobile"
+									fill
+									className="object-cover w-full h-full"
+								/>
+							</motion.div>
+						</motion.div>
+					</div>
 				</div>
 			</motion.section>
 
-			{/* Business Partners Section */}
+			{/* PILLARS OF SUCCESS SECTION */}
 			<motion.section
-				id="business-partners"
-				className="py-16 md:py-24 bg-gradient-to-b from-gray-800 to-gray-900"
+				className="section-padding bg-gradient-to-b from-gray-800 to-gray-900 relative"
 				initial="initial"
 				whileInView="animate"
 				viewport={{ once: true, amount: 0.2 }}
@@ -363,86 +190,131 @@ export default function AboutPage() {
 				<div className="container mx-auto px-4">
 					<motion.div
 						variants={fadeInUp}
-						className="text-center max-w-3xl mx-auto mb-16"
+						className="text-center max-w-4xl mx-auto content-spacing"
 					>
-						<h2 className="text-3xl md:text-5xl font-prompt font-bold mb-6 text-gray-100">
-							พันธมิตรทางธุรกิจ
+						<h2 className="section-title text-gradient-byd content-spacing">
+							เสาหลักแห่งความสำเร็จของเรา
 						</h2>
-						<p className="text-xl text-gray-300">
-							"Metromobile" เป็นบริษัทที่ก่อตั้งโดยพันธมิตรทางธุรกิจชั้นนำ
+						<p className="section-subtitle">
+							ความแข็งแกร่งของ BYD Metromobile มาจากการรวมพลังของ 3
+							พันธมิตรผู้มีประสบการณ์และความเชี่ยวชาญที่แตกต่างกัน
+							เพื่อมอบสิ่งที่ดีที่สุดให้แก่ลูกค้า
 						</p>
 					</motion.div>
 
-					<div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+					{/* 3 Pillars Professional Layout */}
+					<div className="flex flex-col md:flex-row gap-8 mb-16">
+						{/* KCAR Group - Foundation Pillar */}
 						<motion.div
 							variants={fadeInUp}
-							// Adjusted card background and border for dark theme
-							className="bg-gray-800 text-gray-100 p-8 rounded-2xl shadow-xl hover:shadow-2xl hover:scale-[1.02] transition-all duration-300 border border-gray-700"
+							className="flex-1 bg-slate-900/60 backdrop-blur-sm card-padding rounded-2xl border border-slate-700/50 shadow-xl"
 						>
-							<div className="flex justify-center mb-6">
-								<Image
-									src="/images/A-Motor-Logo.jpg" // Placeholder for A-Motor Group Logo
-									alt="โลโก้ เอ มอเตอร์ กรุ๊ป - พันธมิตรของ เมโทรโมบิล"
-									fill
-									className="h-auto"
-								/>
-							</div>
-							<h3 className="text-2xl font-bold mb-4 text-center">
-								บริษัท เอ มอเตอร์ กรุ๊ป จำกัด
-							</h3>
-							<p className="text-lg text-gray-300">
-								ผู้นำเข้า และจำหน่ายรถยนต์หรู
-								และผู้เชี่ยวชาญในวงการรถยนต์หรูที่มีประสบการณ์ด้านงานซ่อมบำรุง
-								รถยนต์มายาวนานกว่า 30 ปี
-							</p>
-							<div className="flex justify-center mt-6">
-								<a
-									href="https://www.facebook.com/A.MotorsGroup"
-									target="_blank"
-									rel="noopener noreferrer"
-									className="inline-flex items-center gap-2 text-blue-400 hover:text-blue-300 hover:underline transition-colors duration-300"
-								>
-									<span>เยี่ยมชมเว็บไซต์</span>
-									<ExternalLink className="h-4 w-4" />
-								</a>
+							<div className="text-center">
+								<div className="mb-8">
+									<div className="bg-white/5 p-4 rounded-xl backdrop-blur-sm border border-white/10 inline-block">
+										<Image
+											src="/images/about/KCAR-Logo.png"
+											alt="โลโก้ เอ มอเตอร์ กรุ๊ป"
+											width={120}
+											height={120}
+											className="object-contain opacity-90"
+										/>
+									</div>
+								</div>
+								<h3 className="card-title text-white mb-4">
+									Krungthai Carrent and Lease
+								</h3>
+								<p className="body-text text-slate-300 max-w-4xl mx-auto">
+									รากฐานของเราคือความมั่นคงและน่าเชื่อถือจาก{" "}
+									<strong className="text-blue-400">KCAR Group</strong>{" "}
+									กลุ่มบริษัทมหาชนที่อยู่ในอุตสาหกรรมยานยนต์ไทยมานานกว่า 30 ปี
+									นี่คือหลักประกันของความมั่นคงและมาตรฐานสูงสุดที่เรายึดมั่นในการบริการ
+								</p>
 							</div>
 						</motion.div>
 
+						{/* A Motor Group - Service Excellence */}
 						<motion.div
 							variants={fadeInUp}
-							// Adjusted card background and border for dark theme
-							className="bg-gray-800 text-gray-100 p-8 rounded-2xl shadow-xl hover:shadow-2xl hover:scale-[1.02] transition-all duration-300 border border-gray-700"
+							className="flex-1 bg-slate-900/60 backdrop-blur-sm card-padding rounded-2xl border border-slate-700/50 shadow-xl hover:shadow-2xl transition-all duration-300"
 						>
-							<div className="flex justify-center mb-6">
-								<div className="relative w-32 h-32 rounded-full overflow-hidden border-4 border-blue-600 shadow-md">
-									<Image
-										src="https://placehold.co/128x128/60A5FA/ffffff?text=Dr+Pat" // Placeholder for Dr Pat Photo - changed to a more professional avatar style
-										alt="ดร. ภัทร จึงกานต์กุล - พันธมิตรของ เมโทรโมบิล"
-										fill
-										style={{ objectFit: "cover" }}
-										className="w-full h-full"
-									/>
+							<div className="text-center">
+								<div className="mb-8">
+									<div className="bg-white/5 p-4 rounded-xl backdrop-blur-sm border border-white/10 inline-block">
+										<Image
+											src="/images/about/A-Motor-Logo.jpg"
+											alt="โลโก้ เอ มอเตอร์ กรุ๊ป"
+											width={120}
+											height={48}
+											className="object-contain opacity-90"
+										/>
+									</div>
+								</div>
+
+								<h3 className="card-title text-white mb-4">A Motor Group</h3>
+								<p className="text-sm text-orange-300 mb-4 font-medium">
+									The Pillar of Service Excellence
+								</p>
+
+								<p className="body-text text-slate-300 text-left">
+									เราสืบทอด DNA และความเชี่ยวชาญด้านการขายและบริการหลังการขายจาก
+									A Motor Group
+									ผู้บุกเบิกในวงการรถยนต์หรูและศูนย์บริการมาตรฐานสูง
+									ทำให้คุณมั่นใจได้ว่ารถยนต์ BYD
+									ของคุณจะได้รับการดูแลอย่างมืออาชีพและดีที่สุด
+								</p>
+							</div>
+						</motion.div>
+
+						{/* Dr. Pat - Vision Leadership */}
+						<motion.div
+							variants={fadeInUp}
+							className="flex-1 bg-slate-900/60 backdrop-blur-sm card-padding rounded-2xl border border-slate-700/50 shadow-xl hover:shadow-2xl transition-all duration-300 relative overflow-hidden"
+						>
+							{/* Professional Photo Background */}
+							<div className="absolute right-0 top-0 bottom-0 w-1/2 overflow-hidden">
+								<Image
+									src="/images/about/dr-patr.png"
+									alt="ดร. ภัทร จึงกานต์กุล"
+									fill
+									className="object-cover object-center opacity-90 grayscale-25"
+									style={{
+										maskImage:
+											"linear-gradient(to left, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 60%, rgba(0,0,0,0) 100%)",
+										WebkitMaskImage:
+											"linear-gradient(to left, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 60%, rgba(0,0,0,0) 100%)",
+									}}
+								/>
+							</div>
+
+							<div className="relative z-10 h-full flex flex-col justify-end">
+								<div className="mb-6">
+									<h3 className="card-title text-white mb-2">
+										ดร. ภัทร จึงกานต์กุล
+									</h3>
+									<p className="text-sm text-purple-300 mb-4 font-medium">
+										The Pillar of Vision
+									</p>
+								</div>
+
+								<div className="max-w-md">
+									<p className="body-text text-slate-300 mb-4">
+										นักธุรกิจและนักลงทุนผู้มีวิสัยทัศน์กว้างไกลด้านพลังงานทางเลือก
+										และระบบนิเวศของความยั่งยืน (Sustainability ecosystem)
+									</p>
+									<p className="text-sm text-slate-400">
+										มอบทิศทางการพัฒนาที่มุ่งสู่อนาคตอย่างยั่งยืนและเป็นมิตรกับสิ่งแวดล้อม
+									</p>
 								</div>
 							</div>
-							<h3 className="text-2xl font-bold mb-4 text-center">
-								ดร. ภัทร จึงกานต์กุล
-							</h3>
-							<p className="text-lg text-gray-300">
-								นักธุรกิจ-นักลงทุน ด้านธุรกิจพลังงานทางเลือก และ Sustainability
-								ecosystem
-								ผู้เชี่ยวชาญด้านการสื่อสารประชาสัมพันธ์ด้วยประสบการณ์ด้านสื่อสารมวลชนมากกว่า
-								20 ปี
-							</p>
-							{/* No external link provided for Dr. Pat, so no link button */}
 						</motion.div>
 					</div>
 				</div>
 			</motion.section>
 
-			{/* Services Section */}
+			{/* OUR PROMISE SECTION */}
 			<motion.section
-				id="our-services"
-				className="py-16 md:py-24 bg-gradient-to-b from-gray-900 to-gray-800"
+				className="section-padding bg-slate-900 relative scroll-snap-align-start"
 				initial="initial"
 				whileInView="animate"
 				viewport={{ once: true, amount: 0.2 }}
@@ -451,192 +323,147 @@ export default function AboutPage() {
 				<div className="container mx-auto px-4">
 					<motion.div
 						variants={fadeInUp}
-						className="text-center max-w-3xl mx-auto mb-16"
+						className="text-center max-w-4xl mx-auto content-spacing"
 					>
-						<h2 className="text-3xl md:text-5xl font-prompt font-bold mb-6 text-gray-100">
-							บริการของเรา
+						<h2 className="section-title text-white content-spacing">
+							สิ่งที่คุณจะได้รับจากเรา
 						</h2>
-						<p className="text-xl text-gray-300">
-							บริการครบวงจรสำหรับรถยนต์ไฟฟ้า BYD ของคุณ
+						<p className="section-subtitle text-slate-400 mb-12">
+							Our Corporate Commitment to Excellence
 						</p>
 					</motion.div>
 
-					<div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
-						<motion.div
-							variants={fadeInUp}
-							// Adjusted card background and border for dark theme
-							className="group relative overflow-hidden rounded-2xl shadow-xl hover:shadow-2xl transform hover:scale-[1.01] transition-all duration-300 border border-gray-700"
-						>
-							{/* Gradient Overlay */}
-							<div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent z-10"></div>
-							{/* Image with hover effect */}
-							<div className="relative h-[400px] w-full overflow-hidden">
-								<Image
-									src="https://placehold.co/800x400/303030/ffffff?text=Trade-in+Service"
-									alt="บริการรถเก่าแลกใหม่ โดย เมโทรโมบิล"
-									fill
-									style={{ objectFit: "cover" }}
-									className="w-full h-full"
-								/>
-							</div>
-							{/* Content Overlay */}
-							<div className="absolute bottom-0 left-0 right-0 p-6 md:p-8 z-20">
-								<h3 className="text-2xl md:text-3xl font-bold text-white mb-3 text-shadow-md">
-									รถเก่าแลกใหม่ (Trade-in)
-								</h3>
-								<p className="text-white/90 mb-6 max-w-md text-shadow-sm">
-									Metromobile ร่วมกับบริษัทพันธมิตรในเครือ
-									รับซื้อรถยนต์คันเก่าเพื่อแลกรถยนต์คันใหม่
-									ด้วยข้อเสนอที่ดีกว่าและคุณค่ากว่าตลาด
-								</p>
-								<a
-									href="/services/trade-in"
-									className="inline-flex items-center gap-2 text-blue-600 bg-white px-4 py-2 rounded-full font-medium hover:bg-white/90 transition-colors shadow-md hover:shadow-lg"
-								>
-									<span>ดูรายละเอียดเพิ่มเติม</span>
-									<ChevronRight className="h-4 w-4" />
-								</a>
-							</div>
-						</motion.div>
-
-						<motion.div
-							variants={fadeInUp}
-							// Adjusted card background and border for dark theme
-							className="group relative overflow-hidden rounded-2xl shadow-xl hover:shadow-2xl transform hover:scale-[1.01] transition-all duration-300 border border-gray-700"
-						>
-							{/* Gradient Overlay */}
-							<div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent z-10"></div>
-							{/* Image with hover effect */}
-							<div className="relative h-[400px] w-full overflow-hidden">
-								<Image
-									src="https://placehold.co/800x400/303030/ffffff?text=After-Sales+Service"
-									alt="บริการหลังการขายและซ่อมบำรุง โดย เมโทรโมบิล"
-									fill
-									style={{ objectFit: "cover" }}
-									className="w-full h-full"
-								/>
-							</div>
-							{/* Content Overlay */}
-							<div className="absolute bottom-0 left-0 right-0 p-6 md:p-8 z-20">
-								<h3 className="text-2xl md:text-3xl font-bold text-white mb-3 text-shadow-md">
-									บริการหลังการขายและงานซ่อมบำรุง
-								</h3>
-								<p className="text-white/90 mb-6 max-w-md text-shadow-sm">
-									บริการครบวงจรโดยผู้เชี่ยวชาญที่มีประสบการณ์กว่า 30 ปี พร้อม EV
-									Expert ที่สามารถซ่อมบำรุงรถยนต์พลังงานไฟฟ้าที่แรกๆของไทย
-								</p>
-								<a
-									href="/services/after-sales"
-									className="inline-flex items-center gap-2 text-blue-600 bg-white px-4 py-2 rounded-full font-medium hover:bg-white/90 transition-colors shadow-md hover:shadow-lg"
-								>
-									<span>ดูรายละเอียดเพิ่มเติม</span>
-									<ChevronRight className="h-4 w-4" />
-								</a>
-							</div>
-						</motion.div>
-					</div>
-
-					{/* FAQ Section */}
 					<motion.div
 						variants={fadeInUp}
-						// Adjusted card background and border for dark theme
-						className="max-w-3xl mx-auto p-6 bg-gray-800 rounded-2xl shadow-lg border border-gray-700"
+						className="bg-slate-800/60 backdrop-blur-sm card-padding rounded-2xl border border-slate-700/50 shadow-xl max-w-5xl mx-auto"
 					>
-						<h3 className="text-2xl md:text-3xl font-prompt font-bold text-center mb-8 text-gray-100">
-							คำถามที่พบบ่อย
-						</h3>
+						<div className="space-y-8">
+							<p className="body-text-large text-slate-200 leading-relaxed">
+								จากการรวมพลังของทั้ง 3 เสาหลัก ทำให้{" "}
+								<span className="text-white font-semibold">
+									BYD Metromobile
+								</span>{" "}
+								สามารถมอบประสบการณ์ที่แตกต่างและเหนือกว่าให้แก่คุณ
+							</p>
 
-						<Accordion type="single" collapsible className="w-full">
+							<div className="grid md:grid-cols-3 gap-6 mt-8">
+								<div className="text-center p-6 bg-slate-700/30 rounded-xl border border-slate-600/30">
+									<div className="w-12 h-12 bg-blue-600/20 rounded-full flex items-center justify-center mx-auto mb-4">
+										<div className="w-6 h-6 bg-blue-500 rounded-full"></div>
+									</div>
+									<h4 className="font-semibold text-white mb-2">
+										ความมั่นคงขององค์กร
+									</h4>
+									<p className="text-sm text-slate-400">
+										ประสบการณ์กว่า 30 ปี ในวงการยานยนต์
+									</p>
+								</div>
+
+								<div className="text-center p-6 bg-slate-700/30 rounded-xl border border-slate-600/30">
+									<div className="w-12 h-12 bg-orange-600/20 rounded-full flex items-center justify-center mx-auto mb-4">
+										<div className="w-6 h-6 bg-orange-500 rounded-full"></div>
+									</div>
+									<h4 className="font-semibold text-white mb-2">
+										บริการที่เชี่ยวชาญ
+									</h4>
+									<p className="text-sm text-slate-400">
+										ทีมงานที่เข้าใจรถยนต์อย่างลึกซึ้ง
+									</p>
+								</div>
+
+								<div className="text-center p-6 bg-slate-700/30 rounded-xl border border-slate-600/30">
+									<div className="w-12 h-12 bg-purple-600/20 rounded-full flex items-center justify-center mx-auto mb-4">
+										<div className="w-6 h-6 bg-purple-500 rounded-full"></div>
+									</div>
+									<h4 className="font-semibold text-white mb-2">
+										วิสัยทัศน์ยั่งยืน
+									</h4>
+									<p className="text-sm text-slate-400">
+										ทิศทางที่มุ่งสู่อนาคตอย่างยั่งยืน
+									</p>
+								</div>
+							</div>
+
+							<p className="body-text text-slate-300 text-center mt-8">
+								เพื่อให้คุณมั่นใจได้ว่าการเลือกเราคือการตัดสินใจที่ดีที่สุดสำหรับการเป็นเจ้าของรถยนต์
+								BYD
+							</p>
+						</div>
+					</motion.div>
+				</div>
+			</motion.section>
+
+			{/* FAQ SECTION */}
+			<motion.section
+				className="section-padding bg-gradient-to-b from-gray-800 to-gray-900 relative scroll-snap-align-start"
+				initial="initial"
+				whileInView="animate"
+				viewport={{ once: true, amount: 0.2 }}
+				variants={staggerContainer}
+			>
+				<div className="container mx-auto px-4">
+					<motion.div
+						variants={fadeInUp}
+						className="text-center max-w-3xl mx-auto content-spacing"
+					>
+						<h2 className="section-title text-gradient-byd content-spacing">
+							คำถามที่พบบ่อย
+						</h2>
+					</motion.div>
+
+					<motion.div
+						variants={fadeInUp}
+						className="max-w-4xl mx-auto bg-gray-800 rounded-2xl shadow-lg border border-gray-700 card-padding"
+					>
+						<Accordion type="single" collapsible className="w-full space-y-4">
 							<AccordionItem
 								value="item-1"
-								// Adjusted accordion item styles for dark theme
-								className="border-b border-gray-700 hover:bg-gray-700 transition-colors duration-200 rounded-md px-2"
+								className="border-b border-gray-700 hover:bg-gray-700/30 transition-colors duration-200 rounded-md px-4"
 							>
-								<AccordionTrigger className="text-lg font-medium py-4 text-gray-200 hover:text-blue-400 transition-colors">
-									เมโทรโมบิลมีสาขาที่ไหนบ้าง?
+								<AccordionTrigger className="card-subtitle py-6 text-gray-200 hover:text-blue-400 transition-colors">
+									ทำไมถึงควรเลือกซื้อรถ BYD กับ Metromobile?
 								</AccordionTrigger>
-								<AccordionContent className="text-base pb-4 text-gray-300">
-									ปัจจุบัน เมโทรโมบิลมีสาขาให้บริการในกรุงเทพฯ และปริมณฑล
-									สามารถดูรายละเอียดสาขาทั้งหมดได้ที่หน้า
-									<Link
-										href="/contact-us"
-										className="text-blue-400 hover:underline ml-1 transition-colors duration-300"
-									>
-										ติดต่อเรา
-									</Link>
+								<AccordionContent className="body-text pb-6 text-gray-300">
+									เพราะเราไม่ใช่แค่ดีลเลอร์ แต่เราคือส่วนหนึ่งของ KCAR Group
+									ที่มีประสบการณ์ในวงการยานยนต์กว่า 30 ปี
+									คุณจึงมั่นใจได้ในมาตรฐานการบริการหลังการขายที่เหนือกว่า
+									ความมั่นคงขององค์กร และความเชี่ยวชาญที่พร้อมดูแลคุณในระยะยาว
 								</AccordionContent>
 							</AccordionItem>
 
 							<AccordionItem
 								value="item-2"
-								// Adjusted accordion item styles for dark theme
-								className="border-b border-gray-700 hover:bg-gray-700 transition-colors duration-200 rounded-md px-2"
+								className="border-b border-gray-700 hover:bg-gray-700/30 transition-colors duration-200 rounded-md px-4"
 							>
-								<AccordionTrigger className="text-lg font-medium py-4 text-gray-200 hover:text-blue-400 transition-colors">
-									รถยนต์ BYD มีรุ่นอะไรบ้างในประเทศไทย?
+								<AccordionTrigger className="card-subtitle py-6 text-gray-200 hover:text-blue-400 transition-colors">
+									Metromobile มีสาขาที่ไหนบ้าง?
 								</AccordionTrigger>
-								<AccordionContent className="text-base pb-4 text-gray-300">
-									BYD มีรถยนต์หลากหลายรุ่นในประเทศไทย ทั้ง ATTO 3, DOLPHIN, SEAL
-									และอื่นๆ สามารถดูรายละเอียดทั้งหมดได้ที่หน้า
+								<AccordionContent className="body-text pb-6 text-gray-300">
+									ปัจจุบันเรามีโชว์รูมและศูนย์บริการครบวงจร 5 สาขา คือ
+									สาขาพระราม 3, ตลิ่งชัน, อ่อนนุช, รามอินทรา กม.9, RCA-พระราม9
+									คุณสามารถดูรายละเอียดแผนที่และข้อมูลการติดต่อได้ที่หน้า
 									<Link
-										href="/models"
+										href="/contact-us"
 										className="text-blue-400 hover:underline ml-1 transition-colors duration-300"
 									>
-										รุ่นรถยนต์
+										"ติดต่อเรา"
 									</Link>
 								</AccordionContent>
 							</AccordionItem>
 
 							<AccordionItem
 								value="item-3"
-								// Adjusted accordion item styles for dark theme
-								className="border-b border-gray-700 hover:bg-gray-700 transition-colors duration-200 rounded-md px-2"
+								className="hover:bg-gray-700/30 transition-colors duration-200 rounded-md px-4"
 							>
-								<AccordionTrigger className="text-lg font-medium py-4 text-gray-200 hover:text-blue-400 transition-colors">
-									มีบริการซ่อมบำรุงรถยนต์ไฟฟ้าหรือไม่?
+								<AccordionTrigger className="card-subtitle py-6 text-gray-200 hover:text-blue-400 transition-colors">
+									มีบริการ Trade-in (รถเก่าแลกใหม่) หรือไม่?
 								</AccordionTrigger>
-								<AccordionContent className="text-base pb-4 text-gray-300">
-									เมโทรโมบิลมีบริการซ่อมบำรุงรถยนต์ไฟฟ้าครบวงจร
-									โดยทีมช่างผู้เชี่ยวชาญที่ผ่านการอบรมจาก BYD โดยตรง
-									สามารถดูรายละเอียดเพิ่มเติมได้ที่หน้า
-									<a
-										href="/services/after-sales"
-										className="text-blue-400 hover:underline ml-1 transition-colors duration-300"
-									>
-										บริการหลังการขาย
-									</a>
-								</AccordionContent>
-							</AccordionItem>
-
-							<AccordionItem
-								value="item-4"
-								// Adjusted accordion item styles for dark theme
-								className="border-b border-gray-700 hover:bg-gray-700 transition-colors duration-200 rounded-md px-2"
-							>
-								<AccordionTrigger className="text-lg font-medium py-4 text-gray-200 hover:text-blue-400 transition-colors">
-									การชาร์จรถยนต์ไฟฟ้า BYD ทำได้อย่างไร?
-								</AccordionTrigger>
-								<AccordionContent className="text-base pb-4 text-gray-300">
-									รถยนต์ไฟฟ้า BYD สามารถชาร์จได้ทั้งที่บ้านด้วย Wall Charger
-									และที่สถานีชาร์จสาธารณะ ทาง BYD
-									มีเครือข่ายสถานีชาร์จทั่วประเทศ และสามารถใช้แอปพลิเคชัน BYD
-									App เพื่อค้นหาสถานีชาร์จที่ใกล้ที่สุดได้
-								</AccordionContent>
-							</AccordionItem>
-
-							<AccordionItem
-								value="item-5"
-								// Adjusted accordion item styles for dark theme
-								className="hover:bg-gray-700 transition-colors duration-200 rounded-md px-2"
-							>
-								<AccordionTrigger className="text-lg font-medium py-4 text-gray-200 hover:text-blue-400 transition-colors">
-									รถยนต์ไฟฟ้า BYD มีการรับประกันอย่างไร?
-								</AccordionTrigger>
-								<AccordionContent className="text-base pb-4 text-gray-300">
-									รถยนต์ไฟฟ้า BYD มีการรับประกันตัวรถ 6 ปี หรือ 150,000 กิโลเมตร
-									และรับประกันแบตเตอรี่ 8 ปี หรือ 160,000 กิโลเมตร
-									(แล้วแต่อย่างใดถึงก่อน) นอกจากนี้ยังมีบริการช่วยเหลือฉุกเฉิน
-									24 ชั่วโมง ตลอดระยะเวลารับประกัน
+								<AccordionContent className="body-text pb-6 text-gray-300">
+									เรามีบริการรับเทิร์นรถเก่าทุกยี่ห้อ
+									ด้วยทีมงานผู้เชี่ยวชาญที่พร้อมประเมินราคารถยนต์ของคุณอย่างโปร่งใส
+									ให้ข้อเสนอที่คุ้มค่าและยุติธรรม
+									เปลี่ยนรถคันเก่าเป็นรถยนต์ไฟฟ้า BYD คันใหม่ได้ง่าย ๆ กับ
+									Metromobile พร้อมดูแลครบจบในที่เดียว
 								</AccordionContent>
 							</AccordionItem>
 						</Accordion>
@@ -644,35 +471,81 @@ export default function AboutPage() {
 				</div>
 			</motion.section>
 
-			{/* CTA Section */}
-			<section className="py-16 bg-blue-600/10 shadow-inner">
+			{/* CALL TO ACTION SECTION */}
+			<section className="section-padding bg-gradient-to-br from-blue-600/10 via-purple-600/10 to-blue-600/10 relative scroll-snap-align-start">
 				<div className="container mx-auto px-4 text-center">
-					<h2 className="text-3xl md:text-4xl font-prompt font-bold mb-6 text-blue-300">
-						พร้อมสัมผัสประสบการณ์การขับขี่ที่
-						<span className="text-gradient-wave">เหนือระดับ</span>
-					</h2>
-					<p className="text-xl mb-8 max-w-2xl mx-auto text-blue-200">
-						มาร่วมเป็นส่วนหนึ่งของการเปลี่ยนแปลงสู่อนาคตที่ยั่งยืนกับ BYD
-						<span className="text-gradient-metro"> Metromobile</span>
-					</p>
-					<div className="flex flex-wrap justify-center gap-4">
-						<Button
-							size="lg"
-							className="rounded-full font-medium bg-blue-600 hover:bg-blue-700 text-white shadow-lg hover:shadow-xl transition-all duration-300"
-						>
-							ดูรถยนต์ของเรา
-							<ChevronRight className="ml-1 h-4 w-4" />
-						</Button>
+					<motion.h2
+						className="section-title text-gradient-electric content-spacing"
+						initial={{ opacity: 0, y: 30 }}
+						whileInView={{ opacity: 1, y: 0 }}
+						transition={{ duration: 0.8 }}
+					>
+						พร้อมสัมผัสประสบการณ์ที่
+						<span className="text-glow-byd">เหนือกว่า</span>
+					</motion.h2>
+					<motion.p
+						className="section-subtitle content-spacing max-w-3xl mx-auto"
+						initial={{ opacity: 0, y: 30 }}
+						whileInView={{ opacity: 1, y: 0 }}
+						transition={{ duration: 0.8, delay: 0.2 }}
+					>
+						มาร่วมเป็นส่วนหนึ่งของการเปลี่ยนแปลงสู่อนาคตที่ยั่งยืนกับ
+						<span className="text-gradient-byd font-bold">
+							{" "}
+							BYD Metromobile
+						</span>
+					</motion.p>
+					{/* รวมปุ่มเป็นปุ่มเดียว พร้อมเมนู dropdown เลือกรุ่น หรือเลือกติดต่อเราได้เลยนะคะ */}
+					<motion.div
+						className="flex flex-wrap justify-center gap-6"
+						initial={{ opacity: 0, y: 30 }}
+						whileInView={{ opacity: 1, y: 0 }}
+						transition={{ duration: 0.8, delay: 0.4 }}
+					>
+						<div className="relative inline-block">
+							{/* ปุ่มหลัก */}
+							<Popover>
+								<PopoverTrigger asChild>
+									<Button
+										size="lg"
+										className="rounded-full font-medium bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 px-10 py-4 text-xl flex items-center gap-2"
+									>
+										เลือกดูรุ่นรถ
+										<ChevronRight className="ml-2 h-5 w-5" />
+									</Button>
+								</PopoverTrigger>
+								<PopoverContent align="center" className="min-w-[220px]">
+									{/* รายการรุ่นรถ */}
+									{[
+										{ name: "ATTO 3", slug: "byd-atto-3" },
+										{ name: "DOLPHIN", slug: "byd-dolphin" },
+										{ name: "SEAL", slug: "byd-seal" },
+										{ name: "SEALION 6DMI", slug: "byd-sealion-6-dmi" },
+										{ name: "SEALION 7", slug: "byd-sealion-7" },
+									].map((model) => (
+										<div
+											key={model.slug}
+											className="flex items-center gap-2 w-full px-3 py-2 text-base text-blue-700 hover:bg-blue-50 transition-colors"
+										>
+											<Link href={`/models/${model.slug}`}>
+												ดู {model.name}
+											</Link>
+											<ChevronRight className="h-4 w-4" />
+										</div>
+									))}
+								</PopoverContent>
+							</Popover>
+						</div>
+						{/* ปุ่มติดต่อเรา (สำรอง) */}
 						<Button
 							size="lg"
 							variant="outline"
-							// Adjusted button styles for dark theme contrast
-							className="rounded-full font-medium bg-transparent text-blue-400 border-blue-400 hover:bg-blue-400/10 hover:text-blue-300 shadow-lg hover:shadow-xl transition-all duration-300"
+							className="rounded-full font-medium bg-transparent text-blue-400 border-blue-400/50 hover:bg-blue-400/10 hover:text-blue-300 hover:border-blue-300 shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 px-10 py-4 text-xl"
 						>
 							ติดต่อเรา
-							<ChevronRight className="ml-1 h-4 w-4" />
+							<ChevronRight className="ml-2 h-5 w-5" />
 						</Button>
-					</div>
+					</motion.div>
 				</div>
 			</section>
 		</main>

@@ -92,13 +92,10 @@
   --byd-red: oklch(0.704 0.191 22.216);
   
   /* Gradient Text Variables */
-  --gradient-blue-cyan: linear-gradient(to right, #3b82f6, #22d3ee);
-  --gradient-blue-purple: linear-gradient(to right, #3b82f6, #8b5cf6);
-  --gradient-cyan-blue: linear-gradient(to right, #22d3ee, #3b82f6);
+
   --gradient-brand: linear-gradient(to right, var(--bydblue), #22d3ee);
-  --gradient-sunset: linear-gradient(to right, #f59e0b, #ef4444);
-  --gradient-ocean: linear-gradient(to right, #0ea5e9, #06b6d4);
-  --gradient-forest: linear-gradient(to right, #059669, #0d9488);
+
+
   
   /* Animated Gradient Variables */
   --gradient-wave: linear-gradient(45deg, #3b82f6, #22d3ee, #3b82f6, #22d3ee);
@@ -198,61 +195,7 @@
   }
   
   /* Gradient Text Utilities */
-  .text-gradient-blue-cyan {
-    background: var(--gradient-blue-cyan);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    color: transparent;
-  }
-  
-  .text-gradient-blue-purple {
-    background: var(--gradient-blue-purple);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    color: transparent;
-  }
-  
-  .text-gradient-cyan-blue {
-    background: var(--gradient-cyan-blue);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    color: transparent;
-  }
-  
-  .text-gradient-brand {
-    background: var(--gradient-brand);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    color: transparent;
-  }
-  
-  .text-gradient-sunset {
-    background: var(--gradient-sunset);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    color: transparent;
-  }
-  
-  .text-gradient-ocean {
-    background: var(--gradient-ocean);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    color: transparent;
-  }
-  
-  .text-gradient-forest {
-    background: var(--gradient-forest);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    color: transparent;
-  }
+
   
   /* Animated Gradient Text */
   .text-gradient-wave {
@@ -293,6 +236,123 @@
     -webkit-text-fill-color: transparent;
     color: transparent;
     animation: metro-pulse 8s ease-in-out infinite;
+  }
+  
+  /* ===== BYD RESPONSIVE TYPOGRAPHY SYSTEM ===== */
+  
+  /* Hero Headings - ใช้สีและ gradient ตามธีม BYD */
+  .hero-title {
+    font-size: clamp(2.5rem, 8vw, 4.5rem); /* 40px-72px */
+    font-family: var(--font-prompt);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: white;
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+  }
+  
+  .hero-subtitle {
+    font-size: clamp(1.125rem, 4vw, 1.875rem); /* 18px-30px */
+    font-family: var(--font-prompt);
+    font-weight: 500;
+    line-height: 1.4;
+    color: var(--byd-electric);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  }
+  
+  /* Section Headings - ใช้สีตามธีม */
+  .section-title {
+    font-size: clamp(2rem, 6vw, 3.5rem); /* 32px-56px */
+    font-family: var(--font-prompt);
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+  }
+  
+  .section-subtitle {
+    font-size: clamp(1rem, 3vw, 1.5rem); /* 16px-24px */
+    font-family: var(--font-prompt);
+    font-weight: 400;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+  }
+  
+  /* Card Headings */
+  .card-title {
+    font-size: clamp(1.25rem, 4vw, 2rem); /* 20px-32px */
+    font-family: var(--font-prompt);
+    font-weight: 600;
+    line-height: 1.3;
+  }
+  
+  .card-subtitle {
+    font-size: clamp(0.875rem, 2.5vw, 1.125rem); /* 14px-18px */
+    font-family: var(--font-prompt);
+    font-weight: 400;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+  }
+  
+  /* Body Text - Responsive */
+  .body-text {
+    font-size: clamp(0.875rem, 2vw, 1rem); /* 14px-16px */
+    font-family: var(--font-thai);
+    line-height: 1.6;
+    color: var(--foreground);
+  }
+  
+  .body-text-large {
+    font-size: clamp(1rem, 2.5vw, 1.25rem); /* 16px-20px */
+    font-family: var(--font-thai);
+    line-height: 1.6;
+    color: var(--foreground);
+  }
+  
+  /* Gradient Text Variants - ใช้สีธีม BYD */
+  .text-gradient-byd {
+    background: var(--gradient-brand);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+  
+  .text-gradient-electric {
+    background: linear-gradient(90deg, var(--byd-electric), #22d3ee, var(--bydblue));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+  
+  .text-gradient-nature {
+    background: linear-gradient(90deg, var(--byd-green), #22d3ee, var(--byd-electric));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+  
+  /* Responsive Spacing Utilities */
+  .section-padding {
+    padding: clamp(3rem, 8vw, 6rem) clamp(1rem, 4vw, 2rem);
+  }
+  
+  .card-padding {
+    padding: clamp(1.5rem, 4vw, 2.5rem);
+  }
+  
+  .content-spacing {
+    margin-bottom: clamp(1.5rem, 4vw, 3rem);
+  }
+  
+  /* Text Effects - เพิ่ม shadow สำหรับอ่านง่าย */
+  .text-shadow-byd {
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6), 0 4px 8px rgba(59, 130, 246, 0.2);
+  }
+  
+  .text-glow-byd {
+    text-shadow: 0 0 10px var(--byd-electric), 0 0 20px var(--byd-electric), 0 0 30px var(--byd-electric);
   }
   
   /* -- Animation Utilities -- */
