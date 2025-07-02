@@ -122,10 +122,13 @@ export default function RootLayout({
 			<body className="font-prompt bg-background text-foreground antialiased">
 				<WebVitalReporter />
 				<MainHeader />
-				<main className="max-w-[100vw] overflow-x-hidden">{children}</main>
+				<main className="max-w-[100vw] overflow-x-hidden flex-1">
+					{children}
+				</main>
+				<Footer />
 				<Toaster />
 				<ContactFAB />
-				<Footer />
+
 				<Analytics />
 			</body>
 		</html>

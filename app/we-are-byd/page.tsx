@@ -508,7 +508,7 @@ export default function AboutPage() {
 								<PopoverTrigger asChild>
 									<Button
 										size="lg"
-										className="rounded-full font-medium bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 px-10 py-4 text-xl flex items-center gap-2"
+										className="font-medium bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 px-10 py-4 text-xl flex items-center gap-2"
 									>
 										เลือกดูรุ่นรถ
 										<ChevronRight className="ml-2 h-5 w-5" />
@@ -540,10 +540,12 @@ export default function AboutPage() {
 						<Button
 							size="lg"
 							variant="outline"
-							className="rounded-full font-medium bg-transparent text-blue-400 border-blue-400/50 hover:bg-blue-400/10 hover:text-blue-300 hover:border-blue-300 shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 px-10 py-4 text-xl"
+							className="font-medium bg-transparent text-blue-400 border-blue-400/50 hover:bg-blue-400/10 hover:text-blue-300 hover:border-blue-300 shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 px-10 py-4 text-xl"
 						>
-							ติดต่อเรา
-							<ChevronRight className="ml-2 h-5 w-5" />
+							<Link href="/contact-us">
+								ติดต่อเรา
+								<ChevronRight className="ml-2 h-5 w-5" />
+							</Link>
 						</Button>
 					</motion.div>
 				</div>

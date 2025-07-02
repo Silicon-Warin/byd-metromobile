@@ -7,7 +7,7 @@ import SocialIcons from "@/app/utils/SocialIcon";
 
 export function Footer() {
 	return (
-		<footer className="py-16 bg-gradient-to-b from-[#0a0d0f] to-grey-900 text-white z-10">
+		<footer className="py-16 bg-gradient-to-b from-[#0a0d0f] to-grey-900 text-white z-20">
 			<div className="container mx-auto px-4 max-w-7xl">
 				{/* Main footer content */}
 				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 mb-12">

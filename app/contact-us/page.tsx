@@ -121,9 +121,10 @@ export default function ContactUs() {
 		branches.find((branch) => branch.id === selectedBranch) || branches[0];
 
 	return (
-		<div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-800 top-shadow-showroom">
+		<div className="min-h-screen bg-black text-white pt-24">
 			{/* Compact Hero Section - ลดความสูงใน mobile */}
 			<section className="relative min-h-[60vh] md:min-h-screen flex items-center justify-center overflow-hidden">
+				<div className="top-shadow-showroom absolute inset-0 pointer-events-none" />
 				{/* Enhanced Background with Parallax Effect (responsive) */}
 				<div className="absolute w-full h-full top-0 left-0 z-10 bg-dark-blue opacity-60 "></div>
 				<Image
