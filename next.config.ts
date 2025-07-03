@@ -390,6 +390,34 @@ const nextConfig = {
 				destination: "/models/byd-sealion6dmi",
 				permanent: true,
 			},
+
+			// เพิ่ม redirect สำหรับ WordPress legacy paths และ generic model trailing slash
+			{
+				source: "/wp-admin/:path*",
+				destination: "/maintenance",
+				permanent: true,
+			},
+			{
+				source: "/wp-content/:path*",
+				destination: "/maintenance",
+				permanent: true,
+			},
+			{
+				source: "/wp-login.php",
+				destination: "/maintenance",
+				permanent: true,
+			},
+			{
+				source: "/wp/:path*",
+				destination: "/maintenance",
+				permanent: true,
+			},
+			// Generic rule: remove trailing slash after /models/:slug/
+			{
+				source: "/models/:slug(.*)/",
+				destination: "/models/:slug",
+				permanent: true,
+			},
 		];
 	},
 };

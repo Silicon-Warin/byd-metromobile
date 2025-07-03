@@ -2,7 +2,7 @@
 
 import React from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { ChevronRight, ExternalLink, MapPin, Mail } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
 	Accordion,
@@ -85,11 +85,9 @@ export default function AboutPage() {
 							animate={{ opacity: 1, y: 0 }}
 							transition={{ duration: 0.8, delay: 0.6 }}
 						>
-							<span className="text-gradient-electric font-bold">
-								BYD Metromobile
-							</span>
+							<span className="text-byd-blue font-bold">BYD Metromobile</span>
 							<br />
-							สัมผัสประสบการณ์การเป็นเจ้าของ BYD ที่เหนือกว่าและอุ่นใจกว่า
+							ผู้นำด้านรถยนต์ไฟฟ้าแห่งอนาคต
 						</motion.p>
 						<motion.div
 							className="flex flex-wrap justify-center gap-4"
@@ -138,22 +136,23 @@ export default function AboutPage() {
 								<motion.div className="space-y-6" variants={fadeInUp}>
 									<p className="body-text-large">
 										<strong className="text-blue-400">
-											บริษัท เมโทรโมบิล จำกัด (BYD Metromobile)
+											บริษัท เมโทรโมบิล จำกัด
 										</strong>
-										คือผู้จำหน่ายและศูนย์บริการรถยนต์ไฟฟ้า BYD อย่างเป็นทางการ
-										ที่ถือกำเนิดจากการผนึกกำลังของ{" "}
-										<strong className="text-purple-400">
-											3 เสาหลักแห่งวงการยานยนต์ไทย
+										เป็นผู้จำหน่ายและศูนย์บริการรถยนต์ไฟฟ้า BYD อย่างเป็นทางการ
+										ที่เกิดจากการรวมพลังของ{" "}
+										<strong className="text-gray-200">
+											3 องค์กรชั้นนำแห่งวงการยานยนต์ไทย
 										</strong>
-										เพื่อสร้างสรรค์ประสบการณ์การเป็นเจ้าของรถยนต์ไฟฟ้าที่สมบูรณ์แบบและน่าเชื่อถือที่สุด
+										เพื่อมอบประสบการณ์การเป็นเจ้าของรถยนต์ไฟฟ้าที่สมบูรณ์แบบ
 									</p>
 									<p className="body-text">
-										เราไม่ได้เป็นเพียงผู้จำหน่ายรถยนต์ แต่เราคือ
-										<strong className="text-green-400">เพื่อนร่วมทาง</strong>
-										ที่พร้อมมอบความมั่นใจและบริการที่เป็นเลิศให้แก่ลูกค้าทุกท่าน
-										ด้วยโชว์รูมและศูนย์บริการครบวงจรที่สาขาพระราม 3 และลำลูกกา
-										พร้อมทีมงานที่ผ่านการอบรมโดยตรงจาก BYD
-										เพื่อดูแลรถยนต์ของคุณด้วยมาตรฐานสูงสุด
+										เรามุ่งมั่นเป็น{" "}
+										<strong className="text-blue-300">
+											พันธมิตรที่เชื่อถือได้
+										</strong>
+										ในการเดินทางสู่อนาคตที่ยั่งยืน
+										ด้วยโชว์รูมและศูนย์บริการครบวงจร
+										พร้อมทีมงานที่ผ่านการอบรมมาตรฐานสากลจาก BYD
 									</p>
 								</motion.div>
 							</div>
@@ -193,12 +192,11 @@ export default function AboutPage() {
 						className="text-center max-w-4xl mx-auto content-spacing"
 					>
 						<h2 className="section-title text-gradient-byd content-spacing">
-							เสาหลักแห่งความสำเร็จของเรา
+							เสาหลักแห่งความสำเร็จ
 						</h2>
 						<p className="section-subtitle">
-							ความแข็งแกร่งของ BYD Metromobile มาจากการรวมพลังของ 3
-							พันธมิตรผู้มีประสบการณ์และความเชี่ยวชาญที่แตกต่างกัน
-							เพื่อมอบสิ่งที่ดีที่สุดให้แก่ลูกค้า
+							ความแข็งแกร่งของเราเกิดจากการรวมพลังของ 3 องค์กรชั้นนำ
+							ที่มีประสบการณ์และความเชี่ยวชาญที่แตกต่างกัน
 						</p>
 					</motion.div>
 
@@ -207,28 +205,29 @@ export default function AboutPage() {
 						{/* KCAR Group - Foundation Pillar */}
 						<motion.div
 							variants={fadeInUp}
-							className="flex-1 bg-slate-900/60 backdrop-blur-sm card-padding rounded-2xl border border-slate-700/50 shadow-xl"
+							className="flex-1 bg-slate-900/60 backdrop-blur-sm card-padding rounded-2xl border border-slate-700/50 shadow-xl hover:shadow-2xl transition-all duration-300"
 						>
 							<div className="text-center">
 								<div className="mb-8">
-									<div className="bg-white/5 p-4 rounded-xl backdrop-blur-sm border border-white/10 inline-block">
+									<div className="bg-white/5 p-4 rounded-xl backdrop-blur-sm border border-white/10 inline-flex items-center justify-center h-40 w-40">
 										<Image
 											src="/images/about/KCAR-Logo.png"
-											alt="โลโก้ เอ มอเตอร์ กรุ๊ป"
+											alt="โลโก้ KCAR Group"
 											width={120}
 											height={120}
 											className="object-contain opacity-90"
 										/>
 									</div>
 								</div>
-								<h3 className="card-title text-white mb-4">
-									Krungthai Carrent and Lease
-								</h3>
-								<p className="body-text text-slate-300 max-w-4xl mx-auto">
-									รากฐานของเราคือความมั่นคงและน่าเชื่อถือจาก{" "}
+								<h3 className="card-title text-white mb-4">KCAR Group</h3>
+								<p className="text-sm text-blue-300 mb-4 font-medium">
+									เสาหลักแห่งความมั่นคง
+								</p>
+								<p className="body-text text-slate-300 text-left">
+									รากฐานที่แข็งแกร่งจาก{" "}
 									<strong className="text-blue-400">KCAR Group</strong>{" "}
-									กลุ่มบริษัทมหาชนที่อยู่ในอุตสาหกรรมยานยนต์ไทยมานานกว่า 30 ปี
-									นี่คือหลักประกันของความมั่นคงและมาตรฐานสูงสุดที่เรายึดมั่นในการบริการ
+									บริษัทมหาชนที่มีประสบการณ์ในอุตสาหกรรมยานยนต์ไทยกว่า 30 ปี
+									เป็นหลักประกันความมั่นคงและมาตรฐานการบริการระดับสูง
 								</p>
 							</div>
 						</motion.div>
@@ -240,10 +239,10 @@ export default function AboutPage() {
 						>
 							<div className="text-center">
 								<div className="mb-8">
-									<div className="bg-white/5 p-4 rounded-xl backdrop-blur-sm border border-white/10 inline-block">
+									<div className="bg-white/5 p-4 rounded-xl backdrop-blur-sm border border-white/10 inline-flex items-center justify-center h-40 w-40">
 										<Image
 											src="/images/about/A-Motor-Logo.jpg"
-											alt="โลโก้ เอ มอเตอร์ กรุ๊ป"
+											alt="โลโก้ A Motor Group"
 											width={120}
 											height={48}
 											className="object-contain opacity-90"
@@ -252,16 +251,16 @@ export default function AboutPage() {
 								</div>
 
 								<h3 className="card-title text-white mb-4">A Motor Group</h3>
-								<p className="text-sm text-orange-300 mb-4 font-medium">
-									The Pillar of Service Excellence
+								<p className="text-sm text-blue-300 mb-4 font-medium">
+									เสาหลักแห่งความเป็นเลิศ
 								</p>
 
 								<p className="body-text text-slate-300 text-left">
-									เราสืบทอด DNA และความเชี่ยวชาญด้านการขายและบริการหลังการขายจาก
-									A Motor Group
+									สืบทอดความเชี่ยวชาญด้านการขายและบริการหลังการขายจาก{" "}
+									<strong className="text-blue-400">A Motor Group</strong>
 									ผู้บุกเบิกในวงการรถยนต์หรูและศูนย์บริการมาตรฐานสูง
 									ทำให้คุณมั่นใจได้ว่ารถยนต์ BYD
-									ของคุณจะได้รับการดูแลอย่างมืออาชีพและดีที่สุด
+									ของคุณจะได้รับการดูแลอย่างมืออาชีพ
 								</p>
 							</div>
 						</motion.div>
@@ -287,24 +286,30 @@ export default function AboutPage() {
 								/>
 							</div>
 
-							<div className="relative z-10 h-full flex flex-col justify-end">
-								<div className="mb-6">
-									<h3 className="card-title text-white mb-2">
-										ดร. ภัทร จึงกานต์กุล
-									</h3>
-									<p className="text-sm text-purple-300 mb-4 font-medium">
-										The Pillar of Vision
-									</p>
-								</div>
+							<div className="relative z-10 h-full flex flex-col justify-between md:justify-end">
+								{/* Spacer to add height on mobile/tablet, hidden on desktop */}
+								<div className="h-40 md:hidden" />
 
-								<div className="max-w-md">
-									<p className="body-text text-slate-300 mb-4">
-										นักธุรกิจและนักลงทุนผู้มีวิสัยทัศน์กว้างไกลด้านพลังงานทางเลือก
-										และระบบนิเวศของความยั่งยืน (Sustainability ecosystem)
-									</p>
-									<p className="text-sm text-slate-400">
-										มอบทิศทางการพัฒนาที่มุ่งสู่อนาคตอย่างยั่งยืนและเป็นมิตรกับสิ่งแวดล้อม
-									</p>
+								{/* Content */}
+								<div>
+									<div className="mb-6">
+										<h3 className="card-title text-white mb-2">
+											ดร. ภัทร จึงกานต์กุล
+										</h3>
+										<p className="text-sm text-blue-300 mb-4 font-medium">
+											เสาหลักแห่งวิสัยทัศน์
+										</p>
+									</div>
+
+									<div className="max-w-md">
+										<p className="body-text text-slate-300 mb-4">
+											นักธุรกิจและนักลงทุนผู้มีวิสัยทัศน์กว้างไกลด้านพลังงานทางเลือก
+											และระบบนิเวศของความยั่งยืน
+										</p>
+										<p className="text-sm text-slate-400">
+											มอบทิศทางการพัฒนาที่มุ่งสู่อนาคตอย่างยั่งยืนและเป็นมิตรกับสิ่งแวดล้อม
+										</p>
+									</div>
 								</div>
 							</div>
 						</motion.div>
@@ -329,7 +334,7 @@ export default function AboutPage() {
 							สิ่งที่คุณจะได้รับจากเรา
 						</h2>
 						<p className="section-subtitle text-slate-400 mb-12">
-							Our Corporate Commitment to Excellence
+							Our Commitment to Excellence
 						</p>
 					</motion.div>
 
@@ -338,7 +343,7 @@ export default function AboutPage() {
 						className="bg-slate-800/60 backdrop-blur-sm card-padding rounded-2xl border border-slate-700/50 shadow-xl max-w-5xl mx-auto"
 					>
 						<div className="space-y-8">
-							<p className="body-text-large text-slate-200 leading-relaxed">
+							<p className="body-text-large text-slate-200 leading-relaxed text-center">
 								จากการรวมพลังของทั้ง 3 เสาหลัก ทำให้{" "}
 								<span className="text-white font-semibold">
 									BYD Metromobile
@@ -351,42 +356,38 @@ export default function AboutPage() {
 									<div className="w-12 h-12 bg-blue-600/20 rounded-full flex items-center justify-center mx-auto mb-4">
 										<div className="w-6 h-6 bg-blue-500 rounded-full"></div>
 									</div>
-									<h4 className="font-semibold text-white mb-2">
-										ความมั่นคงขององค์กร
-									</h4>
+									<h4 className="font-semibold text-white mb-2">ความมั่นคง</h4>
 									<p className="text-sm text-slate-400">
 										ประสบการณ์กว่า 30 ปี ในวงการยานยนต์
 									</p>
 								</div>
 
 								<div className="text-center p-6 bg-slate-700/30 rounded-xl border border-slate-600/30">
-									<div className="w-12 h-12 bg-orange-600/20 rounded-full flex items-center justify-center mx-auto mb-4">
-										<div className="w-6 h-6 bg-orange-500 rounded-full"></div>
+									<div className="w-12 h-12 bg-blue-600/20 rounded-full flex items-center justify-center mx-auto mb-4">
+										<div className="w-6 h-6 bg-blue-500 rounded-full"></div>
 									</div>
 									<h4 className="font-semibold text-white mb-2">
-										บริการที่เชี่ยวชาญ
+										ความเป็นเลิศ
 									</h4>
 									<p className="text-sm text-slate-400">
-										ทีมงานที่เข้าใจรถยนต์อย่างลึกซึ้ง
+										บริการมาตรฐานสูงจากผู้เชี่ยวชาญ
 									</p>
 								</div>
 
 								<div className="text-center p-6 bg-slate-700/30 rounded-xl border border-slate-600/30">
-									<div className="w-12 h-12 bg-purple-600/20 rounded-full flex items-center justify-center mx-auto mb-4">
-										<div className="w-6 h-6 bg-purple-500 rounded-full"></div>
+									<div className="w-12 h-12 bg-blue-600/20 rounded-full flex items-center justify-center mx-auto mb-4">
+										<div className="w-6 h-6 bg-blue-500 rounded-full"></div>
 									</div>
-									<h4 className="font-semibold text-white mb-2">
-										วิสัยทัศน์ยั่งยืน
-									</h4>
+									<h4 className="font-semibold text-white mb-2">วิสัยทัศน์</h4>
 									<p className="text-sm text-slate-400">
-										ทิศทางที่มุ่งสู่อนาคตอย่างยั่งยืน
+										ทิศทางสู่อนาคตที่ยั่งยืน
 									</p>
 								</div>
 							</div>
 
 							<p className="body-text text-slate-300 text-center mt-8">
-								เพื่อให้คุณมั่นใจได้ว่าการเลือกเราคือการตัดสินใจที่ดีที่สุดสำหรับการเป็นเจ้าของรถยนต์
-								BYD
+								เลือกเราเพื่อประสบการณ์การเป็นเจ้าของรถยนต์ไฟฟ้า BYD
+								ที่สมบูรณ์แบบ
 							</p>
 						</div>
 					</motion.div>
@@ -421,13 +422,13 @@ export default function AboutPage() {
 								className="border-b border-gray-700 hover:bg-gray-700/30 transition-colors duration-200 rounded-md px-4"
 							>
 								<AccordionTrigger className="card-subtitle py-6 text-gray-200 hover:text-blue-400 transition-colors">
-									ทำไมถึงควรเลือกซื้อรถ BYD กับ Metromobile?
+									ทำไมควรเลือกซื้อรถ BYD กับ Metromobile?
 								</AccordionTrigger>
 								<AccordionContent className="body-text pb-6 text-gray-300">
-									เพราะเราไม่ใช่แค่ดีลเลอร์ แต่เราคือส่วนหนึ่งของ KCAR Group
+									เราเป็นส่วนหนึ่งของ KCAR Group
 									ที่มีประสบการณ์ในวงการยานยนต์กว่า 30 ปี
-									คุณจึงมั่นใจได้ในมาตรฐานการบริการหลังการขายที่เหนือกว่า
-									ความมั่นคงขององค์กร และความเชี่ยวชาญที่พร้อมดูแลคุณในระยะยาว
+									พร้อมทีมงานที่ผ่านการอบรมมาตรฐานสากลจาก BYD
+									มอบความมั่นใจในบริการหลังการขายที่เหนือกว่าและความเชี่ยวชาญที่พร้อมดูแลคุณในระยะยาว
 								</AccordionContent>
 							</AccordionItem>
 
@@ -439,9 +440,9 @@ export default function AboutPage() {
 									Metromobile มีสาขาที่ไหนบ้าง?
 								</AccordionTrigger>
 								<AccordionContent className="body-text pb-6 text-gray-300">
-									ปัจจุบันเรามีโชว์รูมและศูนย์บริการครบวงจร 5 สาขา คือ
-									สาขาพระราม 3, ตลิ่งชัน, อ่อนนุช, รามอินทรา กม.9, RCA-พระราม9
-									คุณสามารถดูรายละเอียดแผนที่และข้อมูลการติดต่อได้ที่หน้า
+									ปัจจุบันเรามีโชว์รูมและศูนย์บริการครบวงจร 5 สาขา ได้แก่
+									สาขาพระราม 3, ตลิ่งชัน, อ่อนนุช, รามอินทรา กม.9 และ RCA-พระราม
+									9 คุณสามารถดูรายละเอียดแผนที่และข้อมูลการติดต่อได้ที่หน้า
 									<Link
 										href="/contact-us"
 										className="text-blue-400 hover:underline ml-1 transition-colors duration-300"
@@ -462,8 +463,7 @@ export default function AboutPage() {
 									เรามีบริการรับเทิร์นรถเก่าทุกยี่ห้อ
 									ด้วยทีมงานผู้เชี่ยวชาญที่พร้อมประเมินราคารถยนต์ของคุณอย่างโปร่งใส
 									ให้ข้อเสนอที่คุ้มค่าและยุติธรรม
-									เปลี่ยนรถคันเก่าเป็นรถยนต์ไฟฟ้า BYD คันใหม่ได้ง่าย ๆ กับ
-									Metromobile พร้อมดูแลครบจบในที่เดียว
+									เปลี่ยนรถคันเก่าเป็นรถยนต์ไฟฟ้า BYD คันใหม่ได้ง่ายๆ
 								</AccordionContent>
 							</AccordionItem>
 						</Accordion>
@@ -520,6 +520,7 @@ export default function AboutPage() {
 										{ name: "ATTO 3", slug: "byd-atto-3" },
 										{ name: "DOLPHIN", slug: "byd-dolphin" },
 										{ name: "SEAL", slug: "byd-seal" },
+										{ name: "M6", slug: "byd-m6" },
 										{ name: "SEALION 6DMI", slug: "byd-sealion-6-dmi" },
 										{ name: "SEALION 7", slug: "byd-sealion-7" },
 									].map((model) => (
