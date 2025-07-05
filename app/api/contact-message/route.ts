@@ -30,14 +30,14 @@ function validateAndSanitizeInput(data: any) {
 	}
 
 	// ป้องกัน XSS โดยการลบ HTML tags
-	const sanitize = (str: string) => str?.replace(/<[^>]*>/g, "").trim() || "";
+	const sanitizeHtml = require("sanitize-html");
 
 	return {
-		name: sanitize(name),
-		email: sanitize(email),
-		phone: sanitize(phone),
-		subject: sanitize(subject),
-		message: sanitize(message),
+		name: sanitizeHtml(name || ""),
+		email: sanitizeHtml(email || ""),
+		phone: sanitizeHtml(phone || ""),
+		subject: sanitizeHtml(subject || ""),
+		message: sanitizeHtml(message || ""),
 	};
 }
 
