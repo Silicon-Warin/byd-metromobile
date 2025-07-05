@@ -59,7 +59,7 @@ async function testLineAPI() {
 
 	return new Promise((resolve, reject) => {
 		console.log("📤 Sending message to LINE API...");
-		console.log("📋 User ID:", LINE_ADMIN_USER_ID);
+		console.log("📋 User ID (masked):", LINE_ADMIN_USER_ID.substring(0, 5) + "...");
 		console.log(
 			"🔑 Token (first 20 chars):",
 			LINE_CHANNEL_ACCESS_TOKEN.substring(0, 20) + "..."
