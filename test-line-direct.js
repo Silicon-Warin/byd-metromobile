@@ -7,10 +7,12 @@
 
 const https = require("https");
 
-// Use your actual environment variables
-const LINE_CHANNEL_ACCESS_TOKEN =
-	"OEgi9cfxWeJ5hKQ97rGAkIfwYPt02/ix8e3JQkWq4nj0cB2I5xvqnik7Yod1zRu/n/8J9vuHJyhOQNlEVlDE0R555LAwzpzU4XbcVbldHDKmQiEx28OCBqfnVgC2RGqDz1tGV2x6k22VbQoIcfwAogdB04t89/1O/w1cDnyilFU=";
-const LINE_ADMIN_USER_ID = "Uc5a1f6fcd77b0c2ce23c1fab586a8e2a";
+// Load secrets from environment variables to avoid hard-coding sensitive values.
+// Ensure you set LINE_CHANNEL_ACCESS_TOKEN and LINE_ADMIN_USER_ID in your shell or in a .env file.
+// Never commit actual secret values to the repository.
+
+const LINE_CHANNEL_ACCESS_TOKEN = process.env.LINE_CHANNEL_ACCESS_TOKEN || "";
+const LINE_ADMIN_USER_ID = process.env.LINE_ADMIN_USER_ID || "";
 
 async function testLineAPI() {
 	console.log("🧪 Testing LINE Messaging API Directly");
