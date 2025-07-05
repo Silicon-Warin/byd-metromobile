@@ -19,8 +19,11 @@ function validateAndSanitizeInput(data: any) {
 	if (subject && subject.length > 200) return { error: "หัวข้อยาวเกินไป" };
 	if (message && message.length > 1000) return { error: "ข้อความยาวเกินไป" };
 
-	// ตรวจสอบรูปแบบอีเมล
-	if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+	// ตรวจสอบรูปแบบอีเมล (ป้องกัน ReDoS)
+	// ใช้รูปแบบที่มั่นใจกว่า และจำกัดโดเมนให้เป็น label คั่นด้วยจุด เช่น example.co.th
+	// regex นี้หลีกเลี่ยงปัญหา polynomial backtracking เพราะ `.` ถูกตัดออกจาก part ที่มี `+`
+	const safeEmailRegex = /^[^\s@]+@(?:[A-Za-z0-9-]+\.)+[A-Za-z]{2,63}$/;
+	if (email && !safeEmailRegex.test(email)) {
 		return { error: "รูปแบบอีเมลไม่ถูกต้อง" };
 	}
 

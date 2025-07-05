@@ -54,3 +54,13 @@ next-env.d.ts
 **/*.md
 !README.md
 /docs
+
+# Ignore test source files (not needed in production)
+**/*.test.*
+**/*.spec.*
+test-*.js
+test-*.ts
+test-*.jsx
+test-*.tsx
++/tests/
++/__tests__/
