@@ -22,6 +22,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "components/ui/SocialIcon.jsx", "components/ContactFAB.tsx", "components/ui/PromotionCarousel.jsx", "app/promotions/components/PromotionSection.tsx", "data/contactData.js", "components/ParallaxBackground.jsx", "lib/styles.js", "components/TracingBeam.jsx", "scripts/seedCarModels.ts"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "components/ui/SocialIcon.jsx", "components/ContactFAB.tsx", "components/ui/PromotionCarousel.jsx", "app/(main)/promotions/components/PromotionSection.tsx", "data/contactData.js", "components/ParallaxBackground.jsx", "lib/styles.js", "components/TracingBeam.jsx", "scripts/seedCarModels.ts"],
   "exclude": ["node_modules"]
 }

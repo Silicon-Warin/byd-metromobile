@@ -66,3 +66,7 @@ test-*.tsx
 +/__tests__/
 
 /lib/generated/prisma
+
+/scripts/
+/scripts/*.test.*
+/scripts/*.tmp.*
