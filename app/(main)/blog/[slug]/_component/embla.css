@@ -1,0 +1,131 @@
+.embla {
+    max-width: 64rem; /* เพิ่มขนาดให้ใหญ่ขึ้น */
+    margin: auto;
+    --slide-height: 20rem; /* เพิ่มความสูง */
+    --slide-spacing: 1rem;
+    --slide-size: 100%;
+  }
+  
+  .embla__viewport {
+    overflow: hidden;
+    border-radius: 1rem; /* เพิ่ม rounded corners */
+  }
+  
+  .embla__container {
+    display: flex;
+    touch-action: pan-y pinch-zoom;
+    margin-left: calc(var(--slide-spacing) * -1);
+  }
+  
+  .embla__slide {
+    transform: translate3d(0, 0, 0);
+    flex: 0 0 var(--slide-size);
+    min-width: 0;
+    padding-left: var(--slide-spacing);
+  }
+  
+  .embla__slide__number {
+    border-radius: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: var(--slide-height);
+    user-select: none;
+    background: #111; /* เพิ่มพื้นหลัง */
+  }
+  
+  /* ส่วน Thumbnails - แก้ไขใหม่หมด */
+  .embla-thumbs {
+    --thumbs-slide-spacing: 0.75rem;
+    --thumbs-slide-height: 5rem; /* ปรับขนาด thumbnail */
+    margin-top: 1.5rem; /* เพิ่มระยะห่าง */
+    max-width: 40rem; /* จำกัดความกว้าง */
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .embla-thumbs__viewport {
+    overflow: hidden;
+    padding: 0.5rem 0; /* เพิ่ม padding */
+  }
+  
+  .embla-thumbs__container {
+    display: flex;
+    flex-direction: row;
+    margin-left: calc(var(--thumbs-slide-spacing) * -1);
+    align-items: center;
+  }
+  
+  .embla-thumbs__slide {
+    flex: 0 0 20%; /* ปรับขนาด */
+    min-width: 0;
+    padding-left: var(--thumbs-slide-spacing);
+  }
+  
+  @media (min-width: 576px) {
+    .embla-thumbs__slide {
+      flex: 0 0 14%; /* ขนาดบนจอใหญ่ */
+    }
+  }
+  
+  @media (min-width: 768px) {
+    .embla-thumbs__slide {
+      flex: 0 0 12%; /* ขนาดบนเดสก์ท็อป */
+    }
+  }
+  
+  /* ปุ่ม Thumbnail - แก้ไขใหม่หมด */
+  .embla-thumbs__slide__number {
+    /* รีเซ็ต styling เดิม */
+    border-radius: 0.75rem;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-appearance: none;
+    appearance: none;
+    background-color: transparent;
+    touch-action: manipulation;
+    display: flex;
+    text-decoration: none;
+    cursor: pointer;
+    border: 2px solid #374151; /* border เริ่มต้น */
+    padding: 0;
+    margin: 0;
+    
+    /* ขนาดและ layout ใหม่ */
+    width: 100%;
+    height: var(--thumbs-slide-height);
+    position: relative;
+    overflow: hidden;
+    
+    /* เอฟเฟกต์ */
+    transition: all 0.2s ease;
+    
+    /* ซ่อน text เดิม */
+    font-size: 0;
+    color: transparent;
+  }
+  
+  /* Hover state */
+  .embla-thumbs__slide__number:hover {
+    border-color: #6b7280;
+    transform: scale(1.05);
+  }
+  
+  /* Selected state */
+  .embla-thumbs__slide--selected .embla-thumbs__slide__number {
+    border-color: #3b82f6; /* สี primary */
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
+    transform: scale(1.1);
+  }
+  
+  /* Responsive adjustments */
+  @media (min-width: 576px) {
+    .embla-thumbs {
+      --thumbs-slide-height: 6rem;
+    }
+  }
+  
+  @media (min-width: 768px) {
+    .embla-thumbs {
+      --thumbs-slide-height: 7rem;
+    }
+  }
