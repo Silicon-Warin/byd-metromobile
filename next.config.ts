@@ -1,39 +1,5 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-	webpack: (
-		config: any,
-		{ dev, isServer }: { dev: boolean; isServer: boolean }
-	) => {
-		// Optimize webpack cache for better performance
-		if (!dev) {
-			config.cache = {
-				...config.cache,
-				type: "filesystem",
-				compression: "gzip",
-				// Use Buffer for large strings to improve deserialization performance
-				serialization: {
-					...config.cache?.serialization,
-					serialize: (data: any) => {
-						const json = JSON.stringify(data);
-						// Use Buffer for strings larger than 1KB
-						if (json.length > 1024) {
-							return Buffer.from(json, "utf8");
-						}
-						return json;
-					},
-					deserialize: (data: any) => {
-						// Handle both Buffer and string data
-						if (Buffer.isBuffer(data)) {
-							return JSON.parse(data.toString("utf8"));
-						}
-						return JSON.parse(data);
-					},
-				},
-			};
-		}
-
-		return config;
-	},
 	images: {
 		deviceSizes: [320, 640, 768, 1024, 1280, 1600, 1920],
 		imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],

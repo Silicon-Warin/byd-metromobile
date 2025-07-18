@@ -11,12 +11,11 @@ import {
 	Plus,
 	Search,
 	Tag,
-	Calendar,
-	TrendingUp,
 	Clock,
 	CheckCircle,
 	XCircle,
 } from "lucide-react";
+import Image from "next/image";
 
 type Promotion = {
 	id: string;
@@ -224,7 +223,7 @@ async function PromotionsPage() {
 											<td className="px-6 py-6">
 												<div className="flex items-center space-x-4">
 													{promo.image_url && (
-														<img
+														<Image
 															src={promo.image_url}
 															alt={promo.title}
 															className="h-12 w-12 rounded-lg object-cover bg-gray-100"

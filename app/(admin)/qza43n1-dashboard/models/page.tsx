@@ -11,6 +11,7 @@ import {
 	Calendar,
 	DollarSign,
 } from "lucide-react";
+import Image from "next/image";
 
 type CarModel = {
 	id: string;
@@ -175,7 +176,7 @@ async function ModelsPage() {
 										<td className="px-6 py-6">
 											<div className="flex items-center space-x-4">
 												{model.image_urls && model.image_urls[0] && (
-													<img
+													<Image
 														src={model.image_urls[0]}
 														alt={model.name}
 														className="h-12 w-12 rounded-lg object-cover bg-gray-100"
