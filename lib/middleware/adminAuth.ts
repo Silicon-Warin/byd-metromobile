@@ -35,7 +35,7 @@ export async function adminAuthMiddleware(request: NextRequest) {
 	} = await supabase.auth.getUser();
 
 	// Admin paths configuration
-	const adminBasePath = "/admin-q9k8v3n1-metro";
+	const adminBasePath = "/qza43n1-dashboard";
 	const loginPath = `${adminBasePath}/login`;
 	const callbackPath = `${adminBasePath}/auth/callback`;
 	const signoutPath = `${adminBasePath}/auth/signout`;
@@ -50,10 +50,9 @@ export async function adminAuthMiddleware(request: NextRequest) {
 		return NextResponse.next();
 	}
 
-	// For legacy /admin paths, redirect to new admin path
-	if (pathname.startsWith("/admin") && !pathname.startsWith(adminBasePath)) {
-		const newPath = pathname.replace("/admin", adminBasePath);
-		return NextResponse.redirect(new URL(newPath, request.url));
+	// Block access to /admin path for security (no redirect)
+	if (pathname.startsWith("/admin")) {
+		return NextResponse.redirect(new URL("/404", request.url));
 	}
 
 	// Check if accessing admin area

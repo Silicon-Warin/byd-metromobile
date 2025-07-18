@@ -1,8 +1,6 @@
 # *
 User-agent: *
 Allow: /
-Disallow: /private/
-Disallow: /admin-q9k8v3n1-metro/
 
 # Host
 Host: https://bydmetromobile.com

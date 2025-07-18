@@ -15,8 +15,16 @@ export async function middleware(request: NextRequest) {
 	}
 
 	// Handle admin routes with complete separation from main site
-	if (pathname.startsWith("/admin") || pathname.startsWith("/(admin)")) {
+	if (
+		pathname.startsWith("/qza43n1-dashboard") ||
+		pathname.startsWith("/(admin)")
+	) {
 		return adminAuthMiddleware(request);
+	}
+
+	// Block access to /admin path for security
+	if (pathname.startsWith("/admin")) {
+		return NextResponse.redirect(new URL("/404", request.url));
 	}
 
 	// Handle general app routes with redirects (main website)
