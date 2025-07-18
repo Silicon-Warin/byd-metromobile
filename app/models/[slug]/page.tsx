@@ -1,5 +1,6 @@
 // app/models/[slug]/page.tsx
-import { findModelBySlug, defaultModels } from "@/data/carModel";
+import { findModelBySlug } from "@/lib/services/carModelService";
+import { carModelService } from "@/lib/services/carModelService";
 import { notFound } from "next/navigation";
 import ModelPageContent from "./modelPageContent";
 import type { Metadata, ResolvingMetadata } from "next";
@@ -9,7 +10,7 @@ export async function generateMetadata(
 	parent: ResolvingMetadata
 ): Promise<Metadata> {
 	const { slug } = await params;
-	const carModel = findModelBySlug(slug);
+	const carModel = await findModelBySlug(slug);
 
 	if (!carModel) {
 		return {
@@ -47,9 +48,15 @@ export async function generateMetadata(
 
 // สร้าง static routes สำหรับทุกรุ่นรถที่มีอยู่ใน defaultModels
 export async function generateStaticParams() {
-	return defaultModels.map((model) => ({
-		slug: model.slug,
-	}));
+	try {
+		const models = await carModelService.getAllModels();
+		return models.map((model) => ({
+			slug: model.slug || model.id.toString(),
+		}));
+	} catch (error) {
+		console.error("Error generating static params:", error);
+		return [];
+	}
 }
 
 export default async function ModelPage({
@@ -61,7 +68,7 @@ export default async function ModelPage({
 
 	if (!slug) notFound();
 
-	const carModel = findModelBySlug(slug);
+	const carModel = await findModelBySlug(slug);
 
 	if (!carModel) notFound();
 

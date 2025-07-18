@@ -128,7 +128,6 @@ export default function RootLayout({
 				<Footer />
 				<Toaster />
 				<ContactFAB />
-
 				<Analytics />
 			</body>
 		</html>

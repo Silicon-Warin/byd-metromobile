@@ -64,3 +64,5 @@ test-*.jsx
 test-*.tsx
 +/tests/
 +/__tests__/
+
+/lib/generated/prisma

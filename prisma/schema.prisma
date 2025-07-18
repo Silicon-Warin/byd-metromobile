@@ -1,386 +1,87 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
+  output   = "../lib/generated/prisma"
 }
 
 datasource db {
-  provider  = "postgresql"
-  url       = env("DATABASE_URL")
-  directUrl = env("DIRECT_URL")
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
-model CarModel {
-  id                        Int             @id @default(autoincrement())
-  model                     String
-  slug                      String?         @unique
-  tagline                   String?
-  description               String
-  basePrice                 Float
-  imageUrlPromo             String
-  imageUrlModel             String
-  imageUrlHero              String?
-  imageUrlReal              String?
-  imageUrlDataLeft          String?
-  imageUrlDataRight         String?
-  imageWidth                Int
-  imageHeight               Int
-  featuresTitle             String
-  specialFeature            String?
-  specialFeatureDescription String?
-  specialFeatureImage       String?
-  specsOverview             Json?
-  promotion                 String[]
-  gallery                   String[]
-  // Relationships
-  colors                    CarColor[]
-  variants                  CarVariant[]
-  features                  CarFeature[]
-  techHighlights            HighlightSpec[]
-  createdAt                 DateTime        @default(now())
-  updatedAt                 DateTime        @updatedAt
-  TechSpec                  TechSpec?       @relation(fields: [techSpecId], references: [id])
-  techSpecId                Int?
+model car_models {
+  id                          Int       @id @default(autoincrement())
+  name                        String    @db.VarChar
+  slug                        String    @unique @db.VarChar
+  tagline                     String?   @db.VarChar
+  description                 String
+  price                       Int
+  image_url_promo             String    @db.VarChar
+  image_url_model             String    @db.VarChar
+  image_url_hero              String?   @db.VarChar
+  image_url_real              String?   @db.VarChar
+  image_url_data_left         String?   @db.VarChar
+  image_url_data_right        String?   @db.VarChar
+  image_width                 Int
+  image_height                Int
+  features_title              String    @db.VarChar
+  special_feature             String?   @db.VarChar
+  special_feature_description String?
+  special_feature_image       String?   @db.VarChar
+  specs                       Json?
+  colors                      Json?
+  variants                    Json?
+  features                    Json?
+  gallery                     Json?
+  tech_highlight              Json?
+  tech_spec                   Json?
+  special_offers              String[]  @default([])
+  created_at                  DateTime? @default(now()) @db.Timestamptz(6)
+  updated_at                  DateTime? @default(now()) @db.Timestamptz(6)
 }
 
-model CarColor {
-  id         Int      @id @default(autoincrement())
-  name       String
-  code       String
-  image      String
-  gradient   String?
-  shadow     String?
-  border     String?
-  carModel   CarModel @relation(fields: [carModelId], references: [id])
-  carModelId Int
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+model files {
+  id            Int       @id @default(autoincrement())
+  name          String    @db.VarChar
+  original_name String    @db.VarChar
+  file_path     String    @db.VarChar
+  file_size     Int
+  file_type     String    @db.VarChar
+  category      String    @db.VarChar
+  tags          String[]  @default([])
+  uploaded_by   String    @db.VarChar
+  created_at    DateTime? @default(now()) @db.Timestamptz(6)
+  updated_at    DateTime? @default(now()) @db.Timestamptz(6)
 }
 
-model CarFeature {
-  id          Int      @id @default(autoincrement())
-  title       String
+model promotions {
+  id          Int       @id @default(autoincrement())
+  title       String    @db.VarChar
+  subtitle    String?   @db.VarChar
   description String
-  image       String
-  carModel    CarModel @relation(fields: [carModelId], references: [id])
-  carModelId  Int
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  image_url   String    @db.VarChar
+  start_date  DateTime  @db.Timestamptz(6)
+  end_date    DateTime  @db.Timestamptz(6)
+  status      String    @db.VarChar
+  discount    Decimal?  @db.Decimal(10, 2)
+  models      String[]  @default([])
+  created_at  DateTime? @default(now()) @db.Timestamptz(6)
+  updated_at  DateTime? @default(now()) @db.Timestamptz(6)
 }
 
-model CarVariant {
-  id                    Int                    @id @unique @default(autoincrement())
-  variantId             String
-  name                  String
-  price                 Float
-  range                 String
-  power                 String?
-  acceleration          String?
-  carModel              CarModel               @relation(fields: [carModelId], references: [id])
-  carModelId            Int
-  techSpec              TechSpec?              @relation(fields: [techSpecId], references: [id])
-  techSpecId            Int?
-  createdAt             DateTime               @default(now())
-  updatedAt             DateTime               @updatedAt
-  DimensionsWeight      DimensionsWeight?
-  PowertrainSystem      PowertrainSystem?
-  Performance           Performance?
-  Battery               Battery?
-  SuspensionBraking     SuspensionBraking?
-  ChargingSystem        ChargingSystem?
-  SafetyFeatures        SafetyFeatures?
-  ExteriorFeatures      ExteriorFeatures?
-  InteriorFeatures      InteriorFeatures?
-  EntertainmentFeatures EntertainmentFeatures?
-  LightingFeatures      LightingFeatures?
-  ComfortFeatures       ComfortFeatures?
-}
-
-model HighlightSpec {
-  id          Int      @id @default(autoincrement())
-  title       String
-  description String
-  image       String
-  carModel    CarModel @relation(fields: [carModelId], references: [id])
-  carModelId  Int
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-}
-
-model TechSpec {
-  id          Int          @id @default(autoincrement())
-  specDetails Json?
-  carModels   CarModel[]
-  carVariants CarVariant[]
-  createdAt   DateTime     @default(now())
-  updatedAt   DateTime     @updatedAt
-}
-
-// Dimensions and Weight specifications
-model DimensionsWeight {
-  id              String     @id @default(uuid())
-  length          Int // in mm
-  width           Int // in mm
-  height          Int // in mm
-  wheelbase       Int // in mm
-  frontTrack      Int? // in mm
-  rearTrack       Int? // in mm
-  groundClearance Int? // in mm
-  unladenWeight   Int? // in kg
-  grossWeight     Int? // in kg
-  variantId       Int        @unique
-  variant         CarVariant @relation(fields: [variantId], references: [id], onDelete: Cascade)
-  createdAt       DateTime   @default(now())
-  updatedAt       DateTime   @updatedAt
-}
-
-// Powertrain related specifications
-model PowertrainSystem {
-  id                String     @id @default(uuid())
-  driveType         String // "RWD: Rear Wheel Drive", "Four-Wheel Drive", etc.
-  frontMotorType    String? // "Asynchronous Motor", etc.
-  frontMotorPower   Int? // in kW
-  frontMotorTorque  Int? // in Nm
-  rearMotorType     String? // "Permanent magnet synchronous motor", etc.
-  rearMotorPower    Int? // in kW
-  rearMotorTorque   Int? // in Nm
-  totalSystemPower  Int? // in kW
-  totalSystemTorque Int? // in Nm
-  variantId         Int        @unique
-  variant           CarVariant @relation(fields: [variantId], references: [id], onDelete: Cascade)
-  createdAt         DateTime   @default(now())
-  updatedAt         DateTime   @updatedAt
-}
-
-// Performance specifications
-model Performance {
-  id                 String     @id @default(uuid())
-  acceleration0To100 Float // seconds
-  range              Int // NEDC in km
-  topSpeed           Int? // km/h
-  seatingCapacity    Int // number of seats
-  variantId          Int        @unique
-  variant            CarVariant @relation(fields: [variantId], references: [id], onDelete: Cascade)
-  createdAt          DateTime   @default(now())
-  updatedAt          DateTime   @updatedAt
-}
-
-// Battery specifications
-model Battery {
-  id        String     @id @default(uuid())
-  type      String // "BYD Blade Battery (LFP)", etc.
-  capacity  Float // in kWh
-  variantId Int        @unique
-  variant   CarVariant @relation(fields: [variantId], references: [id], onDelete: Cascade)
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
-}
-
-// Suspension and braking system
-model SuspensionBraking {
-  id                  String     @id @default(uuid())
-  frontSuspension     String // "Double Wishbone", etc.
-  rearSuspension      String // "Multi-Link", etc.
-  adaptiveSuspension  Boolean // true if has adaptive suspension
-  frontBrakeType      String // "Ventilated disc", etc.
-  rearBrakeType       String // "Ventilated disc", etc.
-  frontBrakeSize      String? // dimensions 
-  regenerativeBraking Boolean // true if has regenerative braking
-  tireSize            String // "225/50 R18", etc.
-  variantId           Int        @unique
-  variant             CarVariant @relation(fields: [variantId], references: [id], onDelete: Cascade)
-  createdAt           DateTime   @default(now())
-  updatedAt           DateTime   @updatedAt
-}
-
-// Charging specifications
-model ChargingSystem {
-  id                  String     @id @default(uuid())
-  acChargerType       String? // "Type 2", etc.
-  acChargerPower      Int? // in kW
-  dcChargerType1      String? // "Type 2", etc.
-  dcChargerPower1     Int? // in kW
-  dcChargerType2      String? // for higher power option
-  dcChargerPower2     Int? // in kW
-  v2lSupport          Boolean // Vehicle to Load
-  v2lAdapter          Boolean // true if has adapter
-  regenerativeBraking Boolean // true if has regenerative braking
-  variantId           Int        @unique
-  variant             CarVariant @relation(fields: [variantId], references: [id], onDelete: Cascade)
-  createdAt           DateTime   @default(now())
-  updatedAt           DateTime   @updatedAt
-}
-
-// Safety features
-model SafetyFeatures {
-  id                       String     @id @default(uuid())
-  frontAirbags             Boolean
-  sideAirbags              Boolean
-  curtainAirbags           Boolean
-  kneeBolsterAirbags       Boolean
-  tirePressureMonitoring   Boolean
-  abs                      Boolean // Anti-lock Braking System
-  ebd                      Boolean // Electronic Brakeforce Distribution 
-  esc                      Boolean // Electronic Stability Control
-  tcs                      Boolean // Traction Control System
-  hillHoldControl          Boolean
-  autoHoldFunction         Boolean
-  aeb                      Boolean // Automatic Emergency Braking
-  forwardCollisionWarning  Boolean
-  laneKeepAssist           Boolean
-  laneDepartureWarning     Boolean
-  blindSpotMonitoring      Boolean
-  rearCrossTrafficAlert    Boolean
-  adaptiveCruiseControl    Boolean
-  trafficSignRecognition   Boolean
-  driverAttentionMonitor   Boolean
-  frontParkingSensors      Boolean
-  rearParkingSensors       Boolean
-  surroundViewCamera       Boolean
-  automaticHeadlights      Boolean
-  highBeamAssist           Boolean
-  rainSensingWipers        Boolean
-  bhsSystem                Boolean // Blind spot detection system
-  doorOpenWarningSystem    Boolean // Door Open Warning 
-  intelligentHeadlights    Boolean // HMA - High-beam assist
-  drivingAssistanceSystem  Boolean // DAW - Driver attention warning
-  headsUpDisplay           Boolean // W-HUD - Windshield heads-up display
-  intelligentTorqueControl Boolean // ITAC system
-  variantId                Int        @unique
-  variant                  CarVariant @relation(fields: [variantId], references: [id], onDelete: Cascade)
-  createdAt                DateTime   @default(now())
-  updatedAt                DateTime   @updatedAt
-}
-
-// Exterior features
-model ExteriorFeatures {
-  id                                 String     @id @default(uuid())
-  panoramicGlassRoof                 Boolean // หลังคากระจกพาโนรามิคเคลือบซิลเวอร์
-  electricSunroof                    Boolean // มือจับประตูไฟฟ้าแบบซ่อน
-  rearWiperWithIntermittentFunction  Boolean // กระจกหลังแบบซ่อนระบบปรับสัญญาณวิทยุ
-  electricTailgate                   Boolean // ฝากระโปรงท้ายไฟฟ้า
-  rearWindowHeatedWithTimer          Boolean // กระจกบองหลังปรับไฟฟ้าแบบมีระบบทำความร้อน ไล่ฝ้า
-  powerFoldingMirrors                Boolean // กระจกมองข้างพับเก็บแบบไฟฟ้า
-  autoFoldingMirrors                 Boolean // กระจกมองข้างปรับองศาอัตโนมัติเมื่อถอยหลัง
-  memoryPositionMirrors              Boolean // ระบบบันทึกตำแหน่งกระจกมองข้าง
-  antiPinchWindowsWithOneTouchSystem Boolean // กระจกเปิดปิดอัตโนมัติแบบสัมผัสวิดจิทัลพร้อมระบบป้องกันการหนีบ
-  frontRearParkingSensors            Boolean // กระจกด้านหน้าเก็บเสียงแบบสองชั้น
-  heatedSideView                     Boolean // กระจกด้านหลังแบบมีระบบทำความร้อนไล่ฝ้า
-  variantId                          Int        @unique
-  variant                            CarVariant @relation(fields: [variantId], references: [id], onDelete: Cascade)
-  createdAt                          DateTime   @default(now())
-  updatedAt                          DateTime   @updatedAt
-}
-
-// Interior features
-model InteriorFeatures {
-  id                             String     @id @default(uuid())
-  multiColorAmbientLighting      Boolean // พวงมาลัยแบบมัลติฟังก์ชัน
-  leatherSyntheticSeats          Boolean // พวงมาลัยแบบหุ้มหนังสังเคราะห์
-  leatherSeats                   Boolean // พวงมาลัยแบบหุ้มหนังแท้
-  lcdDisplay10Inch               Boolean // หน้าจอ LCD เรือนไมล์ ขนาด 10.25 นิ้ว
-  centerConsoleStorage           Boolean // ช่องเก็บของพื้นที่คอนโซลกลาง
-  syntheticLeatherSteeringWheel  Boolean // เบาะนั่งแบบหุ้มหนังสังเคราะห์
-  leatherSteeringWheel           Boolean // เบาะนั่งแบบหุ้มหนังแท้
-  eightWayPowerSeats             Boolean // เบาะคนขับปรับไฟฟ้า 8 ทิศทาง
-  backSeat4WayAdjustment         Boolean // ระบบพนักพิงด้านหลังเบาะคนขับปรับไฟฟ้า 4 ทิศทาง
-  frontSeatHeating               Boolean // เบาะผู้โดยสารคอนหน้าปรับไฟฟ้า 6 ทิศทาง
-  ventilatedSeatsWithACSystem    Boolean // เบาะนั่งคู่หน้าแบบระบายอากาศพร้อมระบบอุ่นเบาะนั่ง
-  electricMemorySeatDrivers      Boolean // ระบบจดจำตำแหน่งที่นั่งเบาะคนขับ
-  steeringWheelHeatedAndMemory   Boolean // เบาะนั่งคนขับเลื่อนอัตโนมัติพร้อมสตาร์ทและดับรถยนต์
-  twoWaySunshades                Boolean // แผงบังอัตพร้อมกระจกแก้ว 2 ใบ
-  adjustableRearHeadRests        Boolean // หัวแก้วด้านหน้าแบบปรับระดับได้
-  rearHeadRests2Way              Boolean // ที่พักแขนด้านหลัง (พร้อมที่วางแก้ว 2 ใบ)
-  automaticDimmingRearviewMirror Boolean // กระจกมองหลังแบบตัดแสงอัตโนมัติ
-  framelessRearviewMirror        Boolean // โบนัสน้ำฝนระบบอัตโนมัติแบบไร้โครงเหล็ก (Frameless)
-  antiBurglaryDoorPillar         Boolean // แผ่นเหล็กป้องกันรอยขีดข่วนรถกันประตู
-  frontIlluminatedVanityMirror   Boolean // ที่บังแดดด้านหน้าพร้อมกระจกและไฟส่องสว่าง
-  variantId                      Int        @unique
-  variant                        CarVariant @relation(fields: [variantId], references: [id], onDelete: Cascade)
-  createdAt                      DateTime   @default(now())
-  updatedAt                      DateTime   @updatedAt
-}
-
-// Entertainment features
-model EntertainmentFeatures {
-  id                        String     @id @default(uuid())
-  fmRadio                   Boolean // วิทยุ FM
-  appleCarPlayAndroid       Boolean // รองรับ Apple CarPlay® (เชื่อมต่อผ่าน USB) และ Android Auto™ (แบบไร้สาย)
-  bluetoothConnectivity     Boolean // รองรับการเชื่อมต่อโทรศัพท์มือถือผ่านบลูทูธ
-  touchscreen15Inch         Boolean // หน้าจอสัมผัสระบบมัลติมีเดียพร้อมระบบหมุนไฟฟ้าขนาด 15.6 นิ้ว
-  dynAudio12Speakers        Boolean // เครื่องเสียง DYNAUDIO ลำโพง 12 ชุด
-  thaiVoiceControl          Boolean // ระบบสั่งการด้วยเสียง-ภาษาไทย
-  ambientTemperatureDisplay Boolean // ระบบนำทางด้วยดาวเทียม
-  digitalRadio              Boolean // มีดิจิตอลเรดิโอ
-  frontUsbTypeAC            Boolean // USB 2 พอร์ต สำหรับผู้โดยสารคอนหน้า (typeA& typeC)
-  rearUsbTypeAC             Boolean // USB 2 พอร์ต สำหรับผู้โดยสารคอนหลัง (typeA& typeC)
-  otaUpdateSupport          Boolean // รองรับการอัพเดทซอฟต์แวร์ผ่านสัญญาณอินเทอร์เน็ต (OTA)
-  variantId                 Int        @unique
-  variant                   CarVariant @relation(fields: [variantId], references: [id], onDelete: Cascade)
-  createdAt                 DateTime   @default(now())
-  updatedAt                 DateTime   @updatedAt
-}
-
-// Lighting features
-model LightingFeatures {
-  id                        String     @id @default(uuid())
-  ledHeadlights             Boolean // ไฟหน้าแบบ LED
-  followMeHomeFunction      Boolean // ฟังก์ชันหน่วงเวลาการปิดไฟหน้า Follow Me Home
-  ledDaytimeRunningLights   Boolean // ไฟส่องสว่างกลางวันแบบ LED
-  ledTaillights             Boolean // ไฟท้ายแบบ LED
-  rearFogLights             Boolean // ไฟตัดหมอกด้านหลัง
-  sequentialRearTurnSignals Boolean // ระบบไฟเลี้ยวด้านหลังแบบ Sequential
-  thirdBrakeLights          Boolean // ไฟเบรกบน ดวงที่ 3 แบบ LED
-  rgbDynamicMoodLights      Boolean // ระบบแสงไฟในห้องโดยสารปรับตามอัจฉริยะ (RGB dynamic mood lights)
-  frontReadingLights        Boolean // ไฟส่องแบบที่สำหรับผู้โดยสารคอนหน้าแบบ LED
-  rearReadingLights         Boolean // ไฟส่องแบบที่สำหรับผู้โดยสารคอนหลังแบบ LED
-  doorSillScuffPlates       Boolean // ไฟส่องสว่างในพื้นที่เก็บสัมภาระ
-  variantId                 Int        @unique
-  variant                   CarVariant @relation(fields: [variantId], references: [id], onDelete: Cascade)
-  createdAt                 DateTime   @default(now())
-  updatedAt                 DateTime   @updatedAt
-}
-
-// Comfort and convenience features
-model ComfortFeatures {
-  id                     String     @id @default(uuid())
-  keylessEntry           Boolean // ระบบการเข้ารถ และ สตาร์ทแบบ Keyless
-  nfcCardKey             Boolean // ระบบกุญแจแบบบัตรอิเล็กทรอนิกส์ NFC (NFC Card)
-  wirelessPhoneChargers  Boolean // ที่ชาร์จโทรศัพท์มือถือแบบไร้สาย 2 จุด
-  twelveVoltOutlet       Boolean // ช่องจ่ายไฟ 12V
-  pm25AirFilter          Boolean // ระบบกรองฝุ่น PM2.5
-  cn95AirFilter          Boolean // กรองอากาศ PM2.5 แบบประสิทธิภาพสูง (CN95)
-  airIonizer             Boolean // ระบบกรองอากาศแบบ Ionizer
-  dualZoneClimateControl Boolean // ระบบปรับอากาศแบบ 2 โซน พร้อมระบบทำความร้อน
-  rearAirVents           Boolean // ช่องระบายอากาศตรงกลางด้านหลัง
-  firstAidKit            Boolean // ชุดปฐมพยาบาล
-  emergencyKit           Boolean // ชุดอุปกรณ์ฉุกเฉิน
-  variantId              Int        @unique
-  variant                CarVariant @relation(fields: [variantId], references: [id], onDelete: Cascade)
-  createdAt              DateTime   @default(now())
-  updatedAt              DateTime   @updatedAt
-}
-
-model TestDriveRequest {
-  id            Int      @id @default(autoincrement())
-  name          String
-  phone         String
-  email         String?
-  model         String
-  preferredDate String
-  preferredTime String?
-  location      String?
-  notes         String?
-  status        String   @default("pending") // pending, confirmed, completed, cancelled
-  source        String   @default("website") // website, line, phone, etc.
-  ipAddress     String?
-  userAgent     String?
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
-
-  @@map("test_drive_requests")
+model test_drive_requests {
+  id             Int       @id @default(autoincrement())
+  name           String    @db.VarChar
+  phone          String    @db.VarChar
+  email          String?   @db.VarChar
+  model          String    @db.VarChar
+  preferred_date String    @db.VarChar
+  preferred_time String?   @db.VarChar
+  location       String?   @db.VarChar
+  notes          String?
+  status         String    @default("pending") @db.VarChar
+  source         String    @default("website") @db.VarChar
+  ip_address     String?   @db.VarChar
+  user_agent     String?
+  created_at     DateTime? @default(now()) @db.Timestamptz(6)
+  updated_at     DateTime? @default(now()) @db.Timestamptz(6)
 }
